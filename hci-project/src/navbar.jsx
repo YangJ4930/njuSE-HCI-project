@@ -23,7 +23,18 @@ class Navbar extends Component {
                     <li className="nav-item">
                             <Link className="nav-link" to = "/">2</Link>
                     </li>
+                            
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+                                <ul class="dropdown-menu">
+    
+                                        <li><a  href="#scrollspyHeading3">Third</a></li>
+                                        <li><a  href="#scrollspyHeading4">Fourth</a></li>
+                                        <li><a  href="#scrollspyHeading5">Fifth</a></li>
+                               
                     </ul>
+                    </li>
+                </ul>
                     
                     <ul className="navbar-nav mb-2 mb-lg-0">
                     <li className="nav-item">
