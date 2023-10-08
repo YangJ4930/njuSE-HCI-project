@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
+import CommunityView from '../view/communityView';
+
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -32,7 +34,7 @@ class BasicLayout extends React.Component{
                         <Link    className="nav-link"  to="/news">News</Link>
                         </Menu.Item>
                         <Menu.Item key="3">
-                        <Link    className="nav-link"  to="/news">社区</Link>
+                        <Link    className="nav-link"  to="/community">社区</Link>
                         </Menu.Item>
                         <SubMenu key="sub1" title={<span>
                             <span>Navigation One</span></span>}>
@@ -55,7 +57,7 @@ class BasicLayout extends React.Component{
                                 <Route path = "/" element = {<HomeView></HomeView>}></Route>
                                 <Route></Route>
                                 <Route path = "/news" element = {<NewsView></NewsView>}></Route>
-                                <Route></Route>
+                                <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
                                 <Route></Route>
                             </Routes>
                         </div>

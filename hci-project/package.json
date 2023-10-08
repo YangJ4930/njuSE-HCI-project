@@ -13,7 +13,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.16.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
     "web-vitals": "^2.1.4"
   },
@@ -40,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@ant-design/pro-components": "^2.6.28",
+    "@types/react-infinite-scroll-component": "^5.0.0"
   }
 }
