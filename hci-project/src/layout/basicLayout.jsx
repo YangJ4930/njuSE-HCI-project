@@ -1,14 +1,17 @@
 import React from 'react'
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
 import CommunityView from '../view/communityView';
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap/dist/js/bootstrap.js"
 
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
+const { Search } = Input;
 
 class BasicLayout extends React.Component{
     constructor(props){
@@ -48,8 +51,21 @@ class BasicLayout extends React.Component{
                 </Sider>
 
                 <Layout>
-                    <Header style={{ background: '#fff', textAlign: 'center', padding:
-                            0 }}>Header</Header>
+                    <Header style={{ background: '#fff',   padding:
+                        0
+                    }}>
+                        <Search
+                            placeholder="input search text"
+                            allowClear
+                            enterButton="Search"
+                            size="large"
+                            style={{
+                                width: 300,
+                                float: "right",
+                              }}
+                        />
+                            
+                    </Header>
                     <Content style={{ margin: '24px 16px 0' }}>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360
                         }}>
