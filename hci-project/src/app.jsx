@@ -9,13 +9,6 @@ function App() {
     return ( 
         <React.Fragment>
             <BasicLayout />
-            <Routes>
-                    <Route path = "/" element = {HomeView}></Route>
-                    <Route></Route>
-                    <Route path = "/news" element = {NewsView}></Route>
-                    <Route></Route>
-                    <Route></Route>
-            </Routes>
         </React.Fragment>
      );
 }

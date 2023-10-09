@@ -11,7 +11,14 @@ import "bootstrap/dist/js/bootstrap.js"
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
+
+
 const { Search } = Input;
+
+
+let SearchLog = () => {
+    console.log("hello")
+}
 
 class BasicLayout extends React.Component{
     constructor(props){
@@ -62,7 +69,9 @@ class BasicLayout extends React.Component{
                             style={{
                                 width: 300,
                                 float: "right",
-                              }}
+                            }}
+                            // onClick={this.state.SearchLog}
+                            onSearch={SearchLog}
                         />
                             
                     </Header>
