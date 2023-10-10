@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@ant-design/pro-components": "^2.6.28",
+    "@faker-js/faker": "^8.1.0",
     "@types/react-infinite-scroll-component": "^5.0.0"
   }
 }
