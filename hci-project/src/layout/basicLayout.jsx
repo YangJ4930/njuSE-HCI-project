@@ -9,11 +9,11 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
 
-const { Header, Footer, Sider, Content } = Layout;
+const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
 
-const { Search } = Input;
+const {Search} = Input;
 
 
 
@@ -46,34 +46,35 @@ const BasicLayout = () => {
                         </Menu.Item>
                         <SubMenu key="sub1" title={<span>
                             <span>Navigation One</span></span>}>
-                            <Menu.Item key="5">Option 5</Menu.Item>
-                            <Menu.Item key="6">Option 6</Menu.Item>
-                            <Menu.Item key="7">Option 7</Menu.Item>
-                            <Menu.Item key="8">Option 8</Menu.Item>
-                        </SubMenu>
+                        <Menu.Item key="5">Option 5</Menu.Item>
+                        <Menu.Item key="6">Option 6</Menu.Item>
+                        <Menu.Item key="7">Option 7</Menu.Item>
+                        <Menu.Item key="8">Option 8</Menu.Item>
+                    </SubMenu>
 
-                    </Menu>
-                </Sider>
+                </Menu>
+            </Sider>
 
-                <Layout>
-                    <Header style={{ background: '#fff',   padding:
+            <Layout>
+                <Header style={{
+                    background: '#fff', padding:
                         0
-                    }}>
-                        <Search
-                            placeholder="input search text"
-                            allowClear
-                            onPressEnter= {SearchLog}
-                            enterButton={<Link  className="nav-link" to="/search">{"Search"}</Link>}
-                            size="large"
-                            style={{
-                                width: 300,
-                                float: "right",
-                            }}
-                            // onClick={this.state.SearchLog}
-                            onSearch={SearchLog}
-                        />
+                }}>
+                    <Search
+                        placeholder="input search text"
+                        allowClear
+                        enterButton="Search"
+                        size="large"
+                        style={{
+                            width: 300,
+                            float: "right",
+                        }}
+                        // onClick={this.state.SearchLog}
+                        onSearch={SearchLog}
+                    />
+
+                </Header>
                             
-                    </Header>
                     <Content style={{ margin: '24px 16px 0' }}>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360
                         }}>
@@ -91,4 +92,5 @@ const BasicLayout = () => {
             </Layout>
         );
 }
+
 export default BasicLayout;

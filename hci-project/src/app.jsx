@@ -8,7 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
     return ( 
         <React.Fragment>
-            <BasicLayout />
+            <BasicLayout collapsed={true}/>
         </React.Fragment>
      );
 }
