@@ -1,6 +1,6 @@
-import React from 'react'
+import React,  { useState } from 'react'
 import { Layout, Menu, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link,  useNavigate} from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
@@ -16,18 +16,16 @@ const SubMenu = Menu.SubMenu;
 const { Search } = Input;
 
 
-let SearchLog = () => {
-    console.log("hello")
-}
 
-class BasicLayout extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            collapsed: false,
-        }
+const BasicLayout = () => {
+    const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate();
+
+    let SearchLog = () => {
+        console.log("hello")
+        navigate("/search")
     }
-    render(){
+    
         return (
             <Layout>
                 <Sider width={256} style={{minHeight: '100vh', color: 'white'}}>
@@ -35,7 +33,7 @@ class BasicLayout extends React.Component{
                         margin: '16px'}}/>
                     <Menu
                         defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
-                        theme="dark" inlineCollapsed={this.state.collapsed}
+                        theme="dark" inlineCollapsed={collapsed}
                     >
                         <Menu.Item key="1">
                         <Link    className="nav-link" aria-current="page" to="/">Home</Link>
@@ -64,7 +62,8 @@ class BasicLayout extends React.Component{
                         <Search
                             placeholder="input search text"
                             allowClear
-                            enterButton="Search"
+                            onPressEnter= {SearchLog}
+                            enterButton={<Link  className="nav-link" to="/search">{"Search"}</Link>}
                             size="large"
                             style={{
                                 width: 300,
@@ -91,6 +90,5 @@ class BasicLayout extends React.Component{
                 </Layout>
             </Layout>
         );
-    }
 }
 export default BasicLayout;
