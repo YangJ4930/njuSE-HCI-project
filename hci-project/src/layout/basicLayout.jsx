@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
 import CommunityView from '../view/communityView';
+import exploreView from '../view/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
@@ -43,6 +44,9 @@ const BasicLayout = () => {
                         </Menu.Item>
                         <Menu.Item key="3">
                         <Link    className="nav-link"  to="/community">社区</Link>
+                        </Menu.Item>
+                        <Menu.Item>
+                        <Link   className="nav-link"    to="/explore">发现</Link>
                         </Menu.Item>
                         <SubMenu key="sub1" title={<span>
                             <span>Navigation One</span></span>}>
@@ -83,6 +87,7 @@ const BasicLayout = () => {
                                 <Route></Route>
                                 <Route path = "/news" element = {<NewsView></NewsView>}></Route>
                                 <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
+                                <Route path="/explore" element = {<exploreView></exploreView>}></Route>
                                 <Route></Route>
                             </Routes>
                         </div>
