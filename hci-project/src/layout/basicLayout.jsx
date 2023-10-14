@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
 import CommunityView from '../view/communityView';
-import exploreView from '../view/exploreView'
+import ExploreView from '../view/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
@@ -87,7 +87,7 @@ const BasicLayout = () => {
                                 <Route></Route>
                                 <Route path = "/news" element = {<NewsView></NewsView>}></Route>
                                 <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
-                                <Route path="/explore" element = {<exploreView></exploreView>}></Route>
+                                <Route path="/explore" element = {<ExploreView></ExploreView>}></Route>
                                 <Route></Route>
                             </Routes>
                         </div>

@@ -14,7 +14,7 @@ const contentStyle = {
     textAlign: 'center',
     background: '#364d79',
 };
-const  ExploreView=function ExploreView() {
+const  ExploreView = function ExploreView() {
 
     return <>
       <div>
@@ -45,4 +45,4 @@ function Recommandation(){
       </React.Fragment>
     );
 }
-export default ExploreView();
+export default ExploreView
