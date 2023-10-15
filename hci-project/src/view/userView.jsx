@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import {faker} from "@faker-js/faker";
@@ -123,28 +123,50 @@ function UserAvatar(props) {
 }
 
 function Favorites(props) {
+    const [activeTab, setActiveTab] = useState("Tab1"); // ["Tab1", "Tab2"
+    const onTabChange = (key) => {
+        setActiveTab(key);
+    }
+
+    const tabList = [
+        {
+            key: "Tab1",
+            tab: "私有",
+        },
+        {
+            key: "Tab2",
+            tab: "公开",
+        }
+    ];
+
     const privateFavorites = props.privateFavorites;
     const publicFavorites = props.publicFavorites;
     return (
         <Col span={12}>
             <h1>收藏夹</h1>
 
-            <div>
-                <Text strong>私有：</Text>
-                {privateFavorites.map((game) => (
-                    <Tag key={game} color="blue">
-                        {game}
-                    </Tag>
-                ))}
-            </div>
-            <div>
-                <Text strong>公开：</Text>
-                {publicFavorites.map((game) => (
-                    <Tag key={game} color="green">
-                        {game}
-                    </Tag>
-                ))}
-            </div>
+            <Card
+                style={{width: "100%"}}
+                tabList={tabList}
+                activeTabKey={activeTab}
+                onTabChange={onTabChange}
+            >
+                {activeTab === "Tab1" && (<div>
+                    {privateFavorites.map((game) => (
+                        <Tag key={game} color="blue">
+                            {game}
+                        </Tag>
+                    ))}
+                </div>)}
+                {activeTab === "Tab2" && (<div>
+                    {publicFavorites.map((game) => (
+                        <Tag key={game} color="green">
+                            {game}
+                        </Tag>
+                    ))}
+                </div>)}
+            </Card>
+
         </Col>
     )
 }
