@@ -29,20 +29,17 @@ const BasicLayout = () => {
     return (
         <Layout>
             <Sider width={256} style={{minHeight: '100vh', color: 'white'}}>
-                <div style={{
-                    height: '32px', background: 'rgba(255,255,255,.2)',
-                    margin: '16px'
-                }}/>
                 <Menu
                     defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
                     theme="dark" inlineCollapsed={collapsed}
                 >
-                    <Menu.Item key="1" icon={<UserOutlined/>}>
-                        <Link className="nav-link" to="/user">用户</Link>
-                    </Menu.Item >
-                    <Menu.Item key="2" icon={<HomeOutlined/>}>
+
+                    <Menu.Item key="1" icon={<HomeOutlined/>}>
                         <Link className="nav-link" aria-current="page" to="/">Home</Link>
                     </Menu.Item>
+                    <Menu.Item key="2" icon={<UserOutlined/>}>
+                        <Link className="nav-link" to="/user">用户</Link>
+                    </Menu.Item >
                     <Menu.Item key="3" icon={<ReadOutlined/>}>
                         <Link className="nav-link" to="/news">News</Link>
                     </Menu.Item>
