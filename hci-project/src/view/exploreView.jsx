@@ -1,7 +1,3 @@
-import { PageContainer, ProCard,  } from "@ant-design/pro-components"
-import { ProList } from '@ant-design/pro-components';
-import {Avatar, Button, Divider, List, Skeleton} from "antd";
-import { useEffect, useState } from "react";
 import { Carousel } from 'antd';
 import React from "react";
 import {Link} from "react-router-dom";
@@ -20,7 +16,7 @@ const  ExploreView = function ExploreView() {
       <div>
           <p>
           <h1>精选和推荐</h1>
-          <Recommandation />
+          <Recommendation />
           </p>
 
           <p>
@@ -31,7 +27,7 @@ const  ExploreView = function ExploreView() {
 }
 
 
-function Recommandation(){
+function Recommendation(){
     return(
       <React.Fragment>
           <Carousel autoplay>
@@ -53,19 +49,13 @@ function Recommandation(){
 }
 
 function Discounts(){
-
-    const goGameRepository = () => {
-
-    }
-
     return(
         <div>
             <div style = {{display: "flex", alignItems: "center"}}>
                 <h3>
                     特惠游戏
                 </h3>
-                <Link
-                    to={{
+                <Link to={{
                         pathname: "/explore_gameRepositoryView"
                     }}>
 
