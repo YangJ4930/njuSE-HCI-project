@@ -1,7 +1,13 @@
-import { DownOutlined, SmileOutlined } from '@ant-design/icons';
-import {Carousel, Dropdown, Menu, Space, Drawer, Button} from 'antd';
-import React, {useState} from "react";
+import {DownOutlined, EditOutlined, EllipsisOutlined, SettingOutlined, SmileOutlined} from '@ant-design/icons';
+import {
+    Avatar, Skeleton, Carousel, List, Dropdown, Menu, Space, Drawer, Button, Card, Col, Row, Divider, Slider, message
+} from 'antd';
+import VirtualList from 'rc-virtual-list';
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {PageContainer, ProList} from "@ant-design/pro-components";
+import Meta from "antd/es/card/Meta";
 
 const arrangementItems = [
     {
@@ -36,15 +42,21 @@ const arrangementItems = [
         key: '5',
         label: '价格由低到高',
     }
-];
+]
+
 
 
 const  Explore_gameRepositoryView = function Explore_gameRepositoryView() {
 
     return <>
-        <div style = {{display: "flex", alignItems: "center"}}>
-            <Arrangement />
-            <Filter/>
+        <div>
+            <PageContainer>
+                <div style = {{display: "flex", alignItems: "center"}}>
+                    <Arrangement />
+                    <Filter/>
+                </div>
+                <CardListTable/>
+            </PageContainer>
         </div>
     </>
 }
@@ -91,10 +103,121 @@ function Filter() {
             </Button>
         </div>
         <Drawer title="筛选" placement="right" onClose={closeFilter} open={open}>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
+            <Dropdown.Button
+                menu={{
+                    items: arrangementItems,
+                }}
+            >
+                <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                        排序方式
+                    </Space>
+                </a>
+            </Dropdown.Button>
         </Drawer>
+    </>
+}
+
+function CardListTable(){
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
+
+    const ite = ['Item 1', 'Item 2', 'Item 3','Item 4','Item 5','Item 6','Item 7','Item 8','Item 9']
+    // const[items ,setItems]=useState(ite)
+    // setItems(ite)
+
+    const loadMoreData = () => {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
+        fetch('https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo')
+            .then((res) => res.json())
+            .then((body) => {
+                setData([...data, ...body.results]);
+                setLoading(false);
+            })
+            .catch((endMessage) => {
+                setLoading(false);
+            });
+    };
+    useEffect(() => {
+        loadMoreData();
+    }, []);
+    return <>
+        <div
+            id="scrollableDiv"
+            style={{
+                height:"fixed",
+                overflow: 'auto',
+            }}
+        >
+            <br></br>
+            <InfiniteScroll
+                infinite-scroll-disabled={false}
+                dataLength={data.length}
+                next={loadMoreData}
+                hasMore={data.length < 50}
+                loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+                endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+                scrollableTarget="scrollableDiv"
+            >
+                <ProList
+                    size="small"
+                    itemLayout="vertical"
+                    rowKey="id"
+                    dataSource={data}
+                    // loading={true}
+                    renderItem={(item)=>{
+                        return  <List.Item >
+                            <Row gutter={16}>
+                                <Col span={6}>
+                                    <SingleCard />
+                                </Col>
+                                <Col span={6}>
+                                    <SingleCard />
+                                </Col>
+                                <Col span={6}>
+                                    <SingleCard />
+                                </Col>
+                                <Col span={6}>
+                                    <SingleCard />
+                                </Col>
+                            </Row>
+                        </List.Item>
+                    }}
+
+                >
+                </ProList>
+            </InfiniteScroll>
+        </div>
+    </>
+}
+
+function SingleCard(){
+    return <>
+        <Card
+            style={{
+                width: "100%",
+            }}
+            cover={
+                <img
+                    alt="example"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                />
+            }
+            actions={[
+                <SettingOutlined key="setting" />,
+                <EditOutlined key="edit" />,
+                <EllipsisOutlined key="ellipsis" />,
+            ]}
+        >
+            <Meta
+                avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                title="Card title"
+                description="This is the description"
+            />
+        </Card>
     </>
 }
 export default Explore_gameRepositoryView
