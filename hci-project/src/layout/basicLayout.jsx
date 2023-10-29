@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import UserView from "../view/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
+import GameDetailView from "../view/gameDetailView";
 
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
@@ -39,7 +40,7 @@ const BasicLayout = () => {
                     </Menu.Item>
                     <Menu.Item key="2" icon={<UserOutlined/>}>
                         <Link className="nav-link" to="/user">用户</Link>
-                    </Menu.Item >
+                    </Menu.Item>
                     <Menu.Item key="3" icon={<ReadOutlined/>}>
                         <Link className="nav-link" to="/news">News</Link>
                     </Menu.Item>
@@ -83,10 +84,10 @@ const BasicLayout = () => {
                     }}>
                         <Routes>
                             <Route path="/" element={<HomeView></HomeView>}></Route>
-                            <Route></Route>
                             <Route path="/news" element={<NewsView></NewsView>}></Route>
                             <Route path="/community" element={<CommunityView></CommunityView>}></Route>
                             <Route path="/user" element={<UserView></UserView>}></Route>
+                            <Route path="/game/:gameId" element={<GameDetailView></GameDetailView>}></Route>
                         </Routes>
                     </div>
                 </Content>

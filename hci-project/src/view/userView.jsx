@@ -6,6 +6,7 @@ import {Avatar, Badge, Card, Col, Divider, Row, Space, Tag, Typography, Flex} fr
 import {EditOutlined, EllipsisOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import Title from "antd/es/skeleton/Title";
 import Meta from "antd/es/card/Meta";
+import {useNavigate} from "react-router-dom";
 
 const {Text} = Typography;
 
@@ -67,6 +68,12 @@ function UserView(props) {
 
 function GameInventory(props) {
     const gameInventory = props.gameInventory;
+    const navigate = useNavigate();
+
+    const onClick = (e,gameId) => {
+        console.log(e);
+        navigate(`/game/${gameId}`);
+    }
     return (
         <Col>
             <h1>游戏库存</h1>
@@ -76,6 +83,7 @@ function GameInventory(props) {
                         hoverable={true}
                         cover={<img alt={game.name} src={game.image}/>}
                         style={{width: 250}}
+                        onClick={(e) => onClick(e,game.id)}
                     >
                         <Meta title={game.name}/>
                     </Card>
