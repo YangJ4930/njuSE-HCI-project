@@ -5,8 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
 import CommunityView from '../view/communityView';
+import SearchView from '../view/searchView';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
+import NewsContentView from '../view/newsContentView';
 
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -33,7 +35,7 @@ const BasicLayout = () => {
                         margin: '16px'}}/>
                     <Menu
                         defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
-                        theme="dark" inlineCollapsed={collapsed}
+                        theme="light" inlineCollapsed={collapsed}
                     >
                         <Menu.Item key="1">
                         <Link    className="nav-link" aria-current="page" to="/">Home</Link>
@@ -80,14 +82,15 @@ const BasicLayout = () => {
                         }}>
                             <Routes>
                                 <Route path = "/" element = {<HomeView></HomeView>}></Route>
-                                <Route></Route>
-                                <Route path = "/news" element = {<NewsView></NewsView>}></Route>
+                                <Route path='/search' element={<SearchView></SearchView>}></Route>
+                                <Route path='/news/content' element = {<NewsContentView></NewsContentView>}></Route>
+                                <Route path="/news" element={<NewsView></NewsView>}></Route>
                                 <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
                                 <Route></Route>
                             </Routes>
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>无敌的yangj</Footer>
+                    <Footer style={{ textAlign: 'center' }}></Footer>
                 </Layout>
             </Layout>
         );
