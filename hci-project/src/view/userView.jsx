@@ -52,7 +52,7 @@ function UserView(props) {
 
             <Divider/>
 
-            <Row gutter={[16, 16]}>
+            <Row>
                 <Favorites privateFavorites={userData.privateFavorites} publicFavorites={userData.publicFavorites}/>
             </Row>
 
@@ -72,16 +72,13 @@ function GameInventory(props) {
             <h1>游戏库存</h1>
             <Flex wrap={"wrap"} gap={"small"}>
                 {gameInventory.map((game) => (
-                    <Col
-                        key={game.id}
+                    <Card
+                        hoverable={true}
+                        cover={<img alt={game.name} src={game.image}/>}
+                        style={{width: 250}}
                     >
-                        <Card
-                            hoverable={true}
-                            cover={<img alt={game.name} src={game.image}/>}
-                        >
-                            <Meta title={game.name}/>
-                        </Card>
-                    </Col>
+                        <Meta title={game.name}/>
+                    </Card>
                 ))}
             </Flex>
         </Col>
