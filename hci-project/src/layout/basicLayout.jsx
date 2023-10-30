@@ -45,7 +45,7 @@ const BasicLayout = () => {
                     </Menu.Item>
                     <Menu.Item key="2" icon={<UserOutlined/>}>
                         <Link className="nav-link" to="/user">用户</Link>
-                    </Menu.Item >
+                    </Menu.Item>
                     <Menu.Item key="3" icon={<ReadOutlined/>}>
                         <Link className="nav-link" to="/news">News</Link>
                     </Menu.Item>
@@ -83,24 +83,28 @@ const BasicLayout = () => {
 
                 </Header>
 
-                    <Content style={{ margin: '24px 16px 0' }}>
-                        <div style={{ padding: 24, background: '#fff', minHeight: 360
-                        }}>
-                            <Routes>
-                                <Route path = "/" element = {<HomeView></HomeView>}></Route>
-                                <Route path='/search' element={<SearchView></SearchView>}></Route>
-                                <Route path = "/news" element = {<NewsView></NewsView>}></Route>
-                                <Route path='/news/content' element = {<NewsContentView></NewsContentView>}></Route>
-                                <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
-                                <Route path="/explore" element = {<ExploreView></ExploreView>}></Route>
-                                <Route path="/explore_gameRepositoryView"element = {<Explore_gameRepositoryView></Explore_gameRepositoryView>}></Route>
-                            </Routes>
-                        </div>
-                    </Content>
-                    <Footer style={{ textAlign: 'center' }}>无敌的yangj</Footer>
-                </Layout>
+                <Content style={{margin: '24px 16px 0'}}>
+                    <div style={{
+                        padding: 24, background: '#fff', minHeight: 360
+                    }}>
+                        <Routes>
+                            <Route path="/" element={<HomeView></HomeView>}></Route>
+                            <Route path='/search' element={<SearchView></SearchView>}></Route>
+                            <Route path="/news" element={<NewsView></NewsView>}></Route>
+                            <Route path='/news/content' element={<NewsContentView></NewsContentView>}></Route>
+                            <Route path="/community" element={<CommunityView></CommunityView>}></Route>
+                            <Route path="/explore" element={<ExploreView></ExploreView>}></Route>
+                            <Route path="/explore_gameRepositoryView"
+                                   element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}></Route>
+                            <Route path="/user" element={<UserView></UserView>}></Route>
+                            <Route path="/game/:gameId" element={<GameDetailView></GameDetailView>}></Route>
+                        </Routes>
+                    </div>
+                </Content>
+                <Footer style={{textAlign: 'center'}}>无敌的yangj</Footer>
             </Layout>
-        );
+        </Layout>
+    );
 }
 
 export default BasicLayout;
