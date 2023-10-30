@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Layout, Menu, Input, Avatar} from 'antd';
+import {Layout, Menu, Input, Avatar,Divider,Card} from 'antd';
 import {Link, useNavigate} from 'react-router-dom';
 import {Route, Routes} from 'react-router-dom';
 import HomeView from '../view/homeView';
@@ -13,6 +13,9 @@ import "bootstrap/dist/js/bootstrap.js"
 import UserView from "../view/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import NewsContentView from '../view/newsContentView';
+import PostComponent from '../view/community/component/postComponent';
+import Communitydetail from '../view/community/component/communitydetail';
+import './Menu.css'
 
 import GameDetailView from "../view/gameDetailView";
 
@@ -34,8 +37,27 @@ const BasicLayout = () => {
 
     return (
         <Layout>
-            <Sider width={256} style={{minHeight: '100vh', color: 'white'}}>
-                <Menu
+            <Sider  theme='light' collapsible>
+                <Card bordered={false} hoverable className='av'
+                      layout="center"
+                      direction="column" >
+                    <Card.Meta
+                        avatar={<Avatar size='large' src={<img width="40" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"></img>}></Avatar>}
+                        description={
+                            <>
+                                <div className='v'>杨京</div>
+                                <div className='vi' >
+                                    <p>
+                                        <span className='qai'>杨京，我爱上人机交互的课</span>
+                                    </p>
+                                </div>
+                            </>
+                        }
+                    >
+                    </Card.Meta>
+                    <p></p>
+                </Card>
+                <Menu className='a'
                     defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
                     theme="dark" inlineCollapsed={collapsed}
                 >
@@ -97,6 +119,8 @@ const BasicLayout = () => {
                             <Route path="/explore_gameRepositoryView"
                                    element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}></Route>
                             <Route path="/user" element={<UserView></UserView>}></Route>
+                            <Route path="/component/postComponent"element = {<PostComponent></PostComponent>}></Route>
+                            <Route path="/component/Communitydetail"element = {<Communitydetail></Communitydetail>}></Route>
                             <Route path="/game/:gameId" element={<GameDetailView></GameDetailView>}></Route>
                         </Routes>
                     </div>
@@ -108,3 +132,5 @@ const BasicLayout = () => {
 }
 
 export default BasicLayout;
+
+
