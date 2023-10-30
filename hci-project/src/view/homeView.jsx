@@ -14,7 +14,7 @@ const contentStyle = {
 const data = Array.from({
     length: 23,
   }).map((_, i) => ({
-    href: 'https://ant.design',
+    href: '/search',
     title: `ant design part ${i}`,
     avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
     description:

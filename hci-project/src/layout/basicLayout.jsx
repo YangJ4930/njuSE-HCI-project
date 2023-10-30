@@ -5,10 +5,13 @@ import {Route, Routes} from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
 import CommunityView from '../view/communityView';
+import SearchView from '../view/searchView';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import UserView from "../view/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
+import NewsContentView from '../view/newsContentView';
+
 
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
@@ -76,23 +79,23 @@ const BasicLayout = () => {
                     />
 
                 </Header>
-
-                <Content style={{margin: '24px 16px 0'}}>
-                    <div style={{
-                        padding: 24, background: '#fff', minHeight: 360
-                    }}>
-                        <Routes>
-                            <Route path="/" element={<HomeView></HomeView>}></Route>
-                            <Route></Route>
-                            <Route path="/news" element={<NewsView></NewsView>}></Route>
-                            <Route path="/community" element={<CommunityView></CommunityView>}></Route>
-                            <Route path="/user" element={<UserView></UserView>}></Route>
-                        </Routes>
-                    </div>
-                </Content>
-                <Footer style={{textAlign: 'center'}}>无敌的yangj</Footer>
+                            
+                    <Content style={{ margin: '24px 16px 0' }}>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 360
+                        }}>
+                            <Routes>
+                                <Route path = "/" element = {<HomeView></HomeView>}></Route>
+                                <Route path='/search' element={<SearchView></SearchView>}></Route>
+                                <Route path='/news/content' element = {<NewsContentView></NewsContentView>}></Route>
+                                <Route path="/news" element={<NewsView></NewsView>}></Route>
+                                <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
+                                <Route></Route>
+                            </Routes>
+                        </div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}></Footer>
+                </Layout>
             </Layout>
-        </Layout>
     );
 }
 
