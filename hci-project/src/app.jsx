@@ -1,3 +1,7 @@
+
+
+
+
 import React, { Component } from 'react';
 import Navbar from './navbar';
 import BasicLayout from './layout/basicLayout';

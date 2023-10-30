@@ -5,6 +5,8 @@ import {Route, Routes} from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
 import CommunityView from '../view/communityView';
+import Explore_gameRepositoryView from "../view/explore_gameRepositoryView";
+import ExploreView from '../view/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import UserView from "../view/userView";
@@ -26,29 +28,30 @@ const BasicLayout = () => {
         console.log("hello")
         navigate("/search")
     }
-
-    return (
-        <Layout>
-            <Sider width={256} style={{minHeight: '100vh', color: 'white'}}>
-                <Menu
-                    defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
-                    theme="dark" inlineCollapsed={collapsed}
-                >
-
-                    <Menu.Item key="1" icon={<HomeOutlined/>}>
-                        <Link className="nav-link" aria-current="page" to="/">Home</Link>
-                    </Menu.Item>
-                    <Menu.Item key="2" icon={<UserOutlined/>}>
-                        <Link className="nav-link" to="/user">用户</Link>
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<ReadOutlined/>}>
-                        <Link className="nav-link" to="/news">News</Link>
-                    </Menu.Item>
-                    <Menu.Item key="4" icon={<TeamOutlined/>}>
-                        <Link className="nav-link" to="/community">社区</Link>
-                    </Menu.Item>
-                    <SubMenu key="sub1" title={<span>
-                            <span>Navigation One</span></span>} icon={<HeartOutlined/>}>
+    
+        return (
+            <Layout>
+                <Sider width={256} style={{minHeight: '100vh', color: 'white'}}>
+                    <div style={{ height: '32px', background: 'rgba(255,255,255,.2)',
+                        margin: '16px'}}/>
+                    <Menu
+                        defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
+                        theme="dark" inlineCollapsed={collapsed}
+                    >
+                        <Menu.Item key="1">
+                        <Link    className="nav-link" aria-current="page" to="/">Home</Link>
+                        </Menu.Item>
+                        <Menu.Item key="2">
+                        <Link    className="nav-link"  to="/news">News</Link>
+                        </Menu.Item>
+                        <Menu.Item key="3">
+                        <Link    className="nav-link"  to="/community">社区</Link>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Link   className="nav-link"    to="/explore">发现</Link>
+                        </Menu.Item>
+                        <SubMenu key="sub1" title={<span>
+                            <span>Navigation One</span></span>}>
                         <Menu.Item key="5">Option 5</Menu.Item>
                         <Menu.Item key="6">Option 6</Menu.Item>
                         <Menu.Item key="7">Option 7</Menu.Item>
@@ -77,24 +80,23 @@ const BasicLayout = () => {
                     />
 
                 </Header>
-
-                <Content style={{margin: '24px 16px 0'}}>
-                    <div style={{
-                        padding: 24, background: '#fff', minHeight: 360
-                    }}>
-                        <Routes>
-                            <Route path="/" element={<HomeView></HomeView>}></Route>
-                            <Route path="/news" element={<NewsView></NewsView>}></Route>
-                            <Route path="/community" element={<CommunityView></CommunityView>}></Route>
-                            <Route path="/user" element={<UserView></UserView>}></Route>
-                            <Route path="/game/:gameId" element={<GameDetailView></GameDetailView>}></Route>
-                        </Routes>
-                    </div>
-                </Content>
-                <Footer style={{textAlign: 'center'}}>无敌的yangj</Footer>
+                            
+                    <Content style={{ margin: '24px 16px 0' }}>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 360
+                        }}>
+                            <Routes>
+                                <Route path = "/" element = {<HomeView></HomeView>}></Route>
+                                <Route path = "/news" element = {<NewsView></NewsView>}></Route>
+                                <Route path="/community"element = {<CommunityView></CommunityView>}></Route>
+                                <Route path="/explore" element = {<ExploreView></ExploreView>}></Route>
+                                <Route path="/explore_gameRepositoryView"element = {<Explore_gameRepositoryView></Explore_gameRepositoryView>}></Route>
+                            </Routes>
+                        </div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>无敌的yangj</Footer>
+                </Layout>
             </Layout>
-        </Layout>
-    );
+        );
 }
 
 export default BasicLayout;
