@@ -1,0 +1,11 @@
+.content {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+.title{
+    font-size: larger;
+    font-weight:bolder;
+    margin-bottom: 10px;
+}
