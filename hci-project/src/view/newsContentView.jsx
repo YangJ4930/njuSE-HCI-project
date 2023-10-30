@@ -3,7 +3,7 @@ import { useSearchParams} from 'react-router-dom';
 import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
-import "../assets/css/main.css"
+// import "../assets/css/main.css"
 import { Comment } from '@ant-design/compatible';
 import { Avatar, Card } from 'antd';
 

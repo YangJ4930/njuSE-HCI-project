@@ -4,8 +4,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Route, Routes} from 'react-router-dom';
 import HomeView from '../view/homeView';
 import NewsView from '../view/newsView';
-import CommunityView from '../view/communityView';
 import SearchView from '../view/searchView';
+import CommunityView from '../view/community/communityView';
 import Explore_gameRepositoryView from "../view/explore_gameRepositoryView";
 import ExploreView from '../view/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
