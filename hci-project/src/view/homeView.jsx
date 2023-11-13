@@ -1,99 +1,73 @@
-
-import React, { useEffect, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { Avatar, Button, Divider, List, Skeleton,Input } from 'antd';
-const HomeView=function HomeView() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [comment,setcomment]=useState("");
-  const [inputstate ,setInputstate]=useState()
-  const [placeholderstate ,setPlaceholderstate ]=useState()
-  const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    fetch('http://localhost:8080/findAll')
-      .then((res) => res.json()  )
-      .then((body) => {
-        console.log(body)
-        setData([...body.data]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    loadMoreData();
-  }, []);
-
-  return (
-    <>
-    <div
-      id="scrollableDiv"
-      style={{
-        height: 400,
-        overflow: 'auto',
-        padding: '0 16px',
-        border: '1px solid rgba(140, 140, 140, 0.35)',
-      }}
-    >
-      <InfiniteScroll
-        dataLength={data.length}
-        next={loadMoreData}
-        hasMore={data.length < 1}
-        loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-        scrollableTarget="scrollableDiv"
-      >
-        <List
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item key={item.email}>
-              <List.Item.Meta
-                title={<div>{item.comment}</div>}
-                description={item.email}
-              />
-              <div>Content</div>
-            </List.Item>
-          )}
-        />
-      </InfiniteScroll>
-    </div>
-    <Input status={inputstate} placeholder={placeholderstate} onChange={(e)=>{
-        setcomment(e.target.value);
-        setInputstate("")
-        setPlaceholderstate("")
-        
-
-    }} value={comment}/>
-    <Button type="primary" onClick={()=>{
-        console.log(comment)
-        if(comment===""){
-            setInputstate("warning")
-            setPlaceholderstate("不能为空")
-        }else{
-            fetch('http://localhost:8080/add',{
-                method:'POST',
-                body:JSON.stringify({"comment":comment}),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                  })
-            }).then((response)=>{
-                if(response.ok){
-                    console.log(data)
-                    loadMoreData()
-                    setcomment("")
-                }
-            })
-        }
-       
-
-    }}>Submit</Button>
-    </>
-  );
+import React, { Component } from 'react';
+import { Avatar, List, Space, Carousel } from 'antd';
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap/dist/js/bootstrap.js"
+const contentStyle = {
+    margin: 0,
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
 };
 
+const data = Array.from({
+    length: 23,
+  }).map((_, i) => ({
+    href: '/search',
+    title: `ant design part ${i}`,
+    avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
+    description:
+      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+    content:
+      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+  }));
+  const IconText = ({  text }) => (
+    <Space>
+      {/* {React.createElement(icon)} */}
+      {text}
+    </Space>
+  );
+  const ListNews = () => (
+    <List
+        itemLayout="vertical"
+        size="large"
+        pagination={{
+            onChange: (page) => {
+                console.log(page);
+            },
+            pageSize: 3,
+        }}
+        dataSource={data}
+        footer={
+            <div>
+            <b>ant design</b> footer part
+            </div>
+        }
+        renderItem={(item) => (
+            <List.Item
+            key={item.title}
+            actions={[
+                <IconText  text="156" key="" />,
+                <IconText  text="156" key="" />,
+                <IconText  text="2" key="" />,
+            ]}
+            extra={
+                <img
+                width={272}
+                alt="logo"
+                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                />
+            }
+        >
+            <List.Item.Meta
+                avatar={<Avatar src={item.avatar} />}
+                title={<a href={item.href}>{item.title}</a>}
+                description={item.description}
+            />
+                {item.content}
+            </List.Item>
+        )}
+    />
+    );
 export default HomeView;

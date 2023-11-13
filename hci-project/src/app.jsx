@@ -4,18 +4,13 @@ import BasicLayout from './layout/basicLayout';
 import HomeView from './view/homeView';
 import NewsView from './view/newsView';
 import { Route, Routes } from 'react-router-dom';
+import CommunityView from './view/community/communityView';
+import postComponent from './view/community/component/postComponent';
 
 function App() {
     return ( 
         <React.Fragment>
-            <BasicLayout />
-            <Routes>
-                    <Route path = "/" element = {HomeView}></Route>
-                    <Route></Route>
-                    <Route path = "/news" element = {NewsView}></Route>
-                    <Route></Route>
-                    <Route></Route>
-            </Routes>
+            <BasicLayout collapsed={true}/>
         </React.Fragment>
      );
 }

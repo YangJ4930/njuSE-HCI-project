@@ -1,0 +1,63 @@
+.menuItem{
+
+}
+
+.body{
+    background: url("./backgroud.jpg") no-repeat;
+    width: 250px;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+    color: white;
+    backdrop-filter: blur(30px);
+
+}
+.a{
+    background: -webkit-linear-gradient(top, rgba(0,0,0,1)0%,rgba(0,0,0,0.5)66%, rgba(0,0,0,0)99%);/* Safari、Chrome */
+    background-size: cover;
+    height: 800px;
+    color: white;
+    margin-top: 20px;
+}
+.av{
+    background: url('./backgroud.jpg');
+    background-size: cover;
+    color: white;
+    height: 100px;
+}
+.d{
+    color: white;
+    font-size: 10px;
+}
+.vi{
+    height: 45px;
+    color: aliceblue;
+    display:inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+.vi span{
+    margin-bottom: 100%;
+    display: inline-block;
+    padding-left: 100%;
+     animation: marquee 10s linear infinite;
+}
+@keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+}  
+.qai{
+    font-size: 10;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.v{
+    color: aliceblue;
+}
+
