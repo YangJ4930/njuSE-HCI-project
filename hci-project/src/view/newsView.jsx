@@ -3,6 +3,9 @@ import { Avatar, List, Space, Carousel } from 'antd';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import { Link} from 'react-router-dom';
+import axios from "axios";
+import {th} from "@faker-js/faker";
+
 const contentStyle = {
     margin: 0,
     height: '160px',
@@ -12,25 +15,25 @@ const contentStyle = {
     background: '#364d79',
 };
 
-const data = Array.from({
-    length: 23,
-}).map((_, i) => ({
-    // ?chapter=${web.id}
-    href: `/news/content/?document=${i}`,
-    title: `ant design part ${i}`,
-    avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  }));
+// const data = Array.from({
+//     length: 23,
+// }).map((_, i) => ({
+//     // ?chapter=${web.id}
+//     href: `/news/content/?document=${i}`,
+//     title: `人机交互为什么是我最喜欢的课的理由 ${i}`,
+//     avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
+//     description:
+//       '人机交互人机交互人机交互',
+//     content:
+//       '人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互v',
+//   }));
   const IconText = ({  text }) => (
     <Space>
       {/* {React.createElement(icon)} */}
       {text}
     </Space>
   );
-  const ListNews = () => (
+  const ListNews = ({data}) => (
     <List
         itemLayout="vertical"
         size="large"
@@ -73,9 +76,28 @@ const data = Array.from({
     />
     );
 
-class NewsView extends Component {
-    state = {  } 
-    render() { 
+function NewsView(){
+        const [newsList, setNewsList] = React.useState([]);
+
+        React.useEffect(()=>{
+            axios.get("http://localhost:8080/news/content").then((response) => {
+                setNewsList(response.data);
+                console.log(response.data)
+            })
+        },[])
+
+        let data = Array.from({
+        length: newsList.length,
+    }).map((_, i) => ({
+        // ?chapter=${web.id}
+        href: `/news/content/?document=${newsList[i].id}`,
+        title: newsList[i].title,
+        avatar: newsList[i].avatar,
+        description:
+            newsList[i].description,
+        content:
+            newsList[i].content,
+    }));
         return (
             <React.Fragment>
                 <Carousel autoplay>
@@ -92,18 +114,11 @@ class NewsView extends Component {
                             <h3 style={contentStyle}>4</h3>
                         </div>
                 </Carousel>
-                <ListNews/>
+                <ListNews data={data}/>
             </React.Fragment>
 
             
         );
-    }
-
-
-    deal = () => {
-        console.log("111");
-    }
-
 }
  
 export default NewsView;
