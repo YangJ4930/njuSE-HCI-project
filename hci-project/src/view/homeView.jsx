@@ -70,4 +70,38 @@ const data = Array.from({
         )}
     />
     );
+
+class HomeView extends Component {
+    state = {  } 
+    render() { 
+        return (
+            <React.Fragment>
+                <Carousel autoplay>
+                        <div>
+                            <h3 style={contentStyle}>1</h3>
+                        </div>
+                        <div>
+                            <h3 style={contentStyle}>2</h3>
+                        </div>
+                        <div>
+                            <h3 style={contentStyle}>3</h3>
+                        </div>
+                        <div>
+                            <h3 style={contentStyle}>4</h3>
+                        </div>
+                </Carousel>
+                <ListNews/>
+            </React.Fragment>
+
+            
+        );
+    }
+
+
+    deal = () => {
+        console.log("111");
+    }
+
+}
+ 
 export default HomeView;

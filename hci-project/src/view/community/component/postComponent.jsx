@@ -90,7 +90,7 @@ const PostComponent=function PostComponent(){
             alignItems: 'center', 
             justifyContent: 'center',
             top: 50,
-            maxWidth: '90vw',
+            maxWidth:'80vw',
             flexDirection:'column',
             footer:100
           }}
@@ -100,7 +100,7 @@ const PostComponent=function PostComponent(){
         <img alt="example" style={{
             width: 'auto',
             height: '80%',
-            maxWidth: '80vw',
+            maxWidth:'100%',
             maxHeight: 'calc(100vh - 158px)',
             position: 'relative',
             scale:"100%",
