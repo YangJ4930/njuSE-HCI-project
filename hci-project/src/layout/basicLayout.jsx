@@ -10,14 +10,14 @@ import Explore_gameRepositoryView from "../view/explore_gameRepositoryView";
 import ExploreView from '../view/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
-import UserView from "../view/userView";
+import UserView from "../view/user/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import NewsContentView from '../view/newsContentView';
 import PostComponent from '../view/community/component/postComponent';
 import Communitydetail from '../view/community/component/communitydetail';
 import './Menu.css'
 
-import GameDetailView from "../view/gameDetailView";
+import GameDetailView from "../component/gameDetailView";
 
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
@@ -42,7 +42,7 @@ const BasicLayout = () => {
                       layout="center"
                       direction="column" >
                     <Card.Meta
-                        avatar={<Avatar size='large' src={<img width="40" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"></img>}></Avatar>}
+                        avatar={ <Link className="nav-link" to="/user"><Avatar size='large' src={<img width="40" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"></img>}/></Link>}
                         description={
                             <>
                                 <div className='v'>杨京</div>
@@ -66,7 +66,7 @@ const BasicLayout = () => {
                         <Link className="nav-link" aria-current="page" to="/">Home</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<UserOutlined/>}>
-                        <Link className="nav-link" to="/user">用户</Link>
+                        <Link className="nav-link" to="/explore">explore</Link>
                     </Menu.Item>
                     <Menu.Item key="3" icon={<ReadOutlined/>}>
                         <Link className="nav-link" to="/news">News</Link>
@@ -125,7 +125,7 @@ const BasicLayout = () => {
                         </Routes>
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>无敌的yangj</Footer>
+                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );
