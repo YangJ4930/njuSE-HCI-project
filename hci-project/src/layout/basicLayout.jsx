@@ -10,14 +10,14 @@ import Explore_gameRepositoryView from "../view/explore_gameRepositoryView";
 import ExploreView from '../view/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
-import UserView from "../view/userView";
+import UserView from "../view/user/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import NewsContentView from '../view/newsContentView';
 import PostComponent from '../view/community/component/postComponent';
 import Communitydetail from '../view/community/component/communitydetail';
 import './Menu.css'
 
-import GameDetailView from "../view/gameDetailView";
+import GameDetailView from "../component/gameDetailView";
 
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
