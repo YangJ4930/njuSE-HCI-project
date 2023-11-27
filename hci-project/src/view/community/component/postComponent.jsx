@@ -4,6 +4,27 @@ import { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import './post.css'
 import { useForm } from 'antd/es/form/Form';
+
+const PostC=(from,file)=>{
+    const fd=new FormData()
+    file.map((item)=>{
+        fd.append('file',item)
+        fd.append('uid',item.uid)
+    })
+    const f=JSON.stringify(from);
+    const blob=new Blob([f],{
+        type:'application/json',
+    })
+    fd.append('form',blob)
+    console.log(file)
+    fetch('http://localhost:8000/community/Upload',{
+        method:'post',
+        body:fd,
+    })
+    .then(response=>response.json())
+    .then(data=>console.log(data))
+    .catch(er=>{console.log(er)})
+}
 const PostComponent=function PostComponent(){
     const { TextArea } = Input;
     const [fileList,setFileList]=useState([])
@@ -21,8 +42,12 @@ const PostComponent=function PostComponent(){
     };
     const handleCancel = () => {setOpenImage(false)};
     const onChange1 = (file) => {
-        let fileList=file.fileList
-        console.log(fileList)
+        let fil=[]
+        file.fileList.map((item)=>{
+            fil.push(item.originFileObj)
+
+        })
+        setFileList(fil) 
     };
     const uploadButton = (
         <div>
@@ -81,7 +106,7 @@ const PostComponent=function PostComponent(){
             />
             </Form.Item>
             </Space> 
-            <Button className='formitembutton'onClick={()=>{console.log(form.getFieldsValue())}}>submit</Button>
+            <Button className='formitembutton'onClick={()=>{PostC(form.getFieldValue(),fileList)}}>submit</Button>
         </Form>
     </div>
 

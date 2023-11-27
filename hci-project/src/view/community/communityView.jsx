@@ -74,7 +74,7 @@ const  CommunityView=function CommunityView() {
       layout="center"  
       direction="column" 
       >
-        <img width="40" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"></img>
+        <img width="40" src="https://lab22.oss-cn-beijing.aliyuncs.com/1.jpg"></img>
           <div style={{
             alignContent:"space-evenly",
             verticalAlign:'middle'
