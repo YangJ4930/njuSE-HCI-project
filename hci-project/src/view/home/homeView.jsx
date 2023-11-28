@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Row, Col, Space, Card, Carousel } from 'antd';
+import React, {Component} from 'react';
+import {Row, Col, Space, Card, Carousel} from 'antd';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
-import GameListItem from '../component/gameListItem';
+import GameListItem from '../../component/gameListItem';
 
 
 const contentStyle = {
@@ -15,14 +15,14 @@ const contentStyle = {
 };
 
 
-
 class HomeView extends Component {
-    state = {  } 
-    render() { 
+    state = {}
+
+    render() {
         return (
             <React.Fragment>
                 <Row>
-                    <Col span={17} style={{marginRight:10}}>
+                    <Col span={17} style={{marginRight: 10}}>
                         <Carousel autoplay>
                             <div>
                                 <h3 style={contentStyle}>1</h3>
@@ -57,18 +57,26 @@ class HomeView extends Component {
                         </Row>
                     </Col>
                     <Col span={6}>
-                    <Card style={{ width: 250 }}>
-                        <h2>游戏排行榜</h2>
-                        <GameListItem address = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" id = "1" title = "游戏1"></GameListItem>
-                        <GameListItem address = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" id = "1" title = "游戏1"></GameListItem>
-                        <GameListItem address = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" id = "1" title = "游戏1"></GameListItem>
-                        <GameListItem address = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" id = "1" title = "游戏1"></GameListItem>
-                    </Card>
+                        <Card style={{width: 250}}>
+                            <h2>游戏排行榜</h2>
+                            <GameListItem
+                                address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                id="1" title="游戏1"></GameListItem>
+                            <GameListItem
+                                address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                id="1" title="游戏1"></GameListItem>
+                            <GameListItem
+                                address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                id="1" title="游戏1"></GameListItem>
+                            <GameListItem
+                                address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                id="1" title="游戏1"></GameListItem>
+                        </Card>
                     </Col>
                 </Row>
             </React.Fragment>
 
-            
+
         );
     }
 
@@ -78,5 +86,5 @@ class HomeView extends Component {
     }
 
 }
- 
+
 export default HomeView;

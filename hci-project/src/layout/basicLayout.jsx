@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
-import {Layout, Menu, Input, Avatar,Divider,Card} from 'antd';
+import {Layout, Menu, Input, Avatar, Divider, Card} from 'antd';
 import {Link, useNavigate} from 'react-router-dom';
 import {Route, Routes} from 'react-router-dom';
-import HomeView from '../view/homeView';
-import NewsView from '../view/newsView';
-import SearchView from '../view/searchView';
+import HomeView from '../view/home/homeView';
+import NewsView from '../view/news/newsView';
+import SearchView from '../view/search/searchView';
 import CommunityView from '../view/community/communityView';
-import Explore_gameRepositoryView from "../view/explore_gameRepositoryView";
-import ExploreView from '../view/exploreView'
+import Explore_gameRepositoryView from "../view/explore/explore_gameRepositoryView";
+import ExploreView from '../view/explore/exploreView'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import UserView from "../view/user/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
-import NewsContentView from '../view/newsContentView';
+import NewsContentView from '../view/news/newsContentView';
 import PostComponent from '../view/community/component/postComponent';
 import Communitydetail from '../view/community/component/communitydetail';
 import './Menu.css'
@@ -37,16 +37,17 @@ const BasicLayout = () => {
 
     return (
         <Layout>
-            <Sider  theme='light' collapsible>
+            <Sider theme='light' collapsible>
                 <Card bordered={false} hoverable className='av'
                       layout="center"
-                      direction="column" >
+                      direction="column">
                     <Card.Meta
-                        avatar={ <Link className="nav-link" to="/user"><Avatar size='large' src={<img width="40" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"></img>}/></Link>}
+                        avatar={<Link className="nav-link" to="/user"><Avatar size='large' src={<img width="40"
+                                                                                                     src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"></img>}/></Link>}
                         description={
                             <>
                                 <div className='v'>杨京</div>
-                                <div className='vi' >
+                                <div className='vi'>
                                     <p>
                                         <span className='qai'>杨京，我爱上人机交互的课</span>
                                     </p>
@@ -58,8 +59,8 @@ const BasicLayout = () => {
                     <p></p>
                 </Card>
                 <Menu className='a'
-                    defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
-                    theme="dark" inlineCollapsed={collapsed}
+                      defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"
+                      theme="dark" inlineCollapsed={collapsed}
                 >
 
                     <Menu.Item key="1" icon={<HomeOutlined/>}>
@@ -119,8 +120,9 @@ const BasicLayout = () => {
                             <Route path="/explore_gameRepositoryView"
                                    element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}></Route>
                             <Route path="/user" element={<UserView></UserView>}></Route>
-                            <Route path="/component/postComponent"element = {<PostComponent></PostComponent>}></Route>
-                            <Route path="/component/Communitydetail"element = {<Communitydetail></Communitydetail>}></Route>
+                            <Route path="/component/postComponent" element={<PostComponent></PostComponent>}></Route>
+                            <Route path="/component/Communitydetail"
+                                   element={<Communitydetail></Communitydetail>}></Route>
                             <Route path="/game/:gameId" element={<GameDetailView></GameDetailView>}></Route>
                         </Routes>
                     </div>
