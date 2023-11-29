@@ -3,9 +3,9 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-.title{
+}
+.title {
     font-size: larger;
-    font-weight:bolder;
+    font-weight: bolder;
     margin-bottom: 10px;
 }
