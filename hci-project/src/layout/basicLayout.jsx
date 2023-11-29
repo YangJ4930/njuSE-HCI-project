@@ -14,7 +14,7 @@ import UserView from "../view/user/userView";
 import {BarsOutlined, HeartOutlined, HomeOutlined, ReadOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import NewsContentView from '../view/newsContentView';
 import PostComponent from '../view/community/component/postComponent';
-import Communitydetail from '../view/community/component/communitydetail';
+import Communitydetail from '../component/communitydetail';
 import './Menu.css'
 
 import GameDetailView from "../component/gameDetailView";
@@ -120,7 +120,7 @@ const BasicLayout = () => {
                                    element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}></Route>
                             <Route path="/user" element={<UserView></UserView>}></Route>
                             <Route path="/component/postComponent"element = {<PostComponent></PostComponent>}></Route>
-                            <Route path="/component/Communitydetail"element = {<Communitydetail></Communitydetail>}></Route>
+                            <Route path="/component/Communitydetail/:communityId"element = {<Communitydetail></Communitydetail>}></Route>
                             <Route path="/game/:gameId" element={<GameDetailView></GameDetailView>}></Route>
                         </Routes>
                     </div>

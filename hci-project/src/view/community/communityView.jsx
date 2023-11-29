@@ -9,6 +9,7 @@ import {
   LikeOutlined,
   MessageOutlined,
   StarOutlined,
+  StarFilled,
   SmallDashOutlined
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -17,23 +18,38 @@ import "./community.css";
 const CommunityView = function CommunityView() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [xuan, setXuan] = useState(false);
+  
   const content =
     "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
   const title = "人机交互是我最喜欢的课，一天不上浑身难受";
-  const onEnter=()=>{
-    setXuan(true)
-  }
-  const onLeave=()=>{
-    setXuan(false)
-  }
-  const IconText = ({ icon, text }) => (
-    
-    <span>
-      {React.createElement(icon, { style: { marginInlineEnd: 8 }, spin:xuan ,onMouseEnter:onEnter, onMouseLeave:onLeave})}
+  
+ 
+const IconText = ({ icon, text,iconname}) => {
+  const [xuan, setXuan] = useState(false);
+  const [isshou,setIsshou]=useState(false);
+    const onEnter=()=>{
+      setXuan(true)
+    }
+    const onLeave=()=>{
+      setXuan(false)
+    }
+    const onclickshou=()=>{
+      console.log(isshou)
+      setIsshou(isshou? false:true)
+    }
+  const color=isshou?"yellow":"black"
+  if(iconname==="StarOutlined"){
+  const seicon=isshou?StarFilled:StarOutlined
+    return <span>
+      {React.createElement(seicon, { style: { marginInlineEnd: 8 ,color:color}, onClick:onclickshou,spin:xuan,onMouseEnter:onEnter, onMouseLeave:onLeave})}
       {text}
     </span>
-  );
+  }
+   return <span>
+      {React.createElement(icon, { style: { marginInlineEnd: 8 ,color:color},onClick:onclickshou})}
+      {text}
+    </span>
+  }
   const ContentText = ({ content, title }) => {
     return (
       <>
@@ -150,6 +166,7 @@ const CommunityView = function CommunityView() {
                     actions={[
                       <IconText
                         icon={StarOutlined}
+                        iconname={"StarOutlined"}
                         text="156"
                         key="list-vertical-star-o"
                       />,
@@ -172,10 +189,8 @@ const CommunityView = function CommunityView() {
                     />
                     <Link
                       className="link-text"
-                      style={{ textDecoration: "none" }}
-                      to={{
-                        pathname: "/component/Communitydetail",
-                      }}
+                      style={{}}
+                      to={`/component/Communitydetail/${item.name.last}`}
                     >
                       <ContentText content={content} title={title} />
                       <img
