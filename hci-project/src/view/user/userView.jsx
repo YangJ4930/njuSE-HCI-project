@@ -40,6 +40,7 @@ const fakeUserData = () => {
 
 function UserView(props) {
     const userInfo = useSelector((state) => state.user);
+    const authInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -107,7 +108,10 @@ const GameInventory = (props) => {
                         key={game.id}
                         hoverable={true}
                         cover={<img alt={game.name} src={game.image} />}
-                        style={{ width: 250 }}
+                        style={{
+                            width: 250,
+                            textAlign: 'center',
+                        }}
                         onClick={(e) => onClick(e, game.id)}
                     >
                         <Meta title={game.name} />

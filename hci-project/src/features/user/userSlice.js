@@ -16,12 +16,6 @@ export const userSlice = createSlice({
         gameRecords: [],
     },
     reducers: {
-        login: (state, action) => {
-            state.user = action.payload;
-        },
-        logout: (state) => {
-            state.user = null;
-        },
         fetchUserSuccess: (state, action) => {
             return action.payload;
         },
