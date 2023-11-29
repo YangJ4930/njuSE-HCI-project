@@ -25,6 +25,7 @@ import Communitydetail from '../view/community/component/communitydetail';
 import './Menu.css';
 
 import GameDetailView from '../component/gameDetailView';
+import { useSelector } from 'react-redux';
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -34,7 +35,7 @@ const { Search } = Input;
 const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
-
+    const userInfo = useSelector((state) => state.user);
     let SearchLog = () => {
         console.log('hello');
         navigate('/search');
@@ -49,21 +50,16 @@ const BasicLayout = () => {
                             <Link className='nav-link' to='/user'>
                                 <Avatar
                                     size='large'
-                                    src={
-                                        <img
-                                            width='40'
-                                            src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                                        ></img>
-                                    }
+                                    src={<img width='40' src={userInfo.avatarUrl}></img>}
                                 />
                             </Link>
                         }
                         description={
                             <>
-                                <div className='v'>杨京</div>
+                                <div className='v'>{userInfo.username}</div>
                                 <div className='vi'>
                                     <p>
-                                        <span className='qai'>杨京，我爱上人机交互的课</span>
+                                        <span className='qai'>{userInfo.description}</span>
                                     </p>
                                 </div>
                             </>

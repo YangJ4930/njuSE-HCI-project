@@ -39,7 +39,7 @@ const fakeUserData = () => {
 };
 
 function UserView(props) {
-    const userData = useSelector((state) => state.user);
+    const userInfo = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -64,10 +64,11 @@ function UserView(props) {
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
                 <UserAvatar
-                    level={userData.level}
-                    username={userData.username}
-                    avatarUrl={userData.avatarUrl}
-                    cardBackgroundUrl={userData.cardBackgroundUrl}
+                    level={userInfo.level}
+                    username={userInfo.username}
+                    avatarUrl={userInfo.avatarUrl}
+                    cardBackgroundUrl={userInfo.cardBackgroundUrl}
+                    description={userInfo.description}
                 />
             </Row>
 
@@ -75,15 +76,15 @@ function UserView(props) {
 
             <Row>
                 <Favorites
-                    privateFavorites={userData.privateFavorites}
-                    publicFavorites={userData.publicFavorites}
+                    privateFavorites={userInfo.privateFavorites}
+                    publicFavorites={userInfo.publicFavorites}
                 />
             </Row>
 
             <Divider />
 
             <Row gutter={[16, 16]}>
-                <GameInventory gameInventory={userData.gameInventory} />
+                <GameInventory gameInventory={userInfo.gameInventory} />
             </Row>
         </Col>
     );
@@ -103,6 +104,7 @@ const GameInventory = (props) => {
             <Flex wrap={'wrap'} gap={'small'}>
                 {gameInventory.map((game) => (
                     <Card
+                        key={game.id}
                         hoverable={true}
                         cover={<img alt={game.name} src={game.image} />}
                         style={{ width: 250 }}
@@ -121,6 +123,7 @@ const UserAvatar = (props) => {
     const username = props.username;
     const avatarUrl = props.avatarUrl;
     const cardBackgroundUrl = props.cardBackgroundUrl;
+    const description = props.description;
     return (
         <Col>
             <Card
@@ -139,7 +142,7 @@ const UserAvatar = (props) => {
                 <Meta
                     avatar={<Avatar src={avatarUrl} />}
                     title={username}
-                    description='This is the description'
+                    description={description}
                 />
                 <Tag color={'default'}>等级：{level}</Tag>
             </Card>

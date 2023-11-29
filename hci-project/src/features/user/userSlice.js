@@ -4,6 +4,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         username: '',
+        description: '',
         level: 0,
         avatarUrl: '',
         cardBackgroundUrl: '',
