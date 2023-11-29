@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Divider, Card } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import { Route, Routes } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
+import {Link, useNavigate} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import HomeView from '../view/home/homeView';
 import NewsView from '../view/news/newsView';
 import SearchView from '../view/search/searchView';
@@ -25,17 +25,18 @@ import Communitydetail from '../view/community/component/communitydetail';
 import './Menu.css';
 
 import GameDetailView from '../component/gameDetailView';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
-const { Header, Footer, Sider, Content } = Layout;
+const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
-const { Search } = Input;
+const {Search} = Input;
 
 const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
+    const authInfo = useSelector((state) => state.auth);
     let SearchLog = () => {
         console.log('hello');
         navigate('/search');
@@ -48,21 +49,26 @@ const BasicLayout = () => {
                     <Card.Meta
                         avatar={
                             <Link className='nav-link' to='/user'>
-                                <Avatar
-                                    size='large'
-                                    src={<img width='40' src={userInfo.avatarUrl}></img>}
-                                />
+                                {
+                                    authInfo.isLogin === true ?
+                                        <Avatar
+                                            size='large'
+                                            src={<img width='40' src={userInfo.avatarUrl}></img>}
+                                        /> : <Button>登录</Button>
+                                }
                             </Link>
                         }
                         description={
-                            <>
-                                <div className='v'>{userInfo.username}</div>
-                                <div className='vi'>
-                                    <p>
-                                        <span className='qai'>{userInfo.description}</span>
-                                    </p>
-                                </div>
-                            </>
+                            authInfo.isLogin === true ? (
+                                <>
+                                    <div className='v'>{userInfo.username}</div>
+                                    <div className='vi'>
+                                        <p>
+                                            <span className='qai'>{userInfo.description}</span>
+                                        </p>
+                                    </div>
+                                </>
+                            ) : <></>
                         }
                     ></Card.Meta>
                     <p></p>
@@ -75,22 +81,22 @@ const BasicLayout = () => {
                     theme='dark'
                     inlineCollapsed={collapsed}
                 >
-                    <Menu.Item key='1' icon={<HomeOutlined />}>
+                    <Menu.Item key='1' icon={<HomeOutlined/>}>
                         <Link className='nav-link' aria-current='page' to='/'>
                             Home
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key='2' icon={<UserOutlined />}>
+                    <Menu.Item key='2' icon={<UserOutlined/>}>
                         <Link className='nav-link' to='/explore'>
                             explore
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key='3' icon={<ReadOutlined />}>
+                    <Menu.Item key='3' icon={<ReadOutlined/>}>
                         <Link className='nav-link' to='/news'>
                             News
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key='4' icon={<TeamOutlined />}>
+                    <Menu.Item key='4' icon={<TeamOutlined/>}>
                         <Link className='nav-link' to='/community'>
                             社区
                         </Link>
@@ -102,7 +108,7 @@ const BasicLayout = () => {
                                 <span>Navigation One</span>
                             </span>
                         }
-                        icon={<HeartOutlined />}
+                        icon={<HeartOutlined/>}
                     >
                         <Menu.Item key='5'>Option 5</Menu.Item>
                         <Menu.Item key='6'>Option 6</Menu.Item>
@@ -133,7 +139,7 @@ const BasicLayout = () => {
                     />
                 </Header>
 
-                <Content style={{ margin: '24px 16px 0' }}>
+                <Content style={{margin: '24px 16px 0'}}>
                     <div
                         style={{
                             padding: 24,
@@ -174,7 +180,7 @@ const BasicLayout = () => {
                         </Routes>
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
+                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );

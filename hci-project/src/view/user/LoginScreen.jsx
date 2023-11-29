@@ -45,11 +45,11 @@ function LoginScreen(props) {
                     <Input.Password prefix={<LockOutlined />} placeholder="Password" />
                 </Form.Item>
 
-                <Form.Item style={{margin: "auto"}}>
-                    <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={onFinish}>
+                <Form.Item style={{ margin: 'auto' }}>
+                    <Button type="primary" htmlType="submit" style={{ width: '100%', marginBottom: '10px' }} onClick={onFinish}>
                         登录
                     </Button>
-                    <Button type="primary" htmlType="submit" style={{ width: '100%'}}>
+                    <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
                         注册
                     </Button>
                 </Form.Item>
