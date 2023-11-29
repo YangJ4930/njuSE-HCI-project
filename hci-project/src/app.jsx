@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
-import Navbar from './navbar';
 import BasicLayout from './layout/basicLayout';
-import HomeView from './view/home/homeView';
-import NewsView from './view/news/newsView';
-import {Route, Routes} from 'react-router-dom';
-import CommunityView from './view/community/communityView';
-import postComponent from './view/community/component/postComponent';
+import {Provider} from "react-redux";
+import store from "./store";
 
 function App() {
     return (
-        <React.Fragment>
-            <BasicLayout collapsed={true}/>
-        </React.Fragment>
+        <Provider store={store}>
+            <React.Fragment>
+                <BasicLayout collapsed={true}/>
+            </React.Fragment>
+        </Provider>
     );
 }
 
