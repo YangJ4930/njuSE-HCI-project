@@ -57,7 +57,7 @@ class HomeView extends Component {
                         </Row>
                     </Col>
                     <Col span={6}>
-                        <Card style={{width: 250}}>
+                        <Card style={{width: 300, marginLeft: 70}}>
                             <h2>游戏排行榜</h2>
                             <GameListItem
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
