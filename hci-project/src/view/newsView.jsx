@@ -59,7 +59,7 @@ const contentStyle = {
             ]}
             extra={
                 <img
-                width={272}
+                width={250}
                 alt="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                 />
@@ -70,7 +70,11 @@ const contentStyle = {
                 title={<Link to={item.href}>{item.title}</Link>}
                 description={item.description}
             />
-                {item.content}
+                <div style={{
+                    whiteSpace:"pre-line"
+                }}>
+                {item.description}
+                </div>
             </List.Item>
         )}
     />

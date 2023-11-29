@@ -5,9 +5,11 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 // import "../assets/css/main.css"
 import { Comment } from '@ant-design/compatible';
-import { Avatar, Card } from 'antd';
+import {Avatar, Card, Typography, } from 'antd';
+import axios from "axios";
 
 let content = ["a", "b", "c", "d"]
+const {Title, Text} = Typography;
 
 function NewsContentView() {
     let [searchParams, setSearchParams] = useSearchParams();
@@ -15,120 +17,22 @@ function NewsContentView() {
     let documentId = searchParams.get('document')
     return (
         <React.Fragment>
-            <div className="container pt-4 pb-4">
-                <div className="row justify-content-center">
-                    <div className="col-lg-2 pr-4 mb-4 col-md-12">
-                        <div className="sticky-top text-center">
-                            <div className="text-muted">
-                                Share this
-                            </div>
-                            <div className="share d-inline-block">
-                                <div className="a2a_kit a2a_kit_size_32 a2a_default_style">
-                                    <a className="a2a_dd" href="https://www.addtoany.com/share"></a>
-                                    <a className="a2a_button_facebook"></a>
-                                    <a className="a2a_button_twitter"></a>
-                                </div>
-                                <script async src="https://static.addtoany.com/menu/page.js"></script>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-12 col-lg-8">
-                        <article className="article-post">
-                        <p>
-                            Holy grail funding non-disclosure agreement advisor ramen bootstrapping ecosystem. Beta crowdfunding iteration assets business plan paradigm shift stealth mass market seed money rockstar niche market marketing buzz market.
-                        </p>
-                        <p>
-                            Burn rate release facebook termsheet equity technology. Interaction design rockstar network effects handshake creative startup direct mailing. Technology influencer direct mailing deployment return on investment seed round.
-                        </p>
-                        <p>
-                            Termsheet business model canvas user experience churn rate low hanging fruit backing iteration buyer seed money. Virality release launch party channels validation learning curve paradigm shift hypotheses conversion. Stealth leverage freemium venture startup business-to-business accelerator market.
-                        </p>
-                        <p>
-                            Freemium non-disclosure agreement lean startup bootstrapping holy grail ramen MVP iteration accelerator. Strategy market ramen leverage paradigm shift seed round entrepreneur crowdfunding social proof angel investor partner network virality.
-                        </p>
-                        </article>
-                        <div className="border p-5 bg-lightblue">
-                            <div className="row justify-content-between">
-                                <div className="col-md-5 mb-2 mb-md-0">
-                                    <h5 className="font-weight-bold secondfont">Become a member</h5>
-                                    Get the latest news right in your inbox. We never spam!
-                                </div>
-                                <div className="col-md-7">
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <input type="text" className="form-control" placeholder="Enter your e-mail address" value={inputValue}></input>
-                                        </div>
-                                        <div className='col-md-12 mt-2'>
-                                            <button type="submit" className="btn btn-success btn-block">Subscribe</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Typography>
+                <Title>新闻</Title>
+                <div dangerouslySetInnerHTML={{__html:""}}></div>
+                <Text>
+                    一系列仪式谋杀案正威胁着亮瀑镇这个位于太平洋西北部，被荒野包围的小镇社区。
+                    作为以解决悬案而闻名的联邦调查局资深警探，萨贾·安德森为调查谋杀案而来到此地。
+                    当安德森发现一页页恐怖故事开始在身边化为现实时，她的案件陷入了一场噩梦。
+                    艾伦·韦克是一位迷失的作家，他正被困在我们世界以外的噩梦之中。而他写下了一篇黑暗故事，试图借此塑造自己周围的现实并逃离监狱。
+                    虽然某种黑暗阴森的恐怖力量对他穷追不舍，但韦克正努力保持自己的理智，试图掌控局面并击败魔鬼。
+                    安德森和韦克这两位英雄，虽身处两种截然不同的现实中且踏上了各自的亡命之旅，却以他们自己都无法理解的方式产生了心灵上的联结：他们相互映照与呼应，并用这种方式影响着周围的世界。
+                    在恐怖故事的推动下，超自然的黑暗力量侵入了辉落镇，腐化了当地居民并威胁着安德森和 韦克的亲人。
+                    他们只能依靠光明作为武器与避风港，来抵御自己面对的黑暗。 受困于一个只有受害者和怪物、且凶险恐怖的故事中，他们能否担起命运委以的重任，逆境求生、成功逃脱？
+                </Text>
+                <br/>
+            </Typography>
 
-            <div class="container pt-4 pb-4">
-	<h5 class="font-weight-bold spanborder"><span>Read next</span></h5>
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="card border-0 mb-4 box-shadow h-xl-300">
-				{/* <div style={{background-image: url(./assets/img/demo/3.jpg); height: 150px; background-size: cover; background-repeat: no-repeat;}}
-				</div> */}
-				<div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
-					<h2 class="h4 font-weight-bold">
-					<a class="text-dark" href="#">Brain Stimulation Relieves Depression Symptoms</a>
-					</h2>
-					<p class="card-text">
-						 Researchers have found an effective target in the brain for electrical stimulation to improve mood in people suffering from depression.
-					</p>
-					<div>
-						<small class="d-block"><a class="text-muted" href="./author.html">Favid Rick</a></small>
-						<small class="text-muted">Dec 12 · 5 min read</small>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="flex-md-row mb-4 box-shadow h-xl-300">
-				<div class="mb-3 d-flex align-items-center">
-					<div class="pl-3">
-						<h2 class="mb-2 h6 font-weight-bold">
-						<a class="text-dark" href="./article.html">Nasa's IceSat space laser makes height maps of Earth</a>
-						</h2>
-						<div class="card-text text-muted small">
-							 Jake Bittle in LOVE/HATE
-						</div>
-						<small class="text-muted">Dec 12 · 5 min read</small>
-					</div>
-				</div>
-				<div class="mb-3 d-flex align-items-center">
-					<div class="pl-3">
-						<h2 class="mb-2 h6 font-weight-bold">
-						<a class="text-dark" href="./article.html">Underwater museum brings hope to Lake Titicaca</a>
-						</h2>
-						<div class="card-text text-muted small">
-							 Jake Bittle in LOVE/HATE
-						</div>
-						<small class="text-muted">Dec 12 · 5 min read</small>
-					</div>
-				</div>
-				<div class="mb-3 d-flex align-items-center">
-					<div class="pl-3">
-						<h2 class="mb-2 h6 font-weight-bold">
-						<a class="text-dark" href="./article.html">Sun-skimming probe starts calling home</a>
-						</h2>
-						<div class="card-text text-muted small">
-							 Jake Bittle in LOVE/HATE
-						</div>
-						<small class="text-muted">Dec 12 · 5 min read</small>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
             <Card style={{  }}>
             <Comment
              author={<a>Han Solo</a>}
