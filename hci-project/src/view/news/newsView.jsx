@@ -3,7 +3,7 @@ import { Avatar, List, Space, Carousel } from 'antd';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../axios';
 import { th } from '@faker-js/faker';
 
 const contentStyle = {
@@ -86,7 +86,7 @@ function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get('http://localhost:8080/news/content').then((response) => {
+        axios.get('/news/content').then((response) => {
             setNewsList(response.data);
             console.log(response.data);
         });
