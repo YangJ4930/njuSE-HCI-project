@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import {faker} from "@faker-js/faker";
@@ -6,11 +6,14 @@ import {Avatar, Badge, Card, Col, Divider, Row, Space, Tag, Typography, Flex} fr
 import {EditOutlined, EllipsisOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import Title from "antd/es/skeleton/Title";
 import Meta from "antd/es/card/Meta";
-import {useNavigate} from "react-router-dom";
+import {json, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import axios from "axios";
+import {fetchUserFailure, fetchUserSuccess} from "../../features/user/userSlice";
 
 const {Text} = Typography;
 
-function fakeUserData() {
+const fakeUserData = () => {
     let userData = {
         username: faker.person.firstName(),
         level: faker.number.int({min: 1, max: 100}),
@@ -42,13 +45,33 @@ function fakeUserData() {
 }
 
 function UserView(props) {
-    const userData = fakeUserData();
+    const userData = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/user')
+            .then((response) => {
+                const userData = response.data;
+
+                console.log(userData);
+                dispatch(fetchUserSuccess(userData)); // 成功获取用户数据
+            })
+            .catch((error) => {
+                console.error(error);
+                dispatch(fetchUserFailure()); // 获取用户数据失败
+            });
+    }, []);
 
     return (
 
         <Col>
             <Row gutter={[16, 16]} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <UserAvatar level={userData.level} username={userData.username}/>
+                <UserAvatar
+                    level={userData.level}
+                    username={userData.username}
+                    avatarUrl={userData.avatarUrl}
+                    cardBackgroundUrl={userData.cardBackgroundUrl}
+                />
             </Row>
 
             <Divider/>
@@ -66,11 +89,11 @@ function UserView(props) {
     );
 }
 
-function GameInventory(props) {
+const GameInventory = (props) => {
     const gameInventory = props.gameInventory;
     const navigate = useNavigate();
 
-    const onClick = (e,gameId) => {
+    const onClick = (e, gameId) => {
         console.log(e);
         navigate(`/game/${gameId}`);
     }
@@ -83,7 +106,7 @@ function GameInventory(props) {
                         hoverable={true}
                         cover={<img alt={game.name} src={game.image}/>}
                         style={{width: 250}}
-                        onClick={(e) => onClick(e,game.id)}
+                        onClick={(e) => onClick(e, game.id)}
                     >
                         <Meta title={game.name}/>
                     </Card>
@@ -93,9 +116,11 @@ function GameInventory(props) {
     );
 }
 
-function UserAvatar(props) {
+const UserAvatar = (props) => {
     const level = props.level;
     const username = props.username;
+    const avatarUrl = props.avatarUrl;
+    const cardBackgroundUrl = props.cardBackgroundUrl;
     return (
         <Col>
             <Card
@@ -107,7 +132,7 @@ function UserAvatar(props) {
                 cover={
                     <img
                         alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                        src={cardBackgroundUrl}
                     />
                 }
                 actions={[
@@ -117,7 +142,7 @@ function UserAvatar(props) {
                 ]}
             >
                 <Meta
-                    avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel"/>}
+                    avatar={<Avatar src={avatarUrl}/>}
                     title={username}
                     description="This is the description"
                 />
@@ -127,7 +152,7 @@ function UserAvatar(props) {
     );
 }
 
-function Favorites(props) {
+const Favorites = (props) => {
     const [activeTab, setActiveTab] = useState("Tab1"); // ["Tab1", "Tab2"
     const onTabChange = (key) => {
         setActiveTab(key);
