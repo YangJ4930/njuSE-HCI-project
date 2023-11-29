@@ -7,6 +7,7 @@ import App from './app';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import {login} from "./features/user/authSlice";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,3 +19,8 @@ root.render(
         </React.StrictMode>
     </Provider>,
 );
+
+const storedIsLogged = sessionStorage.getItem('isLogin');
+if (storedIsLogged === 'true') {
+    store.dispatch(login(true));
+}
