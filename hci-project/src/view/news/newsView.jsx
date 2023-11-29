@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Avatar, List, Space, Carousel } from 'antd';
-import "bootstrap/dist/css/bootstrap.css"
-import "bootstrap/dist/js/bootstrap.js"
-import { Link} from 'react-router-dom';
-import axios from "axios";
-import {th} from "@faker-js/faker";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { th } from '@faker-js/faker';
 
 const contentStyle = {
     margin: 0,
@@ -27,16 +27,16 @@ const contentStyle = {
 //     content:
 //       '人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互人机交互v',
 //   }));
-  const IconText = ({  text }) => (
+const IconText = ({ text }) => (
     <Space>
-      {/* {React.createElement(icon)} */}
-      {text}
+        {/* {React.createElement(icon)} */}
+        {text}
     </Space>
-  );
-  const ListNews = ({data}) => (
+);
+const ListNews = ({ data }) => (
     <List
-        itemLayout="vertical"
-        size="large"
+        itemLayout='vertical'
+        size='large'
         pagination={{
             onChange: (page) => {
                 console.log(page);
@@ -46,83 +46,81 @@ const contentStyle = {
         dataSource={data}
         footer={
             <div>
-            <b>ant design</b> footer part
+                <b>ant design</b> footer part
             </div>
         }
         renderItem={(item) => (
             <List.Item
-            key={item.title}
-            actions={[
-                <IconText  text="156" key="" />,
-                <IconText  text="156" key="" />,
-                <IconText  text="2" key="" />,
-            ]}
-            extra={
-                <img
-                width={250}
-                alt="logo"
-                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                key={item.title}
+                actions={[
+                    <IconText text='156' key='' />,
+                    <IconText text='156' key='' />,
+                    <IconText text='2' key='' />,
+                ]}
+                extra={
+                    <img
+                        width={250}
+                        alt='logo'
+                        src='https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+                    />
+                }
+            >
+                <List.Item.Meta
+                    avatar={<Avatar src={item.avatar} />}
+                    title={<Link to={item.href}>{item.title}</Link>}
+                    description={item.description}
                 />
-            }
-        >
-            <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={<Link to={item.href}>{item.title}</Link>}
-                description={item.description}
-            />
-                <div style={{
-                    whiteSpace:"pre-line"
-                }}>
-                {item.description}
+                <div
+                    style={{
+                        whiteSpace: 'pre-line',
+                    }}
+                >
+                    {item.description}
                 </div>
             </List.Item>
         )}
     />
-    );
+);
 
-function NewsView(){
-        const [newsList, setNewsList] = React.useState([]);
+function NewsView() {
+    const [newsList, setNewsList] = React.useState([]);
 
-        React.useEffect(()=>{
-            axios.get("http://localhost:8080/news/content").then((response) => {
-                setNewsList(response.data);
-                console.log(response.data)
-            })
-        },[])
+    React.useEffect(() => {
+        axios.get('http://localhost:8080/news/content').then((response) => {
+            setNewsList(response.data);
+            console.log(response.data);
+        });
+    }, []);
 
-        let data = Array.from({
+    let data = Array.from({
         length: newsList.length,
     }).map((_, i) => ({
         // ?chapter=${web.id}
         href: `/news/content/?document=${newsList[i].id}`,
         title: newsList[i].title,
         avatar: newsList[i].avatar,
-        description:
-            newsList[i].description,
-        content:
-            newsList[i].content,
+        description: newsList[i].description,
+        content: newsList[i].content,
     }));
-        return (
-            <React.Fragment>
-                <Carousel autoplay>
-                        <div>
-                            <h3 style={contentStyle}>1</h3>
-                        </div>
-                        <div>
-                            <h3 style={contentStyle}>2</h3>
-                        </div>
-                        <div>
-                            <h3 style={contentStyle}>3</h3>
-                        </div>
-                        <div>
-                            <h3 style={contentStyle}>4</h3>
-                        </div>
-                </Carousel>
-                <ListNews data={data}/>
-            </React.Fragment>
-
-            
-        );
+    return (
+        <React.Fragment>
+            <Carousel autoplay>
+                <div>
+                    <h3 style={contentStyle}>1</h3>
+                </div>
+                <div>
+                    <h3 style={contentStyle}>2</h3>
+                </div>
+                <div>
+                    <h3 style={contentStyle}>3</h3>
+                </div>
+                <div>
+                    <h3 style={contentStyle}>4</h3>
+                </div>
+            </Carousel>
+            <ListNews data={data} />
+        </React.Fragment>
+    );
 }
- 
+
 export default NewsView;

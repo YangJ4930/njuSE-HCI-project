@@ -1,12 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
-    name: "user",
+    name: 'user',
     initialState: {
-        username: "",
+        username: '',
         level: 0,
-        avatarUrl: "",
-        cardBackgroundUrl: "",
+        avatarUrl: '',
+        cardBackgroundUrl: '',
         privateFavorites: [],
         publicFavorites: [],
         followers: 0,
@@ -30,5 +30,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const {fetchUserFailure, fetchUserSuccess, login, logout} = userSlice.actions;
+export const { fetchUserFailure, fetchUserSuccess, login, logout } = userSlice.actions;
 export default userSlice.reducer;
