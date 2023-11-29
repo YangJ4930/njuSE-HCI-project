@@ -10,7 +10,7 @@ export default ({
 }) => {
   let rollupOptions = {};
   if (command === 'serve') {
-    rollupOptions.input = ['./src/index.js'];
+    rollupOptions.input = [];
   }
 
   let optimizeDeps = {};
@@ -55,7 +55,7 @@ export default ({
       rollupOptions,
     },
     esbuild,
-    optimizeDeps,
+    
     plugins: [
       legacyPlugin({
         targets: ['Android > 39', 'Chrome >= 60', 'Safari >= 10.1', 'iOS >= 10.3', 'Firefox >= 54', 'Edge >= 15'],
