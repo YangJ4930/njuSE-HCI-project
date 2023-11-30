@@ -7,9 +7,9 @@ import {
   Card,
   Carousel,
   Image,
-  Flex,
-  Col,
   Row,
+  Tag,
+  FloatButton
 } from "antd";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -18,7 +18,11 @@ import { UserOutlined, MessageOutlined, LikeOutlined } from "@ant-design/icons";
 import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
 import InfiniteScroll from "react-infinite-scroll-component";
+import CommentPost from "../component/commentPost"
 const Communitydetail = function Comunitydetail() {
+  const content =
+    "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动\n" +
+    "，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
   const { Meta } = Card;
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -63,7 +67,7 @@ const Communitydetail = function Comunitydetail() {
           }}
         >
           <Image
-           height={400}
+            height={400}
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
           />
 
@@ -86,20 +90,38 @@ const Communitydetail = function Comunitydetail() {
         </Carousel>
       </div>
       <Divider plain></Divider>
-      <Space>
-        <Card bordered={false}>
+      <Row>
+        <Card bordered={false} style={{
+          width: "300px"
+        }}>
           <Meta
-            avatar={
-              <Avatar
-                size={64}
-                src="https://xsgames.co/randomusers/avatar.php?g=pixel"
-              />
+            avatar={(
+              <>
+                <Avatar
+                  size={64}
+                  src="https://xsgames.co/randomusers/avatar.php?g=pixel"
+                />
+              </>
+            )
+
             }
-            title="Card title"
-            description="This is the description"
+            title={(<Row >
+              <div>杨京</div>
+              <Tag color="#2db7f5" style={{
+                marginLeft: 10
+              }}>作者</Tag>
+            </Row>)}
+            description="杨静nb"
           />
+
         </Card>
-      </Space>
+
+      </Row>
+      <Divider plain orientation="left">正文</Divider>
+      <div style={{
+        whiteSpace: "pre-line",
+        fontSize: "16px"
+      }}>{content}</div>
 
       <InfiniteScroll
         infinite-scroll-disabled={false}
@@ -110,22 +132,22 @@ const Communitydetail = function Comunitydetail() {
         endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
         scrollableTarget="scrollableDiv"
       >
-        <Space
-          style={{
-            justifyContent: "space-around",
-            marginTop: 30,
-          }}
+        <Row justify="space-between"
         >
-          <div
-            style={{
-              fontWeight: "bold",
-            }}
-          >
+
+
+        </Row>
+        <Divider orientation="left"> <Row
+
+        >
+          <div style={{
+            fontWeight: "bold",
+          }}>
             评论
+            <MessageOutlined></MessageOutlined>
           </div>
-          <MessageOutlined></MessageOutlined>
-        </Space>
-        <Divider plain></Divider>
+        </Row>
+        </Divider>
         <ProList
           size="small"
           itemLayout="vertical"
@@ -136,8 +158,7 @@ const Communitydetail = function Comunitydetail() {
             return (
               <List.Item
                 extra={
-                  <Space>
-                    <LikeOutlined></LikeOutlined>
+                  <Space><LikeOutlined></LikeOutlined>
                     <div>12</div>
                   </Space>
                 }
@@ -166,6 +187,7 @@ const Communitydetail = function Comunitydetail() {
           }}
         ></ProList>
       </InfiniteScroll>
+      <FloatButton description={<CommentPost></CommentPost>}></FloatButton>
     </PageContainer>
   );
 };
