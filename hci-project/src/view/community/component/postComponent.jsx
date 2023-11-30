@@ -1,8 +1,8 @@
-
-import {  Upload , Modal,Input,Form, Space ,Divider,Button } from 'antd';
+import { Upload, Modal, Input, Form, Space, Divider, Button } from 'antd';
 import { useState } from 'react';
+import React from "react"
 import { PlusOutlined } from '@ant-design/icons';
-import './post.css'
+import './post.css';
 import { useForm } from 'antd/es/form/Form';
 
 const PostC=(from,file)=>{
@@ -27,20 +27,21 @@ const PostC=(from,file)=>{
 }
 const PostComponent=function PostComponent(){
     const { TextArea } = Input;
-    const [fileList,setFileList]=useState([])
+    const [fileList, setFileList] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [openImage,setOpenImage]=useState(false)
-    const [form]=useForm();
+    const [openImage, setOpenImage] = useState(false);
+    const [form] = useForm();
     const handlePreview = (file) => {
-        const reader=new FileReader()
-        reader.onload=(result)=>{
-            setSelectedImage(result.target.result)
-        }
-        reader.readAsDataURL(file.originFileObj)
-        setOpenImage(true)
-         
+        const reader = new FileReader();
+        reader.onload = (result) => {
+            setSelectedImage(result.target.result);
+        };
+        reader.readAsDataURL(file.originFileObj);
+        setOpenImage(true);
     };
-    const handleCancel = () => {setOpenImage(false)};
+    const handleCancel = () => {
+        setOpenImage(false);
+    };
     const onChange1 = (file) => {
         let fil=[]
         file.fileList.map((item)=>{
@@ -54,62 +55,69 @@ const PostComponent=function PostComponent(){
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
-      );
-    return <>
-    <div style={{
-       flexDirection:'column',
-       display:'flex',
-       alignItems:'center',
-       height:'800px'
-    }}
-    className='groud'
-    >
-        <div style={
-            {
-                width:"200px",
-                fontSize:'24px',
-                textAlign:'center',
-                lineHeight:'100px'
-            }
-        }>图文</div>
-        <Form form={form}title='图文' className='postform' >
-            <Space  direction="vertical" size="middle" style={{ display: 'flex' }}
+    );
+    return (
+        <>
+            <div
+                style={{
+                    flexDirection: 'column',
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '800px',
+                }}
+                className='groud'
             >
-            <Form.Item className='formitem'>
-            <Upload
-            className='imageInput'
-            action=""
-            beforeUpload={()=>false}
-            listType="picture-card"
-            onPreview={handlePreview}
-            onChange={onChange1}
-            maxCount={8}
-            >
-                {fileList.length>8?null:uploadButton}
-            </Upload>
-            </Form.Item>
-            <Divider orientation='left'>Title</Divider>
-            <Form.Item name='title'>
-            <TextArea 
-            bordered={false}
-            placeholder="标题"
-            rows={1}
-            />
-            </Form.Item>
-            <Divider orientation='left'>Content</Divider>
-            <Form.Item name='content'>
-            <TextArea 
-            className='textarea'
-            bordered={false}
-            placeholder="正文内容"
-            rows={20}
-            />
-            </Form.Item>
-            </Space> 
-            <Button className='formitembutton'onClick={()=>{PostC(form.getFieldValue(),fileList)}}>submit</Button>
-        </Form>
-    </div>
+                <div
+                    style={{
+                        width: '200px',
+                        fontSize: '24px',
+                        textAlign: 'center',
+                        lineHeight: '100px',
+                    }}
+                >
+                    图文
+                </div>
+                <Form form={form} title='图文' className='postform'>
+                    <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
+                        <Form.Item className='formitem'>
+                            <Upload
+                                className='imageInput'
+                                action=''
+                                beforeUpload={() => false}
+                                listType='picture-card'
+                                onPreview={handlePreview}
+                                onChange={onChange1}
+                                maxCount={8}
+                            >
+                                {fileList.length > 8 ? null : uploadButton}
+                            </Upload>
+                        </Form.Item>
+                        <Divider orientation='left'>Title</Divider>
+                        <Form.Item name='title'>
+                            <TextArea bordered={false} placeholder='标题' rows={1} />
+                        </Form.Item>
+                        <Divider orientation='left'>Content</Divider>
+                        <Form.Item name='content'>
+                            <TextArea
+                                className='textarea'
+                                bordered={false}
+                                placeholder='正文内容'
+                                rows={20}
+                            />
+                        </Form.Item>
+                    </Space>
+                    <Button
+                        className='formitembutton'
+                        onClick={() => {
+                            console.log(form.getFieldsValue());
+                        }}
+                    >
+                        submit
+                    </Button>
+                </Form>
+            </div>
 
+    
     <Modal  style={{
             display:"flex",
             alignItems: 'center', 
@@ -133,6 +141,7 @@ const PostComponent=function PostComponent(){
         
     </Modal>
     </>
+    )
 }
 export default PostComponent
 
