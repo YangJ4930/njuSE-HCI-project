@@ -13,38 +13,18 @@ function RegisterScreen(props) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
-    const handleLogin = (values) => {
-        console.log('Received values:', values);
-        // 在此处可以处理登录逻辑，例如发送登录请求等
-        axios.post('/users/login', {email, password}).then((response) => {
-            const loginData = response.data;
-            console.log(loginData);
-            dispatch(login(loginData));
-
-            sessionStorage.setItem('isLogin', 'true');
-        }).catch((error) => {
-            console.error(error);
-        });
-    };
-
-    const hadleRegister = (values) => {
-        console.log('Received values:', values);
-        // 在此处可以处理登录逻辑，例如发送登录请求等
-        axios.get('/users/register').then((response) => {
-            const loginData = response.data;
-            console.log(loginData);
-            dispatch(login(loginData));
-
-            sessionStorage.setItem('isLogin', 'true');
-        }).catch((error) => {
-            console.error(error);
-        });
+    const handleRegister = () => {
+        axios.post('/users/register', {email, password, username})
+            .then((response) => {
+                const registerData = response.data;
+                console.log(registerData);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
-
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
 
     return (
         <Flex
@@ -69,7 +49,6 @@ function RegisterScreen(props) {
                     initialValues={{
                         remember: true,
                     }}
-                    onFinish={onFinish}
                 >
                     <Form.Item
                         name="email"
@@ -80,7 +59,11 @@ function RegisterScreen(props) {
                             },
                         ]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Email"/>
+                        <Input
+                            prefix={<UserOutlined className="site-form-item-icon"/>}
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </Form.Item>
                     <Form.Item
                         name="username"
@@ -95,6 +78,7 @@ function RegisterScreen(props) {
                             prefix={<LockOutlined className="site-form-item-icon"/>}
                             type="Username"
                             placeholder="Username"
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item
@@ -110,13 +94,16 @@ function RegisterScreen(props) {
                             prefix={<LockOutlined className="site-form-item-icon"/>}
                             type="password"
                             placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Item>
 
                     <Form.Item
                         style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
                     >
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button"
+                                onClick={handleRegister}
+                        >
                             注册
                         </Button>
                     </Form.Item>

@@ -14,33 +14,21 @@ function LoginScreen(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (values) => {
-        console.log('Received values:', values);
-        // 在此处可以处理登录逻辑，例如发送登录请求等
-        axios.post('/users/login', {email, password}).then((response) => {
-            const loginData = response.data;
-            console.log(loginData);
-            dispatch(login(loginData));
+    const handleLogin = () => {
+        axios.post('/users/login', {email, password})
+            .then((response) => {
+                const loginData = response.data;
 
-            sessionStorage.setItem('isLogin', 'true');
-        }).catch((error) => {
-            console.error(error);
-        });
+                console.log(loginData);
+                dispatch(login());
+
+                sessionStorage.setItem('isLogin', 'true');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
-    const hadleRegister = (values) => {
-        console.log('Received values:', values);
-        // 在此处可以处理登录逻辑，例如发送登录请求等
-        axios.get('/users/register').then((response) => {
-            const loginData = response.data;
-            console.log(loginData);
-            dispatch(login(loginData));
-
-            sessionStorage.setItem('isLogin', 'true');
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -69,7 +57,6 @@ function LoginScreen(props) {
                     initialValues={{
                         remember: true,
                     }}
-                    onFinish={onFinish}
                 >
                     <Form.Item
                         name="email"
@@ -80,7 +67,15 @@ function LoginScreen(props) {
                             },
                         ]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Email"/>
+                        <Input
+                            prefix={<UserOutlined className="site-form-item-icon"/>}
+                            placeholder="Email"
+                            onChange={
+                                (e) => {
+                                    setEmail(e.target.value);
+                                }
+
+                            }/>
                     </Form.Item>
                     <Form.Item
                         name="password"
@@ -95,6 +90,11 @@ function LoginScreen(props) {
                             prefix={<LockOutlined className="site-form-item-icon"/>}
                             type="password"
                             placeholder="Password"
+                            onChange={
+                                (e) => {
+                                    setPassword(e.target.value);
+                                }
+                            }
                         />
                     </Form.Item>
 
@@ -106,7 +106,9 @@ function LoginScreen(props) {
                     <Form.Item
                         style={{paddingTop: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
                     >
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button"
+                                onClick={handleLogin}
+                        >
                             登录
                         </Button>
 
