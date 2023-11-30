@@ -26,6 +26,8 @@ import './Menu.css';
 
 import GameDetailView from '../component/gameDetailView';
 import {useSelector} from 'react-redux';
+import {RegisterScreen} from "../view/user/RegisterScreen";
+import {LoginScreen} from "../view/user/LoginScreen";
 
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
@@ -176,6 +178,14 @@ const BasicLayout = () => {
                             <Route
                                 path='/game/:gameId'
                                 element={<GameDetailView></GameDetailView>}
+                            ></Route>
+                            <Route
+                                path={'/user/register'}
+                                element={<RegisterScreen></RegisterScreen>}
+                            ></Route>
+                            <Route
+                                path={'/user/login'}
+                                element={<LoginScreen></LoginScreen>}
                             ></Route>
                         </Routes>
                     </div>
