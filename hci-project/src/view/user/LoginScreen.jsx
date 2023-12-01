@@ -18,11 +18,15 @@ function LoginScreen(props) {
         axios.post('/users/login', {email, password})
             .then((response) => {
                 const loginData = response.data;
+                console.log(response);
 
-                console.log(loginData);
-                dispatch(login());
-
+                sessionStorage.setItem('tokenName', loginData.tokenName);
+                sessionStorage.setItem('tokenValue', loginData.tokenValue);
                 sessionStorage.setItem('isLogin', 'true');
+                sessionStorage.setItem('loginId', loginData.loginId);
+
+                dispatch(login(loginData));
+
             })
             .catch((error) => {
                 console.error(error);

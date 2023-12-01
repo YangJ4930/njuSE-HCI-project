@@ -12,19 +12,27 @@ const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        axios
-            .get('/user')
-            .then((response) => {
-                const userData = response.data;
+    const tokenName = useSelector((state) => state.auth.tokenName);
+    const tokenValue = useSelector((state) => state.auth.tokenValue);
+    const userId = useSelector((state) => state.auth.loginId);
+    const isLogin = useSelector((state) => state.auth.isLogin);
 
-                console.log(userData);
-                dispatch(fetchUserSuccess(userData)); // 成功获取用户数据
-            })
-            .catch((error) => {
-                console.error(error);
-                dispatch(fetchUserFailure()); // 获取用户数据失败
-            });
+    useEffect(() => {
+        if (isLogin) {
+            axios
+                .get(`/users/${userId}`,
+                    {headers: {[tokenName]: tokenValue}}
+                )
+                .then((response) => {
+                    console.log(response);
+                    const userData = response.data;
+                    dispatch(fetchUserSuccess(userData)); // 成功获取用户数据
+                })
+                .catch((error) => {
+                    console.error(error);
+                    dispatch(fetchUserFailure()); // 获取用户数据失败
+                });
+        }
     }, []);
     return (
         <Col>
@@ -72,7 +80,7 @@ const GameInventory = (props) => {
         <Col>
             <h1>游戏库存</h1>
             <Flex wrap={'wrap'} gap={'small'}>
-                {gameInventory.map((game) => (
+                {gameInventory !== null && gameInventory.map((game) => (
                     <Card
                         key={game.id}
                         hoverable={true}
@@ -154,7 +162,7 @@ const Favorites = (props) => {
             >
                 {activeTab === 'Tab1' && (
                     <div>
-                        {privateFavorites.map((game) => (
+                        {privateFavorites !== null && privateFavorites.map((game) => (
                             <Tag key={game} color='blue'>
                                 {game}
                             </Tag>
@@ -163,7 +171,7 @@ const Favorites = (props) => {
                 )}
                 {activeTab === 'Tab2' && (
                     <div>
-                        {publicFavorites.map((game) => (
+                        {publicFavorites !== null && publicFavorites.map((game) => (
                             <Tag key={game} color='green'>
                                 {game}
                             </Tag>
