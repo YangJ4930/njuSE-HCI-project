@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Row, Col, Space, Card, Carousel, Layout} from 'antd';
-import "bootstrap/dist/css/bootstrap.css"
-import "bootstrap/dist/js/bootstrap.js"
+import React, { Component } from 'react';
+import { Row, Col, Space, Card, Carousel } from 'antd';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import GameListItem from '../../component/gameListItem';
 import gameImage from "../../static/gameImage2.jpg";
 import homeImage1 from "../../static/homePlay1.png"
@@ -9,18 +9,21 @@ import homeImage2 from "../../static/homePlay2.png"
 import homeImage3 from "../../static/homePlay3.png"
 import homeImage4 from "../../static/homePlay4.png"
 
-const {Header, Footer, Sider, Content} = Layout;
+const contentStyle = {
+    margin: 0,
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79'
+};
+
 class HomeView extends Component {
-    state = {}
+    state = {};
 
     render() {
         return (
             <React.Fragment>
-                {/*<Header style={{background: '#001529'}}>*/}
-                {/*    <Row justify="space-between" align="middle" style={{height: '100%'}}>*/}
-                {/*        <span style={{fontSize: 18, lineHeight: 1.4, color: "white",}}>首页</span>*/}
-                {/*    </Row>*/}
-                {/*</Header>*/}
                 <Row>
                     <Col span={16} >
                        <HomeSwiper/>
@@ -28,42 +31,45 @@ class HomeView extends Component {
                             <Col span={11}>
                                 比赛
                                 <Card>
-                                    <h2>
-                                        比赛现状
-                                    </h2>
+                                    <h2>比赛现状</h2>
                                 </Card>
                             </Col>
                             <Col span={12}>
                                 社区话题
                                 <Card>
-                                    <h2>
-                                        最热社区
-                                    </h2>
+                                    <h2>最热社区</h2>
                                 </Card>
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={7}>
-                        <Card style={{width: 370}}>
-                            <h1>游戏排行榜</h1>
+
+                    <Col span={6}>
+                        <Card style={{ width: 250 }}>
+                            <h2>游戏排行榜</h2>
                             <GameListItem
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                id="1" title="游戏1"></GameListItem>
+                                id="1"
+                                title="游戏1"
+                            ></GameListItem>
                             <GameListItem
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                id="1" title="游戏1"></GameListItem>
+                                id="1"
+                                title="游戏1"
+                            ></GameListItem>
                             <GameListItem
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                id="1" title="游戏1"></GameListItem>
+                                id="1"
+                                title="游戏1"
+                            ></GameListItem>
                             <GameListItem
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                id="1" title="游戏1"></GameListItem>
+                                id="1"
+                                title="游戏1"
+                            ></GameListItem>
                         </Card>
                     </Col>
                 </Row>
             </React.Fragment>
-
-
         );
     }
 
@@ -103,6 +109,7 @@ const HomeSwiper = ()=>{
             </Carousel>
 
     )
+
 }
 
 export default HomeView;

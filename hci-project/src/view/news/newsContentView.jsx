@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { useSearchParams} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import "bootstrap/dist/css/bootstrap.css"
-import "bootstrap/dist/js/bootstrap.js"
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 // import "../assets/css/main.css"
 import { Comment } from '@ant-design/compatible';
 import {Avatar, Card, Col, Image, Layout, Row, Typography,} from 'antd';
 
-let content = ["a", "b", "c", "d"]
-const {Header, Footer, Sider, Content} = Layout;
-const {Title, Text} = Typography;
 
 import gameImage from '../../static/gameImage1.jpg'
+
+const { Header, Footer, Sider, Content } = Layout;
+const { Title, Text } = Typography;
 function NewsContentView() {
     let [searchParams, setSearchParams] = useSearchParams();
 

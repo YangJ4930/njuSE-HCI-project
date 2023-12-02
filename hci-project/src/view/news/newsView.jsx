@@ -7,8 +7,22 @@ import axios from "axios";
 import {th} from "@faker-js/faker";
 import {NewHead} from "./component/newHead";
 import {NewsListCard} from "./component/newsListCard";
+const contentStyle = {
+    margin: 0,
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79'
+};
 
-  const ListNews = ({data}) => (
+const IconText = ({ text }) => (
+    <Space>
+        {/* {React.createElement(icon)} */}
+        {text}
+    </Space>
+);
+const ListNews = ({ data }) => (
     <List
         itemLayout="vertical"
         size="large"
@@ -16,12 +30,12 @@ import {NewsListCard} from "./component/newsListCard";
             onChange: (page) => {
                 console.log(page);
             },
-            pageSize: 3,
+            pageSize: 3
         }}
         dataSource={data}
         footer={
             <div>
-            <b>ant design</b> footer part
+                <b>ant design</b> footer part
             </div>
         }
         renderItem={(item) => (
@@ -42,21 +56,21 @@ import {NewsListCard} from "./component/newsListCard";
             </List.Item>
         )}
     />
-    );
+);
 
 
-function NewsView(){
-        const [newsList, setNewsList] = React.useState([]);
+function NewsView() {
+    const [newsList, setNewsList] = React.useState([]);
 
-        React.useEffect(()=>{
-            axios.get("http://localhost:8080/news/content").then((response) => {
-                setNewsList(response.data);
-                console.log(response.data)
-            })
-        },[])
+    React.useEffect(() => {
+        axios.get('http://localhost:8080/news/content').then((response) => {
+            setNewsList(response.data);
+            console.log(response.data);
+        });
+    }, []);
 
-        let data = Array.from({
-        length: newsList.length,
+    let data = Array.from({
+        length: newsList.length
     }).map((_, i) => ({
         // ?chapter=${web.id}
         href: `/news/content/?document=${newsList[i].id}`,
@@ -76,5 +90,5 @@ function NewsView(){
             
         );
 }
- 
+
 export default NewsView;

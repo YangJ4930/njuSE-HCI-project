@@ -5,13 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsList.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsListCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/app.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/app.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/component/gameListItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/gameListItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/layout/Menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/Menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/community.css" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/community.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/communitydetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/communitydetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/post.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/newsContentView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/newsContentView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/newsView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/newsView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/userView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/userView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/vite.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +40,8 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/hci-project" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -41,7 +60,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev__news&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/charlie/Code/2023_Fall/HCI/njuSE-HCI-project/hci-project&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/project/njuse/3/hci/njuSE-HCI-project&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -66,11 +85,23 @@
       <workItem from="1701275673785" duration="2440000" />
       <workItem from="1701361272903" duration="4206000" />
       <workItem from="1701487714114" duration="2392000" />
-      <workItem from="1701518862868" duration="1786000" />
+      <workItem from="1701518862868" duration="3097000" />
+      <workItem from="1701522565055" duration="345000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
