@@ -38,7 +38,7 @@ const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
-    const isLogin = useSelector((state) => state.auth.saTokenInfo.isLogin);
+    const isLogin = useSelector((state) => state.auth.isLogin);
     let SearchLog = () => {
         console.log('hello');
         navigate('/search');

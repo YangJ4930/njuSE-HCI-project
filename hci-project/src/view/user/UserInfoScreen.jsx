@@ -16,7 +16,7 @@ const UserInfoScreen = (props) => {
     const tokenName = useSelector((state) => state.auth.saTokenInfo.tokenName);
     const tokenValue = useSelector((state) => state.auth.saTokenInfo.tokenValue);
     const userId = useSelector((state) => state.auth.saTokenInfo.loginId);
-    const isLogin = useSelector((state) => state.auth.saTokenInfo.isLogin);
+    const isLogin = useSelector((state) => state.auth.isLogin);
 
     useEffect(() => {
         if (isLogin) {
@@ -38,7 +38,7 @@ const UserInfoScreen = (props) => {
             console.log('login state: ' + isLogin);
             navigate('/news');
         }
-    }, [isLogin, dispatch]);
+    }, [isLogin]);
     return (
         <Col>
             <Row
