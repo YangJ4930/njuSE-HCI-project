@@ -3,17 +3,28 @@ import {createSlice} from '@reduxjs/toolkit';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        tokenName: sessionStorage.getItem('tokenName'),
-        tokenValue: sessionStorage.getItem('tokenValue'),
-        isLogin: sessionStorage.getItem('isLogin') === 'true',
-        loginId: parseInt(sessionStorage.getItem('loginId')),
+        saTokenInfo: {
+            tokenName: sessionStorage.getItem('tokenName'),
+            tokenValue: sessionStorage.getItem('tokenValue'),
+            isLogin: sessionStorage.getItem('isLogin') === 'true',
+            loginId: parseInt(sessionStorage.getItem('loginId')),
+        },
+        msg: '',
     },
     reducers: {
         login: (state, action) => {
-            state.tokenName = action.payload.tokenName;
-            state.tokenValue = action.payload.tokenValue;
-            state.isLogin = action.payload.isLogin;
-            state.loginId = action.payload.loginId;
+            console.log(action.payload);
+
+            state.saTokenInfo.tokenName = action.payload.saTokenInfo.tokenName;
+            state.saTokenInfo.tokenValue = action.payload.saTokenInfo.tokenValue;
+            state.saTokenInfo.isLogin = true;
+            state.saTokenInfo.loginId = action.payload.saTokenInfo.loginId;
+            state.msg = action.payload.msg;
+
+            sessionStorage.setItem('tokenName', state.saTokenInfo.tokenName);
+            sessionStorage.setItem('tokenValue', state.saTokenInfo.tokenValue);
+            sessionStorage.setItem('isLogin', 'true');
+            sessionStorage.setItem('loginId', state.saTokenInfo.loginId);
         },
         logout: (state) => {
             state.isLogin = false;

@@ -4,12 +4,13 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "../../axios";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../features/user/authSlice";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import backgroundImage from '../../assets/img/loginBackground_3.jpg';
 
 function RegisterScreen(props) {
     const authInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const history = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,8 +21,10 @@ function RegisterScreen(props) {
         axios.post('/users/register', {email, password, username})
             .then((response) => {
                 const registerData = response.data;
+
                 console.log(registerData);
                 //     注册成功后自动登录
+                history('/user/login');
             })
             .catch((error) => {
                 console.error(error);
