@@ -75,42 +75,81 @@ export default ({ command, mode }) => {
                   // 支持内联 JavaScript
                   javascriptEnabled: true,
               },
-              define: define,
-              server: {
-                  // 代理
-                  proxy
-              },
-              build: {
-                  target: 'es2015',
-                  minify: 'terser', // 是否进行压缩,boolean | 'terser' | 'esbuild',默认使用terser
-                  manifest: false, // 是否产出maifest.json
-                  sourcemap: false, // 是否产出soucemap.json
-                  outDir: 'build', // 产出目录
-                  rollupOptions
-              },
-              esbuild,
-              optimizeDeps,
-              plugins: [
-                  legacyPlugin({
-                      targets: [
-                          'Android > 39',
-                          'Chrome >= 60',
-                          'Safari >= 10.1',
-                          'iOS >= 10.3',
-                          'Firefox >= 54',
-                          'Edge >= 15'
-                      ]
-                  }),
-                  vitePluginReactJsSupport([], {
-                      jsxInject: true
-                  }),
-                  reactRefresh()
-              ],
-              css: {
-                  preprocessorOptions: {
-                      less: {
-                          // 支持内联 JavaScript
-                          javascriptEnabled: true
+          },
+          define: define,
+          server: {
+              // 代理
+              proxy,
+          },
+          build: {
+              target: "es2015",
+              minify: "terser", // 是否进行压缩,boolean | 'terser' | 'esbuild',默认使用terser
+              manifest: false, // 是否产出maifest.json
+              sourcemap: false, // 是否产出soucemap.json
+              outDir: "build", // 产出目录
+              rollupOptions,
+          },
+          esbuild,
+
+          plugins: [
+              legacyPlugin({
+                  targets: [
+                      "Android > 39",
+                      "Chrome >= 60",
+                      "Safari >= 10.1",
+                      "iOS >= 10.3",
+                      "Firefox >= 54",
+                      "Edge >= 15",
+                  ],
+              }),
+              vitePluginReactJsSupport([], {
+                  jsxInject: true,
+              }),
+              reactRefresh(),
+          ],
+          css: {
+              preprocessorOptions: {
+                  less: {
+                      // 支持内联 JavaScript
+                      javascriptEnabled: true,
+                  },
+                  define: define,
+                  server: {
+                      // 代理
+                      proxy
+                  },
+                  build: {
+                      target: 'es2015',
+                      minify: 'terser', // 是否进行压缩,boolean | 'terser' | 'esbuild',默认使用terser
+                      manifest: false, // 是否产出maifest.json
+                      sourcemap: false, // 是否产出soucemap.json
+                      outDir: 'build', // 产出目录
+                      rollupOptions
+                  },
+                  esbuild,
+                  optimizeDeps,
+                  plugins: [
+                      legacyPlugin({
+                          targets: [
+                              'Android > 39',
+                              'Chrome >= 60',
+                              'Safari >= 10.1',
+                              'iOS >= 10.3',
+                              'Firefox >= 54',
+                              'Edge >= 15'
+                          ]
+                      }),
+                      vitePluginReactJsSupport([], {
+                          jsxInject: true
+                      }),
+                      reactRefresh()
+                  ],
+                  css: {
+                      preprocessorOptions: {
+                          less: {
+                              // 支持内联 JavaScript
+                              javascriptEnabled: true
+                          }
                       }
                   }
               }

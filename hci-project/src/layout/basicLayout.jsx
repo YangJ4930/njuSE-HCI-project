@@ -31,6 +31,7 @@ import {LoginScreen} from "../view/user/LoginScreen";
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
+
 const {Search} = Input;
 
 const BasicLayout = () => {

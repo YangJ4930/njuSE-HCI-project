@@ -12,6 +12,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
 
+
 function GameDetailView(props) {
     const { gameId } = useParams();
 

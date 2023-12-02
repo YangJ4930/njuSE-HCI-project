@@ -9,7 +9,6 @@ import homeImage2 from "../../static/homePlay2.png"
 import homeImage3 from "../../static/homePlay3.png"
 import homeImage4 from "../../static/homePlay4.png"
 
-
 const contentStyle = {
     margin: 0,
     height: '160px',
@@ -66,7 +65,6 @@ class HomeView extends Component {
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                                 id="1"
                                 title="游戏1"
-
                             ></GameListItem>
                         </Card>
                     </Col>

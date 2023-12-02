@@ -8,6 +8,7 @@ import {th} from "@faker-js/faker";
 import {NewHead} from "./component/newHead";
 import {NewsListCard} from "./component/newsListCard";
 
+
 const contentStyle = {
     margin: 0,
     height: '160px',
@@ -16,7 +17,6 @@ const contentStyle = {
     textAlign: 'center',
     background: '#364d79'
 };
-
 
 const IconText = ({ text }) => (
     <Space>
@@ -55,7 +55,6 @@ const ListNews = ({ data }) => (
                 title={<Link className="nav-link" to={item.href}><h5>{item.title}</h5></Link>}
             />
                 <div style={{fontSize: 18, fontStyle: "italic", color: "rgb(110,110,110, 0.7)"}}>{item.description}</div>
-
             </List.Item>
         )}
     />

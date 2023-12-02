@@ -23,6 +23,7 @@ function NewsContentView() {
                 </Header>
                 <br/>
                 <Content style={{padding: '20px'}}>
+
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
                             <NewsDetail />

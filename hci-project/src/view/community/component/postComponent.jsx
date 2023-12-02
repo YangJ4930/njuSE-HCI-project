@@ -5,7 +5,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
 import { useForm } from 'antd/es/form/Form';
 
-
 const PostC=(from,file)=>{
     const fd=new FormData()
     file.map((item)=>{

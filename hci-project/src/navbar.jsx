@@ -6,6 +6,7 @@ class Navbar extends Component {
     render() {
         return (
 <<<<<<< HEAD
+<<<<<<< HEAD
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
@@ -37,6 +38,8 @@ class Navbar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">
 =======
+=======
+>>>>>>> origin/dev
             <nav className='navbar navbar-expand-lg bg-body-tertiary'>
                 <div className='container'>
                     <Link className='navbar-brand' to='/'>
@@ -67,11 +70,15 @@ class Navbar extends Component {
                             </li>
                             <li className='nav-item'>
                                 <Link className='nav-link' to='/'>
+<<<<<<< HEAD
 >>>>>>> dev
+=======
+>>>>>>> origin/dev
                                     2
                                 </Link>
                             </li>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                             <li class="nav-item dropdown">
                                 <a
@@ -93,6 +100,8 @@ class Navbar extends Component {
                                     <li>
                                         <a href="#scrollspyHeading5">Fifth</a>
 =======
+=======
+>>>>>>> origin/dev
                             <li className='nav-item dropdown'>
                                 <a
                                     className='nav-link dropdown-toggle'
@@ -112,12 +121,16 @@ class Navbar extends Component {
                                     </li>
                                     <li>
                                         <a href='#scrollspyHeading5'>Fifth</a>
+<<<<<<< HEAD
 >>>>>>> dev
+=======
+>>>>>>> origin/dev
                                     </li>
                                 </ul>
                             </li>
                         </ul>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item">
@@ -128,6 +141,8 @@ class Navbar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">
 =======
+=======
+>>>>>>> origin/dev
                         <ul className='navbar-nav mb-2 mb-lg-0'>
                             <li className='nav-item'>
                                 <Link className='nav-link' to='/'>
@@ -136,7 +151,10 @@ class Navbar extends Component {
                             </li>
                             <li className='nav-item'>
                                 <Link className='nav-link' to='/'>
+<<<<<<< HEAD
 >>>>>>> dev
+=======
+>>>>>>> origin/dev
                                     登录
                                 </Link>
                             </li>

@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
+      <change afterPath="$PROJECT_DIR$/node_modules/.yarn-integrity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/public/manifest.json" afterDir="false" />
@@ -89,7 +90,7 @@
       <workItem from="1701361272903" duration="4206000" />
       <workItem from="1701487714114" duration="2392000" />
       <workItem from="1701518862868" duration="3097000" />
-      <workItem from="1701522565055" duration="1996000" />
+      <workItem from="1701522565055" duration="3029000" />
     </task>
     <servers />
   </component>
