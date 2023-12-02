@@ -23,7 +23,7 @@ function NewsContentView() {
                     <Row justify="space-between" align="middle" style={{height: '100%'}}>
                     </Row>
                 </Header>
-
+                <br/>
                 <Content style={{padding: '20px'}}>
                     <Row gutter={[24, 24]}>
                         <Col span={24}>

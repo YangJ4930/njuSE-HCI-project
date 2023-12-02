@@ -1,44 +1,31 @@
 import React, {Component} from 'react';
-import {Row, Col, Space, Card, Carousel} from 'antd';
+import {Row, Col, Space, Card, Carousel, Layout} from 'antd';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import GameListItem from '../../component/gameListItem';
+import gameImage from "../../static/gameImage2.jpg";
+import homeImage1 from "../../static/homePlay1.png"
+import homeImage2 from "../../static/homePlay2.png"
+import homeImage3 from "../../static/homePlay3.png"
+import homeImage4 from "../../static/homePlay4.png"
 
-
-const contentStyle = {
-    margin: 0,
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-};
-
-
+const {Header, Footer, Sider, Content} = Layout;
 class HomeView extends Component {
     state = {}
 
     render() {
         return (
             <React.Fragment>
+                {/*<Header style={{background: '#001529'}}>*/}
+                {/*    <Row justify="space-between" align="middle" style={{height: '100%'}}>*/}
+                {/*        <span style={{fontSize: 18, lineHeight: 1.4, color: "white",}}>首页</span>*/}
+                {/*    </Row>*/}
+                {/*</Header>*/}
                 <Row>
-                    <Col span={17} style={{marginRight: 10}}>
-                        <Carousel autoplay>
-                            <div>
-                                <h3 style={contentStyle}>1</h3>
-                            </div>
-                            <div>
-                                <h3 style={contentStyle}>2</h3>
-                            </div>
-                            <div>
-                                <h3 style={contentStyle}>3</h3>
-                            </div>
-                            <div>
-                                <h3 style={contentStyle}>4</h3>
-                            </div>
-                        </Carousel>
+                    <Col span={16} >
+                       <HomeSwiper/>
                         <Row>
-                            <Col span={12}>
+                            <Col span={11}>
                                 比赛
                                 <Card>
                                     <h2>
@@ -56,9 +43,9 @@ class HomeView extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={6}>
-                        <Card style={{width: 300, marginLeft: 70}}>
-                            <h2>游戏排行榜</h2>
+                    <Col span={7}>
+                        <Card style={{width: 370}}>
+                            <h1>游戏排行榜</h1>
                             <GameListItem
                                 address="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                                 id="1" title="游戏1"></GameListItem>
@@ -80,11 +67,42 @@ class HomeView extends Component {
         );
     }
 
+}
 
-    deal = () => {
-        console.log("111");
-    }
+const HomeSwiper = ()=>{
+    return(
+            <Carousel autoplay>
+                <div>
+                    <img
+                        src={homeImage1}
+                        alt="Game"
+                        style={{height: '100%', width: '100%', objectFit: 'cover'}}
+                    />
+                </div>
+                <div>
+                    <img
+                        src={homeImage2}
+                        alt="Game"
+                        style={{height: '100%', width: '100%', objectFit: 'cover'}}
+                    />
+                </div>
+                <div>
+                    <img
+                        src={homeImage3}
+                        alt="Game"
+                        style={{height: '100%', width: '100%', objectFit: 'cover'}}
+                    />
+                </div>
+                <div>
+                    <img
+                        src={homeImage4}
+                        alt="Game"
+                        style={{height: '100%', width: '100%', objectFit: 'cover'}}
+                    />
+                </div>
+            </Carousel>
 
+    )
 }
 
 export default HomeView;
