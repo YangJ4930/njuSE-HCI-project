@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Divider, Card } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import { Route, Routes } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
+import {Link, useNavigate} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import HomeView from '../view/home/homeView';
 import NewsView from '../view/news/newsView';
 import SearchView from '../view/search/searchView';
@@ -17,24 +17,27 @@ import {
     HomeOutlined,
     ReadOutlined,
     TeamOutlined,
-    UserOutlined
+    UserOutlined,
 } from '@ant-design/icons';
 import NewsContentView from '../view/news/newsContentView';
 import PostComponent from '../view/community/component/postComponent';
-import Communitydetail from '../view/community/component/communitydetail';
-import './Menu.css';
+import Communitydetail from '../component/communitydetail';
+import './Menu.css'
 
 import GameDetailView from '../component/gameDetailView';
+import {useSelector} from 'react-redux';
+import {RegisterScreen} from "../view/user/RegisterScreen";
+import {LoginScreen} from "../view/user/LoginScreen";
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
-
-const { Search } = Input;
+const {Search} = Input;
 
 const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
-
+    const userInfo = useSelector((state) => state.user);
+    const isLogin = useSelector((state) => state.auth.isLogin);
     let SearchLog = () => {
         console.log('hello');
         navigate('/search');
@@ -42,76 +45,80 @@ const BasicLayout = () => {
 
     return (
         <Layout>
-            <Sider theme="light" collapsible>
-                <Card bordered={false} hoverable className="av" layout="center" direction="column">
+            <Sider theme='light' collapsible>
+                <Card bordered={false} hoverable className='av' layout='center' direction='column'>
                     <Card.Meta
                         avatar={
-                            <Link className="nav-link" to="/user">
-                                <Avatar
-                                    size="large"
-                                    src={
-                                        <img
-                                            width="40"
-                                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                        ></img>
-                                    }
-                                />
+                            <Link className='nav-link' to='/user'>
+                                {
+                                    isLogin === true ?
+                                        <Avatar
+                                            size='large'
+                                            src={<img width='40' src={userInfo.avatarUrl}></img>}
+                                        /> : <Button
+                                            type='primary'
+                                            shape='round'
+                                            size='large'
+                                        >登录</Button>
+                                }
                             </Link>
                         }
                         description={
-                            <>
-                                <div className="v">杨京</div>
-                                <div className="vi">
-                                    <p>
-                                        <span className="qai">杨京，我爱上人机交互的课</span>
-                                    </p>
-                                </div>
-                            </>
+                            isLogin === true ? (
+                                <>
+                                    <div className='v'>{userInfo.username}</div>
+                                    <div className='vi'>
+                                        <p>
+                                            <span className='qai'>{userInfo.description}</span>
+                                        </p>
+                                    </div>
+                                </>
+                            ) : <></>
                         }
                     ></Card.Meta>
                     <p></p>
                 </Card>
                 <Menu
-                    className="a"
+                    className='a'
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
-                    mode="inline"
-                    theme="dark"
+                    mode='inline'
+                    theme='dark'
                     inlineCollapsed={collapsed}
                 >
-                    <Menu.Item key="1" icon={<HomeOutlined />}>
-                        <Link className="nav-link" aria-current="page" to="/">
+                    <Menu.Item key='1' icon={<HomeOutlined/>}>
+                        <Link className='nav-link' aria-current='page' to='/'>
                             Home
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<UserOutlined />}>
-                        <Link className="nav-link" to="/explore">
+                    <Menu.Item key='2' icon={<UserOutlined/>}>
+                        <Link className='nav-link' to='/explore'>
                             explore
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="3" icon={<ReadOutlined />}>
-                        <Link className="nav-link" to="/news">
+                    <Menu.Item key='3' icon={<ReadOutlined/>}>
+                        <Link className='nav-link' to='/news'>
                             News
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="4" icon={<TeamOutlined />}>
-                        <Link className="nav-link" to="/community">
+                    <Menu.Item key='4' icon={<TeamOutlined/>}>
+                        <Link className='nav-link' to='/community'>
                             社区
                         </Link>
                     </Menu.Item>
                     <SubMenu
-                        key="sub1"
+                        key='sub1'
                         title={
                             <span>
                                 <span>Navigation One</span>
                             </span>
                         }
-                        icon={<HeartOutlined />}
+                        icon={<HeartOutlined/>}
                     >
-                        <Menu.Item key="5">Option 5</Menu.Item>
-                        <Menu.Item key="6">Option 6</Menu.Item>
-                        <Menu.Item key="7">Option 7</Menu.Item>
-                        <Menu.Item key="8">Option 8</Menu.Item>
+                        <Menu.Item key='5'>Option 5</Menu.Item>
+                        <Menu.Item key='6'>Option 6</Menu.Item>
+                        <Menu.Item key='7'>Option 7</Menu.Item>
+                        <Menu.Item key='8'>Option 8</Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>
@@ -120,60 +127,68 @@ const BasicLayout = () => {
                 <Header
                     style={{
                         background: '#fff',
-                        padding: 0
+                        padding: 0,
                     }}
                 >
                     <Search
-                        placeholder="input search text"
+                        placeholder='input search text'
                         allowClear
-                        enterButton="Search"
-                        size="large"
+                        enterButton='Search'
+                        size='large'
                         style={{
                             width: 300,
-                            float: 'right'
+                            float: 'right',
                         }}
                         // onClick={this.state.SearchLog}
                         onSearch={SearchLog}
                     />
                 </Header>
 
-                <Content style={{ margin: '24px 16px 0' }}>
+                <Content style={{margin: '24px 16px 0'}}>
                     <div
                         style={{
                             padding: 24,
                             background: '#fff',
-                            minHeight: 360
+                            minHeight: 360,
                         }}
                     >
                         <Routes>
-                            <Route path="/" element={<HomeView></HomeView>}></Route>
-                            <Route path="/search" element={<SearchView></SearchView>}></Route>
-                            <Route path="/news" element={<NewsView></NewsView>}></Route>
+                            <Route path='/' element={<HomeView></HomeView>}></Route>
+                            <Route path='/search' element={<SearchView></SearchView>}></Route>
+                            <Route path='/news' element={<NewsView></NewsView>}></Route>
                             <Route
-                                path="/news/content"
+                                path='/news/content'
                                 element={<NewsContentView></NewsContentView>}
                             ></Route>
                             <Route
-                                path="/community"
+                                path='/community'
                                 element={<CommunityView></CommunityView>}
                             ></Route>
-                            <Route path="/explore" element={<ExploreView></ExploreView>}></Route>
+                            <Route path='/explore' element={<ExploreView></ExploreView>}></Route>
                             <Route
-                                path="/explore_gameRepositoryView"
+                                path='/explore_gameRepositoryView'
                                 element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}
                             ></Route>
-                            <Route path="/user" element={<UserView></UserView>}></Route>
+                            <Route path='/user' element={<UserView></UserView>}></Route>
                             <Route
-                                path="/component/postComponent"
+                                path='/component/postComponent'
                                 element={<PostComponent></PostComponent>}
                             ></Route>
                             <Route
-                                path="/component/Communitydetail"
+                                path='/component/Communitydetail'
                                 element={<Communitydetail></Communitydetail>}
                             ></Route>
                             <Route
-                                path="/game/:gameId"
+                                path='/game/:gameId'
                                 element={<GameDetailView></GameDetailView>}
+                            ></Route>
+                            <Route
+                                path={'/user/register'}
+                                element={<RegisterScreen></RegisterScreen>}
+                            ></Route>
+                            <Route
+                                path={'/user/login'}
+                                element={<LoginScreen></LoginScreen>}
                             ></Route>
                         </Routes>
                     </div>

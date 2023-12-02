@@ -7,6 +7,7 @@ import logo from '../static/Store.svg';
 import gameImage from '../static/gameImage2.jpg';
 import gameLogo from '../static/logo.png';
 
+
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -17,9 +18,9 @@ function GameDetailView(props) {
     return (
         <Layout>
             <Header style={{ background: '#001529' }}>
-                <Row justify="space-between" align="middle" style={{ height: '100%' }}>
+                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                     <Col>
-                        <img src={logo} alt="Logo" style={{ height: '50px' }} />
+                        <img src={logo} alt='Logo' style={{ height: '50px' }} />
                     </Col>
                 </Row>
             </Header>
@@ -43,13 +44,13 @@ function GameGallery() {
     return (
         <Carousel autoplay>
             <div>
-                <img src={gameImage} alt="Game" style={{ height: '400px', objectFit: 'cover' }} />
+                <img src={gameImage} alt='Game' style={{ height: '400px', objectFit: 'cover' }} />
             </div>
             <div>
-                <img src={gameImage} alt="Game" style={{ height: '400px', objectFit: 'cover' }} />
+                <img src={gameImage} alt='Game' style={{ height: '400px', objectFit: 'cover' }} />
             </div>
             <div>
-                <img src={gameImage} alt="Game" style={{ height: '400px', objectFit: 'cover' }} />
+                <img src={gameImage} alt='Game' style={{ height: '400px', objectFit: 'cover' }} />
             </div>
         </Carousel>
     );
@@ -103,10 +104,10 @@ function GameInfo() {
     return (
         <Card
             cover={
-                <img src={gameLogo} alt="Game" style={{ height: '300px', objectFit: 'cover' }} />
+                <img src={gameLogo} alt='Game' style={{ height: '300px', objectFit: 'cover' }} />
             }
         >
-            <Card.Meta title="Alan Wake 2" description="Alan Wake 2 是一款惊悚冒险游戏" />
+            <Card.Meta title='Alan Wake 2' description='Alan Wake 2 是一款惊悚冒险游戏' />
             <div style={{ marginTop: '16px' }}>
                 <Title level={5}>游戏详情</Title>
                 <Text strong>发布日期：</Text>

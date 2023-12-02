@@ -55,20 +55,20 @@ function Discounts() {
                 <h3>特惠游戏</h3>
                 <Link
                     to={{
-                        pathname: '/explore_gameRepositoryView'
+                        pathname: '/explore_gameRepositoryView',
                     }}
                 >
                     <svg
-                        className="icon_rightArrow"
-                        viewBox="0 0 1024 1024"
-                        version="1.1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
+                        className='icon_rightArrow'
+                        viewBox='0 0 1024 1024'
+                        version='1.1'
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='30'
+                        height='30'
                     >
                         <path
-                            d="M733.44 550.464a54.4 54.4 0 0 0 0-76.928l-379.52-379.52A48 48 0 0 0 286.08 161.92L636.16 512l-350.08 350.08a48 48 0 1 0 67.84 67.84l379.52-379.456z"
-                            fill="#2c2c2c"
+                            d='M733.44 550.464a54.4 54.4 0 0 0 0-76.928l-379.52-379.52A48 48 0 0 0 286.08 161.92L636.16 512l-350.08 350.08a48 48 0 1 0 67.84 67.84l379.52-379.456z'
+                            fill='#2c2c2c'
                         ></path>
                     </svg>
                 </Link>

@@ -14,10 +14,10 @@ class GameListItem extends Component {
                 <Divider />
                 <img
                     src={this.props.address}
-                    alt="logo"
+                    alt='logo'
                     style={{ float: left, width: 30, height: 30, marginRight: 20 }}
                 />
-                <Link className="nav-link" to={`/game/${this.props.id}`} style={{}}>
+                <Link className='nav-link' to={`/game/${this.props.id}`} style={{}}>
                     {this.props.title}
                 </Link>
             </React.Fragment>
