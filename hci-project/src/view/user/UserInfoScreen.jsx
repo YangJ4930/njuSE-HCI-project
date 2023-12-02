@@ -1,27 +1,28 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import axios from "../../axios";
-import {fetchUserFailure, fetchUserSuccess} from "../../features/user/userSlice";
-import {Avatar, Card, Col, Divider, Flex, Row, Tag} from "antd";
+import {fetchUserSuccess} from "../../features/user/userSlice";
+import {Avatar, Card, Col, Divider, Flex, Row, Tag, Tooltip} from "antd";
 import {useNavigate} from "react-router-dom";
 import Meta from "antd/es/card/Meta";
-import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
+import {EditOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
 import {faker} from "@faker-js/faker";
+import {logout} from "../../features/user/authSlice";
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
     const dispatch = useDispatch();
-
-    const tokenName = useSelector((state) => state.auth.tokenName);
-    const tokenValue = useSelector((state) => state.auth.tokenValue);
-    const userId = useSelector((state) => state.auth.loginId);
-    const isLogin = useSelector((state) => state.auth.isLogin);
+    const navigate = useNavigate();
+    const tokenName = useSelector((state) => state.auth.saTokenInfo.tokenName);
+    const tokenValue = useSelector((state) => state.auth.saTokenInfo.tokenValue);
+    const userId = useSelector((state) => state.auth.saTokenInfo.loginId);
+    const isLogin = useSelector((state) => state.auth.saTokenInfo.isLogin);
 
     useEffect(() => {
         if (isLogin) {
             axios
                 .get(`/users/${userId}`,
-                    {headers: {[tokenName]: tokenValue}}
+                    {headers: {tokenName: tokenValue}}
                 )
                 .then((response) => {
                     console.log(response);
@@ -29,11 +30,15 @@ const UserInfoScreen = (props) => {
                     dispatch(fetchUserSuccess(userData)); // 成功获取用户数据
                 })
                 .catch((error) => {
+                    console.log('login state: ' + isLogin);
+                    navigate('/user');
                     console.error(error);
-                    dispatch(fetchUserFailure()); // 获取用户数据失败
                 });
+        } else {
+            console.log('login state: ' + isLogin);
+            navigate('/news');
         }
-    }, []);
+    }, [isLogin, dispatch]);
     return (
         <Col>
             <Row
@@ -72,7 +77,8 @@ const GameInventory = (props) => {
     const gameInventory = props.gameInventory;
     const navigate = useNavigate();
 
-    const onClick = (e, gameId) => {
+
+    const handleGameItemClick = (e, gameId) => {
         console.log(e);
         navigate(`/game/${gameId}`);
     };
@@ -89,7 +95,7 @@ const GameInventory = (props) => {
                             width: 250,
                             textAlign: 'center',
                         }}
-                        onClick={(e) => onClick(e, game.id)}
+                        onClick={(e) => handleGameItemClick(e, game.id)}
                     >
                         <Meta title={game.name}/>
                     </Card>
@@ -105,6 +111,21 @@ const UserAvatar = (props) => {
     const avatarUrl = props.avatarUrl;
     const cardBackgroundUrl = props.cardBackgroundUrl;
     const description = props.description;
+
+    const dispatch = useDispatch();
+    const handleLogoutClick = (e) => {
+        console.log(e);
+        dispatch(logout());
+        axios.post('/users/logout')
+            .then((response) => {
+                console.log(response);
+                dispatch(logout());
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     return (
         <Col>
             <Card
@@ -115,9 +136,15 @@ const UserAvatar = (props) => {
                 }}
                 cover={<img alt='example' src={cardBackgroundUrl}/>}
                 actions={[
-                    <SettingOutlined key='setting'/>,
-                    <EditOutlined key='edit'/>,
-                    <EllipsisOutlined key='ellipsis'/>,
+                    <Tooltip key={'setting'} title={'设置'}>
+                        <SettingOutlined/>
+                    </Tooltip>,
+                    <Tooltip key='edit' title={'修改个人信息'}>
+                        <EditOutlined/>
+                    </Tooltip>,
+                    <Tooltip key={'logout'} title={'退出登录'}>
+                        <LogoutOutlined onClick={(e) => handleLogoutClick(e)}/>
+                    </Tooltip>
                 ]}
             >
                 <Meta
@@ -125,7 +152,12 @@ const UserAvatar = (props) => {
                     title={username}
                     description={description}
                 />
-                <Tag color={'default'}>等级：{level}</Tag>
+                <Tag color={'default'}
+                     style={{
+                         marginTop: '20px',
+                     }}
+                >等级：{level}
+                </Tag>
             </Card>
         </Col>
     );

@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import {Button, Card, Checkbox, Flex, Form, Input, message, Row} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "../../axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {login} from "../../features/user/authSlice";
 import {Link, useNavigate} from "react-router-dom";
 import backgroundImage from '../../assets/img/loginBackground_3.jpg';
 
 
 function LoginScreen(props) {
-    const authInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,7 +25,7 @@ function LoginScreen(props) {
 
                 dispatch(login(loginData));
 
-                history('/user');
+                navigate('/user');
             })
             .catch((error) => {
                 console.error(error);

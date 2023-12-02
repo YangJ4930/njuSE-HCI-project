@@ -20,14 +20,11 @@ export const userSlice = createSlice({
         fetchUserSuccess: (state, action) => {
             return action.payload;
         },
-        fetchUserFailure: (state) => {
-            state.user = null;
-        },
         setUserId: (state, action) => {
             state.id = action.payload;
         }
     },
 });
 
-export const {setUserId, fetchUserFailure, fetchUserSuccess, login, logout} = userSlice.actions;
+export const {setUserId, fetchUserSuccess} = userSlice.actions;
 export default userSlice.reducer;

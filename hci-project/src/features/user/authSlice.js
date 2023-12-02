@@ -13,7 +13,7 @@ const authSlice = createSlice({
     },
     reducers: {
         login: (state, action) => {
-            console.log(action.payload);
+            console.log('login action.payload: ', action.payload)
 
             state.saTokenInfo.tokenName = action.payload.saTokenInfo.tokenName;
             state.saTokenInfo.tokenValue = action.payload.saTokenInfo.tokenValue;
@@ -24,9 +24,11 @@ const authSlice = createSlice({
             sessionStorage.setItem('tokenName', state.saTokenInfo.tokenName);
             sessionStorage.setItem('tokenValue', state.saTokenInfo.tokenValue);
             sessionStorage.setItem('isLogin', 'true');
-            sessionStorage.setItem('loginId', state.saTokenInfo.loginId);
+            sessionStorage.setItem('loginId', state.saTokenInfo.loginId.toString());
         },
         logout: (state) => {
+            console.log('logout')
+
             state.isLogin = false;
             state.tokenValue = '';
             state.tokenName = '';
