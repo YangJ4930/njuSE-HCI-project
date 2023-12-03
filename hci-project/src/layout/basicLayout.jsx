@@ -157,8 +157,9 @@ const BasicLayout = () => {
                             <Route path='/' element={<HomeView></HomeView>}></Route>
                             <Route path='/search' element={<SearchView></SearchView>}></Route>
                             <Route path='/news' element={<NewsView></NewsView>}></Route>
+                            {/*news/content/:id/*router参数id */}
                             <Route
-                                path='/news/content'
+                                path='/news/content/:id'
                                 element={<NewsContentView></NewsContentView>}
                             ></Route>
                             <Route

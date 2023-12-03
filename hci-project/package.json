@@ -15,6 +15,7 @@
     "antd": "^5.10.0",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.1",
+    "markdown-it": "^13.0.2",
     "rc-virtual-list": "^3.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

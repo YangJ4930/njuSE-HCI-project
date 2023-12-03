@@ -1,31 +1,37 @@
-import React, { Component } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
+import React, {Component, useEffect} from 'react';
+import {useParams, useSearchParams} from 'react-router-dom';
+import {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 // import "../assets/css/main.css"
-import { Comment } from '@ant-design/compatible';
-import { Avatar, Card, Col, Image, Layout, Row, Typography } from 'antd';
+import {Comment} from '@ant-design/compatible';
+import {Avatar, Card, Col, Image, Layout, Row, Typography} from 'antd';
 
 let content = ['a', 'b', 'c', 'd'];
-const { Header, Footer, Sider, Content } = Layout;
-const { Title, Text } = Typography;
+const {Header, Footer, Sider, Content} = Layout;
+const {Title, Text} = Typography;
 
 import gameImage from '../../static/gameImage1.jpg';
+
 function NewsContentView() {
-    let [searchParams, setSearchParams] = useSearchParams();
+    // 新闻id,从路由参数中获取
+    const {id} = useParams();
+
+    useEffect(() => {
+        console.log(id);
+    }, []);
 
     return (
         <React.Fragment>
             <Layout>
-                <Header style={{ background: '#001529' }}>
-                    <Row justify='space-between' align='middle' style={{ height: '100%' }}></Row>
+                <Header style={{background: '#001529'}}>
+                    <Row justify='space-between' align='middle' style={{height: '100%'}}></Row>
                 </Header>
 
-                <Content style={{ padding: '20px' }}>
+                <Content style={{padding: '20px'}}>
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
-                            <NewsDetail />
+                            <NewsDetail/>
                         </Col>
                     </Row>
                 </Content>
@@ -56,8 +62,8 @@ function NewsContentView() {
 const NewsDetail = () => {
     return (
         <Typography>
-            <Title style={{ justifyContent: 'center', textAlign: 'center' }}>空格怎么解决</Title>
-            <Text style={{ justifyContent: 'center', textAlign: 'center' }}>
+            <Title style={{justifyContent: 'center', textAlign: 'center'}}>空格怎么解决</Title>
+            <Text style={{justifyContent: 'center', textAlign: 'center'}}>
                 一系列仪式谋杀案正威胁着亮瀑镇这个位于太平洋西北部，被荒野包围的小镇社区。
                 作为以解决悬案而闻名的联邦调查局资深警探，萨贾·安德森为调查谋杀案而来到此地。
                 当安德森发现一页页恐怖故事开始在身边化为现实时，她的案件陷入了一场噩梦。
@@ -68,11 +74,11 @@ const NewsDetail = () => {
                 韦克的亲人。 他们只能依靠光明作为武器与避风港，来抵御自己面对的黑暗。
                 受困于一个只有受害者和怪物、且凶险恐怖的故事中，他们能否担起命运委以的重任，逆境求生、成功逃脱？
             </Text>
-            <br />
-            <div style={{ justifyContent: 'center', display: 'flex' }}>
-                <Image src={gameImage} style={{ width: 500 }}></Image>
+            <br/>
+            <div style={{justifyContent: 'center', display: 'flex'}}>
+                <Image src={gameImage} style={{width: 500}}></Image>
             </div>
-            <Text style={{ justifyContent: 'center', textAlign: 'center' }}>
+            <Text style={{justifyContent: 'center', textAlign: 'center'}}>
                 一系列仪式谋杀案正威胁着亮瀑镇这个位于太平洋西北部，被荒野包围的小镇社区。
                 作为以解决悬案而闻名的联邦调查局资深警探，萨贾·安德森为调查谋杀案而来到此地。
                 当安德森发现一页页恐怖故事开始在身边化为现实时，她的案件陷入了一场噩梦。
