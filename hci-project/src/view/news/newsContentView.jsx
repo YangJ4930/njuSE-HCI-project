@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, {Component, useEffect} from 'react';
+import {useParams, useSearchParams} from 'react-router-dom';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -7,13 +7,18 @@ import 'bootstrap/dist/js/bootstrap.js';
 import { Comment } from '@ant-design/compatible';
 import { Avatar, Card, Col, Image, Layout, Row, Typography } from 'antd';
 
-import gameImage from '../../static/gameImage1.jpg'
-
+let content = ['a', 'b', 'c', 'd'];
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
+import gameImage from '../../static/gameImage1.jpg';
 function NewsContentView() {
-    let [searchParams, setSearchParams] = useSearchParams();
+    // 新闻id,从路由参数中获取
+    const {id} = useParams();
+
+    useEffect(() => {
+        console.log(id);
+    }, []);
 
     return (
         <React.Fragment>
@@ -23,7 +28,6 @@ function NewsContentView() {
                 </Header>
                 <br/>
                 <Content style={{padding: '20px'}}>
-
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
                             <NewsDetail />
@@ -87,6 +91,5 @@ const NewsDetail = () => {
         </Typography>
     );
 };
-
 
 export default NewsContentView;
