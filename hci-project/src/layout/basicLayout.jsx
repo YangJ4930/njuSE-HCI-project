@@ -172,7 +172,7 @@ const BasicLayout = () => {
                                 element={<PostComponent></PostComponent>}
                             ></Route>
                             <Route
-                                path='/component/Communitydetail'
+                                path='/component/Communitydetail:communityId'
                                 element={<Communitydetail></Communitydetail>}
                             ></Route>
                             <Route
