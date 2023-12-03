@@ -14,7 +14,11 @@ import {
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
-import { UserOutlined, MessageOutlined, LikeOutlined } from "@ant-design/icons";
+import { MessageOutlined, PlusOutlined,
+  LikeOutlined,
+  StarOutlined,
+  StarFilled,
+  SmallDashOutlined } from "@ant-design/icons";
 import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -51,7 +55,7 @@ const Communitydetail = function Comunitydetail() {
   return (
     <PageContainer
       title="震惊！Steam直接把我游戏移除了，还不给我退钱"
-      style={{}}
+      
     >
       <div
         style={{
@@ -91,7 +95,7 @@ const Communitydetail = function Comunitydetail() {
       </div>
       <Divider plain></Divider>
       <Row>
-        <Card bordered={false} style={{
+        <Card bordered={false}hoverable style={{
           width: "300px"
         }}>
           <Meta
@@ -149,39 +153,44 @@ const Communitydetail = function Comunitydetail() {
         </Row>
         </Divider>
         <ProList
+          
           size="small"
           itemLayout="vertical"
           rowKey="id"
           dataSource={data}
-          //loading={true}
+          split={false}
           renderItem={(item) => {
             return (
               <List.Item
-                extra={
-                  <Space><LikeOutlined></LikeOutlined>
-                    <div>12</div>
-                  </Space>
-                }
+
               >
+                <Card hoverable
+               style={{background:"rgba(219,225,240,0.3)"}}
+               bordered={false}
+                
+                >
                 <List.Item.Meta
                   avatar={<Avatar src={item.picture.large} />}
                   title={<a href="https://ant.design">{item.name.last}</a>}
+                  description={<div style={{fontSize:10, marginTop:-10}}>今天 11:21</div>}
                 />
                 <div
                   style={{
-                    marginLeft: 60,
+                    marginLeft: 40,
                   }}
                 >
                   我去你妈的steam
                 </div>
-                <img
+                
+                {/* <img
                   style={{
                     marginLeft: 60,
                   }}
                   width={272}
                   alt="logo"
                   src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                />
+                /> */}
+                </Card>
               </List.Item>
             );
           }}
