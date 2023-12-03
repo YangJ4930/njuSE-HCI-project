@@ -90,17 +90,17 @@ const BasicLayout = () => {
                 >
                     <Menu.Item key='1' icon={<HomeOutlined/>}>
                         <Link className='nav-link' aria-current='page' to='/'>
-                            Home
+                            首页
                         </Link>
                     </Menu.Item>
                     <Menu.Item key='2' icon={<UserOutlined/>}>
                         <Link className='nav-link' to='/explore'>
-                            explore
+                            探索
                         </Link>
                     </Menu.Item>
                     <Menu.Item key='3' icon={<ReadOutlined/>}>
                         <Link className='nav-link' to='/news'>
-                            News
+                            新闻
                         </Link>
                     </Menu.Item>
                     <Menu.Item key='4' icon={<TeamOutlined/>}>
@@ -112,7 +112,7 @@ const BasicLayout = () => {
                         key='sub1'
                         title={
                             <span>
-                                <span>Navigation One</span>
+                                <span>收藏</span>
                             </span>
                         }
                         icon={<HeartOutlined/>}
