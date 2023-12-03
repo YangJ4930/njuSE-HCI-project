@@ -48,7 +48,7 @@ const PostComponent=function PostComponent(){
             fil.push(item.originFileObj)
 
         })
-        setFileList(fil) 
+        setFileList(fil)
     };
     const uploadButton = (
         <div>
@@ -144,4 +144,3 @@ const PostComponent=function PostComponent(){
     )
 }
 export default PostComponent
-

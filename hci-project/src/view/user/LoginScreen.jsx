@@ -1,31 +1,38 @@
 import React, {useState} from 'react';
-import {Button, Card, Checkbox, Flex, Form, Input, Row} from "antd";
+import {Button, Card, Checkbox, Flex, Form, Input, message, Row} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "../../axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {login} from "../../features/user/authSlice";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import backgroundImage from '../../assets/img/loginBackground_3.jpg';
 
+
 function LoginScreen(props) {
-    const authInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMsg, contextHolder] = message.useMessage();
 
     const handleLogin = () => {
         axios.post('/users/login', {email, password})
             .then((response) => {
+                console.log(response);
+
                 const loginData = response.data;
 
-                console.log(loginData);
-                dispatch(login());
+                dispatch(login(loginData));
 
-                sessionStorage.setItem('isLogin', 'true');
+                navigate('/user');
             })
             .catch((error) => {
                 console.error(error);
+
+                errorMsg.error(error.response.data.msg).then(r => console.log(r));
+
+
             });
     };
 
@@ -46,6 +53,7 @@ function LoginScreen(props) {
             }}
 
         >
+            {contextHolder}
             <Card
                 style={{
                     width: '350px',

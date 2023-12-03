@@ -7,11 +7,11 @@ import 'bootstrap/dist/js/bootstrap.js';
 import { Comment } from '@ant-design/compatible';
 import { Avatar, Card, Col, Image, Layout, Row, Typography } from 'antd';
 
-let content = ['a', 'b', 'c', 'd'];
+import gameImage from '../../static/gameImage1.jpg'
+
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
-import gameImage from '../../static/gameImage1.jpg';
 function NewsContentView() {
     let [searchParams, setSearchParams] = useSearchParams();
 
@@ -21,8 +21,9 @@ function NewsContentView() {
                 <Header style={{ background: '#001529' }}>
                     <Row justify='space-between' align='middle' style={{ height: '100%' }}></Row>
                 </Header>
+                <br/>
+                <Content style={{padding: '20px'}}>
 
-                <Content style={{ padding: '20px' }}>
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
                             <NewsDetail />
@@ -86,5 +87,6 @@ const NewsDetail = () => {
         </Typography>
     );
 };
+
 
 export default NewsContentView;

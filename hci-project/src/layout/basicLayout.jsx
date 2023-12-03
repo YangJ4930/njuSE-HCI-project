@@ -29,7 +29,7 @@ import {useSelector} from 'react-redux';
 import {RegisterScreen} from "../view/user/RegisterScreen";
 import {LoginScreen} from "../view/user/LoginScreen";
 
-const {Header, Footer, Sider, Content} = Layout;
+const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 
 const {Search} = Input;
@@ -38,7 +38,7 @@ const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
-    const authInfo = useSelector((state) => state.auth);
+    const isLogin = useSelector((state) => state.auth.isLogin);
     let SearchLog = () => {
         console.log('hello');
         navigate('/search');
@@ -52,16 +52,20 @@ const BasicLayout = () => {
                         avatar={
                             <Link className='nav-link' to='/user'>
                                 {
-                                    authInfo.isLogin === true ?
+                                    isLogin === true ?
                                         <Avatar
                                             size='large'
                                             src={<img width='40' src={userInfo.avatarUrl}></img>}
-                                        /> : <Button>登录</Button>
+                                        /> : <Button
+                                            type='primary'
+                                            shape='round'
+                                            size='large'
+                                        >登录</Button>
                                 }
                             </Link>
                         }
                         description={
-                            authInfo.isLogin === true ? (
+                            isLogin === true ? (
                                 <>
                                     <div className='v'>{userInfo.username}</div>
                                     <div className='vi'>
@@ -190,7 +194,7 @@ const BasicLayout = () => {
                         </Routes>
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
+                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );
