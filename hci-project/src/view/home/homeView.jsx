@@ -16,6 +16,17 @@ const HomeView = () =>{
                     </Row>
                 </Header>
                 <GameHomeList></GameHomeList>
+                <Header style={{background: '#001529', marginBottom: 20}}>
+                    <Row justify="space-between" align="middle" style={{height: '100%'}}>
+                        <span style={{fontSize: 18, lineHeight: 1.4, color: "white"}}>新闻咨询</span>
+                    </Row>
+                </Header>
+                <NewsHomeList/>
+                <Header style={{background: '#001529', marginBottom: 20}}>
+                    <Row justify="space-between" align="middle" style={{height: '100%'}}>
+                        <span style={{fontSize: 18, lineHeight: 1.4, color: "white"}}>最新动态</span>
+                    </Row>
+                </Header>
             </div>
         </>
     )
@@ -66,6 +77,55 @@ const GameHomeList = () =>{
                     <h5>Fall Guys</h5>
                 </Col>
             </Row>
+            <div style={{marginTop: 40}}></div>
+        </>
+    )
+}
+
+const NewsHomeList = () =>{
+    return(
+        <>
+            <Row gutter={[16, 16]}>
+                <Col span={6}>
+                    <div style={{position: "relative", width: "100%", height:"100%"}}>
+                        <img style={{objectFit: "cover", width: "100%", height:"100%"}}
+                             src={"https://www.ign.com.cn/sm/t/ign_cn/feature/6/60-things-/60-things-we-love-in-the-legend-of-zelda-tears-of-the-kingdo_3rw5.1280.jpg"} alt={"Fortnite"}/>
+                        <h4 style={{position: "absolute" ,
+                            bottom: 0, width: "100%",color: "white", margin: 0,
+                            backgroundColor: "rgba(34, 63, 90, 0.75", fontSize: 25, lineHeight: 1.5, padding: 24, boxSizing: "border-box"}}>《塞尔达传说 王国之泪》中我们最喜欢的 60 个细节</h4>
+                    </div>
+
+                </Col>
+                <Col span={6}>
+                    <div style={{position: "relative", width: "100%", height:"100%"}}>
+                        <img style={{objectFit: "cover", width: "100%", height:"100%"}}
+                             src={"https://www.ign.com.cn/sm/t/ign_cn/slotter/default/deck_tq52.1280.jpg"} alt={"Rocket League"}/>
+                        <h4 style={{position: "absolute" ,
+                            bottom: 0, width: "100%",color: "white", margin: 0,
+                            backgroundColor: "rgba(34, 63, 90, 0.75", fontSize: 25, lineHeight: 1.5, padding: 24, boxSizing: "border-box"}}>《蒸汽世界》 建造 - 评测 7分</h4>
+                    </div>
+
+                 </Col>
+                <Col span={6}>
+                    <div style={{position: "relative", width: "100%", height:"100%"}}>
+                        <img style={{objectFit: "cover", width: "100%", height:"100%"}}
+                             src={"https://www.ign.com.cn/sm/t/ign_cn/slotter/default/deck_2ymd.1280.jpg"} alt={"Rocket League"}/>
+                        <h4 style={{position: "absolute" ,
+                            bottom: 0, width: "100%",color: "white", margin: 0,
+                            backgroundColor: "rgba(34, 63, 90, 0.75", fontSize: 25, lineHeight: 1.5, padding: 24, boxSizing: "border-box"}}>IGN《行尸走肉：命运》评测：2 分</h4>
+                    </div>
+                </Col>
+                <Col span={6}>
+                    <div style={{position: "relative", width: "100%", height:"100%"}}>
+                        <img style={{objectFit: "cover", width: "100%", height:"100%"}}
+                             src={"https://www.ign.com.cn/sm/t/ign_cn/slotter/default/agaabuq7nrbd-wkaqulpiajq7nv770v0_y3gr.1280.png"} alt={"Rocket League"}/>
+                        <h4 style={{position: "absolute" ,
+                            bottom: 0, width: "100%",color: "white", margin: 0,
+                            backgroundColor: "rgba(34, 63, 90, 0.75", fontSize: 25, lineHeight: 1.5, padding: 24, boxSizing: "border-box"}}>今年 App Store Awards 的入围游戏有些硬｜IGN 中国</h4>
+                    </div>
+                </Col>
+            </Row>
+            <div style={{marginBottom: 30}}></div>
         </>
     )
 }
