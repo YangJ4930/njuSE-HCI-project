@@ -18,6 +18,7 @@ import {
     ReadOutlined,
     TeamOutlined,
     UserOutlined,
+    
 } from '@ant-design/icons';
 import NewsContentView from '../view/news/newsContentView';
 import PostComponent from '../view/community/component/postComponent';
@@ -183,7 +184,7 @@ const BasicLayout = () => {
                                 element={<PostComponent></PostComponent>}
                             ></Route>
                             <Route
-                                path='/component/Communitydetail'
+                                path='/component/Communitydetail/:communityId'
                                 element={<Communitydetail></Communitydetail>}
                             ></Route>
                             <Route
