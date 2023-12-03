@@ -28,6 +28,7 @@ import GameDetailView from '../component/gameDetailView';
 import {useSelector} from 'react-redux';
 import {RegisterScreen} from "../view/user/RegisterScreen";
 import {LoginScreen} from "../view/user/LoginScreen";
+import {NewsContentMD} from "../view/news/component/newsContentMD";
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -158,10 +159,15 @@ const BasicLayout = () => {
                             <Route path='/search' element={<SearchView></SearchView>}></Route>
                             <Route path='/news' element={<NewsView></NewsView>}></Route>
                             {/*news/content/:id/*router参数id */}
+                            {/*<Route*/}
+                            {/*    path='/news/content/:id'*/}
+                            {/*    element={<NewsContentView></NewsContentView>}*/}
+                            {/*></Route>*/}
                             <Route
-                                path='/news/content/:id'
-                                element={<NewsContentView></NewsContentView>}
-                            ></Route>
+                                path={'/news/content/:id'}
+                                element={<NewsContentMD></NewsContentMD>}
+                            >
+                            </Route>
                             <Route
                                 path='/community'
                                 element={<CommunityView></CommunityView>}
