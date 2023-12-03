@@ -1,16 +1,8 @@
 import React, {useState} from 'react';
 import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
 import {Link, useNavigate} from 'react-router-dom';
-import {Route, Routes} from 'react-router-dom';
-import HomeView from '../view/home/homeView';
-import NewsView from '../view/news/newsView';
-import SearchView from '../view/search/searchView';
-import CommunityView from '../view/community/communityView';
-import Explore_gameRepositoryView from '../view/explore/explore_gameRepositoryView';
-import ExploreView from '../view/explore/exploreView';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import UserView from '../view/user/userView';
 import {
     BarsOutlined,
     HeartOutlined,
@@ -18,20 +10,14 @@ import {
     ReadOutlined,
     TeamOutlined,
     UserOutlined,
-    
+
 } from '@ant-design/icons';
-import NewsContentView from '../view/news/newsContentView';
-import PostComponent from '../view/community/component/postComponent';
-import Communitydetail from '../component/communitydetail';
 import './Menu.css'
 
-import GameDetailView from '../component/gameDetailView';
 import {useSelector} from 'react-redux';
-import {RegisterScreen} from "../view/user/RegisterScreen";
-import {LoginScreen} from "../view/user/LoginScreen";
-import {NewsContentMD} from "../view/news/component/newsContentMD";
+import Router from "../utils/Routes";
 
-const { Header, Footer, Sider, Content } = Layout;
+const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
 const {Search} = Input;
@@ -147,62 +133,9 @@ const BasicLayout = () => {
                     />
                 </Header>
 
-                <Content style={{margin: '24px 16px 0'}}>
-                    <div
-                        style={{
-                            padding: 24,
-                            background: '#fff',
-                            minHeight: 360,
-                        }}
-                    >
-                        <Routes>
-                            <Route path='/' element={<HomeView></HomeView>}></Route>
-                            <Route path='/search' element={<SearchView></SearchView>}></Route>
-                            <Route path='/news' element={<NewsView></NewsView>}></Route>
-                            {/*news/content/:id/*router参数id */}
-                            {/*<Route*/}
-                            {/*    path='/news/content/:id'*/}
-                            {/*    element={<NewsContentView></NewsContentView>}*/}
-                            {/*></Route>*/}
-                            <Route
-                                path={'/news/content/:id'}
-                                element={<NewsContentMD></NewsContentMD>}
-                            >
-                            </Route>
-                            <Route
-                                path='/community'
-                                element={<CommunityView></CommunityView>}
-                            ></Route>
-                            <Route path='/explore' element={<ExploreView></ExploreView>}></Route>
-                            <Route
-                                path='/explore_gameRepositoryView'
-                                element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}
-                            ></Route>
-                            <Route path='/user' element={<UserView></UserView>}></Route>
-                            <Route
-                                path='/component/postComponent'
-                                element={<PostComponent></PostComponent>}
-                            ></Route>
-                            <Route
-                                path='/component/Communitydetail/:communityId'
-                                element={<Communitydetail></Communitydetail>}
-                            ></Route>
-                            <Route
-                                path='/game/:gameId'
-                                element={<GameDetailView></GameDetailView>}
-                            ></Route>
-                            <Route
-                                path={'/user/register'}
-                                element={<RegisterScreen></RegisterScreen>}
-                            ></Route>
-                            <Route
-                                path={'/user/login'}
-                                element={<LoginScreen></LoginScreen>}
-                            ></Route>
-                        </Routes>
-                    </div>
-                </Content>
-                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
+                <Router/>
+
+                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );
