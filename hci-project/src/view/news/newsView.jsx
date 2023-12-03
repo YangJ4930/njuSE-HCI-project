@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Avatar, List, Space, Carousel, Divider} from 'antd';
+import {List, Space, Carousel, Divider} from 'antd';
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import { Link} from 'react-router-dom';
@@ -8,15 +8,6 @@ import {th} from "@faker-js/faker";
 import {NewHead} from "./component/newHead";
 import {NewsListCard} from "./component/newsListCard";
 
-
-const contentStyle = {
-    margin: 0,
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79'
-};
 
 const IconText = ({ text }) => (
     <Space>
