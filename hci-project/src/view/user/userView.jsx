@@ -10,7 +10,6 @@ function UserView(props) {
     const isLogin = useSelector((state) => state.auth.isLogin);
     const history = useNavigate();
 
-
     useEffect(() => {
         if (!isLogin) {
             history('/user/login');

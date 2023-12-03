@@ -29,7 +29,7 @@ import {useSelector} from 'react-redux';
 import {RegisterScreen} from "../view/user/RegisterScreen";
 import {LoginScreen} from "../view/user/LoginScreen";
 
-const {Header, Footer, Sider, Content} = Layout;
+const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 
 const {Search} = Input;
@@ -195,7 +195,7 @@ const BasicLayout = () => {
                         </Routes>
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
+                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );
