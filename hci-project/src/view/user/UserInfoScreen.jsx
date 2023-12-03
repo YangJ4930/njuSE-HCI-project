@@ -1,13 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import axios from "../../axios";
-import {fetchUserSuccess} from "../../features/user/userSlice";
+import {fetchUserSuccess} from "../../redux/user/userSlice";
 import {Avatar, Card, Col, Divider, Flex, Row, Tag, Tooltip} from "antd";
 import {useNavigate} from "react-router-dom";
 import Meta from "antd/es/card/Meta";
 import {EditOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
 import {faker} from "@faker-js/faker";
-import {logout} from "../../features/user/authSlice";
+import {logout} from "../../redux/user/authSlice";
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
