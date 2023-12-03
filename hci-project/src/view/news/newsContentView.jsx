@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, {Component, useEffect} from 'react';
+import {useParams, useSearchParams} from 'react-router-dom';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -13,7 +13,12 @@ const { Title, Text } = Typography;
 
 import gameImage from '../../static/gameImage1.jpg';
 function NewsContentView() {
-    let [searchParams, setSearchParams] = useSearchParams();
+    // 新闻id,从路由参数中获取
+    const {id} = useParams();
+
+    useEffect(() => {
+        console.log(id);
+    }, []);
 
     return (
         <React.Fragment>
