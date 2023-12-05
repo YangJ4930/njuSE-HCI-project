@@ -13,6 +13,7 @@ import GameDetailView from "../component/gameDetailView";
 import {RegisterScreen} from "../view/user/RegisterScreen";
 import {LoginScreen} from "../view/user/LoginScreen";
 import React from "react";
+import UserSetting from "../view/user/userSetting";
 
 
 function Router() {
@@ -40,7 +41,6 @@ function Router() {
                 path='/explore_gameRepositoryView'
                 element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}
             ></Route>
-            <Route path='/user' element={<UserView></UserView>}></Route>
             <Route
                 path='/component/postComponent'
                 element={<PostComponent></PostComponent>}
@@ -53,6 +53,7 @@ function Router() {
                 path='/game/:gameId'
                 element={<GameDetailView></GameDetailView>}
             ></Route>
+            <Route path='/user' element={<UserView></UserView>}></Route>
             <Route
                 path={'/user/register'}
                 element={<RegisterScreen></RegisterScreen>}
@@ -60,6 +61,10 @@ function Router() {
             <Route
                 path={'/user/login'}
                 element={<LoginScreen></LoginScreen>}
+            ></Route>
+            <Route
+                path={'/user/setting'}
+                element={<UserSetting></UserSetting>}
             ></Route>
         </Routes>
     )
