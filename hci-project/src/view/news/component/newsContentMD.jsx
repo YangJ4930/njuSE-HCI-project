@@ -3,7 +3,7 @@ import Paragraph from "antd/es/skeleton/Paragraph";
 import React, {useEffect, useState} from "react";
 import {Card, Typography} from "antd";
 import {useParams} from "react-router-dom";
-import markDownTemp from "../../../utils/MarkdownTemp";
+import markDownTemp from "../../../utils/temp/MarkdownTemp";
 
 function NewsContentMD(props) {
     const {id} = useParams();
