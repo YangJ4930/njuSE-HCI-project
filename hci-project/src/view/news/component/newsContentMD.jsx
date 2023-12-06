@@ -1,25 +1,16 @@
-import {marked} from "marked";
-import Paragraph from "antd/es/skeleton/Paragraph";
 import React, {useEffect, useState} from "react";
 import {Card, Typography} from "antd";
 import {useParams} from "react-router-dom";
 import markDownTemp from "../../../utils/temp/MarkdownTemp";
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import remarkFrontmatter from 'remark-frontmatter'
 
 function NewsContentMD(props) {
     const {id} = useParams();
 
     const {content} = useState(props.content);
-
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: true,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false,
-    });
 
 
     useEffect(() => {
@@ -32,11 +23,11 @@ function NewsContentMD(props) {
             style={{width: "95%", height: "100%", overflow: "auto"}}
             // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
         >
-            <div
-                id="content"
-                className="article-detail"
-                dangerouslySetInnerHTML={{__html: markDownTemp}}
-            />
+            <Markdown
+                remarkPlugins={[remarkGfm, remarkMath,remarkFrontmatter]}
+            >
+                {markDownTemp}
+            </Markdown>
         </Card>
 
     );

@@ -1,6 +1,5 @@
-import {marked} from "marked";
 
-const markDownTemp = marked(
+const markDownTemp =
     "# 1. 聚类学习\n" +
     "\n" +
     "## 1.1. 相关概念\n" +
@@ -222,7 +221,7 @@ const markDownTemp = marked(
     "\n" +
     "\n" +
     "\n" +
-    "\n")
+    "\n"
 
 
 export default markDownTemp;
