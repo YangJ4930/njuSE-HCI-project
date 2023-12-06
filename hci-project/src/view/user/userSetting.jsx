@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import {Button, Form, Image, Input, Select} from "antd";
+import {Button, Checkbox, Descriptions, Form, Image, Input, Select, Upload} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {useSelector} from "react-redux";
+import Column from "antd/es/table/Column";
 
 
 function UserSetting() {
@@ -48,13 +49,29 @@ const EditView = ({setEditingState}) => {
 
     const userInfo = useSelector((state) => state.user);
 
+    const normFile = (e) => {
+        console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
+    };
     return (
         <Form
+            labelCol={{
+                xs: {span: 24},
+                sm: {span: 8},
+            }}
+            wrapperCol={{
+                xs: {span: 24},
+                sm: {span: 16},
+            }}
             form={form}
             name="setting"
             onFinish={onFinish}
             style={{
                 maxWidth: 600,
+
             }}
             scrollToFirstError
             initialValues={
@@ -110,7 +127,7 @@ const EditView = ({setEditingState}) => {
                 <Input.TextArea showCount maxLength={100}/>
             </Form.Item>
 
-
+            {/* TODO: upload avatar*/}
             <Form.Item
                 name="avatar"
                 label="头像"
@@ -119,31 +136,63 @@ const EditView = ({setEditingState}) => {
                         required: false,
                     },
                 ]}
+
             >
-                {/* TODO: upload avatar*/}
-                <Image src={userInfo.avatarUrl}/>
-                <Button type={"text"}>
-                    <UploadOutlined/>
-                </Button>
+                {/*<Image src={userInfo.avatarUrl}/>*/}
+                <Upload name="logo" action="/upload.do" listType="picture">
+                    <Button icon={<UploadOutlined/>}>上传</Button>
+                </Upload>
             </Form.Item>
 
+            {/*TODO: upload cardBackground*/}
             <Form.Item
                 name="cardBackground"
                 label="背景图"
-                rules={[
-                    {
-                        required: false,
-                    },
-                ]}
+                // valuePropName="fileList"
+                // getValueFromEvent={normFile}
             >
-                {/*TODO: upload cardBackground*/}
-                <Image src={userInfo.cardBackgroundUrl}/>
-                <Button type={"text"}>
-                    <UploadOutlined/>
-                </Button>
+                <Upload name="logo" action="/upload.do" listType="picture">
+                    <Button icon={<UploadOutlined/>}>上传</Button>
+                </Upload>
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item
+                name="agreement"
+                valuePropName="checked"
+                rules={[
+                    {
+                        validator: (_, value) =>
+                            value ? Promise.resolve() : Promise.reject(new Error('需要同意用户协议')),
+                    },
+                ]}
+                wrapperCol={{
+                    xs: {
+                        span: 24,
+                        offset: 0,
+                    },
+                    sm: {
+                        span: 16,
+                        offset: 8,
+                    },
+                }}
+            >
+                <Checkbox>
+                    我已阅读并同意 <a href="">用户协议</a>
+                </Checkbox>
+            </Form.Item>
+
+            <Form.Item
+                wrapperCol={{
+                    xs: {
+                        span: 24,
+                        offset: 0,
+                    },
+                    sm: {
+                        span: 16,
+                        offset: 8,
+                    },
+                }}
+            >
                 <Button
                     type="primary"
                     onClick={() => {
@@ -160,19 +209,67 @@ const EditView = ({setEditingState}) => {
 }
 
 const ShowInfoView = ({setEditingState}) => {
+    const userInfo = useSelector((state) => state.user);
 
+    const items = [
+        // {
+        //     key: '1',
+        //     label: 'Id',
+        //     children: userInfo.id,
+        // },
+        {
+            key: '2',
+            label: '用户名',
+            children: userInfo.username,
+        },
+        {
+            key: '3',
+            label: '邮箱',
+            children: userInfo.email,
+        },
+        {
+            key: '4',
+            label: '描述',
+            children: userInfo.description,
+        },
+        {
+            key: '5',
+            label: '等级',
+            children: userInfo.level,
+        },
+        {
+            key: '6',
+            label: '头像',
+            children: (
+                <>
+                    <br/>
+                    <Image src={userInfo.avatarUrl}/>
+                </>
+            ),
+        },
+        {
+            key: '7',
+            label: '背景图',
+            children: <Image src={userInfo.cardBackgroundUrl}/>,
+        }
+    ];
     return (
-        <div>
-            <h1>用户信息</h1>
-            <p>用户名：123</p>
-            <p>邮箱：123</p>
-            <p>介绍：123</p>
-            <Button type={"primary"} onClick={() => {
-                setEditingState(true)
-            }}>
-                编辑
-            </Button>
-        </div>
+        <Descriptions
+            title="用户信息"
+            bordered={false}
+            items={items}
+            size={"default"}
+            column={2}
+            extra={
+                <Button
+                    type="primary"
+                    onClick={() => {
+                        setEditingState(true)
+                    }}>
+                    编辑
+                </Button>
+
+            }/>
     )
 
 }
