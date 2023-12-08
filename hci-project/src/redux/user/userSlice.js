@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
     name: 'user',
@@ -8,8 +8,8 @@ export const userSlice = createSlice({
         description: '这个人很懒，什么都没有留下',
         email: 'default@test.com',
         level: 0,
-        avatarUrl: "http://dummyimage.com/200x100/894FC4/FFF.png&text=!",
-        cardBackgroundUrl: "http://dummyimage.com/200x100/894FC4/FFF.png&text=!",
+        avatarUrl: 'http://dummyimage.com/200x100/894FC4/FFF.png&text=!',
+        cardBackgroundUrl: 'http://dummyimage.com/200x100/894FC4/FFF.png&text=!',
         privateFavorites: [],
         publicFavorites: [],
         followers: 0,
@@ -23,9 +23,9 @@ export const userSlice = createSlice({
         },
         setUserId: (state, action) => {
             state.id = action.payload;
-        }
+        },
     },
 });
 
-export const {setUserId, fetchUserSuccess} = userSlice.actions;
+export const { setUserId, fetchUserSuccess } = userSlice.actions;
 export default userSlice.reducer;
