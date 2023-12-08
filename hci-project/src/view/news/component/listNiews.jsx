@@ -1,9 +1,9 @@
-import {Link, useNavigate} from "react-router-dom";
-import {Avatar, Card, List, Space} from "antd";
-import {CommentOutlined, EyeTwoTone, HeartTwoTone} from "@ant-design/icons";
-import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { Avatar, Card, List, Space } from 'antd';
+import { CommentOutlined, EyeTwoTone, HeartTwoTone } from '@ant-design/icons';
+import React from 'react';
 
-const ListNews = ({data}) => {
+const ListNews = ({ data }) => {
     const navigate = useNavigate();
 
     return (
@@ -28,36 +28,33 @@ const ListNews = ({data}) => {
                         key={item.title}
                         actions={[
                             <Space>
-                                <HeartTwoTone twoToneColor="#eb2f96"
-                                              onClick={() => {
-                                                  console.log('like')
-                                              }}
+                                <HeartTwoTone
+                                    twoToneColor='#eb2f96'
+                                    onClick={() => {
+                                        console.log('like');
+                                    }}
                                 />
                                 <span>{item.likes}</span>
                             </Space>,
                             <Space>
-                                <EyeTwoTone onClick={() => {
-                                    console.log('view')
-                                }}/>
+                                <EyeTwoTone
+                                    onClick={() => {
+                                        console.log('view');
+                                    }}
+                                />
                                 <span>{item.views}</span>
                             </Space>,
                             <Space>
-                                <CommentOutlined color={'#eb2f96'}
-                                                 onClick={() => {
-                                                     console.log('comments')
-                                                 }}
+                                <CommentOutlined
+                                    color={'#eb2f96'}
+                                    onClick={() => {
+                                        console.log('comments');
+                                    }}
                                 />
                                 <span>{item.comments}</span>
-                            </Space>
-
+                            </Space>,
                         ]}
-                        extra={
-                            <img
-                                width={250}
-                                alt='cover'
-                                src={item.cover}
-                            />
-                        }
+                        extra={<img width={250} alt='cover' src={item.cover} />}
                     >
                         <Card
                             hoverable={true}
@@ -67,7 +64,7 @@ const ListNews = ({data}) => {
                             }}
                         >
                             <List.Item.Meta
-                                avatar={<Avatar src={item.avatar}/>}
+                                avatar={<Avatar src={item.avatar} />}
                                 title={<Link to={item.id}>{item.title}</Link>}
                                 description={item.description}
                             />
@@ -77,7 +74,7 @@ const ListNews = ({data}) => {
                 </Card>
             )}
         />
-    )
-}
+    );
+};
 
-export {ListNews};
+export { ListNews };

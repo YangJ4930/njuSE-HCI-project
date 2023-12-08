@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
     name: 'auth',
@@ -13,7 +13,7 @@ const authSlice = createSlice({
     },
     reducers: {
         login: (state, action) => {
-            console.log('login action.payload: ', action.payload)
+            console.log('login action.payload: ', action.payload);
 
             state.saTokenInfo.tokenName = action.payload.saTokenInfo.tokenName;
             state.saTokenInfo.tokenValue = action.payload.saTokenInfo.tokenValue;
@@ -27,7 +27,7 @@ const authSlice = createSlice({
             sessionStorage.setItem('loginId', state.saTokenInfo.loginId.toString());
         },
         logout: (state) => {
-            console.log('logout')
+            console.log('logout');
 
             state.saTokenInfo.tokenName = '';
             state.saTokenInfo.tokenValue = '';
@@ -43,6 +43,6 @@ const authSlice = createSlice({
     },
 });
 
-export const {login, logout} = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 
 export default authSlice.reducer;

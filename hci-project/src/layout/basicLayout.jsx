@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Layout, Menu, Input, Avatar, Divider, Card, Button } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {
@@ -10,17 +10,17 @@ import {
     ReadOutlined,
     TeamOutlined,
     UserOutlined,
-
 } from '@ant-design/icons';
-import './Menu.css'
+import './Menu.css';
 
-import {useDispatch, useSelector} from 'react-redux';
-import Router from "../utils/Routes";
 
-const {Header, Footer, Sider, Content} = Layout;
+import { useSelector } from 'react-redux';
+import Router from '../utils/Routes';
+
+const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 
-const {Search} = Input;
+const { Search } = Input;
 
 const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -121,6 +121,7 @@ const BasicLayout = () => {
     return (
         <Layout>
             <VisibleSide/>
+
             <Layout>
                 <Header
                     style={{
@@ -144,7 +145,7 @@ const BasicLayout = () => {
                     />
                 </Header>
 
-                <Content style={{margin: '24px 16px 0'}}>
+                <Content style={{ margin: '24px 16px 0' }}>
                     <div
                         style={{
                             padding: 24,
@@ -153,11 +154,11 @@ const BasicLayout = () => {
                             // height:100
                         }}
                     >
-                        <Router/>
+                        <Router />
                     </div>
                 </Content>
 
-                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
+                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );
