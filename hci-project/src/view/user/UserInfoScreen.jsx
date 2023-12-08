@@ -1,13 +1,13 @@
-import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
-import axios from "../../axios";
-import {fetchUserSuccess} from "../../redux/user/userSlice";
-import {Avatar, Card, Col, Divider, Flex, Row, Tag, Tooltip} from "antd";
-import {useNavigate} from "react-router-dom";
-import Meta from "antd/es/card/Meta";
-import {EditOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
-import {faker} from "@faker-js/faker";
-import {logout} from "../../redux/user/authSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import axios from '../../axios';
+import { fetchUserSuccess } from '../../redux/user/userSlice';
+import { Avatar, Card, Col, Divider, Flex, Row, Tag, Tooltip } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import Meta from 'antd/es/card/Meta';
+import { EditOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import { faker } from '@faker-js/faker';
+import { logout } from '../../redux/user/authSlice';
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
@@ -21,9 +21,7 @@ const UserInfoScreen = (props) => {
     useEffect(() => {
         if (isLogin) {
             axios
-                .get(`/users/${userId}`,
-                    {headers: {tokenName: tokenValue}}
-                )
+                .get(`/users/${userId}`, { headers: { tokenName: tokenValue } })
                 .then((response) => {
                     console.log(response);
                     const userData = response.data;
@@ -43,7 +41,7 @@ const UserInfoScreen = (props) => {
         <Col>
             <Row
                 gutter={[16, 16]}
-                style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
                 <UserAvatar
                     level={userInfo.level}
@@ -54,7 +52,7 @@ const UserInfoScreen = (props) => {
                 />
             </Row>
 
-            <Divider/>
+            <Divider />
 
             <Row>
                 <Favorites
@@ -63,20 +61,18 @@ const UserInfoScreen = (props) => {
                 />
             </Row>
 
-            <Divider/>
+            <Divider />
 
             <Row gutter={[16, 16]}>
-                <GameInventory gameInventory={userInfo.gameInventory}/>
+                <GameInventory gameInventory={userInfo.gameInventory} />
             </Row>
         </Col>
-    )
-
-}
+    );
+};
 
 const GameInventory = (props) => {
     const gameInventory = props.gameInventory;
     const navigate = useNavigate();
-
 
     const handleGameItemClick = (e, gameId) => {
         console.log(e);
@@ -86,20 +82,21 @@ const GameInventory = (props) => {
         <Col>
             <h1>游戏库存</h1>
             <Flex wrap={'wrap'} gap={'small'}>
-                {gameInventory !== null && gameInventory.map((game) => (
-                    <Card
-                        key={game.id}
-                        hoverable={true}
-                        cover={<img alt={game.name} src={game.image}/>}
-                        style={{
-                            width: 250,
-                            textAlign: 'center',
-                        }}
-                        onClick={(e) => handleGameItemClick(e, game.id)}
-                    >
-                        <Meta title={game.name}/>
-                    </Card>
-                ))}
+                {gameInventory !== null &&
+                    gameInventory.map((game) => (
+                        <Card
+                            key={game.id}
+                            hoverable={true}
+                            cover={<img alt={game.name} src={game.image} />}
+                            style={{
+                                width: 250,
+                                textAlign: 'center',
+                            }}
+                            onClick={(e) => handleGameItemClick(e, game.id)}
+                        >
+                            <Meta title={game.name} />
+                        </Card>
+                    ))}
             </Flex>
         </Col>
     );
@@ -116,7 +113,8 @@ const UserAvatar = (props) => {
     const handleLogoutClick = (e) => {
         console.log(e);
         dispatch(logout());
-        axios.post('/users/logout')
+        axios
+            .post('/users/logout')
             .then((response) => {
                 console.log(response);
                 dispatch(logout());
@@ -124,11 +122,11 @@ const UserAvatar = (props) => {
             .catch((error) => {
                 console.error(error);
             });
-    }
+    };
     const handleEditClick = (e) => {
         console.log(e);
-        navigate('/user/setting')
-    }
+        navigate('/user/setting');
+    };
 
     return (
         <Col>
@@ -138,26 +136,28 @@ const UserAvatar = (props) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
-                cover={<img alt='example' src={cardBackgroundUrl}/>}
+                cover={<img alt='example' src={cardBackgroundUrl} />}
                 actions={[
                     <Tooltip key='setting' title={'修改个人信息'}>
-                        <EditOutlined onClick={(e) => handleEditClick(e)}/>
+                        <EditOutlined onClick={(e) => handleEditClick(e)} />
                     </Tooltip>,
                     <Tooltip key={'logout'} title={'退出登录'}>
-                        <LogoutOutlined onClick={(e) => handleLogoutClick(e)}/>
-                    </Tooltip>
+                        <LogoutOutlined onClick={(e) => handleLogoutClick(e)} />
+                    </Tooltip>,
                 ]}
             >
                 <Meta
-                    avatar={<Avatar src={avatarUrl}/>}
+                    avatar={<Avatar src={avatarUrl} />}
                     title={username}
                     description={description}
                 />
-                <Tag color={'default'}
-                     style={{
-                         marginTop: '20px',
-                     }}
-                >等级：{level}
+                <Tag
+                    color={'default'}
+                    style={{
+                        marginTop: '20px',
+                    }}
+                >
+                    等级：{level}
                 </Tag>
             </Card>
         </Col>
@@ -188,27 +188,29 @@ const Favorites = (props) => {
             <h1>收藏夹</h1>
 
             <Card
-                style={{width: '100%'}}
+                style={{ width: '100%' }}
                 tabList={tabList}
                 activeTabKey={activeTab}
                 onTabChange={onTabChange}
             >
                 {activeTab === 'Tab1' && (
                     <div>
-                        {privateFavorites !== null && privateFavorites.map((game) => (
-                            <Tag key={game} color='blue'>
-                                {game}
-                            </Tag>
-                        ))}
+                        {privateFavorites !== null &&
+                            privateFavorites.map((game) => (
+                                <Tag key={game} color='blue'>
+                                    {game}
+                                </Tag>
+                            ))}
                     </div>
                 )}
                 {activeTab === 'Tab2' && (
                     <div>
-                        {publicFavorites !== null && publicFavorites.map((game) => (
-                            <Tag key={game} color='green'>
-                                {game}
-                            </Tag>
-                        ))}
+                        {publicFavorites !== null &&
+                            publicFavorites.map((game) => (
+                                <Tag key={game} color='green'>
+                                    {game}
+                                </Tag>
+                            ))}
                     </div>
                 )}
             </Card>
@@ -219,7 +221,7 @@ const Favorites = (props) => {
 const fakeUserData = () => {
     let userData = {
         username: faker.person.firstName(),
-        level: faker.number.int({min: 1, max: 100}),
+        level: faker.number.int({ min: 1, max: 100 }),
         avatar: faker.image.avatar(),
         privateFavorites: ['Favorite Game 1', 'Favorite Game 2'],
         publicFavorites: ['Favorite Game 3', 'Favorite Game 4'],
@@ -229,16 +231,16 @@ const fakeUserData = () => {
         gameRecords: [],
     };
 
-    userData.gameInventory = Array.from({length: faker.number.int({min: 10, max: 10})}, () => ({
-        id: faker.number.int({min: 1, max: 1000}),
+    userData.gameInventory = Array.from({ length: faker.number.int({ min: 10, max: 10 }) }, () => ({
+        id: faker.number.int({ min: 1, max: 1000 }),
         name: faker.commerce.productName(),
-        image: faker.image.dataUri({width: 75, height: 75}),
+        image: faker.image.dataUri({ width: 75, height: 75 }),
     }));
-    userData.gameRecords = Array.from({length: faker.number.int({min: 10, max: 10})}, () => ({
+    userData.gameRecords = Array.from({ length: faker.number.int({ min: 10, max: 10 }) }, () => ({
         game: faker.commerce.productName(),
-        score: faker.number.int({min: 1, max: 1000}),
+        score: faker.number.int({ min: 1, max: 1000 }),
     }));
     return userData;
 };
 
-export {UserInfoScreen};
+export { UserInfoScreen };

@@ -36,7 +36,7 @@ const arrangementItems = [
             <a target='_blank' rel='noopener noreferrer' href='https://www.antgroup.com'>
                 人气最高
             </a>
-        )
+        ),
     },
     {
         key: '2',
@@ -44,7 +44,7 @@ const arrangementItems = [
             <a target='_blank' rel='noopener noreferrer' href='https://www.aliyun.com'>
                 最新发布
             </a>
-        )
+        ),
     },
     {
         key: '3',
@@ -52,11 +52,11 @@ const arrangementItems = [
             <a target='_blank' rel='noopener noreferrer' href='https://www.luohanacademy.com'>
                 评分最高
             </a>
-        )
+        ),
     },
     {
         key: '4',
-        label: '价格由高到低'
+        label: '价格由高到低',
     },
     {
         key: '5',

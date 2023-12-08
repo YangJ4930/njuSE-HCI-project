@@ -7,11 +7,8 @@ import logo from '../static/Store.svg';
 import gameImage from '../static/gameImage2.jpg';
 import gameLogo from '../static/logo.png';
 
-
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
-
-
 
 function GameDetailView(props) {
     const { gameId } = useParams();

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import BasicLayout from './layout/basicLayout';
 
-
-
 function App() {
     return (
         <React.Fragment>

@@ -1,36 +1,37 @@
-import React, {useState} from "react";
-import {Button, Checkbox, Descriptions, Form, Image, Input, Select, Upload} from "antd";
-import {UploadOutlined} from "@ant-design/icons";
-import {useSelector} from "react-redux";
-import Column from "antd/es/table/Column";
-
+import React, { useState } from 'react';
+import { Button, Checkbox, Descriptions, Form, Image, Input, Select, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import Column from 'antd/es/table/Column';
 
 function UserSetting() {
     const [editing, setEditingState] = useState(false);
 
     return (
         <>
-            {editing ? <EditView setEditingState={setEditingState}/> :
-                <ShowInfoView setEditingState={setEditingState}/>}
+            {editing ? (
+                <EditView setEditingState={setEditingState} />
+            ) : (
+                <ShowInfoView setEditingState={setEditingState} />
+            )}
         </>
-    )
+    );
 }
 
-
-const EditView = ({setEditingState}) => {
+const EditView = ({ setEditingState }) => {
     const [form] = Form.useForm();
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
     const prefixSelector = (
-        <Form.Item name="prefix" noStyle>
+        <Form.Item name='prefix' noStyle>
             <Select
                 style={{
                     width: 70,
                 }}
             >
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
+                <Option value='86'>+86</Option>
+                <Option value='87'>+87</Option>
             </Select>
         </Form.Item>
     );
@@ -59,34 +60,31 @@ const EditView = ({setEditingState}) => {
     return (
         <Form
             labelCol={{
-                xs: {span: 24},
-                sm: {span: 8},
+                xs: { span: 24 },
+                sm: { span: 8 },
             }}
             wrapperCol={{
-                xs: {span: 24},
-                sm: {span: 16},
+                xs: { span: 24 },
+                sm: { span: 16 },
             }}
             form={form}
-            name="setting"
+            name='setting'
             onFinish={onFinish}
             style={{
                 maxWidth: 600,
-
             }}
             scrollToFirstError
-            initialValues={
-                {
-                    email: userInfo.email,
-                    username: userInfo.username,
-                    description: userInfo.description,
-                    avatar: userInfo.avatarUrl,
-                    cardBackground: userInfo.cardBackgroundUrl
-                }
-            }
+            initialValues={{
+                email: userInfo.email,
+                username: userInfo.username,
+                description: userInfo.description,
+                avatar: userInfo.avatarUrl,
+                cardBackground: userInfo.cardBackgroundUrl,
+            }}
         >
             <Form.Item
-                name="email"
-                label="邮箱"
+                name='email'
+                label='邮箱'
                 rules={[
                     {
                         type: 'email',
@@ -98,13 +96,13 @@ const EditView = ({setEditingState}) => {
                     },
                 ]}
             >
-                <Input/>
+                <Input />
             </Form.Item>
 
             <Form.Item
-                name="username"
-                label="用户名"
-                tooltip="What do you want others to call you?"
+                name='username'
+                label='用户名'
+                tooltip='What do you want others to call you?'
                 rules={[
                     {
                         required: true,
@@ -112,57 +110,58 @@ const EditView = ({setEditingState}) => {
                     },
                 ]}
             >
-                <Input/>
+                <Input />
             </Form.Item>
 
             <Form.Item
-                name="description"
-                label="介绍"
+                name='description'
+                label='介绍'
                 rules={[
                     {
                         required: false,
                     },
                 ]}
             >
-                <Input.TextArea showCount maxLength={100}/>
+                <Input.TextArea showCount maxLength={100} />
             </Form.Item>
 
             {/* TODO: upload avatar*/}
             <Form.Item
-                name="avatar"
-                label="头像"
+                name='avatar'
+                label='头像'
                 rules={[
                     {
                         required: false,
                     },
                 ]}
-
             >
                 {/*<Image src={userInfo.avatarUrl}/>*/}
-                <Upload name="logo" action="/upload.do" listType="picture">
-                    <Button icon={<UploadOutlined/>}>上传</Button>
+                <Upload name='logo' action='/upload.do' listType='picture'>
+                    <Button icon={<UploadOutlined />}>上传</Button>
                 </Upload>
             </Form.Item>
 
             {/*TODO: upload cardBackground*/}
             <Form.Item
-                name="cardBackground"
-                label="背景图"
+                name='cardBackground'
+                label='背景图'
                 // valuePropName="fileList"
                 // getValueFromEvent={normFile}
             >
-                <Upload name="logo" action="/upload.do" listType="picture">
-                    <Button icon={<UploadOutlined/>}>上传</Button>
+                <Upload name='logo' action='/upload.do' listType='picture'>
+                    <Button icon={<UploadOutlined />}>上传</Button>
                 </Upload>
             </Form.Item>
 
             <Form.Item
-                name="agreement"
-                valuePropName="checked"
+                name='agreement'
+                valuePropName='checked'
                 rules={[
                     {
                         validator: (_, value) =>
-                            value ? Promise.resolve() : Promise.reject(new Error('需要同意用户协议')),
+                            value
+                                ? Promise.resolve()
+                                : Promise.reject(new Error('需要同意用户协议')),
                     },
                 ]}
                 wrapperCol={{
@@ -177,7 +176,7 @@ const EditView = ({setEditingState}) => {
                 }}
             >
                 <Checkbox>
-                    我已阅读并同意 <a href="">用户协议</a>
+                    我已阅读并同意 <a href=''>用户协议</a>
                 </Checkbox>
             </Form.Item>
 
@@ -194,21 +193,20 @@ const EditView = ({setEditingState}) => {
                 }}
             >
                 <Button
-                    type="primary"
+                    type='primary'
                     onClick={() => {
-                        setEditingState(false)
+                        setEditingState(false);
                         //TODO: post to backend
                     }}
                 >
                     保存
                 </Button>
             </Form.Item>
-
         </Form>
-    )
-}
+    );
+};
 
-const ShowInfoView = ({setEditingState}) => {
+const ShowInfoView = ({ setEditingState }) => {
     const userInfo = useSelector((state) => state.user);
 
     const items = [
@@ -242,35 +240,35 @@ const ShowInfoView = ({setEditingState}) => {
             label: '头像',
             children: (
                 <>
-                    <br/>
-                    <Image src={userInfo.avatarUrl}/>
+                    <br />
+                    <Image src={userInfo.avatarUrl} />
                 </>
             ),
         },
         {
             key: '7',
             label: '背景图',
-            children: <Image src={userInfo.cardBackgroundUrl}/>,
-        }
+            children: <Image src={userInfo.cardBackgroundUrl} />,
+        },
     ];
     return (
         <Descriptions
-            title="用户信息"
+            title='用户信息'
             bordered={false}
             items={items}
-            size={"default"}
+            size={'default'}
             column={2}
             extra={
                 <Button
-                    type="primary"
+                    type='primary'
                     onClick={() => {
-                        setEditingState(true)
-                    }}>
+                        setEditingState(true);
+                    }}
+                >
                     编辑
                 </Button>
-
-            }/>
-    )
-
-}
+            }
+        />
+    );
+};
 export default UserSetting;
