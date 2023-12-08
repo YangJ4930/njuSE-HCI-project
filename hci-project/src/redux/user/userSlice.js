@@ -4,8 +4,9 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         id: 1,
-        username: '',
+        username: 'default',
         description: '这个人很懒，什么都没有留下',
+        email: 'default@test.com',
         level: 0,
         avatarUrl: "http://dummyimage.com/200x100/894FC4/FFF.png&text=!",
         cardBackgroundUrl: "http://dummyimage.com/200x100/894FC4/FFF.png&text=!",

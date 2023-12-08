@@ -1,16 +1,8 @@
 import React, {useState} from 'react';
 import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
 import {Link, useNavigate} from 'react-router-dom';
-import {Route, Routes} from 'react-router-dom';
-import HomeView from '../view/home/homeView';
-import NewsView from '../view/news/newsView';
-import SearchView from '../view/search/searchView';
-import CommunityView from '../view/community/communityView';
-import Explore_gameRepositoryView from '../view/explore/explore_gameRepositoryView';
-import ExploreView from '../view/explore/exploreView';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import UserView from '../view/user/userView';
 import {
     BarsOutlined,
     HeartOutlined,
@@ -18,18 +10,14 @@ import {
     ReadOutlined,
     TeamOutlined,
     UserOutlined,
+
 } from '@ant-design/icons';
-import NewsContentView from '../view/news/newsContentView';
-import PostComponent from '../view/community/component/postComponent';
-import Communitydetail from '../component/communitydetail';
 import './Menu.css'
 
-import GameDetailView from '../component/gameDetailView';
-import {useSelector} from 'react-redux';
-import {RegisterScreen} from "../view/user/RegisterScreen";
-import {LoginScreen} from "../view/user/LoginScreen";
+import {useDispatch, useSelector} from 'react-redux';
+import Router from "../utils/Routes";
 
-const { Header, Footer, Sider, Content } = Layout;
+const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
 const {Search} = Input;
@@ -39,91 +27,100 @@ const BasicLayout = () => {
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
     const isLogin = useSelector((state) => state.auth.isLogin);
+    const isVisible = useSelector((state) => state.navbar.visible)
     const [searchWord, setSearchWord] = useState("")
     let SearchJump = () => {
         navigate(`/search?content=${searchWord}`);
     };
 
+    let VisibleSide = () =>{
+        if(isVisible){
+            return(
+                <Sider theme='light' collapsible>
+                    <Card bordered={false} hoverable className='av' layout='center' direction='column'>
+                        <Card.Meta
+                            avatar={
+                                <Link className='nav-link' to='/user'>
+                                    {
+                                        isLogin === true ?
+                                            <Avatar
+                                                size='large'
+                                                src={<img width='40' src={userInfo.avatarUrl}></img>}
+                                            /> : <Button
+                                                type='primary'
+                                                shape='round'
+                                                size='large'
+                                            >登录</Button>
+                                    }
+                                </Link>
+                            }
+                            description={
+                                isLogin === true ? (
+                                    <>
+                                        <div className='v'>{userInfo.username}</div>
+                                        <div className='vi'>
+                                            <p>
+                                                <span className='qai'>{userInfo.description}</span>
+                                            </p>
+                                        </div>
+                                    </>
+                                ) : <></>
+                            }
+                        ></Card.Meta>
+                        <p></p>
+                    </Card>
+                    <Menu
+                        className='a'
+                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={['sub1']}
+                        mode='inline'
+                        theme='dark'
+                        inlineCollapsed={collapsed}
+                    >
+                        <Menu.Item key='1' icon={<HomeOutlined/>}>
+                            <Link className='nav-link' aria-current='page' to='/'>
+                                首页
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='2' icon={<UserOutlined/>}>
+                            <Link className='nav-link' to='/explore'>
+                                探索
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='3' icon={<ReadOutlined/>}>
+                            <Link className='nav-link' to='/news'>
+                                新闻
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='4' icon={<TeamOutlined/>}>
+                            <Link className='nav-link' to='/community'>
+                                社区
+                            </Link>
+                        </Menu.Item>
+                        <SubMenu
+                            key='sub1'
+                            title={
+                                <span>
+                                <span>收藏</span>
+                            </span>
+                            }
+                            icon={<HeartOutlined/>}
+                        >
+                            <Menu.Item key='5'>Option 5</Menu.Item>
+                            <Menu.Item key='6'>Option 6</Menu.Item>
+                            <Menu.Item key='7'>Option 7</Menu.Item>
+                            <Menu.Item key='8'>Option 8</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Sider>
+            )
+        }
+
+    }
+
     return (
         <Layout>
-            <Sider theme='light' collapsible>
-                <Card bordered={false} hoverable className='av' layout='center' direction='column'>
-                    <Card.Meta
-                        avatar={
-                            <Link className='nav-link' to='/user'>
-                                {
-                                    isLogin === true ?
-                                        <Avatar
-                                            size='large'
-                                            src={<img width='40' src={userInfo.avatarUrl}></img>}
-                                        /> : <Button
-                                            type='primary'
-                                            shape='round'
-                                            size='large'
-                                        >登录</Button>
-                                }
-                            </Link>
-                        }
-                        description={
-                            isLogin === true ? (
-                                <>
-                                    <div className='v'>{userInfo.username}</div>
-                                    <div className='vi'>
-                                        <p>
-                                            <span className='qai'>{userInfo.description}</span>
-                                        </p>
-                                    </div>
-                                </>
-                            ) : <></>
-                        }
-                    ></Card.Meta>
-                    <p></p>
-                </Card>
-                <Menu
-                    className='a'
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    mode='inline'
-                    theme='dark'
-                    inlineCollapsed={collapsed}
-                >
-                    <Menu.Item key='1' icon={<HomeOutlined/>}>
-                        <Link className='nav-link' aria-current='page' to='/'>
-                            Home
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key='2' icon={<UserOutlined/>}>
-                        <Link className='nav-link' to='/explore'>
-                            explore
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key='3' icon={<ReadOutlined/>}>
-                        <Link className='nav-link' to='/news'>
-                            News
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key='4' icon={<TeamOutlined/>}>
-                        <Link className='nav-link' to='/community'>
-                            社区
-                        </Link>
-                    </Menu.Item>
-                    <SubMenu
-                        key='sub1'
-                        title={
-                            <span>
-                                <span>Navigation One</span>
-                            </span>
-                        }
-                        icon={<HeartOutlined/>}
-                    >
-                        <Menu.Item key='5'>Option 5</Menu.Item>
-                        <Menu.Item key='6'>Option 6</Menu.Item>
-                        <Menu.Item key='7'>Option 7</Menu.Item>
-                        <Menu.Item key='8'>Option 8</Menu.Item>
-                    </SubMenu>
-                </Menu>
-            </Sider>
-
+            <VisibleSide/>
             <Layout>
                 <Header
                     style={{
@@ -153,50 +150,14 @@ const BasicLayout = () => {
                             padding: 24,
                             background: '#fff',
                             minHeight: 360,
+                            // height:100
                         }}
                     >
-                        <Routes>
-                            <Route path='/' element={<HomeView></HomeView>}></Route>
-                            <Route path='/search' element={<SearchView></SearchView>}></Route>
-                            <Route path='/news' element={<NewsView></NewsView>}></Route>
-                            <Route
-                                path='/news/content'
-                                element={<NewsContentView></NewsContentView>}
-                            ></Route>
-                            <Route
-                                path='/community'
-                                element={<CommunityView></CommunityView>}
-                            ></Route>
-                            <Route path='/explore' element={<ExploreView></ExploreView>}></Route>
-                            <Route
-                                path='/explore_gameRepositoryView'
-                                element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}
-                            ></Route>
-                            <Route path='/user' element={<UserView></UserView>}></Route>
-                            <Route
-                                path='/component/postComponent'
-                                element={<PostComponent></PostComponent>}
-                            ></Route>
-                            <Route
-                                path='/component/Communitydetail'
-                                element={<Communitydetail></Communitydetail>}
-                            ></Route>
-                            <Route
-                                path='/game/:gameId'
-                                element={<GameDetailView></GameDetailView>}
-                            ></Route>
-                            <Route
-                                path={'/user/register'}
-                                element={<RegisterScreen></RegisterScreen>}
-                            ></Route>
-                            <Route
-                                path={'/user/login'}
-                                element={<LoginScreen></LoginScreen>}
-                            ></Route>
-                        </Routes>
+                        <Router/>
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
+
+                <Footer style={{textAlign: 'center'}}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );

@@ -1,13 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import axios from "../../axios";
-import {fetchUserSuccess} from "../../features/user/userSlice";
+import {fetchUserSuccess} from "../../redux/user/userSlice";
 import {Avatar, Card, Col, Divider, Flex, Row, Tag, Tooltip} from "antd";
 import {useNavigate} from "react-router-dom";
 import Meta from "antd/es/card/Meta";
 import {EditOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
 import {faker} from "@faker-js/faker";
-import {logout} from "../../features/user/authSlice";
+import {logout} from "../../redux/user/authSlice";
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
@@ -111,7 +111,7 @@ const UserAvatar = (props) => {
     const avatarUrl = props.avatarUrl;
     const cardBackgroundUrl = props.cardBackgroundUrl;
     const description = props.description;
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogoutClick = (e) => {
         console.log(e);
@@ -125,6 +125,10 @@ const UserAvatar = (props) => {
                 console.error(error);
             });
     }
+    const handleEditClick = (e) => {
+        console.log(e);
+        navigate('/user/setting')
+    }
 
     return (
         <Col>
@@ -136,11 +140,8 @@ const UserAvatar = (props) => {
                 }}
                 cover={<img alt='example' src={cardBackgroundUrl}/>}
                 actions={[
-                    <Tooltip key={'setting'} title={'设置'}>
-                        <SettingOutlined/>
-                    </Tooltip>,
-                    <Tooltip key='edit' title={'修改个人信息'}>
-                        <EditOutlined/>
+                    <Tooltip key='setting' title={'修改个人信息'}>
+                        <EditOutlined onClick={(e) => handleEditClick(e)}/>
                     </Tooltip>,
                     <Tooltip key={'logout'} title={'退出登录'}>
                         <LogoutOutlined onClick={(e) => handleLogoutClick(e)}/>

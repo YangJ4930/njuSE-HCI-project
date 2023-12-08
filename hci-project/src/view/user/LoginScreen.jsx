@@ -3,7 +3,7 @@ import {Button, Card, Checkbox, Flex, Form, Input, message, Row} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "../../axios";
 import {useDispatch} from "react-redux";
-import {login} from "../../features/user/authSlice";
+import {login} from "../../redux/user/authSlice";
 import {Link, useNavigate} from "react-router-dom";
 import backgroundImage from '../../assets/img/loginBackground_3.jpg';
 
