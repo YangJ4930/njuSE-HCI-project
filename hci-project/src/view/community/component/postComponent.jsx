@@ -1,18 +1,44 @@
-import { Upload, Modal, Input, Form, Space, Divider, Button, message } from 'antd';
+import { Upload, Modal, Input, Form, Space, Divider, Button, message, Tag, theme, Select } from 'antd';
 import { useState } from 'react';
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
 import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
+import GameTags from './GameTags'
 
 
 const PostComponent = function PostComponent() {
+    const options = [
+        {
+          value: 'gold',
+        },
+        {
+          value: 'lime',
+        },
+        {
+          value: 'green',
+        },
+        {
+          value: 'cyan',
+        },
+      ];
+    const { token } = theme.useToken();
+    const tagPlusStyle = {
+        background: token.colorBgContainer,
+        borderStyle: 'dashed',
+    };
     const { TextArea } = Input;
     const [fileList, setFileList] = useState([]);
+    const [tags, setTags] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [openImage, setOpenImage] = useState(false);
+    const [markdownContent, setMarkdownContent] = useState();
     const [form] = useForm();
+    const setMarkContent = (value) => {
+        console.log(value)
+        setMarkdownContent(value)
+    }
     const handlePreview = (file) => {
 
         const reader = new FileReader();
@@ -24,6 +50,7 @@ const PostComponent = function PostComponent() {
     };
     const key = 'updatable';
     const PostC = (from, file) => {
+        console.log(from)
         message.open({
             key,
             type: "loading",
@@ -39,21 +66,22 @@ const PostComponent = function PostComponent() {
             type: 'application/json',
         })
         fd.append('form', blob)
+        fd.append('tags',tags)
         console.log(file)
         fetch('http://localhost:7999/community/Upload', {
             method: 'post',
             body: fd,
         })
             .then(response => {
-                console.log(response.ok)
+                console.log(response)
                 setTimeout(() => {
                     message.open({
-                      key,
-                      type: 'success',
-                      content: 'Loaded!',
-                      duration: 2,
+                        key,
+                        type: 'success',
+                        content: 'Loaded!',
+                        duration: 2,
                     });
-                  }, 1000);
+                }, 1000);
                 // message.open({
                 //     key,
                 //     type: 'success',
@@ -61,7 +89,7 @@ const PostComponent = function PostComponent() {
                 //     duration: 2,
                 // })
             })
-            .catch(er => { console.log(er) })
+            .catch(error => console.log(error))
     }
     const handleCancel = () => {
         setOpenImage(false);
@@ -101,8 +129,10 @@ const PostComponent = function PostComponent() {
                 >
                     图文
                 </div>
-                <Form form={form} title="图文" className="postform">
+                <Form form={form} title="图文" className="postform"> 
                     <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                        <GameTags setTags={setTags}></GameTags>
+                        <Divider orientation="left"></Divider>
                         <Form.Item className="formitem">
                             <Upload
                                 className="imageInput"
@@ -122,8 +152,9 @@ const PostComponent = function PostComponent() {
                         </Form.Item>
                         <Divider orientation="left">Content</Divider>
                         <Form.Item name="content">
-                            <MDEditor value={markdownContent} onChange={setMarkdownContent} />
+                            <MDEditor value={markdownContent} onChange={setMarkContent} />
                         </Form.Item>
+
                     </Space>
                     <Button
                         className="formitembutton"

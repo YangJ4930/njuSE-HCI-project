@@ -135,6 +135,7 @@ const Communitydetail = function Comunitydetail() {
         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
         endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
         scrollableTarget="scrollableDiv"
+        onScroll={() => console.log("loading")}
       >
         <Row justify="space-between"
         >
