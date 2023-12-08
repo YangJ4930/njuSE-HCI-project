@@ -39,9 +39,9 @@ const BasicLayout = () => {
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
     const isLogin = useSelector((state) => state.auth.isLogin);
-    let SearchLog = () => {
-        console.log('hello');
-        navigate('/search');
+    const [searchWord, setSearchWord] = useState("")
+    let SearchJump = () => {
+        navigate(`/search?content=${searchWord}`);
     };
 
     return (
@@ -140,8 +140,10 @@ const BasicLayout = () => {
                             width: 300,
                             float: 'right',
                         }}
+                        value = {searchWord}
                         // onClick={this.state.SearchLog}
-                        onSearch={SearchLog}
+                        onChange={e => {setSearchWord(e.target.value)}}
+                        onSearch={SearchJump}
                     />
                 </Header>
 

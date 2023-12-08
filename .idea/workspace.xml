@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +68,9 @@
       <workItem from="1701487714114" duration="2392000" />
       <workItem from="1701518862868" duration="3097000" />
       <workItem from="1701522565055" duration="4125000" />
-      <workItem from="1701571835938" duration="8990000" />
+      <workItem from="1701571835938" duration="10427000" />
+      <workItem from="1701687358922" duration="1566000" />
+      <workItem from="1702019993291" duration="3507000" />
     </task>
     <servers />
   </component>
