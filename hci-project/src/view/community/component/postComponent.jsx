@@ -1,9 +1,10 @@
 import { Upload, Modal, Input, Form, Space, Divider, Button, message } from 'antd';
 import { useState } from 'react';
-import React from "react"
+import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
 import { useForm } from 'antd/es/form/Form';
+import MDEditor from '@uiw/react-md-editor';
 
 
 const PostComponent = function PostComponent() {
@@ -86,28 +87,28 @@ const PostComponent = function PostComponent() {
                     flexDirection: 'column',
                     display: 'flex',
                     alignItems: 'center',
-                    height: '800px',
+                    height: '800px'
                 }}
-                className='groud'
+                className="groud"
             >
                 <div
                     style={{
                         width: '200px',
                         fontSize: '24px',
                         textAlign: 'center',
-                        lineHeight: '100px',
+                        lineHeight: '100px'
                     }}
                 >
                     图文
                 </div>
-                <Form form={form} title='图文' className='postform'>
-                    <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
-                        <Form.Item className='formitem'>
+                <Form form={form} title="图文" className="postform">
+                    <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                        <Form.Item className="formitem">
                             <Upload
-                                className='imageInput'
-                                action=''
+                                className="imageInput"
+                                action=""
                                 beforeUpload={() => false}
-                                listType='picture-card'
+                                listType="picture-card"
                                 onPreview={handlePreview}
                                 onChange={onChange1}
                                 maxCount={8}
@@ -115,22 +116,17 @@ const PostComponent = function PostComponent() {
                                 {fileList.length > 8 ? null : uploadButton}
                             </Upload>
                         </Form.Item>
-                        <Divider orientation='left'>Title</Divider>
-                        <Form.Item name='title'>
-                            <TextArea bordered={false} placeholder='标题' rows={1} />
+                        <Divider orientation="left">Title</Divider>
+                        <Form.Item name="title">
+                            <TextArea bordered={false} placeholder="标题" rows={1} />
                         </Form.Item>
-                        <Divider orientation='left'>Content</Divider>
-                        <Form.Item name='content'>
-                            <TextArea
-                                className='textarea'
-                                bordered={false}
-                                placeholder='正文内容'
-                                rows={20}
-                            />
+                        <Divider orientation="left">Content</Divider>
+                        <Form.Item name="content">
+                            <MDEditor value={markdownContent} onChange={setMarkdownContent} />
                         </Form.Item>
                     </Space>
                     <Button
-                        className='formitembutton'
+                        className="formitembutton"
                         onClick={() => {
                             PostC(form.getFieldValue(), fileList);
                         }}
