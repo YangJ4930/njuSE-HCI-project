@@ -152,6 +152,7 @@ const BasicLayout = () => {
                             padding: 24,
                             background: '#fff',
                             minHeight: 360,
+                            // height:100
                         }}
                     >
                         <Routes>

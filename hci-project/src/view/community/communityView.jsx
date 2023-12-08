@@ -18,7 +18,7 @@ import "./community.css";
 const CommunityView = function CommunityView() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  
+  const [page,setPage]=useState(0);
   const content =
     "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
   const title = "人机交互是我最喜欢的课，一天不上浑身难受";
@@ -75,17 +75,24 @@ const IconText = ({ icon, text,iconname}) => {
       return;
     }
     setLoading(true);
+    console.log("begining")
     fetch(
-      "https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo"
+      `http://localhost:7999/community/findAllCommunity/${page}`
     )
       .then((res) => res.json())
       .then((body) => {
-        setData([...data, ...body.results]);
+        console.log(body)
+        setData([...data, ...body]);
+        const pagenumber=page+1
+        setPage(pagenumber)
+        console.log(page)
         setLoading(false);
       })
       .catch((endMessage) => {
+        console.log(endMessage)
         setLoading(false);
       });
+     
   };
   useEffect(() => {
     loadMoreData();
@@ -140,19 +147,21 @@ const IconText = ({ icon, text,iconname}) => {
         <div
           id="scrollableDiv"
           style={{
-            height: "fixed",
+            height: 600,
             overflow: "auto",
           }}
         >
           <br></br>
           <InfiniteScroll
+          
             infinite-scroll-disabled={false}
             dataLength={data.length}
             next={loadMoreData}
-            hasMore={data.length < 50}
+            hasMore={data.length<3}
             loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
             endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
             scrollableTarget="scrollableDiv"
+            onScroll={()=>console.log("loading")}
           >
             <ProList
               size="small"
@@ -183,20 +192,20 @@ const IconText = ({ icon, text,iconname}) => {
                     ]}
                   >
                     <List.Item.Meta
-                      avatar={<Avatar src={item.picture.large} />}
-                      title={<a href="https://ant.design">{item.name.last}</a>}
-                      description={item.email}
+                      avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                      title={<a href="https://ant.design">{item.author}</a>}
+                      description={item.title}
                     />
                     <Link
                       className="link-text"
                       style={{}}
-                      to={`/component/Communitydetail/${item.name.last}`}
+                      to={`/component/Communitydetail/${item.id}`}
                     >
-                      <ContentText content={content} title={title} />
+                      <ContentText content={item.content} title={item.title} />
                       <img
                         width={272}
                         alt="logo"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                        src={item.image}
                       />
                     </Link>
                   </List.Item>
