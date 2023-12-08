@@ -7,22 +7,33 @@
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
       <change afterPath="$PROJECT_DIR$/hci-project/src/redux/navbar/navbarSlice.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/.prettierrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/app.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/app.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/features/user/authSlice.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/features/user/userSlice.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/navbar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newHead.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newHead.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newsListCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsListCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/newsContentView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/newsContentView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/newsView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/newsView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/LoginScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/LoginScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/RegisterScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/RegisterScreen.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/UserInfoScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/UserInfoScreen.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/userView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/userView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/yarn.lock" afterDir="false" />
@@ -42,6 +53,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -87,7 +101,8 @@
       <workItem from="1701571835938" duration="10427000" />
       <workItem from="1701687358922" duration="1566000" />
       <workItem from="1702019993291" duration="4134000" />
-      <workItem from="1702024670512" duration="6535000" />
+      <workItem from="1702024670512" duration="8004000" />
+      <workItem from="1702050352940" duration="1321000" />
     </task>
     <servers />
   </component>

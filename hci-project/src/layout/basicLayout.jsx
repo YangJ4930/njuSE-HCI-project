@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Divider, Card, Button } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
+import {Link, useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {
@@ -14,16 +14,17 @@ import {
 import './Menu.css';
 
 
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import Router from '../utils/Routes';
 
-const { Header, Footer, Sider, Content } = Layout;
+const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
-const { Search } = Input;
+const {Search} = Input;
 
 const BasicLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const [showSider, setShowSider] = useState("");
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
     const isLogin = useSelector((state) => state.auth.isLogin);
@@ -33,24 +34,17 @@ const BasicLayout = () => {
         navigate(`/search?content=${searchWord}`);
     };
 
-    let VisibleSide = () =>{
-        if(isVisible){
-            return(
+    return (
+        <Layout>
+            <div style={{display: isVisible? "flex": "none"}}>
                 <Sider theme='light' collapsible>
                     <Card bordered={false} hoverable className='av' layout='center' direction='column'>
                         <Card.Meta
                             avatar={
                                 <Link className='nav-link' to='/user'>
                                     {
-                                        isLogin === true ?
-                                            <Avatar
-                                                size='large'
-                                                src={<img width='40' src={userInfo.avatarUrl}></img>}
-                                            /> : <Button
-                                                type='primary'
-                                                shape='round'
-                                                size='large'
-                                            >登录</Button>
+                                        isLogin === true ? <Avatar size='large' src={<img width='40' src={userInfo.avatarUrl}></img>}/> :
+                                            <Button type='primary' shape='round' size='large'>登录</Button>
                                     }
                                 </Link>
                             }
@@ -70,7 +64,7 @@ const BasicLayout = () => {
                         <p></p>
                     </Card>
                     <Menu
-                        className='a'
+                        className= 'a'
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
                         mode='inline'
@@ -101,8 +95,8 @@ const BasicLayout = () => {
                             key='sub1'
                             title={
                                 <span>
-                                <span>收藏</span>
-                            </span>
+                                        <span>收藏</span>
+                                    </span>
                             }
                             icon={<HeartOutlined/>}
                         >
@@ -113,15 +107,7 @@ const BasicLayout = () => {
                         </SubMenu>
                     </Menu>
                 </Sider>
-            )
-        }
-
-    }
-
-    return (
-        <Layout>
-            <VisibleSide/>
-
+            </div>
             <Layout>
                 <Header
                     style={{
@@ -138,14 +124,16 @@ const BasicLayout = () => {
                             width: 300,
                             float: 'right',
                         }}
-                        value = {searchWord}
+                        value={searchWord}
                         // onClick={this.state.SearchLog}
-                        onChange={e => {setSearchWord(e.target.value)}}
+                        onChange={e => {
+                            setSearchWord(e.target.value)
+                        }}
                         onSearch={SearchJump}
                     />
                 </Header>
 
-                <Content style={{ margin: '24px 16px 0' }}>
+                <Content style={{margin: '24px 16px 0'}}>
                     <div
                         style={{
                             padding: 24,
