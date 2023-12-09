@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import UserView from '../view/user/userView';
 import {
-    BarsOutlined,
+    BarsOutlined, CompassOutlined,
     HeartOutlined,
     HomeOutlined,
     ReadOutlined,
@@ -84,9 +84,9 @@ const BasicLayout = () => {
                             Home
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<UserOutlined />}>
+                    <Menu.Item key="2" icon={<CompassOutlined />}>
                         <Link className="nav-link" to="/explore">
-                            explore
+                            发现
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3" icon={<ReadOutlined />}>
