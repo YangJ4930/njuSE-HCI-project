@@ -20,7 +20,7 @@ import {
     Row,
     Divider,
     Slider,
-    message
+    message, Collapse, Flex
 } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import React, { useEffect, useState } from 'react';
@@ -28,6 +28,8 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PageContainer, ProList } from '@ant-design/pro-components';
 import Meta from 'antd/es/card/Meta';
+import * as PropTypes from "prop-types";
+import './explore.css'
 
 const arrangementItems = [
     {
@@ -96,9 +98,20 @@ function Arrangement() {
     );
 }
 
+function Panel(props) {
+    return null;
+}
+
+Panel.propTypes = {
+    header: PropTypes.string,
+    children: PropTypes.node
+};
+
 function Filter() {
     const [open, setOpen] = useState(false);
-
+    const [panelName, setpanelName] = useState({
+        name: 'nop'
+    });
     const showFilter = () => {
         setOpen(true);
     };
@@ -112,7 +125,7 @@ function Filter() {
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Button type="primary" onClick={showFilter}>
                     <Space>
-                        <text>筛选器</text>
+                        <text>筛选</text>
                         <svg
                             className="icon_filter"
                             viewBox="0 0 1024 1024"
@@ -130,15 +143,217 @@ function Filter() {
                 </Button>
             </div>
             <Drawer title="筛选" placement="right" onClose={closeFilter} open={open}>
-                <Dropdown.Button
-                    menu={{
-                        items: arrangementItems
-                    }}
-                >
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Space>排序方式</Space>
-                    </a>
-                </Dropdown.Button>
+                <Collapse defaultActiveKey={['1']} bordered={false} ghost={true} className='my-collapse'>
+                    <Divider />
+                    <Collapse.Panel key={1} header={'活动'}>
+                        <p>
+                            <div style={{marginTop:5}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>本周特惠</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>首发</h>
+                                <Yes_svg/>
+                            </Flex>
+                        </p>
+                    </Collapse.Panel>
+                    <Divider />
+                    <Collapse.Panel key={2} header={'价格'}>
+                        <p>
+                            <div style={{marginTop:5}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>免费</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>￥70以下</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>￥70~￥140</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>￥140~￥210</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>￥210~￥300</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>￥300以上</h>
+                                <Yes_svg/>
+                            </Flex>
+                        </p>
+                    </Collapse.Panel>
+                    <Divider />
+                    <Collapse.Panel key={3} header={'游戏类型'}>
+                        <p>
+                            <div style={{marginTop:5}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>策略</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>动作冒险</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>Rogue-lite</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>动作</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>卡牌</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>恐怖</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>模拟经营</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>平台跳跃</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>塔防</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>格斗</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>角色扮演</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>即时战略</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>竞速</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>开放世界</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>生存</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>地牢探索</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>射击</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>运动</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>音乐</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>第一人称</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>俯视角</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>回合制</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>解密</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                            <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                                <h className='filter-panel-choice'>多人竞技</h>
+                                <Yes_svg/>
+                            </Flex>
+                            <div style={{marginTop:25, marginBottom:25}}></div>
+                        </p>
+                    </Collapse.Panel>
+                    <Divider />
+                    <Collapse.Panel key={4} header={'支持平台'}>
+                        <div style={{marginTop:5}}></div>
+                        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                            <h className='filter-panel-choice'>Windows</h>
+                            <Yes_svg/>
+                        </Flex>
+                        <div style={{marginTop:25, marginBottom:25}}></div>
+                        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                            <h className='filter-panel-choice'>Mac</h>
+                            <Yes_svg/>
+                        </Flex>
+                        <div style={{marginTop:25, marginBottom:25}}></div>
+                        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                            <h className='filter-panel-choice'>Xbox</h>
+                            <Yes_svg/>
+                        </Flex>
+                        <div style={{marginTop:25, marginBottom:25}}></div>
+                        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                            <h className='filter-panel-choice'>PS</h>
+                            <Yes_svg/>
+                        </Flex>
+                        <div style={{marginTop:25, marginBottom:25}}></div>
+                        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                            <h className='filter-panel-choice'>Switch</h>
+                            <Yes_svg/>
+                        </Flex>
+                        <div style={{marginTop:25, marginBottom:25}}></div>
+                        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+                            <h className='filter-panel-choice'>移动端</h>
+                            <Yes_svg/>
+                        </Flex>
+                    </Collapse.Panel>
+                </Collapse>
             </Drawer>
         </>
     );
@@ -259,5 +474,31 @@ function SingleCard() {
             </Card>
         </>
     );
+}
+
+function Yes_svg(){
+    return(
+        <svg t="1702127625015" className="icon" viewBox="0 0 1024 1024" version="1.1"
+             xmlns="http://www.w3.org/2000/svg" p-id="3478" width="15" height="15">
+            <path
+                d="M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z"
+                fill="#2c2c2c" p-id="3479"></path>
+        </svg>
+    )
+}
+
+function Panel_Flex(){
+    const [data, setData] = useState('');
+    return(
+        <Flex id={'filter-activity-discount'}  justify='space-between' align='center' horizontal>
+            <h className='filter-panel-choice'>多人竞技</h>
+            <svg t="1702127625015" className="icon" viewBox="0 0 1024 1024" version="1.1"
+                 xmlns="http://www.w3.org/2000/svg" p-id="3478" width="15" height="15">
+                <path
+                    d="M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z"
+                    fill="#2c2c2c" p-id="3479"></path>
+            </svg>
+        </Flex>
+    )
 }
 export default Explore_gameRepositoryView;

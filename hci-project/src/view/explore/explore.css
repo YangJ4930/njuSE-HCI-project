@@ -1,4 +1,11 @@
-.css-1vrszko {
-    margin: 0 0 18px;
+.my-collapse .ant-collapse-header {
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.filter-panel-choice{
+    font-size: 15px;
 }
 
