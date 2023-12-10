@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
       <change afterPath="$PROJECT_DIR$/hci-project/src/redux/navbar/navbarSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/contentList.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/contentListCard.jsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/.eslintrc.json" afterDir="false" />
@@ -20,6 +22,10 @@
       <change beforePath="$PROJECT_DIR$/hci-project/src/features/user/userSlice.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" afterDir="false" />
@@ -55,7 +61,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -102,7 +108,8 @@
       <workItem from="1701687358922" duration="1566000" />
       <workItem from="1702019993291" duration="4134000" />
       <workItem from="1702024670512" duration="8004000" />
-      <workItem from="1702050352940" duration="1321000" />
+      <workItem from="1702050352940" duration="11203000" />
+      <workItem from="1702126544461" duration="911000" />
     </task>
     <servers />
   </component>

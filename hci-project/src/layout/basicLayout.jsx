@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {
@@ -14,8 +14,9 @@ import {
 import './Menu.css';
 
 
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Router from '../utils/Routes';
+import {lastPath, setCurrent} from "../redux/navbar/navbarSlice";
 
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
@@ -30,8 +31,13 @@ const BasicLayout = () => {
     const isLogin = useSelector((state) => state.auth.isLogin);
     const isVisible = useSelector((state) => state.navbar.visible)
     const [searchWord, setSearchWord] = useState("")
+    const dispatch = useDispatch()
+    const location = useLocation()
     let SearchJump = () => {
-        navigate(`/search?content=${searchWord}`);
+        if(!location.pathname.startsWith("/search"))
+        dispatch(lastPath(location.pathname));
+        dispatch(setCurrent("game"))
+        navigate(`/search/game?content=${searchWord}`);
     };
 
     return (
@@ -145,8 +151,10 @@ const BasicLayout = () => {
                         <Router />
                     </div>
                 </Content>
+                <div style={{display: isVisible? "flex": "none"}}>
+                    <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
+                </div>
 
-                <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
             </Layout>
         </Layout>
     );

@@ -20,7 +20,7 @@ function Router() {
         return (
         <Routes>
             <Route path='/' element={<HomeView></HomeView>}></Route>
-            <Route path='/search' element={<SearchView></SearchView>}></Route>
+            <Route path='/search/*' element={<SearchView></SearchView>}></Route>
             <Route path='/news' element={<NewsView></NewsView>}></Route>
             {/*news/content/:id/*router参数id */}
             {/*<Route*/}
