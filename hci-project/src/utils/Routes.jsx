@@ -15,9 +15,8 @@ import { LoginScreen } from '../view/user/LoginScreen';
 import React from 'react';
 import UserSetting from '../view/user/userSetting';
 
-
 function Router() {
-        return (
+    return (
         <Routes>
             <Route path='/' element={<HomeView></HomeView>}></Route>
             <Route path='/search/*' element={<SearchView></SearchView>}></Route>
