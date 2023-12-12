@@ -16,11 +16,6 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import {
     MessageOutlined,
-    PlusOutlined,
-    LikeOutlined,
-    StarOutlined,
-    StarFilled,
-    SmallDashOutlined,
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
@@ -206,7 +201,7 @@ const Communitydetail = function Comunitydetail() {
                     }}
                 ></ProList>
             </InfiniteScroll>
-            <FloatButton description={<CommentPost></CommentPost>}></FloatButton>
+            <FloatButton description={<CommentPost communityId={communityId}></CommentPost>}></FloatButton>
         </PageContainer>
     );
 };

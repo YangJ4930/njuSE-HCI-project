@@ -1,18 +1,52 @@
 import React, { useState } from 'react';
-import { Button, Drawer, Space, Tooltip, Flex, Input } from 'antd';
+import { Button, Drawer, Space, Tooltip, Flex, Input,message } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
-const CommentPost = () => {
+import axios from '../axios'
+const CommentPost = (props) => {
     const { TextArea } = Input;
+    const [comment,setComment]=useState(null);
+    const communityId=props.communityId;
+    
+    
     const onChange = (e) => {
-        console.log('Change:', e.target.value);
+        setComment(e.target.value)
+        // console.log('Change:', e.target.value);
     };
     const [open, setOpen] = useState(false);
+    const key = 'updatable';
+    const postcomment=()=>{
+        message.open({
+            key,
+            type: 'loading',
+            content: '正在发送评论。。。🤐',
+        });
+        axios.post('/community/Comment',{communityId,comment})
+        .then((response)=>{
+            console.log(response);
+            setTimeout(() => {
+                message.open({
+                    key,
+                    type: 'success',
+                    content: 'Loaded!',
+                    duration: 2,
+                });
+            }, 1000);
+            setOpen(false)
+            setComment("")
+        })
+        .catch((error) => {
+            console.error(error);
+
+            //errorMsg.error(error.response.data.msg).then((r) => console.log(r));
+        });
+    }
     const showDrawer = () => {
         setOpen(true);
     };
     const onClose = () => {
         setOpen(false);
     };
+
     return (
         <>
             <Space>
@@ -27,7 +61,7 @@ const CommentPost = () => {
                 </Tooltip>
             </Space>
             <Drawer
-                title='Drawer with extra actions'
+                title='发表你的看法吧!'
                 placement='right'
                 width={500}
                 onClose={onClose}
@@ -35,8 +69,8 @@ const CommentPost = () => {
                 extra={
                     <Space>
                         <Button onClick={onClose}>Cancel</Button>
-                        <Button type='primary' onClick={onClose}>
-                            OK
+                        <Button type='primary' onClick={postcomment}>
+                            Submit
                         </Button>
                     </Space>
                 }
@@ -52,7 +86,7 @@ const CommentPost = () => {
                             resize: 'none',
                         }}
                     />
-                    <div>在此区域发表你的看法</div>
+                    <div>发表你的看法吧!</div>
                 </Flex>
             </Drawer>
         </>

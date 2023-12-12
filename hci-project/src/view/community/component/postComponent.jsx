@@ -23,10 +23,6 @@ const PostComponent = function PostComponent() {
         },
       ];
     const { token } = theme.useToken();
-    const tagPlusStyle = {
-        background: token.colorBgContainer,
-        borderStyle: 'dashed',
-    };
     const { TextArea } = Input;
     const [fileList, setFileList] = useState([]);
     const [tags, setTags] = useState([]);
