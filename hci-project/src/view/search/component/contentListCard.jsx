@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Divider } from 'antd';
 
-export const NewsListCard = () => {
+export const ContentListCard = () => {
     return (
         <div>
             <Divider />
