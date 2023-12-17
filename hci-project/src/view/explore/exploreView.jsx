@@ -17,7 +17,6 @@ const contentStyle = {
     background: '#364d79',
 };
 
-
 const freeData=[
     {
         name:'Destiny 2: Legacy Collection',
@@ -78,6 +77,9 @@ const ExploreView = function ExploreView() {
         });
     }, [])
 
+    /**
+
+     **/
 
     return (
         <>
@@ -173,40 +175,6 @@ function SingleCard() {
         </>
     );
 }
-
-/**
-function Other() {
-    return(
-        <div>
-            <Flex justify='space-between' align='center' style={{width:'100%', aspectRatio:1.8}} horizontal>
-                <Flex gap='small' align='start' vertical style={{height:'100%', aspectRatio:2.0}}>
-                    <img alt="《PUBG: BATTLEGROUNDS》"
-                         src="https://cdn2.unrealengine.com/egs-pubg-rondo-breaker-1920x1080-c3b2e63a1715.jpg?h=480&amp;quality=medium&amp;resize=1&amp;w=854"
-                         className="css-1iusbvt"
-                         data-image="https://cdn2.unrealengine.com/egs-pubg-rondo-breaker-1920x1080-c3b2e63a1715.jpg?h=480&amp;quality=medium&amp;resize=1&amp;w=854"
-                         data-testid="picture-image"
-                         style={{objectFit:'cover', height:'60%', aspectRatio:2.17, borderRadius:10}}
-                    />
-                    <h5>《PUBG: BATTLEGROUNDS》</h5>
-                    <h6 style={{color:'rgba(190, 190, 190)'}}>来体验 2023 年度最大的更新。全新 8x8 地图 RONDO。</h6>
-                </Flex>
-                <Flex gap='small' align='start' style={{height:'100%', aspectRatio:2.0}} vertical>
-                    <img alt="《Chivalry 2》免费游玩周末"
-                         src="https://cdn2.unrealengine.com/egs-chivalry-ii-free-weekend-dec-23-breaker-1920x1080-6e986c0dad5d.jpg?h=480&amp;quality=medium&amp;resize=1&amp;w=854"
-                         className="css-1iusbvt"
-                         data-image="https://cdn2.unrealengine.com/egs-chivalry-ii-free-weekend-dec-23-breaker-1920x1080-6e986c0dad5d.jpg?h=480&amp;quality=medium&amp;resize=1&amp;w=854"
-                         data-testid="picture-image"
-                         style={{objectFit:'cover', height:'60%', aspectRatio:2.17, borderRadius:10}}
-                    />
-                    <h5>《Chivalry 2》免费游玩周末</h5>
-                    <h6 style={{color:'rgba(190, 190, 190)'}}>本周末来免费试玩《Chivalry 2》及其更新，更可四折购买</h6>
-
-                </Flex>
-            </Flex>
-        </div>
-    )
-}
- **/
 
 export default ExploreView;
 
