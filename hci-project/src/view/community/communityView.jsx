@@ -10,8 +10,6 @@ import {
   MessageOutlined,
   StarOutlined,
   StarFilled,
-  SmallDashOutlined,
-  AppstoreOutlined 
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "./community.css";
@@ -224,6 +222,7 @@ const CommunityView = function CommunityView() {
                         <div>杨京</div>
                         {item.tags==null?null:item.tags.map((key,index)=>{
                 
+                          // eslint-disable-next-line react/jsx-key
                           return<Tag color="#2db7f5" style={{
                             marginLeft: 10
                           }}>{key}</Tag>

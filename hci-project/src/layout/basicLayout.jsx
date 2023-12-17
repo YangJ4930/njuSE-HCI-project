@@ -34,10 +34,12 @@ const BasicLayout = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     let SearchJump = () => {
-        if(!location.pathname.startsWith("/search"))
-        dispatch(lastPath(location.pathname));
+        if (!location.pathname.startsWith('/search')) {
+            dispatch(lastPath(location.pathname));
+        }
         dispatch(setCurrent("game"))
         navigate(`/search/game?content=${searchWord}`);
+
     };
 
     return (

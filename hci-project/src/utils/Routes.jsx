@@ -22,11 +22,6 @@ function Router() {
             <Route path='/' element={<HomeView></HomeView>}></Route>
             <Route path='/search/*' element={<SearchView></SearchView>}></Route>
             <Route path='/news' element={<NewsView></NewsView>}></Route>
-            {/*news/content/:id/*router参数id */}
-            {/*<Route*/}
-            {/*    path='/news/content/:id'*/}
-            {/*    element={<NewsContentView></NewsContentView>}*/}
-            {/*></Route>*/}
             <Route path={'/news/content/:id'} element={<NewsContentMD></NewsContentMD>}></Route>
             <Route path='/community' element={<CommunityView></CommunityView>}></Route>
             <Route path='/explore' element={<ExploreView></ExploreView>}></Route>

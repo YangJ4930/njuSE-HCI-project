@@ -1,11 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {useLocation} from "react-router-dom";
 
 const navbarSlice = createSlice({
         name: "navbar",
         initialState: {
             visible: true,
-            path: "",
+            path: "/",
             current: "game",
         },
         reducers: {
