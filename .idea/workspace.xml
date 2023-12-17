@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
       <change afterPath="$PROJECT_DIR$/hci-project/src/redux/navbar/navbarSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameCard.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameList.jsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/.prettierrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/package.json" afterDir="false" />
@@ -110,7 +113,7 @@
       <workItem from="1702126544461" duration="2243000" />
       <workItem from="1702372091706" duration="929000" />
       <workItem from="1702441160595" duration="396000" />
-      <workItem from="1702803683873" duration="4338000" />
+      <workItem from="1702803683873" duration="8928000" />
     </task>
     <servers />
   </component>

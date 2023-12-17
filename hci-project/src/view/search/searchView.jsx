@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { HomeFilled } from '@ant-design/icons';
 import axios from '../../axios';
+import {GameCard} from "./component/GameCard";
+import {GameList} from "./component/GameList";
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
     return (
@@ -62,7 +64,7 @@ const ChooseList = ({ content }) => {
         }
         else{
             return(
-                <h2>1</h2>
+                <GameList listData={gameList}/>
             )
         }
     }
@@ -136,7 +138,6 @@ const SearchView = () =>{
         <>
             <SearchNavbar items={itemlist} />
             <div style={{ margin: 30 }}></div>
-            <h1>{content}</h1>
             <ChooseList content = {content}/>
         </>
     );
