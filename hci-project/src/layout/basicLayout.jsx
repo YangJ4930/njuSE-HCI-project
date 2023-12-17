@@ -7,6 +7,7 @@ import {
     BarsOutlined,
     HeartOutlined,
     HomeOutlined,
+    LoginOutlined,
     ReadOutlined,
     TeamOutlined,
     UserOutlined,
@@ -23,8 +24,7 @@ const SubMenu = Menu.SubMenu;
 const { Search } = Input;
 
 const BasicLayout = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const [showSider, setShowSider] = useState('');
+    const [siderCollapsed, setSiderCollapsed] = useState(false);
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user);
     const isLogin = useSelector((state) => state.auth.isLogin);
@@ -36,16 +36,24 @@ const BasicLayout = () => {
         if (!location.pathname.startsWith('/search')) {
             dispatch(lastPath(location.pathname));
         }
-        dispatch(setCurrent("game"))
+        dispatch(setCurrent('game'));
 
         navigate(`/search/game?content=${searchWord}`);
+    };
 
+    const changeSiderCollapsed = () => {
+        setSiderCollapsed(!siderCollapsed);
     };
 
     return (
         <Layout>
             <div style={{ display: isVisible ? 'flex' : 'none' }}>
-                <Sider theme='light' collapsible>
+                <Sider
+                    theme='light'
+                    collapsible
+                    collapsed={siderCollapsed}
+                    onCollapse={changeSiderCollapsed}
+                >
                     <Card
                         bordered={false}
                         hoverable
@@ -62,8 +70,13 @@ const BasicLayout = () => {
                                             src={<img width='40' src={userInfo.avatarUrl}></img>}
                                         />
                                     ) : (
-                                        <Button type='primary' shape='round' size='large'>
-                                            登录
+                                        <Button
+                                            type='primary'
+                                            shape='round'
+                                            size='default'
+                                            icon={<LoginOutlined />}
+                                        >
+                                            {siderCollapsed ? '' : '登录/注册'}
                                         </Button>
                                     )}
                                 </Link>
@@ -91,7 +104,6 @@ const BasicLayout = () => {
                         defaultOpenKeys={['sub1']}
                         mode='inline'
                         theme='dark'
-                        inlineCollapsed={collapsed}
                     >
                         <Menu.Item key='1' icon={<HomeOutlined />}>
                             <Link className='nav-link' aria-current='page' to='/'>
