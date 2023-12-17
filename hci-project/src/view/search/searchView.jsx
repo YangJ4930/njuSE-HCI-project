@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeVisible, setCurrent} from '../../redux/navbar/navbarSlice';
+import { changeVisible, setCurrent } from '../../redux/navbar/navbarSlice';
 import { Layout, Menu, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -10,17 +10,17 @@ import { HomeFilled } from '@ant-design/icons';
 import axios from '../../axios';
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
-    return(
+    return (
         <Header style={{ background: '#001529' }}>
             <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                 <span style={{ fontSize: 18, lineHeight: 1.4, color: 'white' }}>{name}</span>
             </Row>
         </Header>
-    )
-}
+    );
+};
 
 const SearchNavbar = ({ items }) => {
-    const current = useSelector((state)=> state.navbar.current)
+    const current = useSelector((state) => state.navbar.current);
     // const [current, setCurrent] = useState("game");
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -31,14 +31,15 @@ const SearchNavbar = ({ items }) => {
             navigate(path);
         }
         dispatch(setCurrent(e.key))
+
     };
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
-}
+    return <Menu onClick={onClick} selectedKeys={[current]} mode='horizontal' items={items} />;
+};
 
 const ChooseList = ({ content }) => {
-    const location = useLocation();
-    const pathname = location.pathname
 
+    const location = useLocation();
+    const pathname = location.pathname;
     const [gameList, setGameList] = useState([])
     useEffect(() => {
         axios.get(`http://localhost:8080/search/game?content=${content}`).then((response) => {
@@ -78,18 +79,21 @@ const ChooseList = ({ content }) => {
 }
 
 const SearchView = () =>{
+
     const location = useLocation();
-    let [searchParams, setSearchParams] = useSearchParams()
+    let [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const pathname = location.pathname
     const content = searchParams.get("content")
+
     const itemlist = [
         {
             label: (
                 <HomeFilled
                     style={{ fontSize: 20 }}>
                 </HomeFilled>
+
             ),
             key: 'back',
         },
@@ -126,15 +130,15 @@ const SearchView = () =>{
     useEffect(() => {
         return () => {
             dispatch(changeVisible(true)); // 组件返回时将 visible 设置为 true
-        }
-    }, [dispatch])
-    return(
+        };
+    }, [dispatch]);
+    return (
         <>
             <SearchNavbar items={itemlist} />
             <div style={{ margin: 30 }}></div>
             <h1>{content}</h1>
             <ChooseList content = {content}/>
         </>
-    )
-}
+    );
+};
 export default SearchView;
