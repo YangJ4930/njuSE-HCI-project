@@ -21,6 +21,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentPost from '../component/commentPost';
+import axios from '../axios'
 const Communitydetail = function Comunitydetail() {
     const content =
         '五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动\n' +
@@ -28,6 +29,7 @@ const Communitydetail = function Comunitydetail() {
     const { Meta } = Card;
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
+    const [detail,setDetail]=useState();
     const { communityId } = useParams();
     console.log(communityId);
     const loadMoreData = () => {
@@ -45,7 +47,18 @@ const Communitydetail = function Comunitydetail() {
                 setLoading(false);
             });
     };
+    const findCommunityDetail=()=>{
+            axios.get(`/community/findCommunityDetail/${communityId}`)
+            .then((response)=>{
+                console.log(response);
+
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }
     useEffect(() => {
+        findCommunityDetail()
         loadMoreData();
     }, []);
     return (

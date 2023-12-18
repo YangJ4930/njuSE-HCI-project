@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Button, Drawer, Space, Tooltip, Flex, Input,message } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import axios from '../axios'
+import { useSelector } from 'react-redux';
 const CommentPost = (props) => {
     const { TextArea } = Input;
     const [comment,setComment]=useState(null);
     const communityId=props.communityId;
-    
+    const userID = useSelector((state) => state.user.id);
     
     const onChange = (e) => {
         setComment(e.target.value)
@@ -18,9 +19,9 @@ const CommentPost = (props) => {
         message.open({
             key,
             type: 'loading',
-            content: '正在发送评论。。。🤐',
+            content: '正在发送评论。。。',
         });
-        axios.post('/community/Comment',{communityId,comment})
+        axios.post('/community/Comment',{communityId,comment,userID})
         .then((response)=>{
             console.log(response);
             setTimeout(() => {
@@ -30,6 +31,7 @@ const CommentPost = (props) => {
                     content: 'Loaded!',
                     duration: 2,
                 });
+                
             }, 1000);
             setOpen(false)
             setComment("")

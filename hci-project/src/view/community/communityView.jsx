@@ -30,6 +30,7 @@ const CommunityView = function CommunityView() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
+  const [tag,SetTag ]=useState("全部");
   const content =
     "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
   const title = "人机交互是我最喜欢的课，一天不上浑身难受";
@@ -162,6 +163,10 @@ const CommunityView = function CommunityView() {
                       width={150}
                       height={150}
                       src={item.ava}
+                      onClick={()=>{
+                        console.log("click me")
+                        SetTag(item.title)
+                      }}
                     />
           
                     <div style={{
@@ -197,6 +202,11 @@ const CommunityView = function CommunityView() {
               //loading={true}
               renderItem={(item) => {
                 var  formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
+                if(item.tags!=null){
+                  if(item.tags.indexOf(tag)==-1&&tag!=="全部"){
+                    return null;
+                  }
+                }
                 return (
                   <List.Item
                     actions={[
@@ -223,7 +233,7 @@ const CommunityView = function CommunityView() {
                       title={(<Row >
                         <div>杨京</div>
                         {item.tags==null?null:item.tags.map((key,index)=>{
-                
+                          
                           return<Tag color="#2db7f5" style={{
                             marginLeft: 10
                           }}>{key}</Tag>
