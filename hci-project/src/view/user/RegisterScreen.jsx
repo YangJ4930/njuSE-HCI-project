@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {Button, Card, Checkbox, Flex, Form, Input, message, Row} from "antd";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import axios from "../../axios";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useState } from 'react';
+import { Button, Card, Checkbox, Flex, Form, Input, message, Row } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import axios from '../../axios';
+import { Link, useNavigate } from 'react-router-dom';
 import backgroundImage from '../../assets/img/loginBackground_3.jpg';
 
 function RegisterScreen(props) {
@@ -14,7 +14,8 @@ function RegisterScreen(props) {
 
     const [errorMsg, contextHolder] = message.useMessage();
     const handleRegister = () => {
-        axios.post('/users/register', {email, password, username})
+        axios
+            .post('/users/register', { email, password, username })
             .then((response) => {
                 const registerData = response.data;
 
@@ -25,12 +26,12 @@ function RegisterScreen(props) {
             .catch((error) => {
                 console.error(error);
                 if (error.response && error.response.status === 400) {
-                    errorMsg.info(error.response.data).then(r => console.log(r));
+                    errorMsg.info(error.response.data).then((r) => console.log(r));
                 } else {
-                    errorMsg.info('注册失败，请稍后再试。').then(r => console.log(r));
+                    errorMsg.info('注册失败，请稍后再试。').then((r) => console.log(r));
                 }
             });
-    }
+    };
 
     return (
         <Flex
@@ -40,7 +41,7 @@ function RegisterScreen(props) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh',
-                backgroundImage: `url(${backgroundImage})`
+                backgroundImage: `url(${backgroundImage})`,
             }}
         >
             {/*错误提示框*/}
@@ -52,14 +53,14 @@ function RegisterScreen(props) {
                 }}
             >
                 <Form
-                    name="normal_login"
-                    className="login-form"
+                    name='normal_login'
+                    className='login-form'
                     initialValues={{
                         remember: true,
                     }}
                 >
                     <Form.Item
-                        name="email"
+                        name='email'
                         rules={[
                             {
                                 required: true,
@@ -68,13 +69,13 @@ function RegisterScreen(props) {
                         ]}
                     >
                         <Input
-                            prefix={<UserOutlined className="site-form-item-icon"/>}
-                            placeholder="Email"
+                            prefix={<UserOutlined className='site-form-item-icon' />}
+                            placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item
-                        name="username"
+                        name='username'
                         rules={[
                             {
                                 required: true,
@@ -83,14 +84,14 @@ function RegisterScreen(props) {
                         ]}
                     >
                         <Input
-                            prefix={<LockOutlined className="site-form-item-icon"/>}
-                            type="Username"
-                            placeholder="Username"
+                            prefix={<LockOutlined className='site-form-item-icon' />}
+                            type='Username'
+                            placeholder='Username'
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item
-                        name="password"
+                        name='password'
                         rules={[
                             {
                                 required: true,
@@ -99,18 +100,21 @@ function RegisterScreen(props) {
                         ]}
                     >
                         <Input
-                            prefix={<LockOutlined className="site-form-item-icon"/>}
-                            type="password"
-                            placeholder="Password"
+                            prefix={<LockOutlined className='site-form-item-icon' />}
+                            type='password'
+                            placeholder='Password'
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Item>
 
                     <Form.Item
-                        style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     >
-                        <Button type="primary" htmlType="submit" className="login-form-button"
-                                onClick={handleRegister}
+                        <Button
+                            type='primary'
+                            htmlType='submit'
+                            className='login-form-button'
+                            onClick={handleRegister}
                         >
                             注册
                         </Button>
@@ -118,10 +122,7 @@ function RegisterScreen(props) {
                 </Form>
             </Card>
         </Flex>
-
-
     );
 }
 
-
-export {RegisterScreen};
+export { RegisterScreen };

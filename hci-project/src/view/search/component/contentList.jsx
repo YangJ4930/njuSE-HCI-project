@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { NewsListCard } from './newsListCard';
-import { Avatar, List } from 'antd';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { ContentListCard } from './contentListCard';
+import { List } from 'antd';
 
-export const NewsList = ({ data }) => {
+export const ContentList = ({ data }) => {
     return (
         <List
             itemLayout='vertical'
@@ -15,7 +14,7 @@ export const NewsList = ({ data }) => {
                 pageSize: 3,
             }}
             dataSource={data}
-            renderItem={(item) => <NewsListCard />}
+            renderItem={(item) => <ContentListCard />}
         />
     );
 };

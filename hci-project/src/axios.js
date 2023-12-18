@@ -16,7 +16,7 @@ instance.interceptors.request.use(
     (error) => {
         // 处理请求错误
         return Promise.reject(error);
-    }
+    },
 );
 
 // 响应拦截器
@@ -28,7 +28,7 @@ instance.interceptors.response.use(
     (error) => {
         // 处理响应错误
         return Promise.reject(error);
-    }
+    },
 );
 
 export default instance;

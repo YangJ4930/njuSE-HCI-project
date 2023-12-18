@@ -1,14 +1,10 @@
-import React, {Component} from 'react';
-import {Avatar, List, Space, Carousel, Card} from 'antd';
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import {Link, useNavigate} from 'react-router-dom';
 import axios from '../../axios';
-import {NewHead} from "./component/newHead";
-import {NewsListCard} from "./component/newsListCard";
-import {CommentOutlined, EyeTwoTone, HeartTwoTone} from "@ant-design/icons";
-import {ListNews} from "./component/listNiews";
-
+import { NewHead } from './component/newHead';
+import { NewsListCard } from './component/newsListCard';
+import { ListNews } from './component/listNiews';
 
 function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
@@ -36,11 +32,9 @@ function NewsView() {
     }));
     return (
         <React.Fragment>
-            <NewHead style={{marginBottom: 200}}/>
-            <ListNews data={data}/>
+            <NewHead style={{ marginBottom: 200 }} />
+            <ListNews data={data} />
         </React.Fragment>
-
-
     );
 }
 

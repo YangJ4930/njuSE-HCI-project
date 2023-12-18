@@ -1,17 +1,9 @@
 import {
-    DownOutlined,
-    EditOutlined,
-    EllipsisOutlined,
-    SettingOutlined,
-    SmileOutlined,
-} from '@ant-design/icons';
-import {
     Avatar,
     Skeleton,
     Carousel,
     List,
     Dropdown,
-    Menu,
     Space,
     Drawer,
     Button,
@@ -21,6 +13,9 @@ import {
     Divider,
     Slider,
     message,
+    Collapse,
+    Flex,
+    ConfigProvider,
 } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import React, { useEffect, useState } from 'react';
@@ -28,6 +23,9 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PageContainer, ProList } from '@ant-design/pro-components';
 import Meta from 'antd/es/card/Meta';
+import * as PropTypes from 'prop-types';
+import './explore.css';
+import axios from '../../axios';
 
 const arrangementItems = [
     {
@@ -36,7 +34,7 @@ const arrangementItems = [
             <a target='_blank' rel='noopener noreferrer' href='https://www.antgroup.com'>
                 人气最高
             </a>
-        )
+        ),
     },
     {
         key: '2',
@@ -44,7 +42,7 @@ const arrangementItems = [
             <a target='_blank' rel='noopener noreferrer' href='https://www.aliyun.com'>
                 最新发布
             </a>
-        )
+        ),
     },
     {
         key: '3',
@@ -52,28 +50,66 @@ const arrangementItems = [
             <a target='_blank' rel='noopener noreferrer' href='https://www.luohanacademy.com'>
                 评分最高
             </a>
-        )
+        ),
     },
     {
         key: '4',
-        label: '价格由高到低'
+        label: '价格由高到低',
     },
     {
         key: '5',
         label: '价格由低到高',
     },
 ];
+const gameChosen = Array(14).fill(false);
 
 const Explore_gameRepositoryView = function Explore_gameRepositoryView() {
+    const [gameList, setGameList] = React.useState([]);
+
+    React.useEffect(() => {
+        console.log('nop')
+    }, [gameChosen]);
+
+    React.useEffect(() => {
+        axios.get('/explore/contents/games').then((response) => {
+            console.log(response);
+            setGameList(response.data);
+            console.log(response.data);
+        });
+    }, []);
+
+    let gameData = Array.from({
+        length: gameList.length,
+    }).map((_, i) => ({
+        cover:gameList.cover,
+        name:gameList.cover,
+        type:gameList.type
+    }));
+
+    //根据选中条件变更数据
+    const getData = () => {
+        if (gameChosen.every((value) => !value)) {
+            // 当全部游戏类型都未选中时，返回全部数据
+            return gameData;
+        }else {
+
+            const selectedData = gameData.filter(game => {
+                // 检查游戏类型是否有交集
+                return game.type.some(type => gameChosen[type]);
+            });
+            return selectedData;
+        }
+    };
+
     return (
         <>
             <div>
                 <PageContainer>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Arrangement />
-                        <Filter />
+                        <Filter/>
                     </div>
-                    <CardListTable />
+                    <CardListTable gameData={getData()} />
                 </PageContainer>
             </div>
         </>
@@ -112,7 +148,7 @@ function Filter() {
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Button type='primary' onClick={showFilter}>
                     <Space>
-                        <text>筛选器</text>
+                        <text>筛选</text>
                         <svg
                             className='icon_filter'
                             viewBox='0 0 1024 1024'
@@ -130,37 +166,251 @@ function Filter() {
                 </Button>
             </div>
             <Drawer title='筛选' placement='right' onClose={closeFilter} open={open}>
-                <Dropdown.Button
-                    menu={{
-                        items: arrangementItems,
-                    }}
+                <Collapse
+                    defaultActiveKey={['1']}
+                    bordered={false}
+                    ghost={true}
+                    className='my-collapse'
                 >
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Space>排序方式</Space>
-                    </a>
-                </Dropdown.Button>
+                    <Divider />
+                    <Collapse.Panel key={1} header={'活动'}>
+                        <p>
+                            <div style={{ marginTop: 5 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>本周特惠</h>
+                                <Yes_svg />
+                            </Flex>
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>首发</h>
+                                <Yes_svg />
+                            </Flex>
+                        </p>
+                    </Collapse.Panel>
+                    <Divider />
+                    <Collapse.Panel key={2} header={'价格'}>
+                        <p>
+                            <div style={{ marginTop: 5 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>免费</h>
+                                <Yes_svg />
+                            </Flex>
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>￥70以下</h>
+                                <Yes_svg />
+                            </Flex>
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>￥70~￥140</h>
+                                <Yes_svg />
+                            </Flex>
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>￥140~￥210</h>
+                                <Yes_svg />
+                            </Flex>
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>￥210~￥300</h>
+                                <Yes_svg />
+                            </Flex>
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <Flex
+                                id={'filter-activity-discount'}
+                                justify='space-between'
+                                align='center'
+                                horizontal
+                            >
+                                <h className='filter-panel-choice'>￥300以上</h>
+                                <Yes_svg />
+                            </Flex>
+                        </p>
+                    </Collapse.Panel>
+                    <Divider />
+                    <Collapse.Panel key={3} header={'游戏类型'}>
+                        <p>
+                            <div style={{ marginTop: 5 }}></div>
+                            <PanelFlex key={0} name={'Rogue-lite'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={1} name={'城市建造'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={2} name={'动作'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={3} name={'格斗'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={4} name={'回合制'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={5} name={'即使战略'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={6} name={'竞速'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={7} name={'卡牌游戏'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={8} name={'恐怖'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={10} name={'冒险'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={11} name={'射击'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={12} name={'喜剧'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={13} name={'休闲'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                            <PanelFlex key={14} name={'叙事'} />
+                            <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                        </p>
+                    </Collapse.Panel>
+                    <Divider />
+                    <Collapse.Panel key={4} header={'支持平台'}>
+                        <div style={{ marginTop: 5 }}></div>
+                        <Flex
+                            id={'filter-activity-discount'}
+                            justify='space-between'
+                            align='center'
+                            horizontal
+                        >
+                            <h className='filter-panel-choice'>Windows</h>
+                            <Yes_svg />
+                        </Flex>
+                        <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                        <Flex
+                            id={'filter-activity-discount'}
+                            justify='space-between'
+                            align='center'
+                            horizontal
+                        >
+                            <h className='filter-panel-choice'>Mac</h>
+                            <Yes_svg />
+                        </Flex>
+                        <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                        <Flex
+                            id={'filter-activity-discount'}
+                            justify='space-between'
+                            align='center'
+                            horizontal
+                        >
+                            <h className='filter-panel-choice'>Xbox</h>
+                            <Yes_svg />
+                        </Flex>
+                        <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                        <Flex
+                            id={'filter-activity-discount'}
+                            justify='space-between'
+                            align='center'
+                            horizontal
+                        >
+                            <h className='filter-panel-choice'>PS</h>
+                            <Yes_svg />
+                        </Flex>
+                        <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                        <Flex
+                            id={'filter-activity-discount'}
+                            justify='space-between'
+                            align='center'
+                            horizontal
+                        >
+                            <h className='filter-panel-choice'>Switch</h>
+                            <Yes_svg />
+                        </Flex>
+                        <div style={{ marginTop: 25, marginBottom: 25 }}></div>
+                        <Flex
+                            id={'filter-activity-discount'}
+                            justify='space-between'
+                            align='center'
+                            horizontal
+                        >
+                            <h className='filter-panel-choice'>移动端</h>
+                            <Yes_svg />
+                        </Flex>
+                    </Collapse.Panel>
+                </Collapse>
             </Drawer>
         </>
     );
 }
 
-function CardListTable() {
+function PanelFlex({ name, key }) {
+    const [filterGame, setFilterGame] = useState(false);
+
+    React.useEffect(() => {
+        console.log('filterGameChanged');
+    }, [filterGame]);
+
+    const Change = () => {
+        gameChosen[key] = !gameChosen[key];
+        setFilterGame(!filterGame);
+    };
+
+    if (gameChosen[key])
+        return (
+            <Button
+                block={true}
+                onClick={() => {
+                    Change();
+                }}
+                style={{ borderColor: 'white' }}
+            >
+                <Flex justify='space-between' align='center' horizontal>
+                    <h6>{name}</h6>
+                    <Yes_svg />
+                </Flex>
+            </Button>
+        );
+
+    return (
+        <Button
+            block={true}
+            onClick={() => {
+                Change();
+            }}
+            style={{ borderColor: 'white' }}
+        >
+            <Flex justify='space-between' align='center' horizontal>
+                <h6>{name}</h6>
+            </Flex>
+        </Button>
+    );
+}
+
+function CardListTable({ gameData }) {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
-
-    const ite = [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-        'Item 5',
-        'Item 6',
-        'Item 7',
-        'Item 8',
-        'Item 9',
-    ];
-    // const[items ,setItems]=useState(ite)
-    // setItems(ite)
 
     const loadMoreData = () => {
         if (loading) {
@@ -183,7 +433,6 @@ function CardListTable() {
     return (
         <>
             <div
-                id='scrollableDiv'
                 style={{
                     height: 'fixed',
                     overflow: 'auto',
@@ -192,9 +441,9 @@ function CardListTable() {
                 <br></br>
                 <InfiniteScroll
                     infinite-scroll-disabled={false}
-                    dataLength={data.length}
+                    dataLength={gameData.length}
                     next={loadMoreData}
-                    hasMore={data.length < 50}
+                    hasMore={gameData.length < 50}
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                     scrollableTarget='scrollableDiv'
@@ -203,24 +452,21 @@ function CardListTable() {
                         size='small'
                         itemLayout='vertical'
                         rowKey='id'
-                        dataSource={data}
+                        dataSource={gameData}
                         // loading={true}
-                        renderItem={(item) => {
+                        renderItem={(item, index) => {
+                            const startIndex = index * 4;
+                            const endIndex = startIndex + 4;
+                            const items = gameData.slice(startIndex, endIndex);
+
                             return (
                                 <List.Item>
                                     <Row gutter={16}>
-                                        <Col span={6}>
-                                            <SingleCard />
-                                        </Col>
-                                        <Col span={6}>
-                                            <SingleCard />
-                                        </Col>
-                                        <Col span={6}>
-                                            <SingleCard />
-                                        </Col>
-                                        <Col span={6}>
-                                            <SingleCard />
-                                        </Col>
+                                        {items.map((item, index) => (
+                                            <Col span={6} key={index}>
+                                                <SingleCard singleCardData={item} />
+                                            </Col>
+                                        ))}
                                     </Row>
                                 </List.Item>
                             );
@@ -232,32 +478,48 @@ function CardListTable() {
     );
 }
 
-function SingleCard() {
+function SingleCard({ singleCardData }) {
     return (
         <>
-            <Card
-                style={{
-                    width: '100%',
-                }}
-                cover={
-                    <img
-                        alt='example'
-                        src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-                    />
-                }
-                actions={[
-                    <SettingOutlined key='setting' />,
-                    <EditOutlined key='edit' />,
-                    <EllipsisOutlined key='ellipsis' />,
-                ]}
+            <Flex
+                justify='space-between'
+                align='center'
+                style={{ width: '100%', aspectRatio: 0.8, marginBottom: 10 }}
+                vertical
             >
-                <Meta
-                    avatar={<Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />}
-                    title='Card title'
-                    description='This is the description'
+                <img
+                    alt='nop'
+                    src='https://cdn2.unrealengine.com/egs-avatar-frontiers-of-pandora-carousel-desktop-1248x702-9346d193b313.jpg?h=720&quality=medium&resize=1&w=1280'
+                    style={{
+                        width: '100%',
+                        objectFit: 'cover',
+                        aspectRatio: 0.7,
+                        borderRadius: 10,
+                    }}
                 />
-            </Card>
+
+                <h6> name </h6>
+            </Flex>
         </>
     );
 }
+
+function Yes_svg() {
+    return (
+        <svg
+            className='icon'
+            viewBox='0 0 1024 1024'
+            version='1.1'
+            xmlns='http://www.w3.org/2000/svg'
+            width='15'
+            height='15'
+        >
+            <path
+                d='M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z'
+                fill='#2c2c2c'
+            ></path>
+        </svg>
+    );
+}
+
 export default Explore_gameRepositoryView;

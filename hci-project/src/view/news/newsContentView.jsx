@@ -1,5 +1,5 @@
-import React, {Component, useEffect} from 'react';
-import {useParams, useSearchParams} from 'react-router-dom';
+import React, { Component, useEffect } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -14,7 +14,7 @@ const { Title, Text } = Typography;
 import gameImage from '../../static/gameImage1.jpg';
 function NewsContentView() {
     // 新闻id,从路由参数中获取
-    const {id} = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         console.log(id);
@@ -26,8 +26,8 @@ function NewsContentView() {
                 <Header style={{ background: '#001529' }}>
                     <Row justify='space-between' align='middle' style={{ height: '100%' }}></Row>
                 </Header>
-                <br/>
-                <Content style={{padding: '20px'}}>
+                <br />
+                <Content style={{ padding: '20px' }}>
                     <Row gutter={[24, 24]}>
                         <Col span={24}>
                             <NewsDetail />
