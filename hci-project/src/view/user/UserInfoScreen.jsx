@@ -87,7 +87,7 @@ const GameInventory = (props) => {
                         <Card
                             key={game.id}
                             hoverable={true}
-                            cover={<img alt={game.name} src={game.image} />}
+                            cover={<img alt={game.name} src={game.imgUrl} />}
                             style={{
                                 width: 250,
                                 textAlign: 'center',
