@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from '../../axios';
-import { NewHead } from './component/newHead';
-import { NewsListCard } from './component/newsListCard';
-import { ListNews } from './component/listNiews';
+import {NewHead} from './component/newHead';
+import {NewsListCard} from './component/newsListCard';
+import {ListNews} from './component/listNews';
 
 function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
@@ -13,7 +13,6 @@ function NewsView() {
         axios.get('/news/contents').then((response) => {
             console.log(response);
             setNewsList(response.data);
-            console.log(response.data);
         });
     }, []);
 
@@ -32,8 +31,8 @@ function NewsView() {
     }));
     return (
         <React.Fragment>
-            <NewHead style={{ marginBottom: 200 }} />
-            <ListNews data={data} />
+            <NewHead style={{marginBottom: 200}}/>
+            <ListNews data={data}/>
         </React.Fragment>
     );
 }
