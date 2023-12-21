@@ -16,16 +16,12 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import {
     MessageOutlined,
-    PlusOutlined,
-    LikeOutlined,
-    StarOutlined,
-    StarFilled,
-    SmallDashOutlined,
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentPost from '../component/commentPost';
+import axios from '../axios'
 const Communitydetail = function Comunitydetail() {
     const content =
         '五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动\n' +
@@ -33,6 +29,8 @@ const Communitydetail = function Comunitydetail() {
     const { Meta } = Card;
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
+    const [detail, setDetail] = useState();
+    const [pageNumber,setPageNumber]=useState(0);
     const { communityId } = useParams();
     console.log(communityId);
     const loadMoreData = () => {
@@ -49,8 +47,28 @@ const Communitydetail = function Comunitydetail() {
             .catch((endMessage) => {
                 setLoading(false);
             });
+        axios.get(`/community/findAllComment/${pageNumber}/${communityId}`)
+            .then((response) => {
+                console.log(response);
+                let number=pageNumber+1;
+                setPageNumber(number);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     };
+    const findCommunityDetail = () => {
+        axios.get(`/community/findCommunityDetail/${communityId}`)
+            .then((response) => {
+                console.log(response);
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
     useEffect(() => {
+        findCommunityDetail()
         loadMoreData();
     }, []);
     return (
@@ -206,7 +224,7 @@ const Communitydetail = function Comunitydetail() {
                     }}
                 ></ProList>
             </InfiniteScroll>
-            <FloatButton description={<CommentPost></CommentPost>}></FloatButton>
+            <FloatButton description={<CommentPost communityId={communityId}></CommentPost>}></FloatButton>
         </PageContainer>
     );
 };

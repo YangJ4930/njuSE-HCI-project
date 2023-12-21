@@ -17,9 +17,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
 import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
-import GameTags from './GameTags';
-
+import GameTags from './GameTags'
+import { useSelector } from 'react-redux';
 const PostComponent = function PostComponent() {
+    const userID = useSelector((state) => state.user.id);
+    const islogin=useSelector((state) => state.auth.isLogin);
     const options = [
         {
             value: 'gold',
@@ -35,10 +37,6 @@ const PostComponent = function PostComponent() {
         },
     ];
     const { token } = theme.useToken();
-    const tagPlusStyle = {
-        background: token.colorBgContainer,
-        borderStyle: 'dashed',
-    };
     const { TextArea } = Input;
     const [fileList, setFileList] = useState([]);
     const [tags, setTags] = useState([]);
@@ -60,47 +58,58 @@ const PostComponent = function PostComponent() {
     };
     const key = 'updatable';
     const PostC = (from, file) => {
-        console.log(from);
-        message.open({
-            key,
-            type: 'loading',
-            content: '正在发送帖子。。。🤐',
-        });
-        const fd = new FormData();
-        file.map((item) => {
-            fd.append('file', item);
-            fd.append('uid', item.uid);
-        });
-        const f = JSON.stringify(from);
-        const blob = new Blob([f], {
-            type: 'application/json',
-        });
-        fd.append('form', blob);
-        fd.append('tags', tags);
-        console.log(file);
-        fetch('http://localhost:7999/community/Upload', {
-            method: 'post',
-            body: fd,
-        })
-            .then((response) => {
-                console.log(response);
-                setTimeout(() => {
-                    message.open({
-                        key,
-                        type: 'success',
-                        content: 'Loaded!',
-                        duration: 2,
-                    });
-                }, 1000);
-                // message.open({
-                //     key,
-                //     type: 'success',
-                //     content: '帖子发布成功！',
-                //     duration: 2,
-                // })
+        if(islogin){
+            message.open({
+                key,
+                type: 'loading',
+                content: '正在发送帖子。。。🤐',
+            });
+            const fd = new FormData();
+            file.map((item) => {
+                fd.append('file', item);
+                fd.append('uid', item.uid);
+            });
+            const f = JSON.stringify(from);
+            const blob = new Blob([f], {
+                type: 'application/json',
             })
-            .catch((error) => console.log(error));
-    };
+            fd.append('form', blob)
+            fd.append('tags',tags)
+            fd.append('userId',userID)
+            console.log(file)
+            fetch('http://localhost:7999/community/Upload', {
+                method: 'post',
+                body: fd,
+            })
+                .then(response => {
+                    console.log(response)
+                    setTimeout(() => {
+                        message.open({
+                            key,
+                            type: 'success',
+                            content: 'Loaded!',
+                            duration: 2,
+                        });
+                    }, 1000);
+                    // message.open({
+                    //     key,
+                    //     type: 'success',
+                    //     content: '帖子发布成功！',
+                    //     duration: 2,
+                    // })
+                })
+                .catch(error => console.log(error))
+        }
+        else{
+            message.open({
+                key,
+                type: 'warning!',
+                content: '请先登录',
+                duration: 2,
+            });
+        }
+        
+    }
     const handleCancel = () => {
         setOpenImage(false);
     };
