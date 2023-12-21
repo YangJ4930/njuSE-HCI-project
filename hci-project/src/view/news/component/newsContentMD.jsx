@@ -42,17 +42,25 @@ function NewsContentMD(props) {
         <Card
             title={news.title}
             bordered={true}
-            style={{width: '95%', height: '100%', overflow: 'auto', borderRadius: 36}}
+            style={{width: '95%', height: '100%', overflow: 'auto', borderRadius: 36, padding: 20}}
             hoverable
-
         >
             <Typography>
-                <Layout style={{backgroundColor: 'white', justifyContent: 'center', alignContent: 'center', textAlign: "center"}}>
-                    <Title style={{
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        backgroundColor: 'white'
-                    }}>{news.title}</Title>
+                <Layout style={{
+                    backgroundColor: 'white',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    textAlign: "center"
+                }}>
+                    <Title
+                        level={4}
+                        style={{
+                            justifyContent: 'center',
+                            textAlign: 'center',
+                            backgroundColor: 'white',
+                            fontSize: 40,
+                            marginBottom: 20
+                        }}>{news.title}</Title>
 
                     <Image src={news.cover} alt={"news_cover"}
                            style={{
@@ -61,9 +69,6 @@ function NewsContentMD(props) {
                            }}/>
 
                     <Text style={{justifyContent: 'center', textAlign: 'start', backgroundColor: 'white', padding: 20}}>
-                        {/*<pre style={{backgroundColor: "white", fontSize: 20}}>*/}
-                        {/*    {content}*/}
-                        {/*</pre>*/}
 
                         <div
                             id='content'
