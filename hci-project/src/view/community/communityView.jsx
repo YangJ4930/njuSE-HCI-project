@@ -45,6 +45,7 @@ const CommunityView = function CommunityView() {
       setXuan(false)
     }
     const onclickshou = () => {
+      console.log(isshou)
       setIsshou(isshou ? false : true)
     }
  const color = isshou ? 'yellow' : 'black';
@@ -136,6 +137,7 @@ const ite = [
                 setData([...data, ...body]);
                 const pagenumber = page + 1;
                 setPage(pagenumber);
+                console.log(page);
                 setLoading(false);
             })
             .catch((endMessage) => {
@@ -171,6 +173,7 @@ return (
                       height={150}
                       src={item.ava}
                       onClick={() => {
+                        console.log("click me")
                         message.open({
                           key,
                           type: 'success',
@@ -266,7 +269,7 @@ return (
                       }}><Image
                     
                         preview={false}
-
+                       
                         height={272}
                         alt="logo"
                         src={item.image}

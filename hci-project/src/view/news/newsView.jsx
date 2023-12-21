@@ -10,7 +10,7 @@ function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get('/news/contents').then((response) => {
+        axios.get('http://localhost:8080/news/contents').then((response) => {
             console.log(response);
             setNewsList(response.data);
         });

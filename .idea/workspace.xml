@@ -5,45 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
-      <change afterPath="$PROJECT_DIR$/hci-project/src/redux/navbar/navbarSlice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameCard.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameList.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/app.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/app.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/features/user/authSlice.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/features/user/userSlice.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/communitydetail.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/home/homeView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newHead.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newHead.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newsListCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsListCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/newsContentView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/newsContentView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/listNiews.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/listNiews.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/component/newsContentMD.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/component/newsContentMD.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/news/newsView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/news/newsView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/component/GameCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/LoginScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/LoginScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/RegisterScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/RegisterScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/UserInfoScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/UserInfoScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/userView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/userView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hci-project/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,20 +42,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev__news&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/project/njuse/3/hci/njuSE-HCI-project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev__news",
+    "last_opened_file_path": "D:/project/njuse/3/hci/njuSE-HCI-project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "E:\\download\\WebStorm 2023.2.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\project\njuse\3\hci\njuSE-HCI-project\hci-project\src\view\news\component" />
@@ -113,7 +84,10 @@
       <workItem from="1702126544461" duration="2243000" />
       <workItem from="1702372091706" duration="929000" />
       <workItem from="1702441160595" duration="396000" />
-      <workItem from="1702803683873" duration="9249000" />
+      <workItem from="1702803683873" duration="10738000" />
+      <workItem from="1702911470324" duration="1151000" />
+      <workItem from="1703124577421" duration="770000" />
+      <workItem from="1703149465478" duration="11408000" />
     </task>
     <servers />
   </component>

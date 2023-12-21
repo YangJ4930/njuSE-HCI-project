@@ -10,6 +10,8 @@ import { HomeFilled } from '@ant-design/icons';
 import axios from '../../axios';
 import {GameCard} from "./component/GameCard";
 import {GameList} from "./component/GameList";
+import {ListNews} from "../news/component/listNiews";
+
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
     return (
@@ -43,12 +45,21 @@ const ChooseList = ({ content }) => {
     const location = useLocation();
     const pathname = location.pathname;
     const [gameList, setGameList] = useState([])
+    const [newsList, setNewsList] = useState([])
+
     useEffect(() => {
         axios.get(`http://localhost:8080/search/game?content=${content}`).then((response) => {
             console.log(response);
             setGameList(response.data);
             console.log(response.data);
         });
+
+        axios.get(`http://localhost:8080/search/news?content=${content}`).then((response)=>{
+            setNewsList(response.data);
+            console.log("news")
+            console.log(response.data)
+        });
+
     }, [content, pathname]);
 
 
@@ -70,7 +81,7 @@ const ChooseList = ({ content }) => {
     }
     else if(pathname.startsWith("/search/news")){
         return(
-            <SearchHead name ="新闻"/>
+            <ListNews data={newsList}></ListNews>
         )
     }
     else if(pathname.startsWith("/search/community") ){
@@ -85,8 +96,6 @@ const SearchView = () =>{
     const location = useLocation();
     let [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
-    const navigate = useNavigate()
-    const pathname = location.pathname
     const content = searchParams.get("content")
 
     const itemlist = [
