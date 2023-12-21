@@ -29,7 +29,8 @@ const Communitydetail = function Comunitydetail() {
     const { Meta } = Card;
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
-    const [detail,setDetail]=useState();
+    const [detail, setDetail] = useState();
+    const [pageNumber,setPageNumber]=useState(0);
     const { communityId } = useParams();
     console.log(communityId);
     const loadMoreData = () => {
@@ -46,14 +47,23 @@ const Communitydetail = function Comunitydetail() {
             .catch((endMessage) => {
                 setLoading(false);
             });
+        axios.get(`/community/findAllComment/${pageNumber}/${communityId}`)
+            .then((response) => {
+                console.log(response);
+                let number=pageNumber+1;
+                setPageNumber(number);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     };
-    const findCommunityDetail=()=>{
-            axios.get(`/community/findCommunityDetail/${communityId}`)
-            .then((response)=>{
+    const findCommunityDetail = () => {
+        axios.get(`/community/findCommunityDetail/${communityId}`)
+            .then((response) => {
                 console.log(response);
 
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err)
             })
     }

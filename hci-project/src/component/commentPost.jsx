@@ -7,8 +7,8 @@ const CommentPost = (props) => {
     const { TextArea } = Input;
     const [comment,setComment]=useState(null);
     const communityId=props.communityId;
-    const userID = useSelector((state) => state.user.id);
-    
+    const userId = useSelector((state) => state.user.id);
+    const islogin = useSelector((state) => state.auth.isLogin);
     const onChange = (e) => {
         setComment(e.target.value)
         // console.log('Change:', e.target.value);
@@ -16,31 +16,42 @@ const CommentPost = (props) => {
     const [open, setOpen] = useState(false);
     const key = 'updatable';
     const postcomment=()=>{
-        message.open({
-            key,
-            type: 'loading',
-            content: '正在发送评论。。。',
-        });
-        axios.post('/community/Comment',{communityId,comment,userID})
-        .then((response)=>{
-            console.log(response);
-            setTimeout(() => {
-                message.open({
-                    key,
-                    type: 'success',
-                    content: 'Loaded!',
-                    duration: 2,
-                });
-                
-            }, 1000);
-            setOpen(false)
-            setComment("")
-        })
-        .catch((error) => {
-            console.error(error);
+        if(islogin){
+            message.open({
+                key,
+                type: 'loading',
+                content: '正在发送评论。。。',
+            });
+            console.log("comId"+communityId);
+            console.log("userId"+userId);
+            axios.post('/community/Comment',{communityId,comment,userId})
+            .then((response)=>{
+                console.log(response);
+                setTimeout(() => {
+                    message.open({
+                        key,
+                        type: 'success',
+                        content: 'Loaded!',
+                        duration: 2,
+                    });
+                    
+                }, 1000);
+                setOpen(false)
+                setComment("")
+            })
+            .catch((error) => {
+                console.error(error);
+    
+                //errorMsg.error(error.response.data.msg).then((r) => console.log(r));
+            });
 
-            //errorMsg.error(error.response.data.msg).then((r) => console.log(r));
-        });
+        }else{
+            message.open({
+                key,
+                type: 'warning',
+                content: '请先登录',
+            });
+        }
     }
     const showDrawer = () => {
         setOpen(true);

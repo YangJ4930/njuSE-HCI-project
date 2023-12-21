@@ -1,6 +1,6 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Button, Divider, FloatButton, List, Skeleton, Image,Row,Tag } from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card ,message} from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -10,8 +10,6 @@ import {
   MessageOutlined,
   StarOutlined,
   StarFilled,
-  SmallDashOutlined,
-  AppstoreOutlined 
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "./community.css";
@@ -25,17 +23,18 @@ import er from './component/er.jpg'
 import zd from './component/战地5.jpg'
 import it_takes_two from './component/it_takes_two.jpg'
 import all from './component/all.png'
+import { useSelector } from 'react-redux';
 
 const CommunityView = function CommunityView() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
-  const [tag,SetTag ]=useState("全部");
+  const [tag, SetTag] = useState("全部");
   const content =
     "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
   const title = "人机交互是我最喜欢的课，一天不上浑身难受";
-
-
+  const key = 'updatable';
+  const islogin=useSelector((state) => state.auth.isLogin);
   const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
     const [isshou, setIsshou] = useState(false);
@@ -62,7 +61,7 @@ const CommunityView = function CommunityView() {
       {text}
     </span>
   }
-  const ContentText = ({  title }) => {
+  const ContentText = ({ title }) => {
     return (
       <>
         <div className="title">{title}</div>
@@ -158,19 +157,25 @@ const CommunityView = function CommunityView() {
                     <Image
                       preview={false}
                       style={{
-                        borderRadius:10
+                        borderRadius: 10
                       }}
                       width={150}
                       height={150}
                       src={item.ava}
-                      onClick={()=>{
+                      onClick={() => {
                         console.log("click me")
+                        message.open({
+                          key,
+                          type: 'success',
+                          content: '切换tag',
+                          duration: 1,
+                      });
                         SetTag(item.title)
                       }}
                     />
-          
+
                     <div style={{
-                      marginTop:10
+                      marginTop: 10
                     }}>
                       {item.title}
                     </div>
@@ -181,84 +186,92 @@ const CommunityView = function CommunityView() {
           ></ProList>
         </ProCard>
 
-       
-          <br></br>
-          <InfiniteScroll
 
-            infinite-scroll-disabled={false}
-            dataLength={data.length}
-            next={loadMoreData}
-            hasMore={data.length < 10}
-            loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-            endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-            scrollableTarget="scrollableDiv"
-            onScroll={() => console.log("loading")}
-          >
-            <ProList
-              size="small"
-              itemLayout="vertical"
-              rowKey="id"
-              dataSource={data}
-              //loading={true}
-              renderItem={(item) => {
-                var  formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
-                if(item.tags!=null){
-                  if(item.tags.indexOf(tag)==-1&&tag!=="全部"){
-                    return null;
-                  }
+        <br></br>
+        <InfiniteScroll
+
+          infinite-scroll-disabled={false}
+          dataLength={data.length}
+          next={loadMoreData}
+          hasMore={data.length < 10}
+          loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+          endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+          scrollableTarget="scrollableDiv"
+          onScroll={() => console.log("loading")}
+        >
+          <ProList
+            size="small"
+            itemLayout="vertical"
+            rowKey="id"
+            dataSource={data}
+            //loading={true}
+            renderItem={(item) => {
+              var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
+              if (item.tags != null) {
+                if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
+                  return null;
                 }
-                return (
-                  <List.Item
-                    actions={[
-                      <IconText
-                        icon={StarOutlined}
-                        iconname={"StarOutlined"}
-                        text="156"
-                        key="list-vertical-star-o"
-                      />,
-                      <IconText
-                        icon={LikeOutlined}
-                        text="156"
-                        key="list-vertical-like-o"
-                      />,
-                      <IconText
-                        icon={MessageOutlined}
-                        text="2"
-                        key="list-vertical-message"
-                      />,
-                    ]}
+              }
+              return (
+                <List.Item
+                  actions={[
+              
+                    <IconText
+                      icon={LikeOutlined}
+                      text="156"
+                      key="list-vertical-like-o"
+                    />,
+                    <IconText
+                      icon={MessageOutlined}
+                      text="2"
+                      key="list-vertical-message"
+                    />,
+                  ]}
+                >
+                  <List.Item.Meta
+                    avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                    title={(<Row >
+                      <div>杨京</div>
+                      {item.tags == null ? null : item.tags.map((key, index) => {
+
+                        return <Tag color="#2db7f5" style={{
+                          marginLeft: 10
+                        }}>{key}</Tag>
+
+                      })}
+
+                    </Row>)}
+                    description={"发表时间：" + formattedTimestamp}
+                  />
+
+                  <Link
+                    className="link-text"
+                    to={`/component/Communitydetail/${item.id}`}
+                  ><Card hoverable
+                  bordered={false}
+                  
                   >
-                    <List.Item.Meta
-                      avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                      title={(<Row >
-                        <div>杨京</div>
-                        {item.tags==null?null:item.tags.map((key,index)=>{
-                          
-                          return<Tag color="#2db7f5" style={{
-                            marginLeft: 10
-                          }}>{key}</Tag>
-                          
-                        })}
-                        
-                      </Row>)}
-                      description={"发表时间："+formattedTimestamp}
-                    />
-                    <Link
-                      className="link-text"
-                      to={`/component/Communitydetail/${item.id}`}
-                    >
                       <ContentText content={item.content} title={item.title} />
-                      {item.image === null ? null : <img
-                        width={272}
+                      {item.image === null ? null : <div style={{
+                        textAlign:"center",
+                        width:"100%",
+                  
+                      }}><Image
+                    
+                        preview={false}
+                       
+                        height={272}
                         alt="logo"
                         src={item.image}
-                      />}
-                    </Link>
-                  </List.Item>
-                );
-              }}
-            ></ProList>
-          </InfiniteScroll>
+                      /></div>}
+                    </Card>
+                  </Link>
+
+                </List.Item>
+              );
+            }}
+          ></ProList>
+        </InfiniteScroll>
       </PageContainer>
       <FloatButton.Group>
         <Link to="/component/postComponent">
