@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
       <change afterPath="$PROJECT_DIR$/hci-project/src/redux/navbar/navbarSlice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/contentList.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/contentListCard.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameCard.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/component/GameList.jsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/.eslintrc.json" afterDir="false" />
@@ -28,6 +28,7 @@
       <change beforePath="$PROJECT_DIR$/hci-project/src/static/homePlay4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/communitydetail.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/exploreView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/explore/explore_gameRepositoryView.jsx" afterDir="false" />
@@ -109,7 +110,10 @@
       <workItem from="1702019993291" duration="4134000" />
       <workItem from="1702024670512" duration="8004000" />
       <workItem from="1702050352940" duration="11203000" />
-      <workItem from="1702126544461" duration="911000" />
+      <workItem from="1702126544461" duration="2243000" />
+      <workItem from="1702372091706" duration="929000" />
+      <workItem from="1702441160595" duration="396000" />
+      <workItem from="1702803683873" duration="9249000" />
     </task>
     <servers />
   </component>
@@ -117,8 +121,18 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="4f67f7e9-c744-43ff-8a18-27f627baecb2" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="4f67f7e9-c744-43ff-8a18-27f627baecb2">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>

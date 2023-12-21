@@ -1,4 +1,16 @@
-import { Upload, Modal, Input, Form, Space, Divider, Button, message, Tag, theme, Select } from 'antd';
+import {
+    Upload,
+    Modal,
+    Input,
+    Form,
+    Space,
+    Divider,
+    Button,
+    message,
+    Tag,
+    theme,
+    Select,
+} from 'antd';
 import { useState } from 'react';
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
@@ -12,18 +24,18 @@ const PostComponent = function PostComponent() {
     const islogin=useSelector((state) => state.auth.isLogin);
     const options = [
         {
-          value: 'gold',
+            value: 'gold',
         },
         {
-          value: 'lime',
+            value: 'lime',
         },
         {
-          value: 'green',
+            value: 'green',
         },
         {
-          value: 'cyan',
+            value: 'cyan',
         },
-      ];
+    ];
     const { token } = theme.useToken();
     const { TextArea } = Input;
     const [fileList, setFileList] = useState([]);
@@ -33,9 +45,9 @@ const PostComponent = function PostComponent() {
     const [markdownContent, setMarkdownContent] = useState();
     const [form] = useForm();
     const setMarkContent = (value) => {
-        console.log(value)
-        setMarkdownContent(value)
-    }
+        console.log(value);
+        setMarkdownContent(value);
+    };
     const handlePreview = (file) => {
         const reader = new FileReader();
         reader.onload = (result) => {
@@ -135,11 +147,11 @@ const PostComponent = function PostComponent() {
                 >
                     图文
                 </div>
-                <Form form={form} title="图文" className="postform"> 
-                    <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                <Form form={form} title='图文' className='postform'>
+                    <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
                         <GameTags setTags={setTags}></GameTags>
-                        <Divider orientation="left"></Divider>
-                        <Form.Item className="formitem">
+                        <Divider orientation='left'></Divider>
+                        <Form.Item className='formitem'>
                             <Upload
                                 className='imageInput'
                                 action=''
@@ -156,11 +168,10 @@ const PostComponent = function PostComponent() {
                         <Form.Item name='title'>
                             <TextArea bordered={false} placeholder='标题' rows={1} />
                         </Form.Item>
-                        <Divider orientation="left">Content</Divider>
-                        <Form.Item name="content">
+                        <Divider orientation='left'>Content</Divider>
+                        <Form.Item name='content'>
                             <MDEditor value={markdownContent} onChange={setMarkContent} />
                         </Form.Item>
-
                     </Space>
                     <Button
                         className='formitembutton'

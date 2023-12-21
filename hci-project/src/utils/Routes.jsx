@@ -15,18 +15,12 @@ import { LoginScreen } from '../view/user/LoginScreen';
 import React from 'react';
 import UserSetting from '../view/user/userSetting';
 
-
 function Router() {
-        return (
+    return (
         <Routes>
             <Route path='/' element={<HomeView></HomeView>}></Route>
             <Route path='/search/*' element={<SearchView></SearchView>}></Route>
             <Route path='/news' element={<NewsView></NewsView>}></Route>
-            {/*news/content/:id/*router参数id */}
-            {/*<Route*/}
-            {/*    path='/news/content/:id'*/}
-            {/*    element={<NewsContentView></NewsContentView>}*/}
-            {/*></Route>*/}
             <Route path={'/news/content/:id'} element={<NewsContentMD></NewsContentMD>}></Route>
             <Route path='/community' element={<CommunityView></CommunityView>}></Route>
             <Route path='/explore' element={<ExploreView></ExploreView>}></Route>

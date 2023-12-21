@@ -5,7 +5,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:prettier/recommended"
   ],
   "parserOptions": {
@@ -13,12 +13,21 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "unused-imports"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "warn",
-    "react/prop-types": "off",
-    "no-unused-vars": "warn",
-    "prettier/prettier": "warn"
+    "no-unused-vars": "off",
+    // or "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ContentListCard} from './contentListCard';
+import { ContentListCard } from './contentListCard';
 import { List } from 'antd';
 
 export const ContentList = ({ data }) => {
@@ -14,7 +14,7 @@ export const ContentList = ({ data }) => {
                 pageSize: 3,
             }}
             dataSource={data}
-            renderItem={(item) => <ContentListCard/>}
+            renderItem={(item) => <ContentListCard />}
         />
     );
 };

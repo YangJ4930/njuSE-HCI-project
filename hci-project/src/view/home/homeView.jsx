@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Space, Card, Carousel, Layout } from 'antd';
+import {Row, Col, Space, Card, Carousel, Layout, Flex, Radio} from 'antd';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 const { Header, Footer, Sider, Content } = Layout;
@@ -207,22 +207,22 @@ const NewsHomeList = () => {
                             }
                             alt={'Rocket League'}
                         />
-                        <h4
-                            style={{
-                                position: 'absolute',
-                                bottom: 0,
-                                width: '100%',
-                                color: 'white',
-                                margin: 0,
-                                backgroundColor: 'rgba(34, 63, 90, 0.75',
-                                fontSize: 25,
-                                lineHeight: 1.5,
-                                padding: 24,
-                                boxSizing: 'border-box',
-                            }}
-                        >
-                            今年 App Store Awards 的入围游戏有些硬｜IGN 中国
-                        </h4>
+                                <h4
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: 0,
+                                        width: '100%',
+                                        color: 'white',
+                                        margin: 0,
+                                        backgroundColor: 'rgba(34, 63, 90, 0.75',
+                                        fontSize: 25,
+                                        lineHeight: 1.5,
+                                        padding: 24,
+                                        boxSizing: 'border-box',
+                                    }}
+                                >
+                                    今年 App Store Awards 的入围游戏有些硬｜IGN 中国
+                                </h4>
                     </div>
                 </Col>
             </Row>
