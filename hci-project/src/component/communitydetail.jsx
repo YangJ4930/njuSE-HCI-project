@@ -10,6 +10,7 @@ import {
     Row,
     Tag,
     FloatButton,
+    Button,
 } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -23,45 +24,49 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentPost from '../component/commentPost';
 import axios from '../axios'
 const Communitydetail = function Comunitydetail() {
-    const content =
-        '五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动\n' +
-        '，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛';
     const { Meta } = Card;
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
-    const [detail, setDetail] = useState();
+    const [detail, setDetail] = useState({
+        id:"",
+        author:"",
+        context:"",
+        imageUrl:"",
+        title:"",
+    });
+    const [imageUrl,setImageUrl]=useState([])
+    const [commentDetail,setCommentDetail]=useState([])
     const [pageNumber,setPageNumber]=useState(0);
     const { communityId } = useParams();
-    console.log(communityId);
+
     const loadMoreData = () => {
+        console.log("page"+pageNumber)
         if (loading) {
             return;
         }
         setLoading(true);
-        fetch('https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo')
-            .then((res) => res.json())
-            .then((body) => {
-                setData([...data, ...body.results]);
-                setLoading(false);
-            })
-            .catch((endMessage) => {
-                setLoading(false);
-            });
         axios.get(`/community/findAllComment/${pageNumber}/${communityId}`)
             .then((response) => {
                 console.log(response);
-                let number=pageNumber+1;
+                setCommentDetail([...response.data,...commentDetail])
+                const number=pageNumber+1;
                 setPageNumber(number);
+                setLoading(false);
             })
             .catch((err) => {
                 console.log(err)
+                setLoading(false);
             })
     };
+
     const findCommunityDetail = () => {
         axios.get(`/community/findCommunityDetail/${communityId}`)
             .then((response) => {
-                console.log(response);
-
+                //console.log(response);
+                var imageUrls=response.data.imageUrl;
+                var shuzu=imageUrls.split(',')
+                setImageUrl(shuzu.slice(0,shuzu.length-1))
+               // console.log(imageUrl);
+                setDetail(response.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -72,7 +77,8 @@ const Communitydetail = function Comunitydetail() {
         loadMoreData();
     }, []);
     return (
-        <PageContainer title='震惊！Steam直接把我游戏移除了，还不给我退钱'>
+        <>
+        <PageContainer title={detail.title}>
             <div
                 style={{
                     width: '100%',
@@ -80,34 +86,15 @@ const Communitydetail = function Comunitydetail() {
                     justifyContent: 'center',
                 }}
             >
-                <Carousel
-                    autoplay={true}
-                    style={{
-                        width: 400,
-                    }}
-                >
-                    <Image
-                        height={400}
-                        src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                    />
-
-                    <Image
-                        height={400}
-                        src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                    />
                     <Image.PreviewGroup
-                        items={[
-                            'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp',
-                            'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp',
-                            'https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp',
-                        ]}
+                        items={imageUrl}
                     >
                         <Image
-                            height={400}
-                            src='https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp'
-                        />
+                         height={400}
+                         src={imageUrl[0]}>
+                        </Image>
                     </Image.PreviewGroup>
-                </Carousel>
+
             </div>
             <Divider plain></Divider>
             <Row>
@@ -129,7 +116,7 @@ const Communitydetail = function Comunitydetail() {
                         }
                         title={
                             <Row>
-                                <div>杨京</div>
+                                <div>{detail.author}</div>
                                 <Tag
                                     color='#2db7f5'
                                     style={{
@@ -153,17 +140,18 @@ const Communitydetail = function Comunitydetail() {
                     fontSize: '16px',
                 }}
             >
-                {content}
+                {detail.context}
             </div>
 
             <InfiniteScroll
                 infinite-scroll-disabled={false}
-                dataLength={data.length}
+                dataLength={commentDetail.length}
                 next={loadMoreData}
-                hasMore={data.length < 50}
+                hasMore={commentDetail.length < 50}
                 loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                 endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                 scrollableTarget='scrollableDiv'
+                onScroll={()=>console.log("鼠标正在华东")}
             >
                 <Row justify='space-between'></Row>
                 <Divider orientation='left'>
@@ -183,7 +171,7 @@ const Communitydetail = function Comunitydetail() {
                     size='small'
                     itemLayout='vertical'
                     rowKey='id'
-                    dataSource={data}
+                    dataSource={commentDetail}
                     split={false}
                     renderItem={(item) => {
                         return (
@@ -194,8 +182,8 @@ const Communitydetail = function Comunitydetail() {
                                     bordered={false}
                                 >
                                     <List.Item.Meta
-                                        avatar={<Avatar src={item.picture.large} />}
-                                        title={<a href='https://ant.design'>{item.name.last}</a>}
+                                        avatar={<Avatar src={item.user.avatarUrl} />}
+                                        title={<a href='https://ant.design'>{item.user.username}</a>}
                                         description={
                                             <div style={{ fontSize: 10, marginTop: -10 }}>
                                                 今天 11:21
@@ -207,7 +195,7 @@ const Communitydetail = function Comunitydetail() {
                                             marginLeft: 40,
                                         }}
                                     >
-                                        我去你妈的steam
+                                        {item.comment}
                                     </div>
 
                                     {/* <img
@@ -226,6 +214,7 @@ const Communitydetail = function Comunitydetail() {
             </InfiniteScroll>
             <FloatButton description={<CommentPost communityId={communityId}></CommentPost>}></FloatButton>
         </PageContainer>
+        </>
     );
 };
 export default Communitydetail;

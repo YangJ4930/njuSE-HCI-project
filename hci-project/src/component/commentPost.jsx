@@ -37,6 +37,7 @@ const CommentPost = (props) => {
                     
                 }, 1000);
                 setOpen(false)
+                
                 setComment("")
             })
             .catch((error) => {

@@ -1,13 +1,8 @@
 import axios from 'axios';
 
 const instance = axios.create({
-<<<<<<< HEAD
     // baseURL: 'http://127.0.0.1:8080',
     baseURL: 'http://127.0.0.1:7999',
-=======
-    baseURL: 'http://127.0.0.1:8080',
-    // baseURL: 'http://127.0.0.1:4523/m1/3675702-0-default',
->>>>>>> 6783990bd1cdd47bb1353e8971c0247c0ca27f4f
     timeout: 5000, // 请求超时时间
 });
 
