@@ -1,14 +1,20 @@
 import { marked } from 'marked';
 import Paragraph from 'antd/es/skeleton/Paragraph';
 import React, { useEffect, useState } from 'react';
-import { Card, Typography } from 'antd';
+import {Card, Image, Layout, Typography} from 'antd';
 import { useParams } from 'react-router-dom';
 import markDownTemp from '../../../utils/temp/MarkdownTemp';
-
+import axios from "../../../axios";
+import gameImage from "../../../static/gameImage1.jpg";
+const { Header, Footer, Sider, Content } = Layout;
+const { Title, Text } = Typography;
 function NewsContentMD(props) {
     const { id } = useParams();
 
-    const { content } = useState(props.content);
+    // const { content } = useState(props.content);
+
+    const [news, setNews] = useState({})
+    const [content, setContent] = useState("")
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -22,21 +28,42 @@ function NewsContentMD(props) {
     });
 
     useEffect(() => {
-        console.log(id);
+        axios.get(`http://localhost:8080/news/content/${id}`).then((response) => {
+            console.log(response);
+            setNews(response.data);
+            console.log(response.data);
+            console.log(response.data.content.join('\n'))
+            setContent(response.data.content.join('\n'))
+        });
     }, []);
     return (
-        <Card
-            title='机器学习'
-            bordered={true}
-            style={{ width: '95%', height: '100%', overflow: 'auto' }}
-            // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        >
-            <div
-                id='content'
-                className='article-detail'
-                dangerouslySetInnerHTML={{ __html: markDownTemp }}
-            />
-        </Card>
+        // <Card
+        //     title = {news.title}
+        //     bordered={true}
+        //     style={{ width: '95%', height: '100%', overflow: 'auto' }}
+        //     // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+        // >
+            <Typography>
+                <Layout>
+                    <Title style={{ justifyContent: 'center', textAlign: 'center' }}>{news.title}</Title>
+
+                    <Text style={{ justifyContent: 'center', textAlign: 'center'}}>
+                        {/*<pre style={{backgroundColor: "white", fontSize: 20}}>*/}
+                        {/*    {content}*/}
+                        {/*</pre>*/}
+                        <img src={news.cover} alt={""} style={{width: "75%"}} />
+                        <div
+                            id='content'
+                            className='article-detail'
+                            style={{fontSize: 20}}
+                            dangerouslySetInnerHTML={{ __html: marked(content) }}
+                        />
+
+                    </Text>
+                </Layout>
+
+            </Typography>
+
     );
 }
 

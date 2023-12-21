@@ -125,20 +125,6 @@ const BasicLayout = () => {
                                 社区
                             </Link>
                         </Menu.Item>
-                        {/*<SubMenu*/}
-                        {/*    key='sub1'*/}
-                        {/*    title={*/}
-                        {/*        <span>*/}
-                        {/*            <span>收藏</span>*/}
-                        {/*        </span>*/}
-                        {/*    }*/}
-                        {/*    icon={<HeartOutlined />}*/}
-                        {/*>*/}
-                        {/*    <Menu.Item key='5'>Option 5</Menu.Item>*/}
-                        {/*    <Menu.Item key='6'>Option 6</Menu.Item>*/}
-                        {/*    <Menu.Item key='7'>Option 7</Menu.Item>*/}
-                        {/*    <Menu.Item key='8'>Option 8</Menu.Item>*/}
-                        {/*</SubMenu>*/}
                     </Menu>
                 </Sider>
             </div>
@@ -151,7 +137,7 @@ const BasicLayout = () => {
                 >
                     <Search
                         placeholder='input search text'
-                        allowClear
+                        // allowClear
                         enterButton='Search'
                         size='large'
                         style={{

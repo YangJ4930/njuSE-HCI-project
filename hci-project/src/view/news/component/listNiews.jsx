@@ -2,18 +2,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Card, List, Space } from 'antd';
 import { CommentOutlined, EyeTwoTone, HeartTwoTone } from '@ant-design/icons';
 import React from 'react';
-
-const ListNews = ({ data }) => {
+export const ListNews = ({data}) => {
     const navigate = useNavigate();
-
-    return (
+    return(
         <List
-            itemLayout='vertical'
-            size='large'
+            itemLayout="vertical"
+            size="large"
             pagination={{
                 onChange: (page) => {
                     console.log(page);
                 },
+                showSizeChanger: false,
                 pageSize: 3,
             }}
             dataSource={data}
@@ -27,6 +26,7 @@ const ListNews = ({ data }) => {
                     <List.Item
                         key={item.title}
                         actions={[
+                            // eslint-disable-next-line react/jsx-key
                             <Space>
                                 <HeartTwoTone
                                     twoToneColor='#eb2f96'
@@ -36,6 +36,7 @@ const ListNews = ({ data }) => {
                                 />
                                 <span>{item.likes}</span>
                             </Space>,
+                            // eslint-disable-next-line react/jsx-key
                             <Space>
                                 <EyeTwoTone
                                     onClick={() => {
@@ -44,6 +45,7 @@ const ListNews = ({ data }) => {
                                 />
                                 <span>{item.views}</span>
                             </Space>,
+                            // eslint-disable-next-line react/jsx-key
                             <Space>
                                 <CommentOutlined
                                     color={'#eb2f96'}
@@ -54,7 +56,7 @@ const ListNews = ({ data }) => {
                                 <span>{item.comments}</span>
                             </Space>,
                         ]}
-                        extra={<img width={250} alt='cover' src={item.cover} />}
+                        extra={<img width={250} alt='cover' src={item.cover}/>}
                     >
                         <Card
                             hoverable={true}
@@ -64,7 +66,7 @@ const ListNews = ({ data }) => {
                             }}
                         >
                             <List.Item.Meta
-                                avatar={<Avatar src={item.avatar} />}
+                                avatar={<Avatar src={item.avatar}/>}
                                 title={<Link to={item.id}>{item.title}</Link>}
                                 description={item.description}
                             />
@@ -74,7 +76,6 @@ const ListNews = ({ data }) => {
                 </Card>
             )}
         />
-    );
-};
+    )
 
-export { ListNews };
+};

@@ -6,12 +6,13 @@ export const GameCard = ({data}) => {
         <Col className="gutter-row" span={6}>
             <Card
                 style={{
-                    width: 350,
+                    width: "350px"
                 }}
                 cover={
                     <img
                         alt="example"
                         src={data.imgUrl}
+                        style={{width: "100%", height: "400px"}}
                     />
                 }
             >
