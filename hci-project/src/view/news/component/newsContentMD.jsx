@@ -1,15 +1,17 @@
-import { marked } from 'marked';
+import {marked} from 'marked';
 import Paragraph from 'antd/es/skeleton/Paragraph';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Image, Layout, Typography} from 'antd';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import markDownTemp from '../../../utils/temp/MarkdownTemp';
 import axios from "../../../axios";
 import gameImage from "../../../static/gameImage1.jpg";
-const { Header, Footer, Sider, Content } = Layout;
-const { Title, Text } = Typography;
+
+const {Header, Footer, Sider, Content} = Layout;
+const {Title, Text} = Typography;
+
 function NewsContentMD(props) {
-    const { id } = useParams();
+    const {id} = useParams();
 
     // const { content } = useState(props.content);
 
@@ -37,34 +39,47 @@ function NewsContentMD(props) {
         });
     }, []);
     return (
-        // <Card
-        //     title = {news.title}
-        //     bordered={true}
-        //     style={{ width: '95%', height: '100%', overflow: 'auto' }}
-        //     // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        // >
-            <Typography>
-                <Layout>
-                    <Title style={{ justifyContent: 'center', textAlign: 'center' }}>{news.title}</Title>
+        <Card
+            title={news.title}
+            bordered={true}
+            style={{width: '95%', height: '100%', overflow: 'auto', borderRadius: 36}}
+            hoverable
 
-                    <Text style={{ justifyContent: 'center', textAlign: 'center'}}>
+        >
+            <Typography>
+                <Layout style={{backgroundColor: 'white', justifyContent: 'center', alignContent: 'center', textAlign: "center"}}>
+                    <Title style={{
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        backgroundColor: 'white'
+                    }}>{news.title}</Title>
+
+                    <Image src={news.cover} alt={"news_cover"}
+                           style={{
+                               width: "75%",
+                               height: "auto"
+                           }}/>
+
+                    <Text style={{justifyContent: 'center', textAlign: 'start', backgroundColor: 'white', padding: 20}}>
                         {/*<pre style={{backgroundColor: "white", fontSize: 20}}>*/}
                         {/*    {content}*/}
                         {/*</pre>*/}
-                        <img src={news.cover} alt={""} style={{width: "75%"}} />
+
                         <div
                             id='content'
                             className='article-detail'
-                            style={{fontSize: 20}}
-                            dangerouslySetInnerHTML={{ __html: marked(content) }}
+                            style={{fontSize: 20, backgroundColor: 'white'}}
+                            dangerouslySetInnerHTML={{__html: marked(content)}}
                         />
 
                     </Text>
                 </Layout>
 
             </Typography>
+        </Card>
+
 
     );
 }
 
-export { NewsContentMD };
+export {NewsContentMD};
