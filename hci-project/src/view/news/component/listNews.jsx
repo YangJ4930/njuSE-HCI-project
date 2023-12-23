@@ -13,6 +13,7 @@ const ListNews = ({data}) => {
                 onChange: (page) => {
                     console.log(page);
                 },
+                showSizeChanger: false,
                 pageSize: 3,
             }}
             dataSource={data}

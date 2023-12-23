@@ -24,32 +24,24 @@ import zd from './component/战地5.jpg';
 import it_takes_two from './component/it_takes_two.jpg';
 import all from './component/all.png';
 
-const CommunityView = function CommunityView() {
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
-    const [page, setPage] = useState(0);
-    const content =
-        '五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛';
-    const title = '人机交互是我最喜欢的课，一天不上浑身难受';
-
-    const IconText = ({ icon, text, iconname }) => {
-        const [xuan, setXuan] = useState(false);
-        const [isshou, setIsshou] = useState(false);
-        const onEnter = () => {
-            setXuan(true);
-        };
-        const onLeave = () => {
-            setXuan(false);
-        };
-        const onclickshou = () => {
-            console.log(isshou);
-            setIsshou(isshou ? false : true);
-        };
-        const color = isshou ? 'yellow' : 'black';
-        if (iconname === 'StarOutlined') {
-            const seicon = isshou ? StarFilled : StarOutlined;
-            return (
-                <span>
+const IconText = ({ icon, text, iconname }) => {
+    const [xuan, setXuan] = useState(false);
+    const [isshou, setIsshou] = useState(false);
+    const onEnter = () => {
+        setXuan(true);
+    };
+    const onLeave = () => {
+        setXuan(false);
+    };
+    const onclickshou = () => {
+        console.log(isshou);
+        setIsshou(isshou ? false : true);
+    };
+    const color = isshou ? 'yellow' : 'black';
+    if (iconname === 'StarOutlined') {
+        const seicon = isshou ? StarFilled : StarOutlined;
+        return (
+            <span>
                     {React.createElement(seicon, {
                         style: { marginInlineEnd: 8, color: color },
                         onClick: onclickshou,
@@ -57,28 +49,115 @@ const CommunityView = function CommunityView() {
                         onMouseEnter: onEnter,
                         onMouseLeave: onLeave,
                     })}
-                    {text}
+                {text}
                 </span>
-            );
-        }
-        return (
-            <span>
+        );
+    }
+    return (
+        <span>
                 {React.createElement(icon, {
                     style: { marginInlineEnd: 8, color: color },
                     onClick: onclickshou,
                 })}
-                {text}
+            {text}
             </span>
-        );
-    };
-    const ContentText = ({ title }) => {
-        return (
-            <>
-                <div className='title'>{title}</div>
-                {/* <div className="content">{content}</div> */}
-            </>
-        );
-    };
+    );
+};
+
+
+const ContentText = ({ title }) => {
+    return (
+        <>
+            <div className='title'>{title}</div>
+            {/* <div className="content">{content}</div> */}
+        </>
+    );
+};
+
+export const CardList = ({data}) =>{
+    return(
+        <ProList
+            size='small'
+            itemLayout='vertical'
+            rowKey='id'
+            dataSource={data}
+            //loading={true}
+            renderItem={(item) => {
+                var formattedTimestamp = moment(item.createdAt).format(
+                    'YYYY-MM-DD HH:mm:ss',
+                );
+                return (
+                    <List.Item
+                        actions={[
+                            <IconText
+                                icon={StarOutlined}
+                                iconname={'StarOutlined'}
+                                text='156'
+                                key='list-vertical-star-o'
+                            />,
+                            <IconText
+                                icon={LikeOutlined}
+                                text='156'
+                                key='list-vertical-like-o'
+                            />,
+                            <IconText
+                                icon={MessageOutlined}
+                                text='2'
+                                key='list-vertical-message'
+                            />,
+                        ]}
+                    >
+                        <List.Item.Meta
+                            avatar={
+                                <Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />
+                            }
+                            title={
+                                <Row>
+                                    <div>杨京</div>
+                                    {item.tags == null
+                                        ? null
+                                        : item.tags.map((key, index) => {
+                                            return (
+                                                <Tag
+                                                    color='#2db7f5'
+                                                    style={{
+                                                        marginLeft: 10,
+                                                    }}
+                                                >
+                                                    {key}
+                                                </Tag>
+                                            );
+                                        })}
+                                </Row>
+                            }
+                            description={'发表时间：' + formattedTimestamp}
+                        />
+                        <Link
+                            className='link-text'
+                            to={`/component/Communitydetail/${item.id}`}
+                        >
+                            <ContentText content={item.content} title={item.title} />
+                            {item.image === null ? null : (
+                                <img width={272} alt='logo' src={item.image} />
+                            )}
+                        </Link>
+                    </List.Item>
+                );
+            }}
+        ></ProList>
+    )
+
+}
+export const CommunityView = () => {
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [page, setPage] = useState(0);
+    const content =
+        '五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛';
+    const title = '人机交互是我最喜欢的课，一天不上浑身难受';
+
+
+
     const ite = [
         {
             title: '全部',
@@ -127,7 +206,7 @@ const CommunityView = function CommunityView() {
         }
         setLoading(true);
         console.log('begining');
-        fetch(`http://localhost:7999/community/findAllCommunity/${page}`)
+        fetch(`http://localhost:8080/community/findAllCommunity/${page}`)
             .then((res) => res.json())
             .then((body) => {
                 console.log(body);
@@ -205,75 +284,7 @@ const CommunityView = function CommunityView() {
                     scrollableTarget='scrollableDiv'
                     onScroll={() => console.log('loading')}
                 >
-                    <ProList
-                        size='small'
-                        itemLayout='vertical'
-                        rowKey='id'
-                        dataSource={data}
-                        //loading={true}
-                        renderItem={(item) => {
-                            var formattedTimestamp = moment(item.createdAt).format(
-                                'YYYY-MM-DD HH:mm:ss',
-                            );
-                            return (
-                                <List.Item
-                                    actions={[
-                                        <IconText
-                                            icon={StarOutlined}
-                                            iconname={'StarOutlined'}
-                                            text='156'
-                                            key='list-vertical-star-o'
-                                        />,
-                                        <IconText
-                                            icon={LikeOutlined}
-                                            text='156'
-                                            key='list-vertical-like-o'
-                                        />,
-                                        <IconText
-                                            icon={MessageOutlined}
-                                            text='2'
-                                            key='list-vertical-message'
-                                        />,
-                                    ]}
-                                >
-                                    <List.Item.Meta
-                                        avatar={
-                                            <Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />
-                                        }
-                                        title={
-                                            <Row>
-                                                <div>杨京</div>
-                                                {item.tags == null
-                                                    ? null
-                                                    : item.tags.map((key, index) => {
-                                                          return (
-                                                              <Tag
-                                                                  color='#2db7f5'
-                                                                  style={{
-                                                                      marginLeft: 10,
-                                                                  }}
-                                                              >
-                                                                  {key}
-                                                              </Tag>
-                                                          );
-                                                      })}
-                                            </Row>
-                                        }
-                                        description={'发表时间：' + formattedTimestamp}
-                                    />
-                                    <Link
-                                        className='link-text'
-                                        to={`/component/Communitydetail/${item.id}`}
-                                    >
-                                        <ContentText content={item.content} title={item.title} />
-                                        {item.image === null ? null : (
-                                            <img width={272} alt='logo' src={item.image} />
-                                        )}
-                                    </Link>
-                                </List.Item>
-                            );
-                        }}
-                    ></ProList>
+                    <CardList data={data}/>
                 </InfiniteScroll>
             </PageContainer>
             <FloatButton.Group>
@@ -286,4 +297,5 @@ const CommunityView = function CommunityView() {
     );
 
 };
-export default CommunityView;
+
+export default CommunityView

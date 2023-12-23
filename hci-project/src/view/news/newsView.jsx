@@ -12,7 +12,7 @@ function NewsView() {
     React.useEffect(() => {
         axios.get('http://localhost:8080/news/contents').then((response) => {
             console.log(response);
-            setNewsList(response.data);
+            setNewsList(response.data.content);
         });
     }, []);
 

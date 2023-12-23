@@ -2,25 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Card, List, Space } from 'antd';
 import { CommentOutlined, EyeTwoTone, HeartTwoTone } from '@ant-design/icons';
 import React from 'react';
-export const ListNews = ({data}) => {
+export const ListHomeNews = ({data}) => {
     const navigate = useNavigate();
     return(
         <List
             itemLayout="vertical"
             size="large"
-            pagination={{
-                onChange: (page) => {
-                    console.log(page);
-                },
-                showSizeChanger: false,
-                pageSize: 3,
-            }}
             dataSource={data}
-            footer={
-                <div>
-                    <b>ant design</b> footer part
-                </div>
-            }
             renderItem={(item) => (
                 <Card>
                     <List.Item

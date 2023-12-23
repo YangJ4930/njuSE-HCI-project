@@ -10,7 +10,7 @@ import { HomeFilled } from '@ant-design/icons';
 import axios from '../../axios';
 import {GameCard} from "./component/GameCard";
 import {GameList} from "./component/GameList";
-import {ListNews} from "../news/component/listNiews";
+import {ListNews} from "../news/component/listNews";
 
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
@@ -75,7 +75,7 @@ const ChooseList = ({ content }) => {
         }
         else{
             return(
-                <GameList listData={gameList}/>
+                <GameList widthData={350} listData={gameList}/>
             )
         }
     }

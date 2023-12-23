@@ -17,6 +17,7 @@ import './Menu.css';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from '../utils/Routes';
 import { lastPath, setCurrent } from '../redux/navbar/navbarSlice';
+import {setBasicCurrent} from "../redux/navbar/basicbarSlice";
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -43,6 +44,10 @@ const BasicLayout = () => {
 
     const changeSiderCollapsed = () => {
         setSiderCollapsed(!siderCollapsed);
+    };
+
+    const onClick = (e) => {
+        console.log('click ', e);
     };
 
     return (
@@ -98,34 +103,7 @@ const BasicLayout = () => {
                         ></Card.Meta>
                         <p></p>
                     </Card>
-                    <Menu
-                        className='a'
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        mode='inline'
-                        theme='dark'
-                    >
-                        <Menu.Item key='1' icon={<HomeOutlined />}>
-                            <Link className='nav-link' aria-current='page' to='/'>
-                                首页
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key='2' icon={<UserOutlined />}>
-                            <Link className='nav-link' to='/explore'>
-                                探索
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key='3' icon={<ReadOutlined />}>
-                            <Link className='nav-link' to='/news'>
-                                新闻
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key='4' icon={<TeamOutlined />}>
-                            <Link className='nav-link' to='/community'>
-                                社区
-                            </Link>
-                        </Menu.Item>
-                    </Menu>
+                    <BasicBar/>
                 </Sider>
             </div>
             <Layout>
@@ -172,5 +150,80 @@ const BasicLayout = () => {
         </Layout>
     );
 };
+
+const items = [
+    {
+        label: (
+            <Link className='nav-link' aria-current='page' to='/'>
+                首页
+            </Link>
+        ),
+        icon: <HomeOutlined />,
+        key: 'home',
+    },
+    {
+        label: (
+            <Link className='nav-link' to='/explore'>
+                探索
+            </Link>
+        ),
+        icon: <UserOutlined />,
+        key: 'explore',
+    },
+    {
+        label: (
+            <Link className='nav-link' to='/news'>
+                新闻
+            </Link>
+        ),
+        icon: <ReadOutlined />,
+        key: 'news',
+    },    {
+        label: (
+            <Link className='nav-link' to='/community'>
+                社区
+            </Link>
+        ),
+        icon: <TeamOutlined />,
+        key: 'community',
+    },
+
+];
+
+const BasicBar = ()=>{
+    const current = useSelector((state) => state.basicBar.current);
+    const dispatch = useDispatch()
+    if(location.pathname.startsWith("/user") || location.pathname.startsWith("/component") ){
+        dispatch(setBasicCurrent(""))
+    }
+    else if(location.pathname.startsWith("/news")){
+        dispatch(setBasicCurrent("news"))
+    }
+    else if(location.pathname.startsWith("/explore")){
+        dispatch(setBasicCurrent("explore"))
+    }
+    else if(location.pathname.startsWith("/community")){
+        dispatch(setBasicCurrent("community"))
+    }
+    else{
+        dispatch(setBasicCurrent("home"))
+    }
+
+    const onClick = (e) => {
+        console.log('click ', e);
+        dispatch(setBasicCurrent(e.key))
+    };
+    console.log("current is here")
+    console.log(current)
+    return <Menu onClick={onClick}
+                 selectedKeys={[current]}
+                 items={items}
+                 className='a'
+                 defaultSelectedKeys={['1']}
+                 defaultOpenKeys={['sub1']}
+                 mode='inline'
+                 theme='dark'
+          />;
+}
 
 export default BasicLayout;
