@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        id: 1,
-        username: 'default',
-        description: '这个人很懒，什么都没有留下',
+        id: sessionStorage.getItem('userId'),
+        username: sessionStorage.getItem('username'),
+        description: sessionStorage.getItem('description'),
         email: 'default@test.com',
         level: 0,
         avatarUrl: 'http://dummyimage.com/200x100/894FC4/FFF.png&text=!',
@@ -19,6 +19,10 @@ export const userSlice = createSlice({
     },
     reducers: {
         fetchUserSuccess: (state, action) => {
+
+            sessionStorage.setItem('userId', action.payload.id);
+            sessionStorage.setItem('username', action.payload.username);
+            sessionStorage.setItem('description', action.payload.description);
             return action.payload;
         },
         setUserId: (state, action) => {
