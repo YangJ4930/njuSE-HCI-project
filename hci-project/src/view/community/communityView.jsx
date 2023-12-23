@@ -11,7 +11,7 @@ import {
   StarOutlined,
   StarFilled,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import "./community.css";
 import moment from 'moment';
 import apex from './component/logo-apex-legends1.jpg'
@@ -26,6 +26,7 @@ import all from './component/all.png'
 import { useSelector } from 'react-redux';
 
 const CommunityView = function CommunityView() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
@@ -35,6 +36,11 @@ const CommunityView = function CommunityView() {
   const title = "人机交互是我最喜欢的课，一天不上浑身难受";
   const key = 'updatable';
   const islogin=useSelector((state) => state.auth.isLogin);
+
+  const pushShow = (id) => {
+    navigate(`/component/Communitydetail/${id}`)
+}
+
   const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
     const [isshou, setIsshou] = useState(false);
@@ -199,11 +205,10 @@ return (
 
         <br></br>
         <InfiniteScroll
-
           infinite-scroll-disabled={false}
           dataLength={data.length}
           next={loadMoreData}
-          hasMore={data.length < 10}
+          hasMore={data.length%4==0}
           loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
           endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
           scrollableTarget="scrollableDiv"
@@ -257,9 +262,12 @@ return (
                   <Link
                     className="link-text"
                     to={`/component/Communitydetail/${item.id}`}
-                  ><Card hoverable
+                  >
+                  <Card hoverable
                   bordered={false}
-                  
+                  // onClick={()=>{
+                  //   pushShow(item.id)
+                  // }}
                   >
                       <ContentText content={item.content} title={item.title} />
                       {item.image === null ? null : <div style={{

@@ -3,7 +3,9 @@ import { Button, Drawer, Space, Tooltip, Flex, Input,message } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import axios from '../axios'
 import { useSelector } from 'react-redux';
+import { useNavigate} from "react-router-dom";
 const CommentPost = (props) => {
+    const navigate=useNavigate()
     const { TextArea } = Input;
     const [comment,setComment]=useState(null);
     const communityId=props.communityId;
@@ -36,8 +38,8 @@ const CommentPost = (props) => {
                     });
                     
                 }, 1000);
+                //navigate(`/component/Communitydetail/${communityId}`)
                 setOpen(false)
-                
                 setComment("")
             })
             .catch((error) => {

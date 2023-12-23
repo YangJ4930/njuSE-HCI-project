@@ -19,9 +19,11 @@ import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
 import GameTags from './GameTags'
 import { useSelector } from 'react-redux';
+import { useNavigate} from "react-router-dom";
 const PostComponent = function PostComponent() {
     const userID = useSelector((state) => state.user.id);
     const islogin=useSelector((state) => state.auth.isLogin);
+    const nav=useNavigate();
     const options = [
         {
             value: 'gold',
@@ -97,6 +99,7 @@ const PostComponent = function PostComponent() {
                     //     content: '帖子发布成功！',
                     //     duration: 2,
                     // })
+                    nav('/community')
                 })
                 .catch(error => console.log(error))
         }

@@ -11,12 +11,14 @@ import {
     Tag,
     FloatButton,
     Button,
+    
 } from 'antd';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import {
     MessageOutlined,
+    LeftOutlined 
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
@@ -24,7 +26,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentPost from '../component/commentPost';
 import axios from '../axios'
 const Communitydetail = function Comunitydetail() {
+    const navigate = useNavigate()
     const { Meta } = Card;
+    const [load, setLoad] = useState(false);
     const [loading, setLoading] = useState(false);
     const [detail, setDetail] = useState({
         id:"",
@@ -37,9 +41,11 @@ const Communitydetail = function Comunitydetail() {
     const [commentDetail,setCommentDetail]=useState([])
     const [pageNumber,setPageNumber]=useState(0);
     const { communityId } = useParams();
-
+    const back = ()=>{
+        navigate(-1)
+    }
     const loadMoreData = () => {
-        console.log("page"+pageNumber)
+        console.log("nb: "+pageNumber)
         if (loading) {
             return;
         }
@@ -57,7 +63,12 @@ const Communitydetail = function Comunitydetail() {
                 setLoading(false);
             })
     };
-
+        // const CNM=()=>{
+        //     console.log("reset")
+        //     setCommentDetail([])
+        //     setPageNumber(0);
+        //     loadMoreData();
+        // }
     const findCommunityDetail = () => {
         axios.get(`/community/findCommunityDetail/${communityId}`)
             .then((response) => {
@@ -73,11 +84,18 @@ const Communitydetail = function Comunitydetail() {
             })
     }
     useEffect(() => {
+        window.scrollTo(0, 0);
         findCommunityDetail()
         loadMoreData();
     }, []);
     return (
         <>
+        <Button icon={<LeftOutlined />}
+        
+        type="link"
+        onClick={()=>{
+            back()
+        }}></Button>
         <PageContainer title={detail.title}>
             <div
                 style={{
@@ -143,15 +161,15 @@ const Communitydetail = function Comunitydetail() {
                 {detail.context}
             </div>
 
+            <br></br>
             <InfiniteScroll
                 infinite-scroll-disabled={false}
                 dataLength={commentDetail.length}
                 next={loadMoreData}
-                hasMore={commentDetail.length < 50}
+                hasMore={commentDetail.length%4==0}
                 loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                 endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                 scrollableTarget='scrollableDiv'
-                onScroll={()=>console.log("鼠标正在华东")}
             >
                 <Row justify='space-between'></Row>
                 <Divider orientation='left'>
@@ -212,8 +230,11 @@ const Communitydetail = function Comunitydetail() {
                     }}
                 ></ProList>
             </InfiniteScroll>
-            <FloatButton description={<CommentPost communityId={communityId}></CommentPost>}></FloatButton>
         </PageContainer>
+        <FloatButton.Group>
+            <FloatButton description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
+            <FloatButton.BackTop className="backtop" />
+            </FloatButton.Group>
         </>
     );
 };
