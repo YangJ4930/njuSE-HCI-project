@@ -25,7 +25,7 @@ function Router() {
             <Route path='/community' element={<CommunityView></CommunityView>}></Route>
             <Route path='/explore' element={<ExploreView></ExploreView>}></Route>
             <Route
-                path='/explore_gameRepositoryView'
+                path='/explore/gameRepository'
                 element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}
             ></Route>
             <Route
