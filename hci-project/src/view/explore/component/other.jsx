@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Flex } from 'antd';
+import {Link} from "react-router-dom";
 
 const Other = ({ data }) => {
     return (
@@ -17,16 +18,23 @@ const Other = ({ data }) => {
                         style={{ height: '100%', width: '45%'}}
                         vertical
                     >
-                        <img
-                            alt='《PUBG: BATTLEGROUNDS》'
-                            src={data[0].imgUrl}
+                        <Link to={`/explore/gameDetail/${data[0].id}`}
                             style={{
-                                objectFit: 'cover',
                                 width: '100%',
                                 aspectRatio: 1.6,
                                 borderRadius: 10,
-                            }}
-                        />
+                            }}>
+                            <img
+                                alt='0'
+                                src={data[0].imgUrl}
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '100%',
+                                    aspectRatio: 1.6,
+                                    borderRadius: 10,
+                                }}
+                            />
+                        </Link>
                         <h6>{data[0].name}</h6>
                     </Flex>
                     <Flex
@@ -35,8 +43,14 @@ const Other = ({ data }) => {
                         style={{ height: '100%', width: '45%'}}
                         vertical
                     >
+                        <Link to={`/explore/gameDetail/${data[0].id}`}
+                              style={{
+                                  width: '100%',
+                                  aspectRatio: 1.6,
+                                  borderRadius: 10,
+                              }}>
                         <img
-                            alt='《Chivalry 2》免费游玩周末'
+                            alt='1'
                             src={data[1].imgUrl}
                             style={{
                                 objectFit: 'cover',
@@ -45,6 +59,7 @@ const Other = ({ data }) => {
                                 borderRadius: 10,
                             }}
                         />
+                        </Link>
                         <h6>{data[1].name}</h6>
                     </Flex>
                 </Flex>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Col, Flex, List, Row, Space} from 'antd';
 import { Header } from 'antd/es/layout/layout';
+import {Link} from "react-router-dom";
 
 export const Recommendation = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -51,16 +52,24 @@ const Slideshow = ({ data, interval, onPageChange }) => {
                     style={{ width: '100%', height: '100%' }}
                     horizontal
                 >
-                    <img
-                        style={{
-                            objectFit: 'cover',
-                            width: '60%',
-                            height: '100%',
-                            borderRadius: 20,
-                        }}
-                        src={data[currentIndex].imgUrl}
-                        alt={`Slide ${currentIndex}`}
-                    />
+                    <Link to={`/explore/gameDetail/${data[currentIndex].id}`}
+                          style = {{
+                              width: '60%',
+                              height: '100%',
+                              borderRadius: 20,
+                          }}>
+                        <img
+                            style={{
+                                objectFit: 'cover',
+                                width: '100%',
+                                height: '100%',
+                                borderRadius: 20,
+                            }}
+                            src={data[currentIndex].imgUrl}
+                            alt={`Slide ${currentIndex}`}
+                        />
+                    </Link>
+
 
                     <Flex
                         justify='space-between'

@@ -68,7 +68,7 @@ const gameType =[
     "叙事",
 ]
 
-const Explore_gameRepositoryView = function Explore_gameRepositoryView() {
+const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     const [gameList, setGameList] = React.useState([]);
 
     React.useEffect(() => {
@@ -351,4 +351,4 @@ function Yes_svg() {
     );
 }
 
-export default Explore_gameRepositoryView;
+export default ExploreGameRepositoryView;

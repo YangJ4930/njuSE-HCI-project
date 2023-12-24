@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Row, Space } from 'antd';
+import {Link} from "react-router-dom";
 
 
 const GuessLike = ({ data }) => {
@@ -29,31 +30,45 @@ const GuessLike = ({ data }) => {
                         </Flex>
                         <Flex justify='space-between' align='center' style={{ width: '100%', height: '87%' }} horizontal>
                             <Flex justify='space-between' align='center' style={{ width:'45%', height: '100%' }} vertical>
-                                <img
-                                    src={data[0].imgUrl}
-                                    alt={'nop'}
+                                <Link to={`/explore/gameDetail/${data[0].id}`}
                                     style={{
-                                        objectFit: 'cover',
                                         width: '100%',
                                         aspectRatio: 1.8,
                                         borderRadius: 10,
                                         marginBottom: 10
-                                    }}
-                                />
+                                    }}>
+                                    <img
+                                        src={data[0].imgUrl}
+                                        alt={'nop'}
+                                        style={{
+                                            objectFit: 'cover',
+                                            width: '100%',
+                                            aspectRatio: 1.8,
+                                            borderRadius: 10,
+                                        }}
+                                    />
+                                </Link>
                                 <h5 style={{ color: 'white' }}>{data[0].name}</h5>
                             </Flex>
                             <Flex justify='space-between' align='center' style={{ width:'45%', height: '100%' }} vertical>
-                                <img
-                                    src={data[1].imgUrl}
-                                    alt={'nop'}
-                                    style={{
-                                        objectFit: 'cover',
-                                        width: '100%',
-                                        aspectRatio: 1.8,
-                                        borderRadius: 10,
-                                        marginBottom: 10
-                                    }}
+                                <Link to={`/explore/gameDetail/${data[0].id}`}
+                                      style={{
+                                          width: '100%',
+                                          aspectRatio: 1.8,
+                                          borderRadius: 10,
+                                          marginBottom: 10
+                                      }}>
+                                    <img
+                                        src={data[1].imgUrl}
+                                        alt={'nop'}
+                                        style={{
+                                            objectFit: 'cover',
+                                            width: '100%',
+                                            aspectRatio: 1.8,
+                                            borderRadius: 10,
+                                        }}
                                 />
+                                </Link>
                                 <h5 style={{ color: 'white' }}>{data[1].name}</h5>
                             </Flex>
                         </Flex>

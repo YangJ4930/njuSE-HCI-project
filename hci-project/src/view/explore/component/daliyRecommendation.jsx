@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Header} from "antd/es/layout/layout";
 import {Button, Flex, Row, Space} from "antd";
 import {LeftOutlined, RightOutlined} from "@ant-design/icons";
+import {Link} from "react-router-dom";
 
 export const DaliyRecommendation = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -56,59 +57,36 @@ const Slideshow = ({ data, interval, onPageChange }) => {
                         </Space>
                     </Flex>
                     <Flex justify='space-between' align='center' style={{height:'80%', width:'100%'}} horizontal>
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '18%',
-                                height: '100%',
-                                borderRadius: 8,
-                            }}
-                            src={data[currentIndex * 5].imgUrl}
-                            alt={`Slide 0`}
-                        />
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '18%',
-                                height: '100%',
-                                borderRadius: 8,
-                            }}
-                            src={data[currentIndex * 5 + 1].imgUrl}
-                            alt={`Slide 0`}
-                        />
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '18%',
-                                height: '100%',
-                                borderRadius: 8,
-                            }}
-                            src={data[currentIndex * 5 + 2].imgUrl}
-                            alt={`Slide 0`}
-                        />
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '18%',
-                                height: '100%',
-                                borderRadius: 8,
-                            }}
-                            src={data[currentIndex * 5 + 3].imgUrl}
-                            alt={`Slide 0`}
-                        />
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '18%',
-                                height: '100%',
-                                borderRadius: 8,
-                            }}
-                            src={data[currentIndex * 5 + 4].imgUrl}
-                            alt={`Slide 0`}
-                        />
+                        <SingleCard singleCardData={data[currentIndex * 5]}/>
+                        <SingleCard singleCardData={data[currentIndex * 5 + 1]}/>
+                        <SingleCard singleCardData={data[currentIndex * 5 + 2]}/>
+                        <SingleCard singleCardData={data[currentIndex * 5 + 3]}/>
+                        <SingleCard singleCardData={data[currentIndex * 5 + 4]}/>
                     </Flex>
                 </Flex>
             </div>
         </React.Fragment>
     );
 };
+
+const SingleCard = ({singleCardData}) =>{
+    return(
+        <Link to={`/explore/gameDetail/${singleCardData.id}`}
+              style={{
+                  width: '18%',
+                  height:'100%',
+                  borderRadius: 8,
+              }}>
+            <img
+                style={{
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 8,
+                }}
+                src={singleCardData.imgUrl}
+                alt={`Slide 0`}
+            />
+        </Link>
+    )
+}
