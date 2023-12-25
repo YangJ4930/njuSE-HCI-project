@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Divider, Card, Button } from 'antd';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Layout, Menu, Input, Avatar, Divider, Card, Button} from 'antd';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {
@@ -14,15 +14,15 @@ import {
 } from '@ant-design/icons';
 import './Menu.css';
 
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Router from '../utils/Routes';
-import { lastPath, setCurrent } from '../redux/navbar/navbarSlice';
+import {lastPath, setCurrent} from '../redux/navbar/navbarSlice';
 import {setBasicCurrent} from "../redux/navbar/basicbarSlice";
 
-const { Header, Footer, Sider, Content } = Layout;
+const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
-const { Search } = Input;
+const {Search} = Input;
 
 const BasicLayout = () => {
     const [siderCollapsed, setSiderCollapsed] = useState(false);
@@ -52,7 +52,7 @@ const BasicLayout = () => {
 
     return (
         <Layout>
-            <div style={{ display: isVisible ? 'flex' : 'none' }}>
+            <div style={{display: isVisible ? 'flex' : 'none'}}>
                 <Sider
                     theme='light'
                     collapsible
@@ -79,7 +79,7 @@ const BasicLayout = () => {
                                             type='primary'
                                             shape='round'
                                             size='default'
-                                            icon={<LoginOutlined />}
+                                            icon={<LoginOutlined/>}
                                         >
                                             {siderCollapsed ? '' : '登录/注册'}
                                         </Button>
@@ -131,7 +131,7 @@ const BasicLayout = () => {
                     />
                 </Header>
 
-                <Content style={{ margin: '24px 16px 0' }}>
+                <Content style={{margin: '24px 16px 0'}}>
                     <div
                         style={{
                             padding: 24,
@@ -140,11 +140,13 @@ const BasicLayout = () => {
                             // height:100
                         }}
                     >
-                        <Router />
+                        <Router/>
                     </div>
                 </Content>
-                <div style={{ display: isVisible ? 'flex' : 'none' }}>
-                    <Footer style={{ textAlign: 'center' }}>我最喜欢人机交互课了</Footer>
+                <div style={{display: isVisible ? 'flex' : 'none' , justifyContent: 'center'}}>
+                    <Footer style={{textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                        <b>J Game</b> ©2023 Created by J Game
+                    </Footer>
                 </div>
             </Layout>
         </Layout>
@@ -158,7 +160,7 @@ const items = [
                 首页
             </Link>
         ),
-        icon: <HomeOutlined />,
+        icon: <HomeOutlined/>,
         key: 'home',
     },
     {
@@ -167,7 +169,7 @@ const items = [
                 探索
             </Link>
         ),
-        icon: <UserOutlined />,
+        icon: <UserOutlined/>,
         key: 'explore',
     },
     {
@@ -176,36 +178,32 @@ const items = [
                 新闻
             </Link>
         ),
-        icon: <ReadOutlined />,
+        icon: <ReadOutlined/>,
         key: 'news',
-    },    {
+    }, {
         label: (
             <Link className='nav-link' to='/community'>
                 社区
             </Link>
         ),
-        icon: <TeamOutlined />,
+        icon: <TeamOutlined/>,
         key: 'community',
     },
 
 ];
 
-const BasicBar = ()=>{
+const BasicBar = () => {
     const current = useSelector((state) => state.basicBar.current);
     const dispatch = useDispatch()
-    if(location.pathname.startsWith("/user") || location.pathname.startsWith("/component") ){
+    if (location.pathname.startsWith("/user") || location.pathname.startsWith("/component")) {
         dispatch(setBasicCurrent(""))
-    }
-    else if(location.pathname.startsWith("/news")){
+    } else if (location.pathname.startsWith("/news")) {
         dispatch(setBasicCurrent("news"))
-    }
-    else if(location.pathname.startsWith("/explore")){
+    } else if (location.pathname.startsWith("/explore")) {
         dispatch(setBasicCurrent("explore"))
-    }
-    else if(location.pathname.startsWith("/community")){
+    } else if (location.pathname.startsWith("/community")) {
         dispatch(setBasicCurrent("community"))
-    }
-    else{
+    } else {
         dispatch(setBasicCurrent("home"))
     }
 
@@ -223,7 +221,7 @@ const BasicBar = ()=>{
                  defaultOpenKeys={['sub1']}
                  mode='inline'
                  theme='dark'
-          />;
+    />;
 }
 
 export default BasicLayout;

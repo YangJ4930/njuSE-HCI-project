@@ -24,11 +24,6 @@ const ListNews = ({data}) => {
                 current: newsPage,
             }}
             dataSource={data}
-            footer={
-                <div>
-                    <b>J Game</b> ©2023 Created by J Game
-                </div>
-            }
             renderItem={(item) => (
                 <PostItem postInfo={item}/>
             )}
