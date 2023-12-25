@@ -30,7 +30,7 @@ function NewsContentMD(props) {
     });
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/news/content/${id}`).then((response) => {
+        axios.get(`/news/content/${id}`).then((response) => {
             console.log(response);
             setNews(response.data);
             console.log(response.data);

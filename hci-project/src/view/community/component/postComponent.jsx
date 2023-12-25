@@ -22,6 +22,7 @@ import GameTags from './GameTags'
 import {useSelector} from 'react-redux';
 import {useNavigate} from "react-router-dom";
 import Title from "antd/es/skeleton/Title";
+import axios from "../../../axios";
 
 const PostComponent = function PostComponent() {
     const userID = useSelector((state) => state.user.id);
@@ -86,7 +87,7 @@ const PostComponent = function PostComponent() {
             fd.append('tags', tags)
             fd.append('userId', userID)
             console.log(file)
-            fetch('http://localhost:8080/community/Upload', {
+            fetch(axios.defaults.baseURL + '/community/Upload', {
                 method: 'post',
                 body: fd,
             })
@@ -144,60 +145,60 @@ const PostComponent = function PostComponent() {
                 alignSelf: 'center',
             }}
         >
-                <div
-                    style={{
-                        width: '100%',
-                        fontSize: '24px',
-                        textAlign: 'center',
-                        lineHeight: '100px',
-                    }}
-                >
-                    图文
-                </div>
-                <Form form={form} title='图文' className='postform' layout={'vertical'}>
-                    <Divider orientation='left'>标签</Divider>
-                    <GameTags setTags={setTags}></GameTags>
-                    <Divider orientation='left'></Divider>
-                    <Form.Item className='formitem'>
-                        <Upload
-                            className='imageInput'
-                            action=''
-                            beforeUpload={() => false}
-                            listType='picture-card'
-                            onPreview={handlePreview}
-                            onChange={onChange1}
-                            maxCount={8}
-                        >
-                            {fileList.length > 8 ? null : uploadButton}
-                        </Upload>
-                    </Form.Item>
-                    <Divider orientation='left'>标题</Divider>
-                    <Form.Item name='title'>
-                        <TextArea bordered={true} placeholder='标题' rows={1}/>
-                    </Form.Item>
-                    <Divider orientation='left'>正文</Divider>
-                    <Form.Item name='content'>
-                        <MDEditor value={markdownContent} onChange={setMarkContent}/>
-                    </Form.Item>
-                </Form>
-
-                <Row
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                    }}
-                >
-                    <Button
-                        className='formitembutton'
-                        onClick={() => {
-                            PostC(form.getFieldValue(), fileList);
-                        }}
-                        size={'large'}
+            <div
+                style={{
+                    width: '100%',
+                    fontSize: '24px',
+                    textAlign: 'center',
+                    lineHeight: '100px',
+                }}
+            >
+                图文
+            </div>
+            <Form form={form} title='图文' className='postform' layout={'vertical'}>
+                <Divider orientation='left'>标签</Divider>
+                <GameTags setTags={setTags}></GameTags>
+                <Divider orientation='left'></Divider>
+                <Form.Item className='formitem'>
+                    <Upload
+                        className='imageInput'
+                        action=''
+                        beforeUpload={() => false}
+                        listType='picture-card'
+                        onPreview={handlePreview}
+                        onChange={onChange1}
+                        maxCount={8}
                     >
-                        发帖
-                    </Button>
-                </Row>
+                        {fileList.length > 8 ? null : uploadButton}
+                    </Upload>
+                </Form.Item>
+                <Divider orientation='left'>标题</Divider>
+                <Form.Item name='title'>
+                    <TextArea bordered={true} placeholder='标题' rows={1}/>
+                </Form.Item>
+                <Divider orientation='left'>正文</Divider>
+                <Form.Item name='content'>
+                    <MDEditor value={markdownContent} onChange={setMarkContent}/>
+                </Form.Item>
+            </Form>
+
+            <Row
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                }}
+            >
+                <Button
+                    className='formitembutton'
+                    onClick={() => {
+                        PostC(form.getFieldValue(), fileList);
+                    }}
+                    size={'large'}
+                >
+                    发帖
+                </Button>
+            </Row>
 
             <Modal
                 style={{

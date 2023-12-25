@@ -50,19 +50,19 @@ const ChooseList = ({ content }) => {
     const [communityList, setCommunityList] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/search/game?content=${content}`).then((response) => {
+        axios.get(`/search/game?content=${content}`).then((response) => {
             console.log(response);
             setGameList(response.data);
             console.log(response.data);
         });
 
-        axios.get(`http://localhost:8080/search/news?content=${content}`).then((response)=>{
+        axios.get(`/search/news?content=${content}`).then((response)=>{
             setNewsList(response.data);
             console.log("news")
             console.log(response.data)
         });
 
-        axios.get(`http://localhost:8080/search/community?content=${content}`).then((response)=>{
+        axios.get(`/search/community?content=${content}`).then((response)=>{
             setCommunityList(response.data);
             console.log("community")
             console.log(response.data)
