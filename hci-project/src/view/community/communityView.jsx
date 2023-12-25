@@ -2,7 +2,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
 import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card ,message} from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import React from "react";
 import {
   PlusOutlined,
@@ -23,19 +23,20 @@ import er from './component/er.jpg'
 import zd from './component/战地5.jpg'
 import it_takes_two from './component/it_takes_two.jpg'
 import all from './component/all.png'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { SaveScroll, Savelist } from "../../redux/user/communitySlice";
 
 const CommunityView = function CommunityView() {
+  const ref = useRef(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [tag, SetTag] = useState("全部");
-  const content =
-    "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
-  const title = "人机交互是我最喜欢的课，一天不上浑身难受";
   const key = 'updatable';
-  const islogin=useSelector((state) => state.auth.isLogin);
+
+  const savelist=useSelector((state)=>state.community) 
+  const dispatch = useDispatch();
 
   const pushShow = (id) => {
     navigate(`/component/Communitydetail/${id}`)
@@ -145,6 +146,7 @@ const ite = [
                 setPage(pagenumber);
                 console.log(page);
                 setLoading(false);
+                
             })
             .catch((endMessage) => {
                 console.log(endMessage);
@@ -152,7 +154,15 @@ const ite = [
             });
     };
     useEffect(() => {
-        loadMoreData();
+        console.log(savelist)
+        setData(savelist.listData)
+        setPage(savelist.pageNumber)
+        SetTag(savelist.tag)
+        setTimeout(()=>{
+          window.scrollTo(0,savelist.scrollTo)
+        },0)
+        
+        //loadMoreData();
     }, []);
 return (
     <>
@@ -212,7 +222,7 @@ return (
           loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
           endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
           scrollableTarget="scrollableDiv"
-          onScroll={() => console.log("loading")}
+          ref={ref}
         >
           <ProList
             size="small"
@@ -259,15 +269,25 @@ return (
                     description={"发表时间：" + formattedTimestamp}
                   />
 
-                  <Link
+                  {/* <Link
                     className="link-text"
                     to={`/component/Communitydetail/${item.id}`}
-                  >
+                  > */}
                   <Card hoverable
                   bordered={false}
-                  // onClick={()=>{
-                  //   pushShow(item.id)
-                  // }}
+                  onClick={()=>{
+                    console.log("xxx"+ref.current.lastScrollTop)
+                    dispatch(SaveScroll(ref.current.lastScrollTop))
+
+                    let Scroll={
+                      listData:data,
+                      PageNumber:page,
+                      tag:tag
+                    }
+                    dispatch(Savelist(Scroll))
+                    console.log(savelist)
+                    pushShow(item.id)
+                  }}
                   >
                       <ContentText content={item.content} title={item.title} />
                       {item.image === null ? null : <div style={{
@@ -283,7 +303,7 @@ return (
                         src={item.image}
                       /></div>}
                     </Card>
-                  </Link>
+                  {/* </Link> */}
 
                 </List.Item>
               );

@@ -18,11 +18,14 @@ import './post.css';
 import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
 import GameTags from './GameTags'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate} from "react-router-dom";
+import { Clearlist } from '../../../redux/user/communitySlice';
 const PostComponent = function PostComponent() {
     const userID = useSelector((state) => state.user.id);
     const islogin=useSelector((state) => state.auth.isLogin);
+    const dispatch = useDispatch();
+    const savelist=useSelector((state)=>state.community) 
     const nav=useNavigate();
     const options = [
         {
@@ -99,6 +102,7 @@ const PostComponent = function PostComponent() {
                     //     content: '帖子发布成功！',
                     //     duration: 2,
                     // })
+                    dispatch(Clearlist())
                     nav('/community')
                 })
                 .catch(error => console.log(error))

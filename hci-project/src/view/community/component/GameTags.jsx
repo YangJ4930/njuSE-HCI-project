@@ -52,7 +52,7 @@ const GameTags = (props) => {
     return (
         <Select
             mode='multiple'
-            bordered={false}
+            
             tagRender={tagRender}
             style={{
                 width: '100%',
