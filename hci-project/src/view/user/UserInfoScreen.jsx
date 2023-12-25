@@ -76,13 +76,13 @@ const GameInventory = (props) => {
     return (
         <Col>
             <h1>游戏库存</h1>
-            <Flex wrap={'wrap'} gap={'small'}>
+            <Flex wrap={'wrap'} gap={'large'} style={{justifyContent: "center"}}>
                 {gameInventory !== null &&
                     gameInventory.map((game) => (
                         <Card
                             key={game.id}
                             hoverable={true}
-                            cover={<img alt={game.name} src={game.imgUrl}/>}
+                            cover={<img alt={game.name} src={game.imgUrl} style={{height: 350}}/>}
                             style={{
                                 width: 250,
                                 textAlign: 'center',
