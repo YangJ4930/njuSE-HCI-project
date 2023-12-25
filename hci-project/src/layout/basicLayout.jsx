@@ -114,9 +114,9 @@ const BasicLayout = () => {
                     }}
                 >
                     <Search
-                        placeholder='input search text'
+                        placeholder='请输入搜索内容'
                         // allowClear
-                        enterButton='Search'
+                        enterButton='搜索'
                         size='large'
                         style={{
                             width: 300,
