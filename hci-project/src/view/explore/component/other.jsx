@@ -18,7 +18,7 @@ const Other = ({ data }) => {
                         style={{ height: '100%', width: '45%'}}
                         vertical
                     >
-                        <Link to={`/explore/gameDetail/${data[0].id}`}
+                        <Link to={`/game/${data[0].id}`}
                             style={{
                                 width: '100%',
                                 aspectRatio: 1.6,
@@ -43,7 +43,7 @@ const Other = ({ data }) => {
                         style={{ height: '100%', width: '45%'}}
                         vertical
                     >
-                        <Link to={`/explore/gameDetail/${data[0].id}`}
+                        <Link to={`/game/${data[0].id}`}
                               style={{
                                   width: '100%',
                                   aspectRatio: 1.6,

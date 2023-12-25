@@ -71,22 +71,27 @@ const Slideshow = ({ data, interval, onPageChange }) => {
 
 const SingleCard = ({singleCardData}) =>{
     return(
-        <Link to={`/explore/gameDetail/${singleCardData.id}`}
-              style={{
-                  width: '18%',
-                  height:'100%',
-                  borderRadius: 8,
-              }}>
-            <img
-                style={{
-                    objectFit: 'cover',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: 8,
-                }}
-                src={singleCardData.imgUrl}
-                alt={`Slide 0`}
-            />
-        </Link>
+        <Flex justify='space-between' align='center' style={{width:'18%', height:'100%'}} vertical>
+            <Link to={`/game/${singleCardData.id}`}
+                  style={{
+                      width: '100%',
+                      height:'90%',
+                      borderRadius: 8,
+                  }}>
+                <img
+                    style={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 8,
+                    }}
+                    src={singleCardData.imgUrl}
+                    alt={`Slide 0`}
+                />
+            </Link>
+
+            <span style={{fontSize: 20, height:'8%'}}>{singleCardData.name}</span>
+        </Flex>
+
     )
 }

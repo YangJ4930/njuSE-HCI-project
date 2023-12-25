@@ -4,15 +4,13 @@ import {
     Space,
     Drawer,
     Button,
-    Col,
-    Row,
     Divider,
     Collapse,
     Flex,
 } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { PageContainer, ProList } from '@ant-design/pro-components';
+import {PageContainer} from '@ant-design/pro-components';
 import './explore.css';
 import axios from '../../axios';
 
@@ -51,42 +49,34 @@ const arrangementItems = [
     },
 ];
 const gameChosen = Array(14).fill(false);
-const gameType =[
-    "Rogue-lite",
-    "城市建造",
-    "动作",
-    "格斗",
-    "回合制",
-    "即时战略",
-    "竞速",
-    "卡牌游戏",
-    "恐怖",
-    "冒险",
-    "射击",
-    "喜剧",
-    "休闲",
-    "叙事",
-]
 
 const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     const [gameList, setGameList] = React.useState([]);
+    const gameType =[
+        "Rogue-lite",
+        "城市建造",
+        "动作",
+        "格斗",
+        "回合制",
+        "即时战略",
+        "竞速",
+        "卡牌游戏",
+        "恐怖",
+        "冒险",
+        "射击",
+        "喜剧",
+        "休闲",
+        "叙事",
+    ]
+    const [choseNow, setChoseNow] = React.useState(Array(14).fill(false));
 
-    React.useEffect(() => {
-        axios.get('/explore/recommendation').then((response) => {
-            console.log(response);
-            setGameList(response.data);
-            console.log(response.data);
-        });
-    }, []);
-
-    //根据选中条件变更数据
     const getData = () => {
         console.log("123456")
         if (gameChosen.every((value) => !value)) {
             // 当全部游戏类型都未选中时，返回全部数据
             return gameList;
         } else {
-            /**
+
             const selectedData = gameList.filter( item => {
                 // 检查游戏类型是否有交集
                 const gameTypeIndex = gameType.indexOf(item.type);
@@ -94,10 +84,35 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
             });
             console.log(selectedData)
             return selectedData;
-             **/
-            return gameList;
         }
     };
+
+    React.useEffect(() => {
+        axios.get('/explore/gameRepository').then((response) => {
+            console.log(response);
+            if (response.data.length >= 600) {
+                setGameList(response.data);
+            }
+            console.log(response.data);
+        });
+    }, []);
+
+    let data = Array.from({
+        length: gameList.length,
+    }).map((_, i) => ({
+        id: gameList[i].id,
+        imgUrl: gameList[i].imgUrl,
+        name: gameList[i].name
+    }));
+
+    React.useEffect( () => {
+        data = getData()
+    },[choseNow])
+
+    if (gameList.length < 600) {
+        return <div>Loading...</div>;
+    }
+
 
     return (
         <>
@@ -105,10 +120,20 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
                 <PageContainer>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Arrangement />
-                        <Filter />
+                        <Filter/>
                     </div>
                     <br/>
-                    <CardListTable gameData={getData()}/>
+
+                    {/*原CardListTable*/}
+                    <List
+                        grid={{ gutter: 32, column: 4 }}
+                        dataSource={data}
+                        renderItem={(item) => (
+                            <List.Item>
+                                <SingleCard singleCardData={item}/>
+                            </List.Item>
+                        )}
+                    />
                 </PageContainer>
             </div>
         </>
@@ -132,7 +157,7 @@ function Arrangement() {
 }
 
 function Filter({}) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
 
     const showFilter = () => {
         setOpen(true);
@@ -148,11 +173,11 @@ function Filter({}) {
                 <Flex justify={"space-between"} align={"center"} horizontal>
                     <h6>筛选</h6>
                     <svg viewBox="0 0 1024 1024" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg" p-id="2558"
+                         xmlns="http://www.w3.org/2000/svg"
                          width="20" height="20">
                         <path
                             d="M582.4 529.92c0-18.8416 6.4512-37.1712 18.2272-51.9168l182.3744-227.9936a19.2 19.2 0 0 0 4.1984-11.9808V204.8A19.2 19.2 0 0 0 768 185.6H256A19.2 19.2 0 0 0 236.8 204.8v33.28c0 4.3008 1.4848 8.5504 4.1984 11.9296L423.424 478.0032c11.776 14.7456 18.2272 33.0752 18.2272 51.968v257.5872c0 7.2704 4.096 13.9264 10.5984 17.152l130.2016 65.1264V529.92zM256 121.6512h512c45.9264 0 83.2 37.2736 83.2 83.2v33.28c0 18.8416-6.4512 37.1712-18.2272 51.9168l-182.3744 227.9936a19.2 19.2 0 0 0-4.1984 11.9808v350.208a57.6 57.6 0 0 1-83.3536 51.5072l-139.4688-69.7344a83.2 83.2 0 0 1-45.9776-74.3936v-257.5872a19.2 19.2 0 0 0-4.1984-11.9808L190.976 289.9968a83.2 83.2 0 0 1-18.2272-51.968V204.8c0-45.9264 37.2736-83.2 83.2-83.2z"
-                            fill="#5A5A68" p-id="2559"
+                            fill="#5A5A68"
                             data-spm-anchor-id="a313x.search_index.0.i1.55103a81CVA3yf"></path>
                     </svg>
                 </Flex>
@@ -165,7 +190,7 @@ function Filter({}) {
                     className='my-collapse'
                 >
                     <Divider />
-                    <Collapse.Panel key={3} header={'游戏类型'}>
+                    <Collapse.Panel key={1} header={'游戏类型'}>
                         <p>
                             <div style={{ marginTop: 5 }}></div>
                             <PanelFlex keyString={'990'} name={'Rogue-lite'}/>
@@ -206,7 +231,7 @@ function Filter({}) {
 
 function PanelFlex({ name, keyString}) {
     let key = parseInt(keyString) - 990;
-    const [filterGame, setFilterGame] = useState(false);
+    const [filterGame, setFilterGame] = React.useState(false);
 
     React.useEffect(() => {
         console.log('filterGameChanged');
@@ -215,8 +240,6 @@ function PanelFlex({ name, keyString}) {
     const Change = () => {
         gameChosen[key] = !gameChosen[key];
         setFilterGame(!filterGame);
-        //console.log(name)
-        //console.log(key)
         console.log(gameChosen)
     };
 
@@ -260,11 +283,11 @@ function CardListTable({ gameData}) {
     }, [gameChosen]);
     /**
      有点毛病用List替代一下
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
-    let counting = 0;
+     const [loading, setLoading] = useState(false);
+     const [data, setData] = useState([]);
+     let counting = 0;
 
-    const loadMoreData = () => {
+     const loadMoreData = () => {
         if (loading) {
             return;
         }
@@ -286,7 +309,7 @@ function CardListTable({ gameData}) {
             });
     };
 
-    useEffect(() => {
+     useEffect(() => {
         loadMoreData();
         console.log("jiazai")
     }, []);
@@ -316,17 +339,19 @@ function SingleCard({ singleCardData }) {
                 style={{ width: '100%', aspectRatio: 0.8, marginBottom: 10 }}
                 vertical
             >
-                <img
-                    alt='nop'
-                    src={singleCardData.imgUrl}
-                    style={{
-                        width: '100%',
-                        objectFit: 'cover',
-                        aspectRatio: 0.7,
-                        borderRadius: 10,
-                    }}
-                />
-
+                <Link to={`/game/${singleCardData.id}`}
+                    style={{width: '100%',aspectRatio: 0.7,borderRadius: 10,}}>
+                    <img
+                        alt='nop'
+                        src={singleCardData.imgUrl}
+                        style={{
+                            width: '100%',
+                            objectFit: 'cover',
+                            aspectRatio: 0.7,
+                            borderRadius: 10,
+                        }}
+                    />
+                </Link>
                 <h6> {singleCardData.name} </h6>
             </Flex>
         </>
