@@ -5,7 +5,7 @@ import NewsView from '../view/news/newsView';
 import { NewsContentMD } from '../view/news/component/newsContentMD';
 import CommunityView from '../view/community/communityView';
 import ExploreView from '../view/explore/exploreView';
-import Explore_gameRepositoryView from '../view/explore/explore_gameRepositoryView';
+import ExploreGameRepositoryView from '../view/explore/exploreGameRepositoryView';
 import UserView from '../view/user/userView';
 import PostComponent from '../view/community/component/postComponent';
 import Communitydetail from '../component/communitydetail';
@@ -14,6 +14,7 @@ import { RegisterScreen } from '../view/user/RegisterScreen';
 import { LoginScreen } from '../view/user/LoginScreen';
 import React from 'react';
 import UserSetting from '../view/user/userSetting';
+import ExploreContentView from "../view/explore/exploreContentView";
 
 function Router() {
     return (
@@ -25,8 +26,12 @@ function Router() {
             <Route path='/community' element={<CommunityView></CommunityView>}></Route>
             <Route path='/explore' element={<ExploreView></ExploreView>}></Route>
             <Route
-                path='/explore_gameRepositoryView'
-                element={<Explore_gameRepositoryView></Explore_gameRepositoryView>}
+                path='/explore/gameRepository'
+                element={<ExploreGameRepositoryView></ExploreGameRepositoryView>}
+            ></Route>
+            <Route
+                path='/explore/gameDetail/:gameDetailId'
+                element={<ExploreContentView></ExploreContentView>}
             ></Route>
             <Route
                 path='/component/postComponent'
