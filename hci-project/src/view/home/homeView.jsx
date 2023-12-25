@@ -76,14 +76,6 @@ const NewsHomeList = () => {
     );
 };
 
-const ContentText = ({ title }) => {
-    return (
-        <>
-            <div className='title'>{title}</div>
-            {/* <div className="content">{content}</div> */}
-        </>
-    );
-};
 const CommunityList = () =>{
     const [communityList, setCommunityList] = React.useState([]);
     useEffect(() => {

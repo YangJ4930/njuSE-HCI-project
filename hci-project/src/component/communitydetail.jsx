@@ -10,207 +10,222 @@ import {
     Row,
     Tag,
     FloatButton,
+    Button,
+
 } from 'antd';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import {
     MessageOutlined,
+    LeftOutlined
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentPost from '../component/commentPost';
 import axios from '../axios'
+import { marked } from 'marked';
+
 const Communitydetail = function Comunitydetail() {
-    const content =
-        '五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动\n' +
-        '，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛';
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false,
+    });
+    const navigate = useNavigate()
     const { Meta } = Card;
+    const [load, setLoad] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
-    const [detail, setDetail] = useState();
-    const [pageNumber,setPageNumber]=useState(0);
+    const [detail, setDetail] = useState({
+        id: "",
+        author: "",
+        context: "",
+        imageUrl: "",
+        title: "",
+    });
+    const [imageUrl, setImageUrl] = useState([])
+    const [commentDetail, setCommentDetail] = useState([])
+    const [pageNumber, setPageNumber] = useState(0);
     const { communityId } = useParams();
-    console.log(communityId);
+    const back = () => {
+        navigate(-1)
+    }
     const loadMoreData = () => {
+        console.log("nb: " + pageNumber)
         if (loading) {
             return;
         }
         setLoading(true);
-        fetch('https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo')
-            .then((res) => res.json())
-            .then((body) => {
-                setData([...data, ...body.results]);
-                setLoading(false);
-            })
-            .catch((endMessage) => {
-                setLoading(false);
-            });
         axios.get(`/community/findAllComment/${pageNumber}/${communityId}`)
             .then((response) => {
                 console.log(response);
-                let number=pageNumber+1;
+                setCommentDetail([...response.data, ...commentDetail])
+                const number = pageNumber + 1;
                 setPageNumber(number);
+                setLoading(false);
             })
             .catch((err) => {
                 console.log(err)
+                setLoading(false);
             })
     };
+    // const CNM=()=>{
+    //     console.log("reset")
+    //     setCommentDetail([])
+    //     setPageNumber(0);
+    //     loadMoreData();
+    // }
     const findCommunityDetail = () => {
         axios.get(`/community/findCommunityDetail/${communityId}`)
             .then((response) => {
-                console.log(response);
-
+                //console.log(response);
+                var imageUrls = response.data.imageUrl;
+                var shuzu = imageUrls.split(',')
+                setImageUrl(shuzu.slice(0, shuzu.length - 1))
+                // console.log(imageUrl);
+                setDetail(response.data)
             })
             .catch((err) => {
                 console.log(err)
             })
     }
     useEffect(() => {
+        window.scrollTo(0, 0);
         findCommunityDetail()
         loadMoreData();
     }, []);
     return (
-        <PageContainer title='震惊！Steam直接把我游戏移除了，还不给我退钱'>
-            <div
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-            >
-                <Carousel
-                    autoplay={true}
+        <>
+            <Button icon={<LeftOutlined />}
+
+                type="link"
+                onClick={() => {
+                    back()
+                }}></Button>
+            <PageContainer title={detail.title}>
+                <div
                     style={{
-                        width: 400,
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
                     }}
                 >
-                    <Image
-                        height={400}
-                        src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                    />
-
-                    <Image
-                        height={400}
-                        src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                    />
                     <Image.PreviewGroup
-                        items={[
-                            'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp',
-                            'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp',
-                            'https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp',
-                        ]}
+                        items={imageUrl}
                     >
                         <Image
                             height={400}
-                            src='https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp'
-                        />
+                            src={imageUrl[0]}>
+                        </Image>
                     </Image.PreviewGroup>
-                </Carousel>
-            </div>
-            <Divider plain></Divider>
-            <Row>
-                <Card
-                    bordered={false}
-                    hoverable
-                    style={{
-                        width: '300px',
-                    }}
-                >
-                    <Meta
-                        avatar={
-                            <>
-                                <Avatar
-                                    size={64}
-                                    src='https://xsgames.co/randomusers/avatar.php?g=pixel'
-                                />
-                            </>
-                        }
-                        title={
-                            <Row>
-                                <div>杨京</div>
-                                <Tag
-                                    color='#2db7f5'
-                                    style={{
-                                        marginLeft: 10,
-                                    }}
-                                >
-                                    作者
-                                </Tag>
-                            </Row>
-                        }
-                        description='杨静nb'
-                    />
-                </Card>
-            </Row>
-            <Divider plain orientation='left'>
-                正文
-            </Divider>
-            <div
-                style={{
-                    whiteSpace: 'pre-line',
-                    fontSize: '16px',
-                }}
-            >
-                {content}
-            </div>
 
-            <InfiniteScroll
-                infinite-scroll-disabled={false}
-                dataLength={data.length}
-                next={loadMoreData}
-                hasMore={data.length < 50}
-                loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-                endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-                scrollableTarget='scrollableDiv'
-            >
-                <Row justify='space-between'></Row>
-                <Divider orientation='left'>
-                    {' '}
-                    <Row>
-                        <div
-                            style={{
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            评论
-                            <MessageOutlined></MessageOutlined>
-                        </div>
-                    </Row>
-                </Divider>
-                <ProList
-                    size='small'
-                    itemLayout='vertical'
-                    rowKey='id'
-                    dataSource={data}
-                    split={false}
-                    renderItem={(item) => {
-                        return (
-                            <List.Item>
-                                <Card
-                                    hoverable
-                                    style={{ background: 'rgba(219,225,240,0.3)' }}
-                                    bordered={false}
-                                >
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={item.picture.large} />}
-                                        title={<a href='https://ant.design'>{item.name.last}</a>}
-                                        description={
-                                            <div style={{ fontSize: 10, marginTop: -10 }}>
-                                                今天 11:21
-                                            </div>
-                                        }
+                </div>
+                <Divider plain></Divider>
+                <Row>
+                    <Card
+                        bordered={false}
+                        hoverable
+                        style={{
+                            width: '300px',
+                        }}
+                    >
+                        <Meta
+                            avatar={
+                                <>
+                                    <Avatar
+                                        size={64}
+                                        src='https://xsgames.co/randomusers/avatar.php?g=pixel'
                                     />
-                                    <div
+                                </>
+                            }
+                            title={
+                                <Row>
+                                    <div>{detail.author}</div>
+                                    <Tag
+                                        color='#2db7f5'
                                         style={{
-                                            marginLeft: 40,
+                                            marginLeft: 10,
                                         }}
                                     >
-                                        我去你妈的steam
-                                    </div>
+                                        作者
+                                    </Tag>
+                                </Row>
+                            }
+                            description='杨静nb'
+                        />
+                    </Card>
+                </Row>
+                <Divider plain orientation='left'>
+                    正文
+                </Divider>
+                <div
+                    id='content'
+                    //className='article-detail'
+                    style={{ fontSize: 20, backgroundColor: 'white' }}
+                    dangerouslySetInnerHTML={{ __html: marked(detail.context) }}
+                />
+                <br></br>
+                <InfiniteScroll
+                    infinite-scroll-disabled={false}
+                    dataLength={commentDetail.length}
+                    next={loadMoreData}
+                    hasMore={commentDetail.length % 4 == 0}
+                    loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+                    endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+                    scrollableTarget='scrollableDiv'
+                >
+                    <Row justify='space-between'></Row>
+                    <Divider orientation='left'>
+                        {' '}
+                        <Row>
+                            <div
+                                style={{
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                评论
+                                <MessageOutlined></MessageOutlined>
+                            </div>
+                        </Row>
+                    </Divider>
+                    <ProList
+                        size='small'
+                        itemLayout='vertical'
+                        rowKey='id'
+                        dataSource={commentDetail}
+                        split={false}
+                        renderItem={(item) => {
+                            return (
+                                <List.Item>
+                                    <Card
+                                        hoverable
+                                        style={{ background: 'rgba(219,225,240,0.3)' }}
+                                        bordered={false}
+                                    >
+                                        <List.Item.Meta
+                                            avatar={<Avatar src={item.user.avatarUrl} />}
+                                            title={<a href='https://ant.design'>{item.user.username}</a>}
+                                            description={
+                                                <div style={{ fontSize: 10, marginTop: -10 }}>
+                                                    今天 11:21
+                                                </div>
+                                            }
+                                        />
+                                        <div
+                                            style={{
+                                                marginLeft: 40,
+                                            }}
+                                        >
+                                            {item.comment}
+                                        </div>
 
-                                    {/* <img
+                                        {/* <img
                   style={{
                     marginLeft: 60,
                   }}
@@ -218,14 +233,18 @@ const Communitydetail = function Comunitydetail() {
                   alt="logo"
                   src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                 /> */}
-                                </Card>
-                            </List.Item>
-                        );
-                    }}
-                ></ProList>
-            </InfiniteScroll>
-            <FloatButton description={<CommentPost communityId={communityId}></CommentPost>}></FloatButton>
-        </PageContainer>
+                                    </Card>
+                                </List.Item>
+                            );
+                        }}
+                    ></ProList>
+                </InfiniteScroll>
+            </PageContainer>
+            <FloatButton.Group>
+                <FloatButton description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
+                <FloatButton.BackTop className="backtop" />
+            </FloatButton.Group>
+        </>
     );
 };
 export default Communitydetail;

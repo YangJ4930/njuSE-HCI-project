@@ -11,6 +11,7 @@ import axios from '../../axios';
 import {GameCard} from "./component/GameCard";
 import {GameList} from "./component/GameList";
 import {ListNews} from "../news/component/listNews";
+import {CardList} from "../community/communityView";
 
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
@@ -46,6 +47,7 @@ const ChooseList = ({ content }) => {
     const pathname = location.pathname;
     const [gameList, setGameList] = useState([])
     const [newsList, setNewsList] = useState([])
+    const [communityList, setCommunityList] = useState([])
 
     useEffect(() => {
         axios.get(`http://localhost:8080/search/game?content=${content}`).then((response) => {
@@ -57,6 +59,12 @@ const ChooseList = ({ content }) => {
         axios.get(`http://localhost:8080/search/news?content=${content}`).then((response)=>{
             setNewsList(response.data);
             console.log("news")
+            console.log(response.data)
+        });
+
+        axios.get(`http://localhost:8080/search/community?content=${content}`).then((response)=>{
+            setCommunityList(response.data);
+            console.log("community")
             console.log(response.data)
         });
 
@@ -85,8 +93,18 @@ const ChooseList = ({ content }) => {
         )
     }
     else if(pathname.startsWith("/search/community") ){
+
+        let data = Array.from({
+            length: communityList.length,
+        }).map((_, i) => ({
+            id: communityList[i].id,
+            title: communityList[i].title,
+            image: communityList[i].imageUrl[0],
+            content: communityList[i].context,
+            tags: communityList[i].tags
+        }));
         return(
-            <SearchHead name ="社区"/>
+            <CardList data={data}/>
         )
     }
 }

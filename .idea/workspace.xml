@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_12_17_21_51_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/axios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/redux/user/userSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/redux/user/userSlice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/communityView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/community/component/postComponent.jsx" afterDir="false" />
@@ -25,6 +29,7 @@
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchNewsView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/redux/navbar/basicbarSlice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/search/searchView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/view/user/UserInfoScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/view/user/UserInfoScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +111,7 @@
       <workItem from="1702911470324" duration="1151000" />
       <workItem from="1703124577421" duration="770000" />
       <workItem from="1703149465478" duration="11408000" />
-      <workItem from="1703250525352" duration="17684000" />
+      <workItem from="1703250525352" duration="21386000" />
     </task>
     <servers />
   </component>
