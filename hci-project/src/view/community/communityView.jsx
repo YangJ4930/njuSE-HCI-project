@@ -24,6 +24,8 @@ import zd from './component/战地5.jpg'
 import it_takes_two from './component/it_takes_two.jpg'
 import all from './component/all.png'
 import { useSelector } from 'react-redux';
+import axios from "../../axios";
+import BackTop from "../../component/BackTop";
 
 const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
@@ -220,7 +222,7 @@ const CommunityView = function CommunityView() {
         }
         setLoading(true);
         console.log('begining');
-        fetch(`http://localhost:8080/community/findAllCommunity/${page}`)
+        fetch(axios.defaults.baseURL + `/community/findAllCommunity/${page}`)
             .then((res) => res.json())
             .then((body) => {
                 console.log(body);
@@ -308,7 +310,7 @@ const CommunityView = function CommunityView() {
                         icon={<PlusOutlined />}
                     ></FloatButton>
                 </Link>
-                <FloatButton.BackTop className="backtop" />
+                <BackTop/>
             </FloatButton.Group>
         </>
     );
