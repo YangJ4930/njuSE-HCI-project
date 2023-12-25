@@ -3,6 +3,7 @@ import userReducer from './redux/user/userSlice'; // import userSlice默认导�
 import authReducer from './redux/user/authSlice';
 import navbarReducer from './redux/navbar/navbarSlice';
 import basicBarReducer from './redux/navbar/basicbarSlice';
+import newsReducer from './redux/news/newsSlice';
 
 import {
     persistStore,
@@ -31,6 +32,7 @@ const reducers = combineReducers({
     auth: authReducer,
     navbar: navbarReducer,
     basicBar: basicBarReducer,
+    news: newsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers)
