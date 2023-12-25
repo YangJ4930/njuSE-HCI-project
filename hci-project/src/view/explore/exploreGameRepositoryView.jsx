@@ -6,13 +6,14 @@ import {
     Button,
     Divider,
     Collapse,
-    Flex,
+    Flex, Card,
 } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {PageContainer} from '@ant-design/pro-components';
 import './explore.css';
 import axios from '../../axios';
+import Meta from "antd/es/card/Meta";
 
 const arrangementItems = [
     {
@@ -423,27 +424,48 @@ function CardListTable({ gameData}) {
 function SingleCard({ singleCardData }) {
     return (
         <>
-            <Flex
-                justify='space-between'
-                align='center'
-                style={{ width: '100%', aspectRatio: 0.8, marginBottom: 10 }}
-                vertical
-            >
-                <Link to={`/game/${singleCardData.id}`}
-                    style={{width: '100%',aspectRatio: 0.7,borderRadius: 10,}}>
-                    <img
-                        alt='nop'
-                        src={singleCardData.imgUrl}
-                        style={{
-                            width: '100%',
-                            objectFit: 'cover',
-                            aspectRatio: 0.7,
-                            borderRadius: 10,
-                        }}
-                    />
-                </Link>
-                <h6> {singleCardData.name} </h6>
-            </Flex>
+            <Link to={`/game/${singleCardData.id}`}
+                  style={{
+                      width: '100%',
+                      aspectRatio:0.8,
+                      borderRadius: 10,
+                  }}>
+                <Card
+                    hoverable
+                    style={{
+                        width: '100%',
+                        height:'100%',
+                        borderRadius:8
+                    }}
+                    cover={
+                        <img alt="example" src={singleCardData.imgUrl} style={{
+                            objectFit:'cover', objectPosition:"center" ,aspectRatio:0.7, width:'100%'}}/>
+                    }
+                >
+                    <Meta title={singleCardData.name} style={{height:'10%'}}/>
+                </Card>
+            </Link>
+            {/*<Flex*/}
+            {/*    justify='space-between'*/}
+            {/*    align='center'*/}
+            {/*    style={{ width: '100%', aspectRatio: 0.8, marginBottom: 10 }}*/}
+            {/*    vertical*/}
+            {/*>*/}
+            {/*    <Link to={`/game/${singleCardData.id}`}*/}
+            {/*        style={{width: '100%',aspectRatio: 0.7,borderRadius: 10,}}>*/}
+            {/*        <img*/}
+            {/*            alt='nop'*/}
+            {/*            src={singleCardData.imgUrl}*/}
+            {/*            style={{*/}
+            {/*                width: '100%',*/}
+            {/*                objectFit: 'cover',*/}
+            {/*                aspectRatio: 0.7,*/}
+            {/*                borderRadius: 10,*/}
+            {/*            }}*/}
+            {/*        />*/}
+            {/*    </Link>*/}
+            {/*    <h6> {singleCardData.name} </h6>*/}
+            {/*</Flex>*/}
         </>
     );
 }
