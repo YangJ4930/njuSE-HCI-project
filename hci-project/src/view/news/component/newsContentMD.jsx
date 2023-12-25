@@ -1,7 +1,7 @@
 import {marked} from 'marked';
 import Paragraph from 'antd/es/skeleton/Paragraph';
 import React, {useEffect, useState} from 'react';
-import {Card, Image, Layout, Typography} from 'antd';
+import {Card, FloatButton, Image, Layout, Typography} from 'antd';
 import {useParams} from 'react-router-dom';
 import markDownTemp from '../../../utils/temp/MarkdownTemp';
 import axios from "../../../axios";
@@ -81,6 +81,7 @@ function NewsContentMD(props) {
                 </Layout>
 
             </Typography>
+            <FloatButton.BackTop className="backtop" />
         </Card>
 
 

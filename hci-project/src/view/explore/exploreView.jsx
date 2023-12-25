@@ -5,6 +5,7 @@ import { Recommendation } from './component/recommendation';
 import { GuessLike } from './component/guessLike';
 import { Other } from './component/other';
 import {DaliyRecommendation} from "./component/daliyRecommendation";
+import {FloatButton} from "antd";
 
 
 const ExploreView = function ExploreView(){
@@ -52,6 +53,7 @@ const ExploreView = function ExploreView(){
                 <DaliyRecommendation data={data.slice(10, 30)}/>
                 <div style={{ marginTop: 40, marginBottom: 40 }}></div>
                 <Other data={data.slice(6, 8)} />
+                <FloatButton.BackTop className="backtop" />
             </React.Fragment>
         </>
     );

@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import axios from '../../axios';
 import {fetchUserSuccess} from '../../redux/user/userSlice';
-import {Avatar, Card, Col, Divider, Flex, Row, Tag, Tooltip} from 'antd';
+import {Avatar, Card, Col, Divider, Flex, FloatButton, Row, Tag, Tooltip} from 'antd';
 import {useNavigate} from 'react-router-dom';
 import Meta from 'antd/es/card/Meta';
 import {EditOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
@@ -61,6 +61,7 @@ const UserInfoScreen = (props) => {
             <Row gutter={[16, 16]}>
                 <GameInventory gameInventory={userInfo.gameInventory}/>
             </Row>
+            <FloatButton.BackTop className="backtop" />
         </Col>
     );
 };

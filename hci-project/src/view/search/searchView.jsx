@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeVisible, setCurrent } from '../../redux/navbar/navbarSlice';
-import { Layout, Menu, Row } from 'antd';
+import {FloatButton, Layout, Menu, Row} from 'antd';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -157,6 +157,7 @@ const SearchView = () =>{
             <SearchNavbar items={itemlist} />
             <div style={{ margin: 30 }}></div>
             <ChooseList content = {content}/>
+            <FloatButton.BackTop className="backtop" />
         </>
     );
 };

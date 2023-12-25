@@ -1,5 +1,5 @@
 import React, {Component, useEffect} from 'react';
-import {Row, Col, Space, Card, Carousel, Layout, Flex, Radio, List, Avatar, Tag} from 'antd';
+import {Row, Col, Space, Card, Carousel, Layout, Flex, Radio, List, Avatar, Tag, FloatButton} from 'antd';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "../../axios";
@@ -40,6 +40,7 @@ const HomeView = () => {
                 </Header>
                 <CommunityList />
             </div>
+            <FloatButton.BackTop className="backtop" />
         </>
     );
 };
