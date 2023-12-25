@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Descriptions, Form, Image, Input, Select, Upload } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+import React, {useState} from 'react';
+import {Button, Checkbox, Descriptions, Form, Image, Input, Select, Upload} from 'antd';
+import {UploadOutlined} from '@ant-design/icons';
+import {useDispatch, useSelector} from 'react-redux';
 import Column from 'antd/es/table/Column';
+import axios from "../../axios";
+import {fetchUserSuccess} from "../../redux/user/userSlice";
 
 function UserSetting() {
     const [editing, setEditingState] = useState(false);
@@ -10,43 +12,19 @@ function UserSetting() {
     return (
         <>
             {editing ? (
-                <EditView setEditingState={setEditingState} />
+                <EditView setEditingState={setEditingState}/>
             ) : (
-                <ShowInfoView setEditingState={setEditingState} />
+                <ShowInfoView setEditingState={setEditingState}/>
             )}
         </>
     );
 }
 
-const EditView = ({ setEditingState }) => {
+const EditView = ({setEditingState}) => {
     const [form] = Form.useForm();
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
-    const prefixSelector = (
-        <Form.Item name='prefix' noStyle>
-            <Select
-                style={{
-                    width: 70,
-                }}
-            >
-                <Option value='86'>+86</Option>
-                <Option value='87'>+87</Option>
-            </Select>
-        </Form.Item>
-    );
-    const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-    const onWebsiteChange = (value) => {
-        if (!value) {
-            setAutoCompleteResult([]);
-        } else {
-            setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-        }
-    };
-    const websiteOptions = autoCompleteResult.map((website) => ({
-        label: website,
-        value: website,
-    }));
 
     const userInfo = useSelector((state) => state.user);
 
@@ -57,15 +35,31 @@ const EditView = ({ setEditingState }) => {
         }
         return e?.fileList;
     };
+
+    const dispatch = useDispatch();
+
+    const updateUserInfo = () => {
+        axios.post(`/users/${userInfo.id}`, {
+            email: form.getFieldValue('email'),
+            username: form.getFieldValue('username'),
+            description: form.getFieldValue('description'),
+            avatarUrl: form.getFieldValue('avatar'),
+            cardBackgroundUrl: form.getFieldValue('cardBackground'),
+        }).then((response) => {
+            console.log(response);
+            const userData = response.data;
+            dispatch(fetchUserSuccess(userData)); // 成功获取用户数据
+        })
+    }
     return (
         <Form
             labelCol={{
-                xs: { span: 24 },
-                sm: { span: 8 },
+                xs: {span: 24},
+                sm: {span: 8},
             }}
             wrapperCol={{
-                xs: { span: 24 },
-                sm: { span: 16 },
+                xs: {span: 24},
+                sm: {span: 16},
             }}
             form={form}
             name='setting'
@@ -96,7 +90,7 @@ const EditView = ({ setEditingState }) => {
                     },
                 ]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
 
             <Form.Item
@@ -110,7 +104,7 @@ const EditView = ({ setEditingState }) => {
                     },
                 ]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
 
             <Form.Item
@@ -122,7 +116,7 @@ const EditView = ({ setEditingState }) => {
                     },
                 ]}
             >
-                <Input.TextArea showCount maxLength={100} />
+                <Input.TextArea showCount maxLength={100}/>
             </Form.Item>
 
             {/* TODO: upload avatar*/}
@@ -136,8 +130,8 @@ const EditView = ({ setEditingState }) => {
                 ]}
             >
                 {/*<Image src={userInfo.avatarUrl}/>*/}
-                <Upload name='logo' action='/upload.do' listType='picture'>
-                    <Button icon={<UploadOutlined />}>上传</Button>
+                <Upload name='logo' action='/upload.do' listType='picture-card'>
+                    <Button icon={<UploadOutlined/>}>上传</Button>
                 </Upload>
             </Form.Item>
 
@@ -148,8 +142,8 @@ const EditView = ({ setEditingState }) => {
                 // valuePropName="fileList"
                 // getValueFromEvent={normFile}
             >
-                <Upload name='logo' action='/upload.do' listType='picture'>
-                    <Button icon={<UploadOutlined />}>上传</Button>
+                <Upload name='logo' action='/upload.do' listType='picture-card'>
+                    <Button icon={<UploadOutlined/>}>上传</Button>
                 </Upload>
             </Form.Item>
 
@@ -196,7 +190,7 @@ const EditView = ({ setEditingState }) => {
                     type='primary'
                     onClick={() => {
                         setEditingState(false);
-                        //TODO: post to backend
+                        updateUserInfo();
                     }}
                 >
                     保存
@@ -206,7 +200,7 @@ const EditView = ({ setEditingState }) => {
     );
 };
 
-const ShowInfoView = ({ setEditingState }) => {
+const ShowInfoView = ({setEditingState}) => {
     const userInfo = useSelector((state) => state.user);
 
     const items = [
@@ -240,15 +234,15 @@ const ShowInfoView = ({ setEditingState }) => {
             label: '头像',
             children: (
                 <>
-                    <br />
-                    <Image src={userInfo.avatarUrl} />
+                    <br/>
+                    <Image src={userInfo.avatarUrl}/>
                 </>
             ),
         },
         {
             key: '7',
             label: '背景图',
-            children: <Image src={userInfo.cardBackgroundUrl} />,
+            children: <Image src={userInfo.cardBackgroundUrl}/>,
         },
     ];
     return (

@@ -21,7 +21,7 @@ const UserInfoScreen = (props) => {
     useEffect(() => {
         if (isLogin) {
             axios
-                .get(`/users/${userId}`, { headers: { tokenName: tokenValue } })
+                .get(`/users/${userId}`, { headers: { [tokenName]: tokenValue } })
                 .then((response) => {
                     console.log(response);
                     const userData = response.data;
