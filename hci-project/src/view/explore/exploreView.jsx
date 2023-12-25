@@ -46,8 +46,6 @@ const ExploreView = function ExploreView(){
     return (
         <>
             <React.Fragment>
-                <Recommendation data={data.slice(0, 4)} />
-                <div style={{ marginTop: 40, marginBottom: 40 }}></div>
                 <GuessLike data={data.slice(4, 6)} />
                 <div style={{ marginTop: 40, marginBottom: 40 }}></div>
                 <DaliyRecommendation data={data.slice(10, 30)}/>
