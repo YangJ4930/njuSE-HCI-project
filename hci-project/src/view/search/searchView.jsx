@@ -94,17 +94,8 @@ const ChooseList = ({ content }) => {
     }
     else if(pathname.startsWith("/search/community") ){
 
-        let data = Array.from({
-            length: communityList.length,
-        }).map((_, i) => ({
-            id: communityList[i].id,
-            title: communityList[i].title,
-            image: communityList[i].imageUrl[0],
-            content: communityList[i].context,
-            tags: communityList[i].tags
-        }));
         return(
-            <CardList data={data}/>
+            <CardList data={communityList}/>
         )
     }
 }

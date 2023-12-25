@@ -81,24 +81,14 @@ const CommunityList = () =>{
     useEffect(() => {
         axios.get('http://localhost:8080/content/community').then((response) => {
             console.log(response);
-            setCommunityList(response.data.content);
-            console.log(response.data.content)
+            setCommunityList(response.data);
+            console.log(response.data)
         });
     }, []);
 
-    let data = Array.from({
-        length: communityList.length,
-    }).map((_, i) => ({
-        id: communityList[i].id,
-        title: communityList[i].title,
-        image: communityList[i].imageUrl[0],
-        content: communityList[i].context,
-        tags: communityList[i].tags
-    }));
-    console.log(data[0])
     return(
-            <CardList data={data}/>
-)
+            <CardList data={communityList}/>
+    )
 
 }
 
