@@ -168,7 +168,7 @@ const Communitydetail = function Comunitydetail() {
                     id='content'
                     //className='article-detail'
                     style={{ fontSize: 20, backgroundColor: 'white' }}
-                    dangerouslySetInnerHTML={{ __html: marked(detail.context.join('\n')) }}
+                    dangerouslySetInnerHTML={{ __html: marked(detail.context) }}
                 />
                 <br></br>
                 <InfiniteScroll

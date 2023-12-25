@@ -1,12 +1,12 @@
 import React from 'react';
 import {Avatar, Card, Col} from 'antd';
 const { Meta } = Card;
-export const GameCard = ({data}) => {
+export const GameCard = ({data, widthData}) =>{
     return(
         <Col className="gutter-row" span={6}>
             <Card
                 style={{
-                    width: "350px"
+                    width: `${widthData}px`
                 }}
                 cover={
                     <img

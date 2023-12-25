@@ -17,6 +17,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
 import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
+
 import GameTags from './GameTags'
 import { useSelector } from 'react-redux';
 import { useNavigate} from "react-router-dom";
@@ -39,6 +40,10 @@ const PostComponent = function PostComponent() {
         },
     ];
     const { token } = theme.useToken();
+    const tagPlusStyle = {
+        background: token.colorBgContainer,
+        borderStyle: 'dashed',
+    };
     const { TextArea } = Input;
     const [fileList, setFileList] = useState([]);
     const [tags, setTags] = useState([]);
@@ -79,7 +84,7 @@ const PostComponent = function PostComponent() {
             fd.append('tags',tags)
             fd.append('userId',userID)
             console.log(file)
-            fetch('http://localhost:7999/community/Upload', {
+            fetch('http://localhost:8080/community/Upload', {
                 method: 'post',
                 body: fd,
             })
