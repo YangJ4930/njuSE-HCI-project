@@ -3,25 +3,27 @@ import {Avatar, Card, List, Space} from 'antd';
 import {CommentOutlined, EyeTwoTone, HeartTwoTone} from '@ant-design/icons';
 import React, {useEffect, useState} from 'react';
 import axios from "../../../axios";
+import {useDispatch, useSelector} from "react-redux";
+import {savePage} from "../../../redux/news/newsSlice";
 
 const ListNews = ({data}) => {
+    const newsPage = useSelector((state) => state.news.currentPage);
+    const dispatch = useDispatch();
+
     return (
         <List
             itemLayout='vertical'
             size='large'
             pagination={{
+                pageSize: 3,
                 onChange: (page) => {
                     console.log(page);
+                    dispatch(savePage(page));
                 },
                 showSizeChanger: false,
-                pageSize: 3,
+                current: newsPage,
             }}
             dataSource={data}
-            footer={
-                <div>
-                    <b>ant design</b> footer part
-                </div>
-            }
             renderItem={(item) => (
                 <PostItem postInfo={item}/>
             )}

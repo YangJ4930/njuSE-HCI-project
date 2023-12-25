@@ -64,13 +64,13 @@ function RegisterScreen(props) {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your email!',
+                                message: '请输入邮箱!',
                             },
                         ]}
                     >
                         <Input
                             prefix={<UserOutlined className='site-form-item-icon' />}
-                            placeholder='Email'
+                            placeholder='邮箱'
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Form.Item>
@@ -79,14 +79,14 @@ function RegisterScreen(props) {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your Username!',
+                                message: '请输入用户名!',
                             },
                         ]}
                     >
                         <Input
                             prefix={<LockOutlined className='site-form-item-icon' />}
                             type='Username'
-                            placeholder='Username'
+                            placeholder='用户名'
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </Form.Item>
@@ -95,14 +95,14 @@ function RegisterScreen(props) {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your Password!',
+                                message: '请输入密码!',
                             },
                         ]}
                     >
                         <Input
                             prefix={<LockOutlined className='site-form-item-icon' />}
                             type='password'
-                            placeholder='Password'
+                            placeholder='密码'
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Item>

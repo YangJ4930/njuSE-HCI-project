@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        id: sessionStorage.getItem('userId'),
-        username: sessionStorage.getItem('username'),
-        description: sessionStorage.getItem('description'),
+        id: 'userId',
+        username: 'username',
+        description: 'description',
         email: 'default@test.com',
         level: 0,
         avatarUrl: 'http://dummyimage.com/200x100/894FC4/FFF.png&text=!',
@@ -19,10 +19,6 @@ export const userSlice = createSlice({
     },
     reducers: {
         fetchUserSuccess: (state, action) => {
-
-            sessionStorage.setItem('userId', action.payload.id);
-            sessionStorage.setItem('username', action.payload.username);
-            sessionStorage.setItem('description', action.payload.description);
             return action.payload;
         },
         setUserId: (state, action) => {
@@ -31,5 +27,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { setUserId, fetchUserSuccess } = userSlice.actions;
+export const {setUserId, fetchUserSuccess} = userSlice.actions;
 export default userSlice.reducer;
