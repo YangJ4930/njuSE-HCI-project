@@ -6,13 +6,14 @@ import {
     Button,
     Divider,
     Collapse,
-    Flex,
+    Flex, FloatButton,
 } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {PageContainer} from '@ant-design/pro-components';
 import './explore.css';
 import axios from '../../axios';
+import BackTop from "../../component/BackTop";
 
 const arrangementItems = [
     {
@@ -218,6 +219,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
                     <CardListTable gameData={data}/>
                 </PageContainer>
             </div>
+            <BackTop/>
         </>
     );
 };

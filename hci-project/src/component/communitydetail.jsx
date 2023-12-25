@@ -157,7 +157,8 @@ const Communitydetail = function Comunitydetail() {
                                     </Tag>
                                 </Row>
                             }
-                            description='杨静nb'
+                            //TODO: add description
+                            description={detail.author}
                         />
                     </Card>
                 </Row>

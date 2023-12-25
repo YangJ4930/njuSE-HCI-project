@@ -12,6 +12,7 @@ import {GameCard} from "./component/GameCard";
 import {GameList} from "./component/GameList";
 import {ListNews} from "../news/component/listNews";
 import {CardList} from "../community/communityView";
+import BackTop from "../../component/BackTop";
 
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
@@ -157,7 +158,7 @@ const SearchView = () =>{
             <SearchNavbar items={itemlist} />
             <div style={{ margin: 30 }}></div>
             <ChooseList content = {content}/>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </>
     );
 };

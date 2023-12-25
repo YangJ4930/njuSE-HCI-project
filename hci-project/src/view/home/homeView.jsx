@@ -11,6 +11,7 @@ import {LikeOutlined, MessageOutlined, StarOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {CardList} from "../community/communityView";
 import {da} from "@faker-js/faker";
+import BackTop from "../../component/BackTop";
 const { Header, Footer, Sider, Content } = Layout;
 
 const HomeView = () => {
@@ -40,7 +41,7 @@ const HomeView = () => {
                 </Header>
                 <CommunityList />
             </div>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </>
     );
 };

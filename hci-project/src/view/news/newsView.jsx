@@ -6,6 +6,7 @@ import {NewHead} from './component/newHead';
 import {NewsListCard} from './component/newsListCard';
 import {ListNews} from './component/listNews';
 import {FloatButton} from "antd";
+import BackTop from "../../component/BackTop";
 
 function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
@@ -34,7 +35,7 @@ function NewsView() {
         <React.Fragment>
             <NewHead style={{marginBottom: 200}}/>
             <ListNews data={data}/>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </React.Fragment>
     );
 }
