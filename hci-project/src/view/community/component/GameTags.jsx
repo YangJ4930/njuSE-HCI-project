@@ -52,7 +52,7 @@ const GameTags = (props) => {
     return (
         <Select
             mode='multiple'
-            bordered={false}
+            bordered={true}
             tagRender={tagRender}
             style={{
                 width: '100%',
@@ -61,6 +61,7 @@ const GameTags = (props) => {
             onChange={(value) => {
                 setTags(value);
             }}
+            placeholder={'选择游戏标签'}
         />
     );
 };
