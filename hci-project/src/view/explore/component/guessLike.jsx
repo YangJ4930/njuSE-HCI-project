@@ -30,7 +30,7 @@ const GuessLike = ({ data }) => {
                         </Flex>
                         <Flex justify='space-between' align='center' style={{ width: '100%', height: '87%' }} horizontal>
                             <Flex justify='space-between' align='center' style={{ width:'45%', height: '100%' }} vertical>
-                                <Link to={`/explore/gameDetail/${data[0].id}`}
+                                <Link to={`/game/${data[0].id}`}
                                     style={{
                                         width: '100%',
                                         aspectRatio: 1.8,
@@ -51,7 +51,7 @@ const GuessLike = ({ data }) => {
                                 <h5 style={{ color: 'white' }}>{data[0].name}</h5>
                             </Flex>
                             <Flex justify='space-between' align='center' style={{ width:'45%', height: '100%' }} vertical>
-                                <Link to={`/explore/gameDetail/${data[0].id}`}
+                                <Link to={`/game/${data[0].id}`}
                                       style={{
                                           width: '100%',
                                           aspectRatio: 1.8,
