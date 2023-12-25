@@ -23,6 +23,7 @@ const HomeView = () => {
                     </Row>
                 </Header>
                 <GameHomeList></GameHomeList>
+                <div style={{margin: 10}}/>
                 <Header style={{ background: '#001529', marginBottom: 20 }}>
                     <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                         <span style={{ fontSize: 18, lineHeight: 1.4, color: 'white' }}>
@@ -31,6 +32,7 @@ const HomeView = () => {
                     </Row>
                 </Header>
                 <NewsHomeList />
+                <div style={{margin: 10}}/>
                 <Header style={{ background: '#001529', marginBottom: 20 }}>
                     <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                         <span style={{ fontSize: 18, lineHeight: 1.4, color: 'white' }}>
@@ -39,6 +41,7 @@ const HomeView = () => {
                     </Row>
                 </Header>
                 <CommunityList />
+                <div style={{margin: 10}}/>
             </div>
             <FloatButton.BackTop className="backtop" />
         </>

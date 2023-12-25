@@ -4,6 +4,7 @@ import authReducer from './redux/user/authSlice';
 import navbarReducer from './redux/navbar/navbarSlice';
 import basicBarReducer from './redux/navbar/basicbarSlice';
 import newsReducer from './redux/news/newsSlice';
+import communityReducer from './redux/user/communitySlice';
 
 import {
     persistStore,
@@ -33,6 +34,7 @@ const reducers = combineReducers({
     navbar: navbarReducer,
     basicBar: basicBarReducer,
     news: newsReducer,
+    community:communityReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers)

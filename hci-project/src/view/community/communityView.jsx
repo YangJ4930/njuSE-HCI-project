@@ -1,8 +1,9 @@
+
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
 import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card ,message} from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import React from "react";
 import {
     PlusOutlined,
@@ -23,7 +24,8 @@ import er from './component/er.jpg'
 import zd from './component/战地5.jpg'
 import it_takes_two from './component/it_takes_two.jpg'
 import all from './component/all.png'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { SaveScroll, Savelist } from "../../redux/user/communitySlice";
 
 const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
@@ -74,7 +76,8 @@ const ContentText = ({ title }) => {
     );
 };
 
-export const CardList = ({data, tag}) =>{
+export const CardList = ({data, tag, key}) =>{
+    const navigate = useNavigate();
     return(
         <ProList
             size="small"
@@ -108,7 +111,7 @@ export const CardList = ({data, tag}) =>{
                         <List.Item.Meta
                             avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
                             title={(<Row >
-                                <div>杨京</div>
+                                <div>{item.author}</div>
                                 {item.tags == null ? null : item.tags.map((key, index) => {
 
                                     return <Tag color="#2db7f5" style={{
@@ -120,33 +123,26 @@ export const CardList = ({data, tag}) =>{
                             </Row>)}
                             description={"发表时间：" + formattedTimestamp}
                         />
-
-                        <Link
-                            className="link-text"
-                            to={`/component/Communitydetail/${item.id}`}
+                        <Card hoverable
+                              bordered={false}
+                              onClick={()=>{
+                                  navigate(`/component/Communitydetail/${item.id}`)
+                              }}
                         >
-                            <Card hoverable
-                                  bordered={false}
-                                // onClick={()=>{
-                                //   pushShow(item.id)
-                                // }}
-                            >
-                                <ContentText content={item.content} title={item.title} />
-                                {item.image === null ? null : <div style={{
-                                    textAlign:"center",
-                                    width:"100%",
+                            <ContentText content={item.content} title={item.title} />
+                            {item.image === null ? null : <div style={{
+                                textAlign:"center",
+                                width:"100%",
 
-                                }}><Image
+                            }}><Image
 
-                                    preview={false}
+                                preview={false}
 
-                                    height={272}
-                                    alt="logo"
-                                    src={item.image}
-                                /></div>}
-                            </Card>
-                        </Link>
-
+                                height={272}
+                                alt="logo"
+                                src={item.image}
+                            /></div>}
+                        </Card>
                     </List.Item>
                 );
             }}
@@ -154,23 +150,22 @@ export const CardList = ({data, tag}) =>{
     )
 }
 
+
 const CommunityView = function CommunityView() {
+    const ref = useRef(null);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [page, setPage] = useState(0);
     const [tag, SetTag] = useState("全部");
-    const content =
-        "五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛,五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛五夜漏声催晓箭,九重春色醉仙桃。旌旗日暖龙蛇动，宫殿风微燕雀高。朝罢香烟携满袖，诗成珠玉在挥毫。欲知世掌丝纶美，池上于今有凤毛";
-    const title = "人机交互是我最喜欢的课，一天不上浑身难受";
     const key = 'updatable';
-    const islogin=useSelector((state) => state.auth.isLogin);
+
+    const savelist=useSelector((state)=>state.community)
+    const dispatch = useDispatch();
 
     const pushShow = (id) => {
         navigate(`/component/Communitydetail/${id}`)
     }
-
-
 
     const ite = [
         {
@@ -229,6 +224,7 @@ const CommunityView = function CommunityView() {
                 setPage(pagenumber);
                 console.log(page);
                 setLoading(false);
+
             })
             .catch((endMessage) => {
                 console.log(endMessage);
@@ -236,7 +232,15 @@ const CommunityView = function CommunityView() {
             });
     };
     useEffect(() => {
-        loadMoreData();
+        console.log(savelist)
+        setData(savelist.listData)
+        setPage(savelist.pageNumber)
+        SetTag(savelist.tag)
+        setTimeout(()=>{
+            window.scrollTo(0,savelist.scrollTo)
+        },0)
+
+        //loadMoreData();
     }, []);
     return (
         <>
@@ -296,9 +300,88 @@ const CommunityView = function CommunityView() {
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                     scrollableTarget="scrollableDiv"
-                    onScroll={() => console.log("loading")}
+                    ref={ref}
                 >
-                    <CardList data={data} tag = {tag}/>
+                    <ProList
+                        size="small"
+                        itemLayout="vertical"
+                        rowKey="id"
+                        dataSource={data}
+                        //loading={true}
+                        renderItem={(item) => {
+                            var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
+                            if (item.tags != null) {
+                                if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
+                                    return null;
+                                }
+                            }
+                            return (
+                                <List.Item
+                                    actions={[
+
+                                        <IconText
+                                            icon={LikeOutlined}
+                                            text="156"
+                                            key="list-vertical-like-o"
+                                        />,
+                                        <IconText
+                                            icon={MessageOutlined}
+                                            text="2"
+                                            key="list-vertical-message"
+                                        />,
+                                    ]}
+                                >
+                                    <List.Item.Meta
+                                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                                        title={(<Row >
+                                            <div>{item.author}</div>
+                                            {item.tags == null ? null : item.tags.map((key, index) => {
+
+                                                return <Tag color="#2db7f5" style={{
+                                                    marginLeft: 10
+                                                }}>{key}</Tag>
+
+                                            })}
+
+                                        </Row>)}
+                                        description={"发表时间：" + formattedTimestamp}
+                                    />
+                                    <Card hoverable
+                                          bordered={false}
+                                          onClick={()=>{
+                                              console.log("xxx"+ref.current.lastScrollTop)
+                                              dispatch(SaveScroll(ref.current.lastScrollTop))
+
+                                              let Scroll={
+                                                  listData:data,
+                                                  PageNumber:page,
+                                                  tag:tag
+                                              }
+                                              dispatch(Savelist(Scroll))
+                                              console.log(savelist)
+                                              pushShow(item.id)
+                                          }}
+                                    >
+                                        <ContentText content={item.content} title={item.title} />
+                                        {item.image === null ? null : <div style={{
+                                            textAlign:"center",
+                                            width:"100%",
+
+                                        }}><Image
+
+                                            preview={false}
+
+                                            height={272}
+                                            alt="logo"
+                                            src={item.image}
+                                        /></div>}
+                                    </Card>
+                                    {/* </Link> */}
+
+                                </List.Item>
+                            );
+                        }}
+                    ></ProList>
                 </InfiniteScroll>
             </PageContainer>
             <FloatButton.Group>

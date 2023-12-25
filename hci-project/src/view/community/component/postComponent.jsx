@@ -9,24 +9,24 @@ import {
     message,
     Tag,
     theme,
-    Select, Row, Col,
+    Select,
 } from 'antd';
-import {Fragment, useState} from 'react';
+import { useState } from 'react';
 import React from 'react';
-import {PlusOutlined} from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
-import {useForm} from 'antd/es/form/Form';
+import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
-
 import GameTags from './GameTags'
-import {useSelector} from 'react-redux';
-import {useNavigate} from "react-router-dom";
-import Title from "antd/es/skeleton/Title";
-
+import { useSelector,useDispatch } from 'react-redux';
+import { useNavigate} from "react-router-dom";
+import { Clearlist } from '../../../redux/user/communitySlice';
 const PostComponent = function PostComponent() {
     const userID = useSelector((state) => state.user.id);
-    const islogin = useSelector((state) => state.auth.isLogin);
-    const nav = useNavigate();
+    const islogin=useSelector((state) => state.auth.isLogin);
+    const dispatch = useDispatch();
+    const savelist=useSelector((state)=>state.community)
+    const nav=useNavigate();
     const options = [
         {
             value: 'gold',
@@ -41,12 +41,8 @@ const PostComponent = function PostComponent() {
             value: 'cyan',
         },
     ];
-    const {token} = theme.useToken();
-    const tagPlusStyle = {
-        background: token.colorBgContainer,
-        borderStyle: 'dashed',
-    };
-    const {TextArea} = Input;
+    const { token } = theme.useToken();
+    const { TextArea } = Input;
     const [fileList, setFileList] = useState([]);
     const [tags, setTags] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -67,7 +63,7 @@ const PostComponent = function PostComponent() {
     };
     const key = 'updatable';
     const PostC = (from, file) => {
-        if (islogin) {
+        if(islogin){
             message.open({
                 key,
                 type: 'loading',
@@ -83,8 +79,8 @@ const PostComponent = function PostComponent() {
                 type: 'application/json',
             })
             fd.append('form', blob)
-            fd.append('tags', tags)
-            fd.append('userId', userID)
+            fd.append('tags',tags)
+            fd.append('userId',userID)
             console.log(file)
             fetch('http://localhost:8080/community/Upload', {
                 method: 'post',
@@ -106,10 +102,12 @@ const PostComponent = function PostComponent() {
                     //     content: '帖子发布成功！',
                     //     duration: 2,
                     // })
+                    dispatch(Clearlist())
                     nav('/community')
                 })
                 .catch(error => console.log(error))
-        } else {
+        }
+        else{
             message.open({
                 key,
                 type: 'warning!',
@@ -131,22 +129,24 @@ const PostComponent = function PostComponent() {
     };
     const uploadButton = (
         <div>
-            <PlusOutlined/>
-            <div style={{marginTop: 8}}>上传</div>
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
     return (
-        <Row
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignSelf: 'center',
-            }}
-        >
+        <>
+            <div
+                style={{
+                    flexDirection: 'column',
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '800px',
+                }}
+                className='groud'
+            >
                 <div
                     style={{
-                        width: '100%',
+                        width: '200px',
                         fontSize: '24px',
                         textAlign: 'center',
                         lineHeight: '100px',
@@ -154,50 +154,42 @@ const PostComponent = function PostComponent() {
                 >
                     图文
                 </div>
-                <Form form={form} title='图文' className='postform' layout={'vertical'}>
-                    <Divider orientation='left'>标签</Divider>
-                    <GameTags setTags={setTags}></GameTags>
-                    <Divider orientation='left'></Divider>
-                    <Form.Item className='formitem'>
-                        <Upload
-                            className='imageInput'
-                            action=''
-                            beforeUpload={() => false}
-                            listType='picture-card'
-                            onPreview={handlePreview}
-                            onChange={onChange1}
-                            maxCount={8}
-                        >
-                            {fileList.length > 8 ? null : uploadButton}
-                        </Upload>
-                    </Form.Item>
-                    <Divider orientation='left'>标题</Divider>
-                    <Form.Item name='title'>
-                        <TextArea bordered={true} placeholder='标题' rows={1}/>
-                    </Form.Item>
-                    <Divider orientation='left'>正文</Divider>
-                    <Form.Item name='content'>
-                        <MDEditor value={markdownContent} onChange={setMarkContent}/>
-                    </Form.Item>
-                </Form>
-
-                <Row
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                    }}
-                >
+                <Form form={form} title='图文' className='postform'>
+                    <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
+                        <GameTags setTags={setTags}></GameTags>
+                        <Divider orientation='left'></Divider>
+                        <Form.Item className='formitem'>
+                            <Upload
+                                className='imageInput'
+                                action=''
+                                beforeUpload={() => false}
+                                listType='picture-card'
+                                onPreview={handlePreview}
+                                onChange={onChange1}
+                                maxCount={8}
+                            >
+                                {fileList.length > 8 ? null : uploadButton}
+                            </Upload>
+                        </Form.Item>
+                        <Divider orientation='left'>Title</Divider>
+                        <Form.Item name='title'>
+                            <TextArea bordered={false} placeholder='标题' rows={1} />
+                        </Form.Item>
+                        <Divider orientation='left'>Content</Divider>
+                        <Form.Item name='content'>
+                            <MDEditor value={markdownContent} onChange={setMarkContent} />
+                        </Form.Item>
+                    </Space>
                     <Button
                         className='formitembutton'
                         onClick={() => {
                             PostC(form.getFieldValue(), fileList);
                         }}
-                        size={'large'}
                     >
-                        发帖
+                        submit
                     </Button>
-                </Row>
+                </Form>
+            </div>
 
             <Modal
                 style={{
@@ -229,7 +221,7 @@ const PostComponent = function PostComponent() {
                     src={selectedImage}
                 />
             </Modal>
-        </Row>
+        </>
     );
 };
 export default PostComponent;

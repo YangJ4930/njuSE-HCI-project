@@ -32,7 +32,8 @@ function NewsView() {
     }));
     return (
         <React.Fragment>
-            <NewHead style={{marginBottom: 200}}/>
+            <NewHead/>
+            <div style={{marginBottom: 20}}></div>
             <ListNews data={data}/>
             <FloatButton.BackTop className="backtop" />
         </React.Fragment>

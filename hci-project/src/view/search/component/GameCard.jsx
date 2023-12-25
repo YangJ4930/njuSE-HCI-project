@@ -11,11 +11,14 @@ export const GameCard = ({data, widthData}) => {
                     width: `${widthData}px`
                 }}
                 cover={
-                    <img
-                        alt="example"
-                        src={data.imgUrl}
-                        style={{width: "100%", height: "400px"}}
-                    />
+                    <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
+                        <img
+                            alt="example"
+                            src={data.imgUrl}
+                            style={{width: "100%", height: "400px"}}
+                        />
+                    </Link>
+
                 }
                 hoverable={true}
             >
