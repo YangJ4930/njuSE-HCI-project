@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {Col, Flex, List, Row, Space} from 'antd';
+import {Button, Col, Flex, List, Row, Space} from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import {Link} from "react-router-dom";
+
 
 export const Recommendation = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -13,9 +14,16 @@ export const Recommendation = ({ data }) => {
     return (
         <React.Fragment>
             <Header style={{ background: '#001529', marginBottom: 20 }}>
-                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                    <span style={{ fontSize: 18, lineHeight: 1.4, color: 'white' }}>探索</span>
-                </Row>
+                <Flex justify='space-between' align='center' style={{ height: '100%' }}>
+                    <span style={{ fontSize: 23, lineHeight: 1.4, color: 'white' }}>探索</span>
+                    <Link to={'/explore/gameRepository'} style={{marginTop: 10}}>
+                        <Button type="text"  style={{
+                            fontSize: 18, color: 'white',borderColor:'white'
+                        }}>
+                            浏览更多
+                        </Button>
+                    </Link>
+                </Flex>
             </Header>
 
             <Slideshow data={data} interval={5000} onPageChange={handlePageChange} />
@@ -52,7 +60,7 @@ const Slideshow = ({ data, interval, onPageChange }) => {
                     style={{ width: '100%', height: '100%' }}
                     horizontal
                 >
-                    <Link to={`/explore/gameDetail/${data[currentIndex].id}`}
+                    <Link to={`/game/${data[currentIndex].id}`}
                           style = {{
                               width: '60%',
                               height: '100%',
@@ -77,56 +85,79 @@ const Slideshow = ({ data, interval, onPageChange }) => {
                         style={{ width: '33%', height: '100%' }}
                         vertical
                     >
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '100%',
-                                height: '22%',
-                                borderRadius: 10,
-                            }}
-                            src={data[0].imgUrl}
-                            alt={`Slide 0`}
-                            onClick={() => handlePageChange(0)}
-                        />
+                        <Flex justify='start' align='center' style={{width: '100%', height: '22%',}} horizontal>
+                            <img
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '75%',
+                                    height: '100%',
+                                    borderRadius: 10,
+                                    marginRight:'5%'
+                                }}
+                                src={data[0].imgUrl}
+                                alt={`Slide 3`}
+                                onClick={() => handlePageChange(0)}
+                            />
 
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '100%',
-                                height: '22%',
-                                borderRadius: 10,
-                            }}
-                            src={data[1].imgUrl}
-                            alt={`Slide 1`}
-                            onClick={() => handlePageChange(1)}
-                        />
+                            <span style={{fontsize:20, width:'20%'}}>{data[0].name}</span>
+                        </Flex>
 
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '100%',
-                                height: '22%',
-                                borderRadius: 10,
-                            }}
-                            src={data[2].imgUrl}
-                            alt={`Slide 2`}
-                            onClick={() => handlePageChange(2)}
-                        />
+                        <Flex justify='start' align='center' style={{width: '100%', height: '22%',}} horizontal>
+                            <img
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '75%',
+                                    height: '100%',
+                                    borderRadius: 10,
+                                    marginRight:'5%'
+                                }}
+                                src={data[1].imgUrl}
+                                alt={`Slide 3`}
+                                onClick={() => handlePageChange(1)}
+                            />
 
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                width: '100%',
-                                height: '22%',
-                                borderRadius: 10,
-                            }}
-                            src={data[3].imgUrl}
-                            alt={`Slide 3`}
-                            onClick={() => handlePageChange(3)}
-                        />
+                            <span style={{fontsize:20, width:'20%'}}>{data[1].name}</span>
+                        </Flex>
+
+                        <Flex justify='start' align='center' style={{width: '100%', height: '22%',}} horizontal>
+                            <img
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '75%',
+                                    height: '100%',
+                                    borderRadius: 10,
+                                    marginRight:'5%'
+                                }}
+                                src={data[2].imgUrl}
+                                alt={`Slide 3`}
+                                onClick={() => handlePageChange(2)}
+                            />
+
+                            <span style={{fontsize:20, width:'20%'}}>{data[2].name}</span>
+                        </Flex>
+
+                        <Flex justify='start' align='center' style={{width: '100%', height: '22%',}} horizontal>
+                            <img
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '75%',
+                                    height: '100%',
+                                    borderRadius: 10,
+                                    marginRight:'5%'
+                                }}
+                                src={data[3].imgUrl}
+                                alt={`Slide 3`}
+                                onClick={() => handlePageChange(3)}
+                            />
+
+                            <span style={{fontsize:20, width:'20%'}}>{data[3].name}</span>
+                        </Flex>
+
+
                     </Flex>
                 </Flex>
             </div>
         </React.Fragment>
     );
 };
+

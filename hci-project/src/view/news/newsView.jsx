@@ -5,12 +5,14 @@ import axios from '../../axios';
 import {NewHead} from './component/newHead';
 import {NewsListCard} from './component/newsListCard';
 import {ListNews} from './component/listNews';
+import {FloatButton} from "antd";
+import BackTop from "../../component/BackTop";
 
 function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get('http://localhost:8080/news/contents').then((response) => {
+        axios.get('/news/contents').then((response) => {
             console.log(response);
             setNewsList(response.data);
         });
@@ -31,8 +33,10 @@ function NewsView() {
     }));
     return (
         <React.Fragment>
-            <NewHead style={{marginBottom: 200}}/>
+            <NewHead/>
+            <div style={{marginBottom: 20}}></div>
             <ListNews data={data}/>
+            <BackTop/>
         </React.Fragment>
     );
 }

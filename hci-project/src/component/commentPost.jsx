@@ -27,26 +27,26 @@ const CommentPost = (props) => {
             console.log("comId"+communityId);
             console.log("userId"+userId);
             axios.post('/community/Comment',{communityId,comment,userId})
-            .then((response)=>{
-                console.log(response);
-                setTimeout(() => {
-                    message.open({
-                        key,
-                        type: 'success',
-                        content: 'Loaded!',
-                        duration: 2,
-                    });
-                    
-                }, 1000);
-                //navigate(`/component/Communitydetail/${communityId}`)
-                setOpen(false)
-                setComment("")
-            })
-            .catch((error) => {
-                console.error(error);
-    
-                //errorMsg.error(error.response.data.msg).then((r) => console.log(r));
-            });
+                .then((response)=>{
+                    console.log(response);
+                    setTimeout(() => {
+                        message.open({
+                            key,
+                            type: 'success',
+                            content: 'Loaded!',
+                            duration: 2,
+                        });
+
+                    }, 1000);
+                    //navigate(`/component/Communitydetail/${communityId}`)
+                    setOpen(false)
+                    setComment("")
+                })
+                .catch((error) => {
+                    console.error(error);
+
+                    //errorMsg.error(error.response.data.msg).then((r) => console.log(r));
+                });
 
         }else{
             message.open({

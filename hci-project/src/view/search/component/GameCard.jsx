@@ -1,25 +1,34 @@
 import React from 'react';
 import {Avatar, Card, Col} from 'antd';
-const { Meta } = Card;
-export const GameCard = ({data}) => {
-    return(
+import {Link} from "react-router-dom";
+
+const {Meta} = Card;
+export const GameCard = ({data, widthData}) => {
+    return (
         <Col className="gutter-row" span={6}>
             <Card
                 style={{
-                    width: "350px"
+                    width: `${widthData}px`
                 }}
                 cover={
-                    <img
-                        alt="example"
-                        src={data.imgUrl}
-                        style={{width: "100%", height: "400px"}}
-                    />
+                    <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
+                        <img
+                            alt="example"
+                            src={data.imgUrl}
+                            style={{width: "100%", height: "400px"}}
+                        />
+                    </Link>
+
                 }
+                hoverable={true}
             >
-                <Meta
-                    title={data.name}
-                    description={`${data.name}是一款...`}
-                />
+                <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
+                    <Meta
+                        title={data.name}
+                        description={`${data.name}是一款...`}
+                    />
+                </Link>
+
             </Card>
         </Col>
 

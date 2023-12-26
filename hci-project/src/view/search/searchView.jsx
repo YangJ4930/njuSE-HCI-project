@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeVisible, setCurrent } from '../../redux/navbar/navbarSlice';
-import { Layout, Menu, Row } from 'antd';
+import {FloatButton, Layout, Menu, Row} from 'antd';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -10,7 +10,9 @@ import { HomeFilled } from '@ant-design/icons';
 import axios from '../../axios';
 import {GameCard} from "./component/GameCard";
 import {GameList} from "./component/GameList";
-import {ListNews} from "../news/component/listNiews";
+import {ListNews} from "../news/component/listNews";
+import {CardList} from "../community/communityView";
+import BackTop from "../../component/BackTop";
 
 const { Header } = Layout;
 const SearchHead = ({ name }) => {
@@ -46,17 +48,24 @@ const ChooseList = ({ content }) => {
     const pathname = location.pathname;
     const [gameList, setGameList] = useState([])
     const [newsList, setNewsList] = useState([])
+    const [communityList, setCommunityList] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/search/game?content=${content}`).then((response) => {
+        axios.get(`/search/game?content=${content}`).then((response) => {
             console.log(response);
             setGameList(response.data);
             console.log(response.data);
         });
 
-        axios.get(`http://localhost:8080/search/news?content=${content}`).then((response)=>{
+        axios.get(`/search/news?content=${content}`).then((response)=>{
             setNewsList(response.data);
             console.log("news")
+            console.log(response.data)
+        });
+
+        axios.get(`/search/community?content=${content}`).then((response)=>{
+            setCommunityList(response.data);
+            console.log("community")
             console.log(response.data)
         });
 
@@ -75,7 +84,7 @@ const ChooseList = ({ content }) => {
         }
         else{
             return(
-                <GameList listData={gameList}/>
+                <GameList widthData={350} listData={gameList}/>
             )
         }
     }
@@ -85,8 +94,9 @@ const ChooseList = ({ content }) => {
         )
     }
     else if(pathname.startsWith("/search/community") ){
+
         return(
-            <SearchHead name ="社区"/>
+            <CardList data={communityList}/>
         )
     }
 }
@@ -148,6 +158,7 @@ const SearchView = () =>{
             <SearchNavbar items={itemlist} />
             <div style={{ margin: 30 }}></div>
             <ChooseList content = {content}/>
+            <BackTop/>
         </>
     );
 };

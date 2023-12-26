@@ -1,26 +1,29 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {Avatar, Card, List, Space} from 'antd';
+import {Avatar, Button, Card, List, Space} from 'antd';
 import {CommentOutlined, EyeTwoTone, HeartTwoTone} from '@ant-design/icons';
 import React, {useEffect, useState} from 'react';
 import axios from "../../../axios";
+import {useDispatch, useSelector} from "react-redux";
+import {savePage} from "../../../redux/news/newsSlice";
 
 const ListNews = ({data}) => {
+    const newsPage = useSelector((state) => state.news.currentPage);
+    const dispatch = useDispatch();
+
     return (
         <List
             itemLayout='vertical'
             size='large'
             pagination={{
+                pageSize: 3,
                 onChange: (page) => {
                     console.log(page);
+                    dispatch(savePage(page));
                 },
-                pageSize: 3,
+                showSizeChanger: false,
+                current: newsPage,
             }}
             dataSource={data}
-            footer={
-                <div>
-                    <b>ant design</b> footer part
-                </div>
-            }
             renderItem={(item) => (
                 <PostItem postInfo={item}/>
             )}
@@ -77,25 +80,21 @@ const PostItem = ({postInfo}) => {
                 key={title}
                 actions={[
                     <Space>
-                        <HeartTwoTone
-                            twoToneColor='#eb2f96'
+                        <Button
+                            icon={<HeartTwoTone twoToneColor='#eb2f96'/>}
                             onClick={() => {
                                 likeClicked(id);
                             }}
-                        />
-                        <span>{likes}</span>
+                        >
+                            <span>{likes}</span>
+                        </Button>
+
                     </Space>,
                     <Space>
                         <EyeTwoTone
                         />
                         <span>{views}</span>
-                    </Space>,
-                    <Space>
-                        <CommentOutlined
-                            color={'#eb2f96'}
-                        />
-                        <span>{comments}</span>
-                    </Space>,
+                    </Space>
                 ]}
                 extra={<img width={250} alt='cover' src={cover}/>}
             >

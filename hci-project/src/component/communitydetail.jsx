@@ -75,12 +75,6 @@ const Communitydetail = function Comunitydetail() {
                 setLoading(false);
             })
     };
-    // const CNM=()=>{
-    //     console.log("reset")
-    //     setCommentDetail([])
-    //     setPageNumber(0);
-    //     loadMoreData();
-    // }
     const findCommunityDetail = () => {
         axios.get(`/community/findCommunityDetail/${communityId}`)
             .then((response) => {
@@ -104,10 +98,10 @@ const Communitydetail = function Comunitydetail() {
         <>
             <Button icon={<LeftOutlined />}
 
-                type="link"
-                onClick={() => {
-                    back()
-                }}></Button>
+                    type="link"
+                    onClick={() => {
+                        back()
+                    }}></Button>
             <PageContainer title={detail.title}>
                 <div
                     style={{
@@ -157,7 +151,8 @@ const Communitydetail = function Comunitydetail() {
                                     </Tag>
                                 </Row>
                             }
-                            description='杨静nb'
+                            //TODO: add description
+                            description={detail.author}
                         />
                     </Card>
                 </Row>
