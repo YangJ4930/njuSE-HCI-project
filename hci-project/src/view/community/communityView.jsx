@@ -173,20 +173,6 @@ export const CardList = (props) => {
                                 />,
                             ]}
                         >
-                            <List.Item.Meta
-                                avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                                title={(<Row >
-                                    <div>{item.author}</div>
-                                    {item.tags == null ? null : item.tags.map((key, index) => {
-                                        return <Tag color="#2db7f5" style={{
-                                            marginLeft: 10
-                                        }}>{key}</Tag>
-
-                                    })}
-
-                                </Row>)}
-                                description={"发表时间：" + formattedTimestamp}
-                            />
                             <Card hoverable
                                 bordered={false}
                                 onClick={() => {
@@ -199,17 +185,49 @@ export const CardList = (props) => {
                                     pushShow(item.id, navigate)
                                 }}
                             >
-                                <ContentText content={item.content} title={item.title} />
-                                {item.image === null ? null : <div style={{
-                                    textAlign: "center",
-                                    width: "100%",
-                                }}><Image
-                                        preview={false}
+                                <Row>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                                        title={(<Row >
+                                            <div style={{
+                                                color:"blue"
+                                            }}>{item.author}</div>
+                                            {item.tags == null ? null : item.tags.map((key, index) => {
+                                                return <Tag color="#2db7f5" style={{
+                                                    marginLeft: 10
+                                                }}>{key}</Tag>
 
-                                        height={272}
+                                            })}
+
+                                        </Row>)}
+                                        description={<div>
+                                            <div>发表时间: {formattedTimestamp}</div>
+                                            <p style={{
+                                                fontSize:"30px",
+                                                color:"black"
+                                            }}>
+                                                {item.title}
+                                            </p>
+                                            <p style={{
+                                                fontSize:"20px",
+                                                color:"black"
+                                            }}>
+                                            {item.content}
+                                            </p>
+                                        </div>}
+                                    >
+                                    </List.Item.Meta>
+
+
+
+                                    {item.image === null ? null : <Image
+                                        preview={false}
+                                        height={180}
                                         alt="logo"
                                         src={item.image}
-                                    /></div>}
+                                    />}
+
+                                </Row>
                             </Card>
                         </List.Item>
                     );
@@ -386,20 +404,20 @@ const CommunityView = function CommunityView() {
                 height: "1000px"
             }} >
                 <Card
-                style={{ width: 300 }}
-                cover={
-                  <img
-                    alt="example"
-                    src={back}
-                  />
-                }
-                
-              >
-                <Card.Meta
-                  avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                  title={user.username}
-                  description={user.description}
-                />
+                    style={{ width: 300 }}
+                    cover={
+                        <img
+                            alt="example"
+                            src={back}
+                        />
+                    }
+
+                >
+                    <Card.Meta
+                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                        title={user.username}
+                        description={user.description}
+                    />
                 </Card>
                 <br></br>
                 <Card style={{
