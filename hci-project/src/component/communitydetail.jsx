@@ -236,8 +236,8 @@ const Communitydetail = function Comunitydetail() {
                 </InfiniteScroll>
             </PageContainer>
             <FloatButton.Group>
-                <FloatButton description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
-                <FloatButton.BackTop className="backtop" />
+                <FloatButton style={{width: '50px', height: '50px'}} description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
+                <FloatButton.BackTop style={{width: '50px', height: '50px',marginRight:'40px'}} className="backtop" />
             </FloatButton.Group>
         </>
     );

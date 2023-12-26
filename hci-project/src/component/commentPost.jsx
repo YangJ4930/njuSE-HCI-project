@@ -68,12 +68,11 @@ const CommentPost = (props) => {
             <Space>
                 <Tooltip placement='topLeft' title='发表你的看法吧！'>
                     <Button
-                        size='large'
-                        color='blue'
-                        icon={<PlusCircleFilled style={{ color: '#2db7f5' }} />}
+                        size='50px'
                         onClick={showDrawer}
                         shape='circle'
-                    ></Button>
+                        type='link'
+                    >评论</Button>
                 </Tooltip>
             </Space>
             <Drawer

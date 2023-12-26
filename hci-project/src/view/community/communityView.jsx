@@ -65,7 +65,7 @@ const IconText = ({ icon, text, iconname }) => {
                     onClick: onclickshou,
                 })}
             {text}
-            </span>
+        </span>
     );
 };
 
@@ -245,9 +245,11 @@ const CommunityView = function CommunityView() {
     }, []);
     return (
         <>
+        <Card color="black" hoverable></Card> 
             <PageContainer style={{
 
             }}>
+                
                 <ProCard title="我的喜好" ghost gutter={16} collapsible style={{
                     width: "100%"
                 }}>
@@ -258,14 +260,14 @@ const CommunityView = function CommunityView() {
                         renderItem={(item) => {
                             return (
                                 <>
-                                    <ProCard size="small" layout="center" direction="column" height="116px" >
+                                    <ProCard size="small" layout="center" direction="column" height="116px" hoverable>
                                         <Image
                                             preview={false}
                                             style={{
                                                 borderRadius: 10
                                             }}
-                                            width={150}
-                                            height={150}
+                                            width="100%"
+                                            height={120}
                                             src={item.ava}
                                             onClick={() => {
                                                 console.log("click me")
