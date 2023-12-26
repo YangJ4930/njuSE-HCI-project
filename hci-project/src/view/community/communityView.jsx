@@ -1,7 +1,7 @@
 
 import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Divider, FloatButton, List, Skeleton, Image, Col, Row, Tag, Card, Tabs, theme, Button, Popconfirm, Flex } from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Select,Tag, Card, Tabs, Flex, Modal } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
@@ -173,20 +173,6 @@ export const CardList = (props) => {
                                 />,
                             ]}
                         >
-                            <List.Item.Meta
-                                avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                                title={(<Row >
-                                    <div>{item.author}</div>
-                                    {item.tags == null ? null : item.tags.map((key, index) => {
-                                        return <Tag color="#2db7f5" style={{
-                                            marginLeft: 10
-                                        }}>{key}</Tag>
-
-                                    })}
-
-                                </Row>)}
-                                description={"发表时间：" + formattedTimestamp}
-                            />
                             <Card hoverable
                                 bordered={false}
                                 onClick={() => {
@@ -199,17 +185,44 @@ export const CardList = (props) => {
                                     pushShow(item.id, navigate)
                                 }}
                             >
-                                <ContentText content={item.content} title={item.title} />
-                                {item.image === null ? null : <div style={{
-                                    textAlign: "center",
-                                    width: "100%",
-                                }}><Image
+                                <Row>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                                        title={(<Row >
+                                            <div style={{
+                                                color: "blue"
+                                            }}>{item.author}</div>
+                                            {item.tags == null ? null : item.tags.map((key, index) => {
+                                                return <Tag color="#2db7f5" style={{
+                                                    marginLeft: 10
+                                                }}>{key}</Tag>
+                                            })}
+                                        </Row>)}
+                                        description={<div>
+                                            <div>发表时间: {formattedTimestamp}</div>
+                                            <p style={{
+                                                fontSize: "22px",
+                                                color: "black"
+                                            }}>
+                                                {item.title}
+                                            </p>
+                                            <p style={{
+                                                fontSize: "16px",
+                                                color: "black"
+                                            }}>
+                                                {item.content}
+                                            </p>
+                                        </div>}
+                                    >
+                                    </List.Item.Meta>
+                                    {item.image === null ? null : <Image
                                         preview={false}
-
-                                        height={272}
+                                        height={180}
                                         alt="logo"
                                         src={item.image}
-                                    /></div>}
+                                    />}
+
+                                </Row>
                             </Card>
                         </List.Item>
                     );
@@ -220,6 +233,7 @@ export const CardList = (props) => {
 }
 
 const icon = (label, imagesrc) => {
+  //  console.log(imagesrc)
     const confirm = (e) => {
         console.log(e);
     };
@@ -229,88 +243,136 @@ const icon = (label, imagesrc) => {
         // <Card hoverable
         //     bordered={false}
         // >
-        <Row justify="space-around" align="middle">
+        <Row justify="space-around" align="middle" style={{
+            width: "150px"
+        }}>
             <Image src={imagesrc} height={35} width={35} preview={false} ></Image>
             <div style={{ fontSize: "12px", marginLeft: "10px", marginRight: "10px" }}>{label}
             </div>
         </Row>
-
-
         // </Card>
 
     )
 }
 
 const CommunityView = function CommunityView() {
+    const loadLoveTags = (UserId) => {
+        axios.get(`explore/contents/${UserId}`).then((response) => {
+            console.log(response);
+            let x = [...response.data];
+            let tagsdata = [];
+            for (let i = 0; i < x.length; i++) {
+                tagsdata.push({
+                    key: i + 2,
+                    label: icon(x[i], apex),
+                    children: <CardList tag={x[i]}></CardList>
+                })
+            }
+            setItems([...items, tagsdata])
+        });
+    }
+
+    const AddLoveTags = (tag,UserId) => {
+        axios.get(`explore/contents/${tag}/${UserId}`).then((response) => {
+            console.log(response);
+        });
+    }
     const ite = [
         {
             key: '1',
             label: icon("全部", all),
             children: <CardList tag="全部"></CardList>,
             closable: false,
+            ava: all,
+            name:"全部"
         },
         {
             key: '2',
             label: icon("apex英雄", apex),
             children: <CardList tag="apex"></CardList>,
             ava: apex,
+            name:"apex"
         },
         {
             key: '3',
             label: icon("博德之门3", BoDe),
             children: <CardList tag="博德之门3"></CardList>,
             ava: BoDe,
+            name:"博德之门3"
         },
         {
             key: '4',
             label: icon("无畏契约", WWQY),
             children: <CardList tag="无畏契约"></CardList>,
             ava: WWQY,
+            name:"无畏契约"
         },
         {
             key: '5',
             label: icon("彩虹六号", C6),
             children: <CardList tag="彩虹六号"></CardList>,
             ava: C6,
+            name:"彩虹六号"
         },
         {
             key: '6',
             label: icon("我的世界", Myworld),
             children: <CardList tag="我的世界"></CardList>,
             ava: Myworld,
+            name:"我的世界"
         },
         {
             key: '7',
             label: icon("艾尔登法环", er),
             children: <CardList tag="艾尔登法环"></CardList>,
             ava: er,
+            name:"艾尔登法环"
         },
         {
             key: '8',
             label: icon("战地5", zd),
             children: <CardList tag="战地5"></CardList>,
             ava: zd,
+            name:"战地5"
         },
         {
             key: '9',
             label: icon("双人成行", it_takes_two),
             children: <CardList tag="双人成行"></CardList>,
             ava: it_takes_two,
+            name:"双人成行"
         },
     ];
     const [activeKey, setActiveKey] = useState(ite[0].key);
     const [items, setItems] = useState(ite);
     const newTabIndex = useRef(0);
     const user = useSelector((state) => state.user);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        console.log("---------------"+likeTag)
+        add(likeTag)
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setLikeTag("")
+        setIsModalOpen(false);
+    };
     const onChange = (newActiveKey) => {
         setActiveKey(newActiveKey);
     };
-    const add = () => {
+
+    const add = (tag) => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
         const newPanes = [...items];
+        console.log("--------------"+ite[tag]+"================")
         newPanes.push({
-            label: 'New Tab',
-            children: 'Content of new Tab',
+            label: icon(ite[tag].name, ite[tag].ava),
+            children: <CardList tag={ite[tag].name}></CardList>,
             key: newActiveKey,
         });
         setItems(newPanes);
@@ -335,9 +397,11 @@ const CommunityView = function CommunityView() {
         setItems(newPanes);
         setActiveKey(newActiveKey);
     };
+
     const onEdit = (targetKey, action) => {
         if (action === 'add') {
-            add();
+            console.log("click me")
+            setIsModalOpen(true)
         } else {
             remove(targetKey);
         }
@@ -357,11 +421,15 @@ const CommunityView = function CommunityView() {
             />
         </StickyBox>
     );
+    const [likeTag,setLikeTag]=useState(-1)
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+        setLikeTag(value)
+    };
     return (
         <Flex>
-
-
             <PageContainer style={{
+                maxWidth: "80vw",
                 flex: 8
             }}>
                 <Tabs
@@ -386,30 +454,51 @@ const CommunityView = function CommunityView() {
                 height: "1000px"
             }} >
                 <Card
-                style={{ width: 300 }}
-                cover={
-                  <img
-                    alt="example"
-                    src={back}
-                  />
-                }
-                
-              >
-                <Card.Meta
-                  avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                  title={user.username}
-                  description={user.description}
-                />
+                    style={{ width: 300 }}
+                    cover={
+                        <img
+                            alt="example"
+                            src={back}
+                        />
+                    }
+
+                >
+                    <Card.Meta
+                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                        title={user.username}
+                        description={user.description}
+                    />
                 </Card>
                 <br></br>
                 <Card style={{
                     flex: 1
-                }}></Card>
+                }}>
+                    <div>自己发布的帖子:</div>
+                </Card>
                 <br></br>
                 <Card style={{
                     flex: 1
-                }}></Card>
+                }}>
+                    <div>点过赞的帖子:</div>
+                </Card>
             </Flex>
+            <Modal title="选择你喜欢的社区" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Select
+                    defaultValue=""
+                    style={{ width: 120 }}
+                    onChange={handleChange}
+                    options={[
+                        { value: 1, label: 'apex' },
+                        { value: 2, label: '博德之门3' },
+                        { value: 3, label: '无畏契约'},
+                        { value: 4, label: '彩虹六号'},
+                        { value: 5, label: '我的世界' },
+                        { value: 6, label: '艾尔登法环' },
+                        { value: 7, label: '战地5'},
+                        { value: 8, label: '双人成行'},
+                    ]}
+                />
+            </Modal>
         </Flex>
     );
 };

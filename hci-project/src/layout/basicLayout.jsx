@@ -40,7 +40,7 @@ const BasicLayout = () => {
     };
 
     return (
-        <Layout style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}>
+        <Layout style={{  }}>
             <Header
                 style={{
                     background: '#fff',
