@@ -26,21 +26,13 @@ const {Search} = Input;
 
 const BasicLayout = () => {
     const [siderCollapsed, setSiderCollapsed] = useState(false);
-    const navigate = useNavigate();
-    const userInfo = useSelector((state) => state.user);
-    const isLogin = useSelector((state) => state.auth.isLogin);
-    const isVisible = useSelector((state) => state.navbar.visible);
-    const [searchWord, setSearchWord] = useState('');
-    const dispatch = useDispatch();
-    const location = useLocation();
-    let SearchJump = () => {
-        if (!location.pathname.startsWith('/search')) {
-            dispatch(lastPath(location.pathname));
-        }
-        dispatch(setCurrent('game'));
 
-        navigate(`/search/game?content=${searchWord}`);
-    };
+
+
+    const isVisible = useSelector((state) => state.navbar.visible);
+
+    const location = useLocation();
+
 
     const changeSiderCollapsed = () => {
         setSiderCollapsed(!siderCollapsed);
@@ -52,60 +44,60 @@ const BasicLayout = () => {
 
     return (
         <Layout>
-            <div style={{display: isVisible ? 'flex' : 'none'}}>
-                <Sider
-                    theme='light'
-                    collapsible
-                    collapsed={siderCollapsed}
-                    onCollapse={changeSiderCollapsed}
-                >
-                    <Card
-                        bordered={false}
-                        hoverable
-                        className='av'
-                        layout='center'
-                        direction='column'
-                    >
-                        <Card.Meta
-                            avatar={
-                                <Link className='nav-link' to='/user'>
-                                    {isLogin === true ? (
-                                        <Avatar
-                                            size='large'
-                                            src={<img width='40' src={userInfo.avatarUrl}></img>}
-                                        />
-                                    ) : (
-                                        <Button
-                                            type='primary'
-                                            shape='round'
-                                            size='default'
-                                            icon={<LoginOutlined/>}
-                                        >
-                                            {siderCollapsed ? '' : '登录/注册'}
-                                        </Button>
-                                    )}
-                                </Link>
-                            }
-                            description={
-                                isLogin === true ? (
-                                    <>
-                                        <div className='v'>{userInfo.username}</div>
-                                        <div className='vi'>
-                                            <p>
-                                                <span className='qai'>{userInfo.description}</span>
-                                            </p>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                        ></Card.Meta>
-                        <p></p>
-                    </Card>
-                    <BasicBar/>
-                </Sider>
-            </div>
+            {/*<div style={{display: isVisible ? 'flex' : 'none'}}>*/}
+            {/*    <Sider*/}
+            {/*        theme='light'*/}
+            {/*        collapsible*/}
+            {/*        collapsed={siderCollapsed}*/}
+            {/*        onCollapse={changeSiderCollapsed}*/}
+            {/*    >*/}
+            {/*        <Card*/}
+            {/*            bordered={false}*/}
+            {/*            hoverable*/}
+            {/*            className='av'*/}
+            {/*            layout='center'*/}
+            {/*            direction='column'*/}
+            {/*        >*/}
+            {/*            <Card.Meta*/}
+            {/*                avatar={*/}
+            {/*                    <Link className='nav-link' to='/user'>*/}
+            {/*                        {isLogin === true ? (*/}
+            {/*                            <Avatar*/}
+            {/*                                size='large'*/}
+            {/*                                src={<img width='40' src={userInfo.avatarUrl}></img>}*/}
+            {/*                            />*/}
+            {/*                        ) : (*/}
+            {/*                            <Button*/}
+            {/*                                type='primary'*/}
+            {/*                                shape='round'*/}
+            {/*                                size='default'*/}
+            {/*                                icon={<LoginOutlined/>}*/}
+            {/*                            >*/}
+            {/*                                {siderCollapsed ? '' : '登录/注册'}*/}
+            {/*                            </Button>*/}
+            {/*                        )}*/}
+            {/*                    </Link>*/}
+            {/*                }*/}
+            {/*                description={*/}
+            {/*                    isLogin === true ? (*/}
+            {/*                        <>*/}
+            {/*                            <div className='v'>{userInfo.username}</div>*/}
+            {/*                            <div className='vi'>*/}
+            {/*                                <p>*/}
+            {/*                                    <span className='qai'>{userInfo.description}</span>*/}
+            {/*                                </p>*/}
+            {/*                            </div>*/}
+            {/*                        </>*/}
+            {/*                    ) : (*/}
+            {/*                        <></>*/}
+            {/*                    )*/}
+            {/*                }*/}
+            {/*            ></Card.Meta>*/}
+            {/*            <p></p>*/}
+            {/*        </Card>*/}
+
+            {/*    </Sider>*/}
+            {/*</div>*/}
             <Layout>
                 <Header
                     style={{
@@ -113,35 +105,21 @@ const BasicLayout = () => {
                         padding: 0,
                     }}
                 >
-                    <Search
-                        placeholder='请输入搜索内容'
-                        // allowClear
-                        enterButton='搜索'
-                        size='large'
-                        style={{
-                            width: 300,
-                            float: 'right',
-                        }}
-                        value={searchWord}
-                        // onClick={this.state.SearchLog}
-                        onChange={(e) => {
-                            setSearchWord(e.target.value);
-                        }}
-                        onSearch={SearchJump}
-                    />
+                    <BasicBar/>
+
                 </Header>
 
                 <Content style={{margin: '24px 16px 0'}}>
-                    <div
-                        style={{
-                            padding: 24,
-                            background: '#fff',
-                            minHeight: 360,
-                            // height:100
-                        }}
-                    >
+                    {/*<div*/}
+                    {/*    style={{*/}
+                    {/*        padding: 24,*/}
+                    {/*        background: '#fff',*/}
+                    {/*        minHeight: 360,*/}
+                    {/*        // height:100*/}
+                    {/*    }}*/}
+                    {/*>*/}
                         <Router/>
-                    </div>
+                    {/*</div>*/}
                 </Content>
                 <div style={{display: isVisible ? 'flex' : 'none' , justifyContent: 'center'}}>
                     <Footer style={{textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
@@ -153,48 +131,24 @@ const BasicLayout = () => {
     );
 };
 
-const items = [
-    {
-        label: (
-            <Link className='nav-link' aria-current='page' to='/'>
-                首页
-            </Link>
-        ),
-        icon: <HomeOutlined/>,
-        key: 'home',
-    },
-    {
-        label: (
-            <Link className='nav-link' to='/explore'>
-                探索
-            </Link>
-        ),
-        icon: <UserOutlined/>,
-        key: 'explore',
-    },
-    {
-        label: (
-            <Link className='nav-link' to='/news'>
-                新闻
-            </Link>
-        ),
-        icon: <ReadOutlined/>,
-        key: 'news',
-    }, {
-        label: (
-            <Link className='nav-link' to='/community'>
-                社区
-            </Link>
-        ),
-        icon: <TeamOutlined/>,
-        key: 'community',
-    },
 
-];
 
 const BasicBar = () => {
-    const current = useSelector((state) => state.basicBar.current);
+    const [searchWord, setSearchWord] = useState('');
+    const navigate = useNavigate();
     const dispatch = useDispatch()
+    const isLogin = useSelector((state) => state.auth.isLogin);
+    const userInfo = useSelector((state) => state.user);
+    let SearchJump = () => {
+        if (!location.pathname.startsWith('/search')) {
+            dispatch(lastPath(location.pathname));
+        }
+        dispatch(setCurrent('game'));
+
+        navigate(`/search/game?content=${searchWord}`);
+    };
+    const current = useSelector((state) => state.basicBar.current);
+
     if (location.pathname.startsWith("/user") || location.pathname.startsWith("/component")) {
         dispatch(setBasicCurrent(""))
     } else if (location.pathname.startsWith("/news")) {
@@ -203,23 +157,106 @@ const BasicBar = () => {
         dispatch(setBasicCurrent("explore"))
     } else if (location.pathname.startsWith("/community")) {
         dispatch(setBasicCurrent("community"))
-    } else {
-        dispatch(setBasicCurrent("home"))
     }
+    // else {
+    //     dispatch(setBasicCurrent("home"))
+    // }
 
     const onClick = (e) => {
         console.log('click ', e);
-        dispatch(setBasicCurrent(e.key))
+        if(e.key !== 'search') {
+            dispatch(setBasicCurrent(e.key))
+            navigate(`/${e.key}`)
+        }
     };
     console.log("current is here")
     console.log(current)
+
+    const items = [
+        // {
+        //     label: (
+        //         <Link className='nav-link' aria-current='page' to='/'>
+        //             首页
+        //         </Link>
+        //     ),
+        //     icon: <HomeOutlined/>,
+        //     key: 'home',
+        // },
+        {
+            label: (
+                '探索'
+
+            ),
+            icon: <UserOutlined/>,
+            key: 'explore',
+        },
+        {
+            label: (
+                    '新闻'
+            ),
+            icon: <ReadOutlined/>,
+            key: 'news',
+        },
+        {
+            label: (
+                    '社区'
+            ),
+            icon: <TeamOutlined/>,
+            key: 'community',
+        },
+        {
+            label: (
+                <Search
+                    placeholder='请输入搜索内容'
+                    // allowClear
+                    enterButton='搜索'
+                    size='large'
+                    style={{
+                        width: 300,
+                        marginLeft: 450,
+                        marginTop: 10
+                    }}
+                    value={searchWord}
+                    // onClick={this.state.SearchLog}
+                    onChange={(e) => {
+                        setSearchWord(e.target.value);
+                    }}
+                    onSearch={SearchJump}
+                />
+            ),
+            key: 'search',
+        },
+        {
+            label: (
+                <Link className='nav-link' to='/user' style={{marginLeft: 450}}>
+                    {isLogin === true ? (
+                        <Avatar
+                            size='large'
+                            src={<img width='40' src={userInfo.avatarUrl}></img>}
+                        />
+                    ) : (
+                        <Button
+                            type='primary'
+                            shape='round'
+                            size='default'
+                            icon={<LoginOutlined/>}
+                        >
+                            {'登录/注册'}
+                        </Button>
+                    )}
+                </Link>
+            ),
+            key:'user'
+        }
+
+    ];
+
     return <Menu onClick={onClick}
                  selectedKeys={[current]}
                  items={items}
-                 className='a'
                  defaultSelectedKeys={['1']}
                  defaultOpenKeys={['sub1']}
-                 mode='inline'
+                 mode="horizontal"
                  theme='dark'
     />;
 }

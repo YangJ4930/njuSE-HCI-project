@@ -1,7 +1,7 @@
 
-import { PageContainer} from "@ant-design/pro-components";
+import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card, Tabs, Button } from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card, Tabs, Button, Popconfirm } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
@@ -11,6 +11,7 @@ import {
     MessageOutlined,
     StarOutlined,
     StarFilled,
+    CloseOutlined
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./community.css";
@@ -30,10 +31,10 @@ import axios from "../../axios";
 import BackTop from "../../component/BackTop";
 import { DndContext, PointerSensor, useSensor } from '@dnd-kit/core';
 import {
-  arrayMove,
-  horizontalListSortingStrategy,
-  SortableContext,
-  useSortable,
+    arrayMove,
+    horizontalListSortingStrategy,
+    SortableContext,
+    useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
@@ -41,15 +42,15 @@ const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
     const [isshou, setIsshou] = useState(false);
     const onEnter = () => {
-        setXuan(true)
-    }
+        setXuan(true);
+    };
     const onLeave = () => {
-        setXuan(false)
-    }
+        setXuan(false);
+    };
     const onclickshou = () => {
-        console.log(isshou)
-        setIsshou(isshou ? false : true)
-    }
+        console.log(isshou);
+        setIsshou(isshou ? false : true);
+    };
     const color = isshou ? 'yellow' : 'black';
     if (iconname === 'StarOutlined') {
         const seicon = isshou ? StarFilled : StarOutlined;
@@ -216,13 +217,36 @@ export const CardList = (tag) => {
     )
 }
 
-const icon=(label,imagesrc)=>{
+const icon = (label, imagesrc) => {
+    const confirm = (e) => {
+        console.log(e);
+      };
+      const cancel = (e) => {
+      };
     return (
+        // <Card hoverable
+        //     bordered={false}
+        // >
         <Row justify="space-around" align="middle">
-            <Image src={imagesrc} height={25} width={25}preview={false} ></Image>
-            <div style={{fontSize:"12px",marginLeft:"10px"}}>{label}</div>
-           
+            <Image src={imagesrc} height={35} width={35} preview={false} ></Image>
+            <div style={{ fontSize: "12px", marginLeft: "10px", marginRight: "10px" }}>{label}
+            </div>
+            {label=="全部"? null:<Popconfirm
+                title="删除标签"
+                description="你确定要删除这个标签吗?"
+                onConfirm={confirm}
+                onCancel={cancel}
+                okText="Yes"
+                cancelText="No"
+            >
+                <CloseOutlined/>
+            </Popconfirm>}
+            
         </Row>
+
+
+        // </Card>
+
     )
 }
 
@@ -231,55 +255,55 @@ const CommunityView = function CommunityView() {
     const ite = [
         {
             key: '1',
-            label: icon("全部",all),
+            label: icon("全部", all),
             children: CardList("全部"),
-           
+
         },
         {
             key: '2',
-            label: icon("apex英雄",apex),
+            label: icon("apex英雄", apex),
             children: CardList("apex英雄"),
             ava: apex,
         },
         {
             key: '3',
-            label: icon("博德之门3",BoDe),
+            label: icon("博德之门3", BoDe),
             children: CardList("博德之门3"),
             ava: BoDe,
         },
         {
             key: '4',
-            label: icon("无畏契约",WWQY),
+            label: icon("无畏契约", WWQY),
             children: CardList("无畏契约"),
             ava: WWQY,
         },
         {
             key: '5',
-            label: icon("彩虹六号",C6),
+            label: icon("彩虹六号", C6),
             children: CardList("彩虹六号"),
             ava: C6,
         },
         {
             key: '6',
-            label: icon("我的世界",Myworld),
+            label: icon("我的世界", Myworld),
             children: CardList("我的世界"),
             ava: Myworld,
         },
         {
             key: '7',
-            label: icon("艾尔登法环",er),
+            label: icon("艾尔登法环", er),
             children: CardList("艾尔登法环"),
             ava: er,
         },
         {
             key: '8',
-            label: icon("战地5",zd),
+            label: icon("战地5", zd),
             children: CardList("战地5"),
             ava: zd,
         },
         {
             key: '9',
-            label: icon("双人成行",it_takes_two),
+            label: icon("双人成行", it_takes_two),
             children: CardList("双人成行"),
             ava: it_takes_two,
         },
@@ -290,69 +314,23 @@ const CommunityView = function CommunityView() {
     ];
 
     return (
-        <>
-            <Card style={{ backgroundColor: "black" }} hoverable><Button type="text">Reload community</Button></Card>
+        <div>
+            {/* <Card style={{ backgroundColor: "black" }} hoverable><Button type="text">Reload community</Button></Card> */}
             <PageContainer style={{
 
             }}>
                 <Tabs items={ite}>
 
                 </Tabs>
-                {/* <ProCard title="我的喜好" ghost gutter={16} collapsible style={{
-                    width: "100%"
-                }}>
-                    <ProList
-                        showActions="hover"
-                        grid={{ gutter: 16, column: 8 }}
-                        dataSource={ite}
-                        renderItem={(item) => {
-                            return (
-                                <>
-                                    <ProCard size="small" layout="center" direction="column" height="116px" hoverable>
-                                        <Image
-                                            preview={false}
-                                            style={{
-                                                borderRadius: 10
-                                            }}
-                                            width="100%"
-                                            height={120}
-                                            src={item.ava}
-                                            onClick={() => {
-                                                console.log("click me")
-                                                message.open({
-                                                    key,
-                                                    type: 'success',
-                                                    content: '切换tag',
-                                                    duration: 1,
-                                                });
-                                                SetTag(item.title)
-                                            }}
-                                        />
-
-                                        <div style={{
-                                            marginTop: 10
-                                        }}>
-                                            {item.title}
-                                        </div>
-                                    </ProCard>
-                                </>
-                            );
-                        }}
-                    ></ProList>
-                </ProCard> */}
-                <br></br>
 
             </PageContainer>
             <FloatButton.Group>
-                <Link to="/component/postComponent">
-                    <FloatButton
-                        tooltip={<div>发帖</div>}
-                        icon={<PlusOutlined />}
-                    ></FloatButton>
+                <Link to='/component/postComponent'>
+                    <FloatButton tooltip={<div>发帖</div>} icon={<PlusOutlined />}></FloatButton>
                 </Link>
                 <BackTop />
             </FloatButton.Group>
-        </>
+        </div>
     );
 };
 export default CommunityView;

@@ -17,11 +17,6 @@ export const NewHead = () => {
     }, []);
     return (
         <React.Fragment>
-            <Header style={{ background: '#001529' }}>
-                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                    <span style={{ fontSize: 18, lineHeight: 1.4, color: 'white' }}>最新新闻</span>
-                </Row>
-            </Header>
             <div style={{ margin: 10 }} />
             <Row gutter={[16, 16]}>
                 {newsList.map((item) => {
