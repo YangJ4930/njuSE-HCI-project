@@ -3,7 +3,7 @@ import React from 'react';
 import { GameCard } from './GameCard';
 export const GameList = ({ listData, widthData }) => {
     return (
-        <Row gutter={[20, 20]}>
+        <Row gutter={[8, 8]}>
             {listData.map((data) => {
                 return <GameCard key={data.id} data={data} widthData={widthData}></GameCard>;
             })}

@@ -1,4 +1,4 @@
-import { Button, Divider, Collapse, Flex } from 'antd';
+import { Button, Divider, Collapse, Flex, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './explore.css';
 import axios from '../../axios';
@@ -44,13 +44,21 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     }, [selected]);
 
     return (
-        <Flex justify={'flex-start'}>
-            <GameTypeSelector />
+        <Row gutter={2}>
+            <Col span={3}>
+                <GameTypeSelector />
+            </Col>
 
-            <GameList listData={displayGames} widthData={300} />
+            <Col span={20}>
+                {displayGames.length > 0 ? (
+                    <GameList listData={displayGames} widthData={300} />
+                ) : (
+                    <NotFound />
+                )}
+            </Col>
 
             <BackTop />
-        </Flex>
+        </Row>
     );
 };
 
@@ -66,7 +74,7 @@ const GameTypeSelector = () => {
     );
 };
 
-function PanelFlex({ index, name }) {
+const PanelFlex = ({ index, name }) => {
     const [isSelected, setIsSelected] = useState(false);
     const selected = useSelector((state) => state.game.selected);
     const dispatch = useDispatch();
@@ -92,24 +100,15 @@ function PanelFlex({ index, name }) {
             </Flex>
         </Button>
     );
-}
+};
 
-function Yes_svg() {
+const NotFound = () => {
     return (
-        <svg
-            className='icon'
-            viewBox='0 0 1024 1024'
-            version='1.1'
-            xmlns='http://www.w3.org/2000/svg'
-            width='15'
-            height='15'
-            color='#FFFFFF'
-        >
-            <path
-                d='M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z'
-                fill='#2c2c2c'
-            ></path>
-        </svg>
+        <div style={{ color: 'white', justifyContent: 'center', textAlign: 'center' }}>
+            <h1>未找到结果</h1>
+            <h2>很遗憾，我没能找到与您搜索内容匹配的结果。</h2>
+        </div>
     );
-}
+};
+
 export default ExploreGameRepositoryView;
