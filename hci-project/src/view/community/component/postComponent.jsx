@@ -10,6 +10,8 @@ import {
     Tag,
     theme,
     Select,
+    Row,
+    Flex,
 } from 'antd';
 import { useState } from 'react';
 import React from 'react';
@@ -135,63 +137,65 @@ const PostComponent = function PostComponent() {
         </div>
     );
     return (
-        <>
+        <Flex vertical={true} flex={1} align={'center'}>
             <div
                 style={{
-                    flexDirection: 'column',
-                    display: 'flex',
-                    alignItems: 'center',
-                    height: '800px',
+                    width: '200px',
+                    fontSize: '24px',
+                    textAlign: 'center',
+                    lineHeight: '100px',
                 }}
-                className='groud'
             >
-                <div
-                    style={{
-                        width: '200px',
-                        fontSize: '24px',
-                        textAlign: 'center',
-                        lineHeight: '100px',
-                    }}
-                >
-                    图文
-                </div>
-                <Form form={form} title='图文' className='postform'>
-                    <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
-                        <Divider orientation='left'>话题</Divider>
-                        <GameTags setTags={setTags}></GameTags>
-                        <Divider orientation='left'></Divider>
-                        <Form.Item className='formitem'>
-                            <Upload
-                                className='imageInput'
-                                action=''
-                                beforeUpload={() => false}
-                                listType='picture-card'
-                                onPreview={handlePreview}
-                                onChange={onChange1}
-                                maxCount={8}
-                            >
-                                {fileList.length > 8 ? null : uploadButton}
-                            </Upload>
-                        </Form.Item>
-                        <Divider orientation='left'>标题</Divider>
-                        <Form.Item name='title'>
-                            <TextArea bordered={false} placeholder='标题' rows={1} />
-                        </Form.Item>
-                        <Divider orientation='left'>正文</Divider>
-                        <Form.Item name='content'>
-                            <MDEditor value={markdownContent} onChange={setMarkContent} />
-                        </Form.Item>
-                    </Space>
-                    <Button
-                        className='formitembutton'
-                        onClick={() => {
-                            PostC(form.getFieldValue(), fileList);
-                        }}
-                    >
-                        submit
-                    </Button>
-                </Form>
+                图文
             </div>
+
+            <Form form={form} title='图文' className='postform'>
+                <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
+                    <Divider orientation='left'>话题</Divider>
+                    <GameTags setTags={setTags}></GameTags>
+                    <Divider orientation='left'></Divider>
+                    <Form.Item className='formitem'>
+                        <Upload
+                            className='imageInput'
+                            action=''
+                            beforeUpload={() => false}
+                            listType='picture-card'
+                            onPreview={handlePreview}
+                            onChange={onChange1}
+                            maxCount={8}
+                        >
+                            {fileList.length > 8 ? null : uploadButton}
+                        </Upload>
+                    </Form.Item>
+                    <Divider orientation='left'>标题</Divider>
+                    <Form.Item name='title'>
+                        <TextArea bordered={false} placeholder='标题' rows={1} />
+                    </Form.Item>
+                    <Divider orientation='left'>正文</Divider>
+                    <Form.Item name='content'>
+                        <MDEditor value={markdownContent} onChange={setMarkContent} />
+                    </Form.Item>
+                </Space>
+            </Form>
+
+            <Row
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    flex: 1,
+                }}
+            >
+                <Button
+                    className='formitembutton'
+                    onClick={() => {
+                        PostC(form.getFieldValue(), fileList);
+                    }}
+                    size={'large'}
+                >
+                    发帖
+                </Button>
+            </Row>
 
             <Modal
                 style={{
@@ -223,7 +227,7 @@ const PostComponent = function PostComponent() {
                     src={selectedImage}
                 />
             </Modal>
-        </>
+        </Flex>
     );
 };
 export default PostComponent;
