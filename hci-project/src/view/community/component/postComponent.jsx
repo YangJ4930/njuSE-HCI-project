@@ -209,7 +209,7 @@ const PostComponent = function PostComponent() {
                 }}
                 width='80vw'
                 open={openImage}
-                footer={<Button type='primary'>设置为封面</Button>}
+               // footer={<Button type='primary'>设置为封面</Button>}
                 onCancel={handleCancel}
             >
                 <Divider orientation='left'>Picture</Divider>
