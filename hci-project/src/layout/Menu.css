@@ -63,3 +63,9 @@
 .v {
     color: aliceblue;
 }
+
+.ant-menu-item-selected{
+    color: black !important;
+    background-color: rgb(252, 250, 250) !important;
+    border-color: black;
+}

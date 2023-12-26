@@ -25,6 +25,7 @@ export const DaliyRecommendation = ({ gameCount }) => {
                     id: response.data[index].id,
                     imgUrl: response.data[index].imgUrl,
                     name: response.data[index].name,
+                    tags: response.data[index].tags,
                 }));
                 setGameList(data);
             })
@@ -61,16 +62,16 @@ const Slideshow = ({ data, interval, onPageChange }) => {
 
     return (
         <>
-            <Header style={{ background: 'white', marginBottom: 20 }}>
+            <Header style={{ background: '#001529', marginBottom: 20 }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                     <Divider plain orientation={'left'}>
-                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'black' }}>
+                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'white' }}>
                             今日推荐
                         </span>
                     </Divider>
                 </Row>
             </Header>
-            <GameList listData={data} widthData={300} />
+            <GameList listData={data} widthData={330} />
         </>
     );
 };
