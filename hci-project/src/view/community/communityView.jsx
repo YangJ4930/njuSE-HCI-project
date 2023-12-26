@@ -1,9 +1,9 @@
 
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { PageContainer} from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card ,message} from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card, Tabs, Button } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import React from "react";
 import {
     PlusOutlined,
@@ -12,7 +12,7 @@ import {
     StarOutlined,
     StarFilled,
 } from "@ant-design/icons";
-import { Link,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./community.css";
 import moment from 'moment';
 import apex from './component/logo-apex-legends1.jpg'
@@ -24,10 +24,18 @@ import er from './component/er.jpg'
 import zd from './component/战地5.jpg'
 import it_takes_two from './component/it_takes_two.jpg'
 import all from './component/all.png'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { SaveScroll, Savelist } from "../../redux/user/communitySlice";
 import axios from "../../axios";
 import BackTop from "../../component/BackTop";
+import { DndContext, PointerSensor, useSensor } from '@dnd-kit/core';
+import {
+  arrayMove,
+  horizontalListSortingStrategy,
+  SortableContext,
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
@@ -47,23 +55,23 @@ const IconText = ({ icon, text, iconname }) => {
         const seicon = isshou ? StarFilled : StarOutlined;
         return (
             <span>
-                    {React.createElement(seicon, {
-                        style: { marginInlineEnd: 8, color: color },
-                        onClick: onclickshou,
-                        spin: xuan,
-                        onMouseEnter: onEnter,
-                        onMouseLeave: onLeave,
-                    })}
+                {React.createElement(seicon, {
+                    style: { marginInlineEnd: 8, color: color },
+                    onClick: onclickshou,
+                    spin: xuan,
+                    onMouseEnter: onEnter,
+                    onMouseLeave: onLeave,
+                })}
                 {text}
-                </span>
+            </span>
         );
     }
     return (
         <span>
-                {React.createElement(icon, {
-                    style: { marginInlineEnd: 8, color: color },
-                    onClick: onclickshou,
-                })}
+            {React.createElement(icon, {
+                style: { marginInlineEnd: 8, color: color },
+                onClick: onclickshou,
+            })}
             {text}
         </span>
     );
@@ -78,139 +86,18 @@ const ContentText = ({ title }) => {
     );
 };
 
-export const CardList = ({data, tag, key}) =>{
-    const navigate = useNavigate();
-    return(
-        <ProList
-            size="small"
-            itemLayout="vertical"
-            rowKey="id"
-            dataSource={data}
-            //loading={true}
-            renderItem={(item) => {
-                var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
-                if (item.tags != null) {
-                    if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
-                        return null;
-                    }
-                }
-                return (
-                    <List.Item
-                        actions={[
-
-                            <IconText
-                                icon={LikeOutlined}
-                                text="156"
-                                key="list-vertical-like-o"
-                            />,
-                            <IconText
-                                icon={MessageOutlined}
-                                text="2"
-                                key="list-vertical-message"
-                            />,
-                        ]}
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                            title={(<Row >
-                                <div>{item.author}</div>
-                                {item.tags == null ? null : item.tags.map((key, index) => {
-
-                                    return <Tag color="#2db7f5" style={{
-                                        marginLeft: 10
-                                    }}>{key}</Tag>
-
-                                })}
-
-                            </Row>)}
-                            description={"发表时间：" + formattedTimestamp}
-                        />
-                        <Card hoverable
-                              bordered={false}
-                              onClick={()=>{
-                                  navigate(`/component/Communitydetail/${item.id}`)
-                              }}
-                        >
-                            <ContentText content={item.content} title={item.title} />
-                            {item.image === null ? null : <div style={{
-                                textAlign:"center",
-                                width:"100%",
-
-                            }}><Image
-
-                                preview={false}
-
-                                height={272}
-                                alt="logo"
-                                src={item.image}
-                            /></div>}
-                        </Card>
-                    </List.Item>
-                );
-            }}
-        ></ProList>
-    )
+const pushShow = (id, navigate) => {
+    navigate(`/component/Communitydetail/${id}`)
 }
 
-
-const CommunityView = function CommunityView() {
-    const ref = useRef(null);
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+export const CardList = (tag) => {
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
     const [page, setPage] = useState(0);
-    const [tag, SetTag] = useState("全部");
-    const key = 'updatable';
-
-    const savelist=useSelector((state)=>state.community)
+    const savelist = useSelector((state) => state.community)
     const dispatch = useDispatch();
-
-    const pushShow = (id) => {
-        navigate(`/component/Communitydetail/${id}`)
-    }
-
-    const ite = [
-        {
-            title: '全部',
-            ava: all,
-        },
-        {
-            title: 'apex英雄',
-            ava: apex,
-        },
-        {
-            title: '博德之门3',
-            ava: BoDe,
-        },
-        {
-            title: '无畏契约',
-            ava: WWQY,
-        },
-        {
-            title: '彩虹六号',
-            ava: C6,
-        },
-        {
-            title: '我的世界',
-            ava: Myworld,
-        },
-        {
-            title: '艾尔登法环',
-            ava: er,
-        },
-        {
-            title: '战地5',
-            ava: zd,
-        },
-        {
-            title: '双人成行',
-            ava: it_takes_two,
-        },
-        // {
-        //   title: "更多",
-        //   ava: "https://cn.bing.com/images/search?view=detailV2&ccid=2d2ejd2a&id=DDF73B8E1A52CB4C71CFA8DC9905E767AD7C2259&thid=OIP.2d2ejd2aIAmuTR9Q8rtQyQHaE8&mediaurl=https%3a%2f%2fwww.xtrafondos.com%2fwallpapers%2flogo-apex-legends-3031.jpg&exph=4000&expw=6000&q=apex%e5%9b%be%e6%a0%87&simid=608051676183620700&FORM=IRPRST&ck=76BC9B5586E382DE9F5AFEBF365EBAD9&selectedIndex=0&itb=0&ajaxhist=0&ajaxserp=0"
-        // },
-    ];
+    const ref = useRef(null);
+    const [loading, setLoading] = useState(false);
     const loadMoreData = () => {
         if (loading) {
             return;
@@ -236,21 +123,182 @@ const CommunityView = function CommunityView() {
         console.log(savelist)
         setData(savelist.listData)
         setPage(savelist.pageNumber)
-        SetTag(savelist.tag)
-        setTimeout(()=>{
-            window.scrollTo(0,savelist.scrollTo)
-        },0)
+        // SetTag(savelist.tag)
+        setTimeout(() => {
+            window.scrollTo(0, savelist.scrollTo)
+        }, 0)
 
         //loadMoreData();
     }, []);
     return (
+        <InfiniteScroll
+            infinite-scroll-disabled={false}
+            dataLength={data.length}
+            next={loadMoreData}
+            hasMore={data.length % 4 == 0}
+            loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+            endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+            scrollableTarget="scrollableDiv"
+            ref={ref}
+        >
+            <ProList
+                size="small"
+                itemLayout="vertical"
+                rowKey="id"
+                dataSource={data}
+                //loading={true}
+                renderItem={(item) => {
+                    var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD');
+                    if (item.tags != null) {
+                        if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
+                            return null;
+                        }
+                    }
+                    return (
+                        <List.Item
+                            actions={[
+                                <IconText
+                                    icon={LikeOutlined}
+                                    text="156"
+                                    key="list-vertical-like-o"
+                                />,
+                                <IconText
+                                    icon={MessageOutlined}
+                                    text="2"
+                                    key="list-vertical-message"
+                                />,
+                            ]}
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                                title={(<Row >
+                                    <div>{item.author}</div>
+                                    {item.tags == null ? null : item.tags.map((key, index) => {
+                                        return <Tag color="#2db7f5" style={{
+                                            marginLeft: 10
+                                        }}>{key}</Tag>
+
+                                    })}
+
+                                </Row>)}
+                                description={"发表时间：" + formattedTimestamp}
+                            />
+                            <Card hoverable
+                                bordered={false}
+                                onClick={() => {
+                                    dispatch(SaveScroll(ref.current.lastScrollTop))
+
+                                    let Scroll = {
+                                        listData: data,
+                                        PageNumber: page,
+                                    }
+                                    dispatch(Savelist(Scroll))
+                                    pushShow(item.id, navigate)
+                                }}
+                            >
+                                <ContentText content={item.content} title={item.title} />
+                                {item.image === null ? null : <div style={{
+                                    textAlign: "center",
+                                    width: "100%",
+                                }}><Image
+                                        preview={false}
+
+                                        height={272}
+                                        alt="logo"
+                                        src={item.image}
+                                    /></div>}
+                            </Card>
+                        </List.Item>
+                    );
+                }}
+            ></ProList>
+        </InfiniteScroll>
+    )
+}
+
+const icon=(label,imagesrc)=>{
+    return (
+        <Row justify="space-around" align="middle">
+            <Image src={imagesrc} height={25} width={25}preview={false} ></Image>
+            <div style={{fontSize:"12px",marginLeft:"10px"}}>{label}</div>
+           
+        </Row>
+    )
+}
+
+const CommunityView = function CommunityView() {
+    const key = 'updatable'
+    const ite = [
+        {
+            key: '1',
+            label: icon("全部",all),
+            children: CardList("全部"),
+           
+        },
+        {
+            key: '2',
+            label: icon("apex英雄",apex),
+            children: CardList("apex英雄"),
+            ava: apex,
+        },
+        {
+            key: '3',
+            label: icon("博德之门3",BoDe),
+            children: CardList("博德之门3"),
+            ava: BoDe,
+        },
+        {
+            key: '4',
+            label: icon("无畏契约",WWQY),
+            children: CardList("无畏契约"),
+            ava: WWQY,
+        },
+        {
+            key: '5',
+            label: icon("彩虹六号",C6),
+            children: CardList("彩虹六号"),
+            ava: C6,
+        },
+        {
+            key: '6',
+            label: icon("我的世界",Myworld),
+            children: CardList("我的世界"),
+            ava: Myworld,
+        },
+        {
+            key: '7',
+            label: icon("艾尔登法环",er),
+            children: CardList("艾尔登法环"),
+            ava: er,
+        },
+        {
+            key: '8',
+            label: icon("战地5",zd),
+            children: CardList("战地5"),
+            ava: zd,
+        },
+        {
+            key: '9',
+            label: icon("双人成行",it_takes_two),
+            children: CardList("双人成行"),
+            ava: it_takes_two,
+        },
+        // {
+        //   title: "更多",
+        //   ava: "https://cn.bing.com/images/search?view=detailV2&ccid=2d2ejd2a&id=DDF73B8E1A52CB4C71CFA8DC9905E767AD7C2259&thid=OIP.2d2ejd2aIAmuTR9Q8rtQyQHaE8&mediaurl=https%3a%2f%2fwww.xtrafondos.com%2fwallpapers%2flogo-apex-legends-3031.jpg&exph=4000&expw=6000&q=apex%e5%9b%be%e6%a0%87&simid=608051676183620700&FORM=IRPRST&ck=76BC9B5586E382DE9F5AFEBF365EBAD9&selectedIndex=0&itb=0&ajaxhist=0&ajaxserp=0"
+        // },
+    ];
+
+    return (
         <>
-        <Card color="black" hoverable></Card> 
+            <Card style={{ backgroundColor: "black" }} hoverable><Button type="text">Reload community</Button></Card>
             <PageContainer style={{
 
             }}>
-                
-                <ProCard title="我的喜好" ghost gutter={16} collapsible style={{
+                <Tabs items={ite}>
+
+                </Tabs>
+                {/* <ProCard title="我的喜好" ghost gutter={16} collapsible style={{
                     width: "100%"
                 }}>
                     <ProList
@@ -291,101 +339,9 @@ const CommunityView = function CommunityView() {
                             );
                         }}
                     ></ProList>
-                </ProCard>
-
-
+                </ProCard> */}
                 <br></br>
-                <InfiniteScroll
-                    infinite-scroll-disabled={false}
-                    dataLength={data.length}
-                    next={loadMoreData}
-                    hasMore={data.length%4==0}
-                    loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-                    endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-                    scrollableTarget="scrollableDiv"
-                    ref={ref}
-                >
-                    <ProList
-                        size="small"
-                        itemLayout="vertical"
-                        rowKey="id"
-                        dataSource={data}
-                        //loading={true}
-                        renderItem={(item) => {
-                            var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
-                            if (item.tags != null) {
-                                if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
-                                    return null;
-                                }
-                            }
-                            return (
-                                <List.Item
-                                    actions={[
 
-                                        <IconText
-                                            icon={LikeOutlined}
-                                            text="156"
-                                            key="list-vertical-like-o"
-                                        />,
-                                        <IconText
-                                            icon={MessageOutlined}
-                                            text="2"
-                                            key="list-vertical-message"
-                                        />,
-                                    ]}
-                                >
-                                    <List.Item.Meta
-                                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                                        title={(<Row >
-                                            <div>{item.author}</div>
-                                            {item.tags == null ? null : item.tags.map((key, index) => {
-
-                                                return <Tag color="#2db7f5" style={{
-                                                    marginLeft: 10
-                                                }}>{key}</Tag>
-
-                                            })}
-
-                                        </Row>)}
-                                        description={"发表时间：" + formattedTimestamp}
-                                    />
-                                    <Card hoverable
-                                          bordered={false}
-                                          onClick={()=>{
-                                              console.log("xxx"+ref.current.lastScrollTop)
-                                              dispatch(SaveScroll(ref.current.lastScrollTop))
-
-                                              let Scroll={
-                                                  listData:data,
-                                                  PageNumber:page,
-                                                  tag:tag
-                                              }
-                                              dispatch(Savelist(Scroll))
-                                              console.log(savelist)
-                                              pushShow(item.id)
-                                          }}
-                                    >
-                                        <ContentText content={item.content} title={item.title} />
-                                        {item.image === null ? null : <div style={{
-                                            textAlign:"center",
-                                            width:"100%",
-
-                                        }}><Image
-
-                                            preview={false}
-
-                                            height={272}
-                                            alt="logo"
-                                            src={item.image}
-                                        /></div>}
-                                    </Card>
-                                    {/* </Link> */}
-
-                                </List.Item>
-                            );
-                        }}
-                    ></ProList>
-                </InfiniteScroll>
             </PageContainer>
             <FloatButton.Group>
                 <Link to="/component/postComponent">
@@ -394,7 +350,7 @@ const CommunityView = function CommunityView() {
                         icon={<PlusOutlined />}
                     ></FloatButton>
                 </Link>
-                <BackTop/>
+                <BackTop />
             </FloatButton.Group>
         </>
     );
