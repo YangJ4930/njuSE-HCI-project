@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Header} from "antd/es/layout/layout";
-import {Button, Flex, Row, Space} from "antd";
+import {Button, Card, Flex, Row, Space} from "antd";
 import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
+import Meta from "antd/es/card/Meta";
 
 export const DaliyRecommendation = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -41,22 +42,22 @@ const Slideshow = ({ data, interval, onPageChange }) => {
     return (
         //4页 每页5张
         <React.Fragment>
-            <div style={{ aspectRatio: 2.3, width: '100%'}}>
+            <div style={{ aspectRatio: 3, width: '100%'}}>
                 <Flex justify='space-between' align='center' style={{width: '90%', height: '100%', marginLeft:'5%', marginRight:'5%'}} vertical>
                     <Flex
                         justify='space-between'
                         align='center'
-                        style={{ marginTop: '2%', marginBottom: '2%' , height:'10%', width:'100%'}}
+                        style={{ marginTop: '2%' ,marginBottom:'1%', height:'10%', width:'100%'}}
                         horizontal
                     >
-                        <h5>今日推荐</h5>
+                        <span style={{fontSize:20}}>今日推荐</span>
 
                         <Space size={'small'}>
                             <Button type="primary" shape="circle" icon={<LeftOutlined/>} onClick={() => handlePageChange((currentIndex - 1 < 0) ? 3 : (currentIndex - 1))}/>
                             <Button type="primary" shape="circle" icon={<RightOutlined/>} onClick={() => handlePageChange((currentIndex + 1) % 4)}/>
                         </Space>
                     </Flex>
-                    <Flex justify='space-between' align='center' style={{height:'80%', width:'100%'}} horizontal>
+                    <Flex justify='space-between' align='center' style={{height:'86%', width:'100%'}} horizontal>
                         <SingleCard singleCardData={data[currentIndex * 5]}/>
                         <SingleCard singleCardData={data[currentIndex * 5 + 1]}/>
                         <SingleCard singleCardData={data[currentIndex * 5 + 2]}/>
@@ -70,28 +71,28 @@ const Slideshow = ({ data, interval, onPageChange }) => {
 };
 
 const SingleCard = ({singleCardData}) =>{
-    return(
-        <Flex justify='space-between' align='center' style={{width:'18%', height:'100%'}} vertical>
-            <Link to={`/game/${singleCardData.id}`}
-                  style={{
-                      width: '100%',
-                      height:'90%',
-                      borderRadius: 8,
-                  }}>
-                <img
-                    style={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: 8,
-                    }}
-                    src={singleCardData.imgUrl}
-                    alt={`Slide 0`}
-                />
-            </Link>
 
-            <span style={{fontSize: 20, height:'8%'}}>{singleCardData.name}</span>
-        </Flex>
+    return(
+        <Link to={`/game/${singleCardData.id}`} style={{
+            width:'18%',
+            height:'100%',
+            borderRadius:8
+        }}>
+            <Card
+                hoverable
+                style={{
+                    width: '100%',
+                    height:'100%',
+                    borderRadius:8
+                }}
+                cover={
+                    <img alt="example" src={singleCardData.imgUrl} style={{
+                        objectFit:'cover', objectPosition:"center" ,aspectRatio:0.75, width:'100%'}}/>
+                }
+            >
+                <Meta title={singleCardData.name} style={{height:'15%'}}/>
+            </Card>
+        </Link>
 
     )
 }

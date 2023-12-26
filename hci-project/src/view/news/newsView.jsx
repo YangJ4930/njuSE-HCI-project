@@ -6,6 +6,7 @@ import {NewHead} from './component/newHead';
 import {NewsListCard} from './component/newsListCard';
 import {ListNews} from './component/listNews';
 import {FloatButton} from "antd";
+import BackTop from "../../component/BackTop";
 
 function NewsView() {
     const [newsList, setNewsList] = React.useState([]);
@@ -13,7 +14,7 @@ function NewsView() {
     React.useEffect(() => {
         axios.get('/news/contents').then((response) => {
             console.log(response);
-            setNewsList(response.data.content);
+            setNewsList(response.data);
         });
     }, []);
 
@@ -35,7 +36,7 @@ function NewsView() {
             <NewHead/>
             <div style={{marginBottom: 20}}></div>
             <ListNews data={data}/>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </React.Fragment>
     );
 }

@@ -5,8 +5,9 @@ import { Recommendation } from './component/recommendation';
 import { GuessLike } from './component/guessLike';
 import { Other } from './component/other';
 import {DaliyRecommendation} from "./component/daliyRecommendation";
-import {FloatButton} from "antd";
-
+import {Button, Flex, FloatButton} from "antd";
+import {Header} from "antd/es/layout/layout";
+import BackTop from "../../component/BackTop";
 
 const ExploreView = function ExploreView(){
     const [exploreList, setExploreList] = React.useState([]);
@@ -46,14 +47,24 @@ const ExploreView = function ExploreView(){
     return (
         <>
             <React.Fragment>
-                <Recommendation data={data.slice(0, 4)} />
-                <div style={{ marginTop: 40, marginBottom: 40 }}></div>
+                <Header style={{ background: '#001529', marginBottom: 20 }}>
+                    <Flex justify='space-between' align='center' style={{ height: '100%' }}>
+                        <span style={{ fontSize: 23, lineHeight: 1.4, color: 'white' }}>探索</span>
+                        <Link to={'/explore/gameRepository'} style={{marginTop: 10}}>
+                            <Button type="text"  style={{
+                                fontSize: 18, color: 'white',borderColor:'white'
+                            }}>
+                                浏览更多
+                            </Button>
+                        </Link>
+                    </Flex>
+                </Header>
                 <GuessLike data={data.slice(4, 6)} />
                 <div style={{ marginTop: 40, marginBottom: 40 }}></div>
                 <DaliyRecommendation data={data.slice(10, 30)}/>
                 <div style={{ marginTop: 40, marginBottom: 40 }}></div>
                 <Other data={data.slice(6, 8)} />
-                <FloatButton.BackTop className="backtop" />
+                <BackTop/>
             </React.Fragment>
         </>
     );

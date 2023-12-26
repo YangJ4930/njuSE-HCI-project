@@ -11,6 +11,7 @@ import {LikeOutlined, MessageOutlined, StarOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {CardList} from "../community/communityView";
 import {da} from "@faker-js/faker";
+import BackTop from "../../component/BackTop";
 const { Header, Footer, Sider, Content } = Layout;
 
 const HomeView = () => {
@@ -43,7 +44,7 @@ const HomeView = () => {
                 <CommunityList />
                 <div style={{margin: 10}}/>
             </div>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </>
     );
 };
@@ -52,7 +53,7 @@ const GameHomeList = () => {
     const [gameList, setGameList] = React.useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/content/game').then((response) => {
+        axios.get('/content/game').then((response) => {
             console.log(response);
             setGameList(response.data.content);
             console.log(response.data)
@@ -69,9 +70,9 @@ const GameHomeList = () => {
 const NewsHomeList = () => {
     const [newsList, setNewsList] = React.useState([]);
     useEffect(() => {
-        axios.get('http://localhost:8080/content/news').then((response) => {
+        axios.get('/content/news').then((response) => {
             console.log(response);
-            setNewsList(response.data.content);
+            setNewsList(response.data);
             console.log(response.data)
         });
     }, []);
@@ -83,7 +84,7 @@ const NewsHomeList = () => {
 const CommunityList = () =>{
     const [communityList, setCommunityList] = React.useState([]);
     useEffect(() => {
-        axios.get('http://localhost:8080/content/community').then((response) => {
+        axios.get('/content/community').then((response) => {
             console.log(response);
             setCommunityList(response.data);
             console.log(response.data)

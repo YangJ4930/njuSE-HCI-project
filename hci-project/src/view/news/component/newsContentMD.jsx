@@ -6,6 +6,7 @@ import {useParams} from 'react-router-dom';
 import markDownTemp from '../../../utils/temp/MarkdownTemp';
 import axios from "../../../axios";
 import gameImage from "../../../static/gameImage1.jpg";
+import BackTop from "../../../component/BackTop";
 
 const {Header, Footer, Sider, Content} = Layout;
 const {Title, Text} = Typography;
@@ -30,7 +31,7 @@ function NewsContentMD(props) {
     });
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/news/content/${id}`).then((response) => {
+        axios.get(`/news/content/${id}`).then((response) => {
             console.log(response);
             setNews(response.data);
             console.log(response.data);
@@ -81,7 +82,7 @@ function NewsContentMD(props) {
                 </Layout>
 
             </Typography>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </Card>
 
 

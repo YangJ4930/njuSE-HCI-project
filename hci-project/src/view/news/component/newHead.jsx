@@ -13,7 +13,7 @@ export const NewHead = () => {
     React.useEffect(() => {
         axios.get('http://localhost:8080/news/head').then((response) => {
             console.log(response);
-            setNewsList(response.data.content);
+            setNewsList(response.data);
         });
     }, []);
     return (

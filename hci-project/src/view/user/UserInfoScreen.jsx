@@ -8,6 +8,7 @@ import Meta from 'antd/es/card/Meta';
 import {EditOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {faker} from '@faker-js/faker';
 import {logout} from '../../redux/user/authSlice';
+import BackTop from "../../component/BackTop";
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
@@ -61,7 +62,7 @@ const UserInfoScreen = (props) => {
             <Row gutter={[16, 16]}>
                 <GameInventory gameInventory={userInfo.gameInventory}/>
             </Row>
-            <FloatButton.BackTop className="backtop" />
+            <BackTop/>
         </Col>
     );
 };

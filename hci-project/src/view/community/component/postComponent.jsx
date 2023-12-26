@@ -21,6 +21,9 @@ import GameTags from './GameTags'
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate} from "react-router-dom";
 import { Clearlist } from '../../../redux/user/communitySlice';
+import Title from "antd/es/skeleton/Title";
+import axios from "../../../axios";
+
 const PostComponent = function PostComponent() {
     const userID = useSelector((state) => state.user.id);
     const islogin=useSelector((state) => state.auth.isLogin);
@@ -82,7 +85,7 @@ const PostComponent = function PostComponent() {
             fd.append('tags',tags)
             fd.append('userId',userID)
             console.log(file)
-            fetch('http://localhost:8080/community/Upload', {
+            fetch(axios.defaults.baseURL + '/community/Upload', {
                 method: 'post',
                 body: fd,
             })
