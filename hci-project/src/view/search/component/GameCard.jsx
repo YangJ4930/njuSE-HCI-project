@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Avatar, Card, Col} from 'antd';
 import {Link} from "react-router-dom";
 
 const {Meta} = Card;
 export const GameCard = ({data, widthData}) => {
+    const [tag, setTag] = useState("")
+    React.useEffect(() => {
+        if (data.tags) {
+            const joinedTags = data.tags.join(" ");
+            setTag(joinedTags);
+        }
+    }, [data.tags]);
     return (
         <Col className="gutter-row" span={6}>
             <Card
                 style={{
-                    width: `${widthData}px`
+                    width: `${widthData}px`,
+                    backgroundColor: "rgba(18,18,18,0.85)",
+                    borderColor: "rgba(0,0,0,0.1)"
                 }}
+                // bordered = {false}
                 cover={
                     <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                         <img
@@ -24,8 +34,8 @@ export const GameCard = ({data, widthData}) => {
             >
                 <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                     <Meta
-                        title={data.name}
-                        description={`${data.name}是一款...`}
+                        title={<div style={{color: "white"}}>{data.name}</div>}
+                        description={<div style={{color: "rgb(190,190,190)"}}>{`游戏标签：${tag}`}</div>}
                     />
                 </Link>
 

@@ -25,6 +25,7 @@ const GuessLike = ({ gameCount }) => {
                     id: response.data[index].id,
                     imgUrl: response.data[index].imgUrl,
                     name: response.data[index].name,
+                    tags: response.data[index].tags,
                 }));
                 setGameList(data);
             })
@@ -47,16 +48,16 @@ const GuessLike = ({ gameCount }) => {
 
     return (
         <React.Fragment>
-            <Header style={{ background: 'white', marginBottom: 20 }}>
+            <Header style={{ background: '#001529', marginBottom: 20 }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                     <Divider plain orientation={'left'}>
-                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'black' }}>
+                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'white' }}>
                             猜你喜欢
                         </span>
                     </Divider>
                 </Row>
             </Header>
-            <GameList listData={gameList} widthData={300} />
+            <GameList listData={gameList} widthData={330} />
         </React.Fragment>
     );
 };
