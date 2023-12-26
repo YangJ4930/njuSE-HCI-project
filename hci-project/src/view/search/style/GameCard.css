@@ -1,0 +1,15 @@
+.GameCard {
+    /* 组件的默认样式 */
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    transition: background-color 0.3s; /* 添加过渡效果 */
+
+    /* hover 的样式 */
+}
+
+.GameCard:hover {
+    /*background-color: #60606e; !* 自定义 hover 的背景颜色 *!*/
+    color: white; /* 自定义 hover 的文本颜色 */
+    box-shadow: 0 0 5px 2px #c7c6c6; /* 自定义描边效果 */
+}
