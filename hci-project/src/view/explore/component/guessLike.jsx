@@ -1,93 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import {Card, Flex, Row, Space} from 'antd';
-import {Link} from "react-router-dom";
-import Meta from "antd/es/card/Meta";
+import { Card, Flex, Row, Space } from 'antd';
+import { Link } from 'react-router-dom';
+import Meta from 'antd/es/card/Meta';
+import { GameCard } from '../../search/component/GameCard';
+import { GameList } from '../../search/component/GameList';
+import { Header } from 'antd/es/layout/layout';
+import axios from '../../../axios';
 
-
-const GuessLike = ({ data }) => {
-
+const GuessLike = ({ gameCount }) => {
     //监听窗口大小，获取card内cover高度，不懂为什么直接设置height为比例不生效
     const [coverHeight, setCoverHeight] = useState(0);
 
-    const resizeUpdate = (e) =>{
+    const [gameList, setGameList] = useState([]);
+    const resizeUpdate = (e) => {
         let h = e.target.innerWidth * 0.18;
-        setCoverHeight(h)
-    }
+        setCoverHeight(h);
+    };
 
-    useEffect(() =>{
+    useEffect(() => {
+        axios
+            .get(`/explore/recommendation/${gameCount}`)
+            .then((response) => {
+                let data = Array.from({ length: response.data.length }).map((_, index) => ({
+                    id: response.data[index].id,
+                    imgUrl: response.data[index].imgUrl,
+                    name: response.data[index].name,
+                }));
+                setGameList(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
         //页面刚加载完成后获取窗口宽度
         let h = window.innerWidth * 0.18;
-        setCoverHeight(h)
+        setCoverHeight(h);
 
         //页面变化时候获取浏览器窗口宽度
         window.addEventListener('resize', resizeUpdate);
 
-        return() =>{
+        return () => {
             //组件销毁时移除监听事件
             window.removeEventListener('resize', resizeUpdate);
-        }
-    }, [])
+        };
+    }, []);
 
     return (
         <React.Fragment>
-            <Flex justify='space-between' align='start' style={{ marginLeft:'5%', marginRight:'5%', width:'90%', aspectRatio:1.4}} vertical>
-                        <Flex
-                            justify='flex-start'
-                            align='start'
-                            style={{ marginTop: '3%', marginBottom: '2%' , height:'5%', width:'100%'}}
-                            horizontal
-                        >
-                            <span style={{fontSize:20}}>猜你喜欢</span>
-                        </Flex>
-                        <Flex justify='space-between' align='center' style={{ width: '100%', height: '90%' }} horizontal>
-                            <Flex justify='space-between' align='center' style={{ width:'45%', height: '100%' }} vertical>
-                                <Link to={`/game/${data[0].id}`}
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        borderRadius: 10,
-                                    }}>
-                                    <Card
-                                        hoverable
-                                        style={{
-                                            width: '100%',
-                                            height:'100%',
-                                            borderRadius:8
-                                        }}
-                                        cover={
-                                            <img alt="example" src={data[0].imgUrl} style={{
-                                                objectFit:'cover', objectPosition:"center" ,aspectRatio:0.8, width:'100%'}}/>
-                                        }
-                                    >
-                                        <Meta title={data[0].name} style={{height:'15%'}}/>
-                                    </Card>
-                                </Link>
-                            </Flex>
-                            <Flex justify='space-between' align='center' style={{ width:'45%', height: '100%' }} vertical>
-                                <Link to={`/game/${data[0].id}`}
-                                      style={{
-                                          width: '100%',
-                                          height: '100%',
-                                          borderRadius: 10,
-                                      }}>
-                                    <Card
-                                        hoverable
-                                        style={{
-                                            width: '100%',
-                                            height:'100%',
-                                            borderRadius:8
-                                        }}
-                                        cover={
-                                            <img alt="example" src={data[1].imgUrl} style={{
-                                                objectFit:'cover', objectPosition:"center" ,aspectRatio:0.8, width:'100%'}}/>
-                                        }
-                                    >
-                                        <Meta title={data[1].name} style={{height:'15%'}}/>
-                                    </Card>
-                                </Link>
-                            </Flex>
-                        </Flex>
-                    </Flex>
+            <Header style={{ background: 'white', marginBottom: 20 }}>
+                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
+                    <span style={{ fontSize: 18, lineHeight: 1.4, color: 'black' }}>猜你喜欢</span>
+                </Row>
+            </Header>
+            <GameList listData={gameList} widthData={300} />
         </React.Fragment>
     );
 };
