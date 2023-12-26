@@ -22,28 +22,19 @@ function NewsContentMD(props) {
 
     const [news, setNews] = useState({});
     const [content, setContent] = useState('');
-    const [titles, setTitles] = useState([]);
-
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: true,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false,
-    });
+    const [titles, setTitles] = useState(['']);
 
     useEffect(() => {
         axios.get(`/news/content/${id}`).then((response) => {
             setNews(response.data);
             setContent(response.data.content.join(''));
             setTitles(extractTitles(response.data.content));
+            console.log(extractTitles(response.data.content));
         });
     }, []);
+
     return (
-        <Flex flex={1}>
+        <Flex justify={'space-between'} style={{ justifyContent: 'center' }}>
             <Card
                 bordered={true}
                 hoverable
@@ -53,7 +44,8 @@ function NewsContentMD(props) {
                     overflow: 'auto',
                     borderRadius: 36,
                     padding: 20,
-                    marginInline: 300,
+                    marginInline: 110,
+                    maxWidth: '70%',
                 }}
             >
                 <Layout
@@ -114,9 +106,8 @@ function NewsContentMD(props) {
                         </Markdown>
                     </Text>
                 </Layout>
-                <BackTop />
             </Card>
-            {/*<TableOfContent content={titles} />*/}
+            <BackTop />
         </Flex>
     );
 }
