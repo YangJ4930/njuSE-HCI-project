@@ -19,7 +19,7 @@ import ExploreContentView from "../view/explore/exploreContentView";
 function Router() {
     return (
         <Routes>
-            <Route path='/' element={<HomeView></HomeView>}></Route>
+            <Route path='/' element={<ExploreView></ExploreView>}></Route>
             <Route path='/search/*' element={<SearchView></SearchView>}></Route>
             <Route path='/news' element={<NewsView></NewsView>}></Route>
             <Route path={'/news/content/:id'} element={<NewsContentMD></NewsContentMD>}></Route>
