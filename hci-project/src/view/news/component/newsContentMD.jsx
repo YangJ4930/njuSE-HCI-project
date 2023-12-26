@@ -7,7 +7,6 @@ import markDownTemp from '../../../utils/temp/MarkdownTemp';
 import axios from '../../../axios';
 import gameImage from '../../../static/gameImage1.jpg';
 import BackTop from '../../../component/BackTop';
-import TableOfContent from './TableOfContent';
 import Tab from 'bootstrap/js/src/tab';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
