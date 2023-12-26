@@ -17,19 +17,19 @@ import { PlusOutlined } from '@ant-design/icons';
 import './post.css';
 import { useForm } from 'antd/es/form/Form';
 import MDEditor from '@uiw/react-md-editor';
-import GameTags from './GameTags'
-import { useSelector,useDispatch } from 'react-redux';
-import { useNavigate} from "react-router-dom";
+import GameTags from './GameTags';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Clearlist } from '../../../redux/user/communitySlice';
-import Title from "antd/es/skeleton/Title";
-import axios from "../../../axios";
+import Title from 'antd/es/skeleton/Title';
+import axios from '../../../axios';
 
 const PostComponent = function PostComponent() {
     const userID = useSelector((state) => state.user.id);
-    const islogin=useSelector((state) => state.auth.isLogin);
+    const islogin = useSelector((state) => state.auth.isLogin);
     const dispatch = useDispatch();
-    const savelist=useSelector((state)=>state.community)
-    const nav=useNavigate();
+    const savelist = useSelector((state) => state.community);
+    const nav = useNavigate();
     const options = [
         {
             value: 'gold',
@@ -66,7 +66,7 @@ const PostComponent = function PostComponent() {
     };
     const key = 'updatable';
     const PostC = (from, file) => {
-        if(islogin){
+        if (islogin) {
             message.open({
                 key,
                 type: 'loading',
@@ -80,17 +80,17 @@ const PostComponent = function PostComponent() {
             const f = JSON.stringify(from);
             const blob = new Blob([f], {
                 type: 'application/json',
-            })
-            fd.append('form', blob)
-            fd.append('tags',tags)
-            fd.append('userId',userID)
-            console.log(file)
+            });
+            fd.append('form', blob);
+            fd.append('tags', tags);
+            fd.append('userId', userID);
+            console.log(file);
             fetch(axios.defaults.baseURL + '/community/Upload', {
                 method: 'post',
                 body: fd,
             })
-                .then(response => {
-                    console.log(response)
+                .then((response) => {
+                    console.log(response);
                     setTimeout(() => {
                         message.open({
                             key,
@@ -105,12 +105,11 @@ const PostComponent = function PostComponent() {
                     //     content: '帖子发布成功！',
                     //     duration: 2,
                     // })
-                    dispatch(Clearlist())
-                    nav('/community')
+                    dispatch(Clearlist());
+                    nav('/community');
                 })
-                .catch(error => console.log(error))
-        }
-        else{
+                .catch((error) => console.log(error));
+        } else {
             message.open({
                 key,
                 type: 'warning!',
@@ -118,8 +117,7 @@ const PostComponent = function PostComponent() {
                 duration: 2,
             });
         }
-
-    }
+    };
     const handleCancel = () => {
         setOpenImage(false);
     };
@@ -133,7 +131,7 @@ const PostComponent = function PostComponent() {
     const uploadButton = (
         <div>
             <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Upload</div>
+            <div style={{ marginTop: 8 }}>上传</div>
         </div>
     );
     return (
@@ -159,6 +157,7 @@ const PostComponent = function PostComponent() {
                 </div>
                 <Form form={form} title='图文' className='postform'>
                     <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
+                        <Divider orientation='left'>话题</Divider>
                         <GameTags setTags={setTags}></GameTags>
                         <Divider orientation='left'></Divider>
                         <Form.Item className='formitem'>
@@ -174,11 +173,11 @@ const PostComponent = function PostComponent() {
                                 {fileList.length > 8 ? null : uploadButton}
                             </Upload>
                         </Form.Item>
-                        <Divider orientation='left'>Title</Divider>
+                        <Divider orientation='left'>标题</Divider>
                         <Form.Item name='title'>
                             <TextArea bordered={false} placeholder='标题' rows={1} />
                         </Form.Item>
-                        <Divider orientation='left'>Content</Divider>
+                        <Divider orientation='left'>正文</Divider>
                         <Form.Item name='content'>
                             <MDEditor value={markdownContent} onChange={setMarkContent} />
                         </Form.Item>

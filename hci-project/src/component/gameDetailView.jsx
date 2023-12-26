@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Layout, Card, Button, Row, Col, Typography, Carousel } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
@@ -6,19 +6,34 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import logo from '../static/Store.svg';
 import gameImage from '../static/gameImage2.jpg';
 import gameLogo from '../static/logo.png';
+import axios from '../axios';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
 function GameDetailView(props) {
     const { gameId } = useParams();
+    const [game, setGame] = useState({});
+    const [tag, setTag] = useState([]);
+    React.useEffect(() => {
+        axios
+            .get(`/explore/content/${gameId}`)
+            .then((response) => {
+                console.log(response);
+                setGame(response.data);
+                setTag(response.data.tags);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
 
     return (
         <Layout>
             <Header style={{ background: '#001529' }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                     <Col>
-                        <img src={logo} alt='Logo' style={{ height: '50px' }} />
+                        <h3 style={{ color: 'white' }}>游戏详情</h3>
                     </Col>
                 </Row>
             </Header>
@@ -26,11 +41,10 @@ function GameDetailView(props) {
             <Content style={{ padding: '20px' }}>
                 <Row gutter={[24, 24]}>
                     <Col span={16}>
-                        <GameGallery />
-                        <GameDetail />
+                        <GameDetail game={game} />
                     </Col>
                     <Col span={8}>
-                        <GameInfo />
+                        <GameInfo game={game} tag={tag} />
                     </Col>
                 </Row>
             </Content>
@@ -38,26 +52,10 @@ function GameDetailView(props) {
     );
 }
 
-function GameGallery() {
-    return (
-        <Carousel autoplay>
-            <div>
-                <img src={gameImage} alt='Game' style={{ height: '400px', objectFit: 'cover' }} />
-            </div>
-            <div>
-                <img src={gameImage} alt='Game' style={{ height: '400px', objectFit: 'cover' }} />
-            </div>
-            <div>
-                <img src={gameImage} alt='Game' style={{ height: '400px', objectFit: 'cover' }} />
-            </div>
-        </Carousel>
-    );
-}
-
-function GameDetail() {
+function GameDetail({ game }) {
     return (
         <Typography>
-            <Title>Alan Wake 2</Title>
+            <Title>{game.name}</Title>
             <Text>
                 一系列仪式谋杀案正威胁着亮瀑镇这个位于太平洋西北部，被荒野包围的小镇社区。
                 作为以解决悬案而闻名的联邦调查局资深警探，萨贾·安德森为调查谋杀案而来到此地。
@@ -98,24 +96,22 @@ function GameDetail() {
     );
 }
 
-function GameInfo() {
+function GameInfo({ game, tag }) {
+    tag = game.tags;
     return (
         <Card
             cover={
-                <img src={gameLogo} alt='Game' style={{ height: '300px', objectFit: 'cover' }} />
+                <img src={game.imgUrl} alt='Game' style={{ height: '300px', objectFit: 'cover' }} />
             }
         >
-            <Card.Meta title='Alan Wake 2' description='Alan Wake 2 是一款惊悚冒险游戏' />
+            <Card.Meta title={game.name} description='Alan Wake 2 是一款惊悚冒险游戏' />
             <div style={{ marginTop: '16px' }}>
-                <Title level={5}>游戏详情</Title>
-                <Text strong>发布日期：</Text>
-                <Text>2023年10月27日</Text>
-                <br />
-                <Text strong>开发商：</Text>
-                <Text>Remedy Entertainment</Text>
-                <br />
-                <Text strong>发行商：</Text>
-                <Text>Epic Games</Text>
+                <Title level={5}>游戏类型</Title>
+                {tag &&
+                    tag.length > 0 &&
+                    tag.map((item) => {
+                        return <Text key={item}>{item}</Text>;
+                    })}
             </div>
         </Card>
     );

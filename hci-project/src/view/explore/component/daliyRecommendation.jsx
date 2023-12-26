@@ -1,21 +1,41 @@
-import React, {useEffect, useState} from "react";
-import {Header} from "antd/es/layout/layout";
-import {Button, Card, Flex, Row, Space} from "antd";
-import {LeftOutlined, RightOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
-import Meta from "antd/es/card/Meta";
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Divider, Flex, List, Row, Space } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import Meta from 'antd/es/card/Meta';
+import axios from '../../../axios';
+import { GameCard } from '../../search/component/GameCard';
+import { Header } from 'antd/es/layout/layout';
+import { GameList } from '../../search/component/GameList';
 
-export const DaliyRecommendation = ({ data }) => {
+export const DaliyRecommendation = ({ gameCount }) => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
 
+    const [gameList, setGameList] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`/explore/recommendation/${gameCount}`)
+            .then((response) => {
+                let data = Array.from({ length: response.data.length }).map((_, index) => ({
+                    id: response.data[index].id,
+                    imgUrl: response.data[index].imgUrl,
+                    name: response.data[index].name,
+                }));
+                setGameList(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
     return (
-        <React.Fragment>
-            <Slideshow data={data} interval={5000} onPageChange={handlePageChange} />
-        </React.Fragment>
+        <>
+            <Slideshow data={gameList} interval={5000} onPageChange={handlePageChange} />
+        </>
     );
 };
 
@@ -40,59 +60,53 @@ const Slideshow = ({ data, interval, onPageChange }) => {
     };
 
     return (
-        //4页 每页5张
-        <React.Fragment>
-            <div style={{ aspectRatio: 3, width: '100%'}}>
-                <Flex justify='space-between' align='center' style={{width: '90%', height: '100%', marginLeft:'5%', marginRight:'5%'}} vertical>
-                    <Flex
-                        justify='space-between'
-                        align='center'
-                        style={{ marginTop: '2%' ,marginBottom:'1%', height:'10%', width:'100%'}}
-                        horizontal
-                    >
-                        <span style={{fontSize:20}}>今日推荐</span>
-
-                        <Space size={'small'}>
-                            <Button type="primary" shape="circle" icon={<LeftOutlined/>} onClick={() => handlePageChange((currentIndex - 1 < 0) ? 3 : (currentIndex - 1))}/>
-                            <Button type="primary" shape="circle" icon={<RightOutlined/>} onClick={() => handlePageChange((currentIndex + 1) % 4)}/>
-                        </Space>
-                    </Flex>
-                    <Flex justify='space-between' align='center' style={{height:'86%', width:'100%'}} horizontal>
-                        <SingleCard singleCardData={data[currentIndex * 5]}/>
-                        <SingleCard singleCardData={data[currentIndex * 5 + 1]}/>
-                        <SingleCard singleCardData={data[currentIndex * 5 + 2]}/>
-                        <SingleCard singleCardData={data[currentIndex * 5 + 3]}/>
-                        <SingleCard singleCardData={data[currentIndex * 5 + 4]}/>
-                    </Flex>
-                </Flex>
-            </div>
-        </React.Fragment>
+        <>
+            <Header style={{ background: 'white', marginBottom: 20 }}>
+                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
+                    <Divider plain orientation={'left'}>
+                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'black' }}>
+                            今日推荐
+                        </span>
+                    </Divider>
+                </Row>
+            </Header>
+            <GameList listData={data} widthData={300} />
+        </>
     );
 };
 
-const SingleCard = ({singleCardData}) =>{
-
-    return(
-        <Link to={`/game/${singleCardData.id}`} style={{
-            width:'18%',
-            height:'100%',
-            borderRadius:8
-        }}>
+const SingleCard = ({ singleCardData }) => {
+    return (
+        <Link
+            to={`/game/${singleCardData.id}`}
+            style={{
+                width: '18%',
+                height: '100%',
+                borderRadius: 8,
+            }}
+        >
             <Card
                 hoverable
                 style={{
                     width: '100%',
-                    height:'100%',
-                    borderRadius:8
+                    height: '100%',
+                    borderRadius: 8,
                 }}
                 cover={
-                    <img alt="example" src={singleCardData.imgUrl} style={{
-                        objectFit:'cover', objectPosition:"center" ,aspectRatio:0.75, width:'100%'}}/>
+                    <img
+                        alt='example'
+                        src={singleCardData.imgUrl}
+                        style={{
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                            aspectRatio: 0.75,
+                            width: '100%',
+                        }}
+                    />
                 }
             >
-                <Meta title={singleCardData.name} style={{height:'15%'}}/>
+                <Meta title={singleCardData.name} style={{ height: '15%' }} />
             </Card>
         </Link>
-
-    )
-}
+    );
+};

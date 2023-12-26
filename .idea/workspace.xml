@@ -12,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/hci-project/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/axios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/commentPost.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/communitydetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/component/gameDetailView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/layout/basicLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hci-project/src/redux/user/authSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/hci-project/src/redux/user/authSlice.js" afterDir="false" />
@@ -127,6 +128,7 @@
       <workItem from="1703476367135" duration="385000" />
       <workItem from="1703487447100" duration="2240000" />
       <workItem from="1703511497366" duration="6321000" />
+      <workItem from="1703566297750" duration="320000" />
     </task>
     <servers />
   </component>
