@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Layout, Card, Button, Row, Col, Typography, Carousel } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
@@ -6,7 +6,7 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import logo from '../static/Store.svg';
 import gameImage from '../static/gameImage2.jpg';
 import gameLogo from '../static/logo.png';
-import axios from "../axios";
+import axios from '../axios';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -16,11 +16,16 @@ function GameDetailView(props) {
     const [game, setGame] = useState({});
     const [tag, setTag] = useState([]);
     React.useEffect(() => {
-        axios.get(`http://localhost:8080/explore/content/${gameId}`).then((response) => {
-            console.log(response);
-            setGame(response.data);
-            setTag(response.data.tags)
-        });
+        axios
+            .get(`/explore/content/${gameId}`)
+            .then((response) => {
+                console.log(response);
+                setGame(response.data);
+                setTag(response.data.tags);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }, []);
 
     return (
@@ -28,7 +33,7 @@ function GameDetailView(props) {
             <Header style={{ background: '#001529' }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
                     <Col>
-                        <h3 style={{color: "white"}}>游戏详情</h3>
+                        <h3 style={{ color: 'white' }}>游戏详情</h3>
                     </Col>
                 </Row>
             </Header>
@@ -36,10 +41,10 @@ function GameDetailView(props) {
             <Content style={{ padding: '20px' }}>
                 <Row gutter={[24, 24]}>
                     <Col span={16}>
-                        <GameDetail game = {game}/>
+                        <GameDetail game={game} />
                     </Col>
                     <Col span={8}>
-                        <GameInfo game = {game} tag = {tag}/>
+                        <GameInfo game={game} tag={tag} />
                     </Col>
                 </Row>
             </Content>
@@ -47,8 +52,7 @@ function GameDetailView(props) {
     );
 }
 
-
-function GameDetail({game}) {
+function GameDetail({ game }) {
     return (
         <Typography>
             <Title>{game.name}</Title>
@@ -92,8 +96,8 @@ function GameDetail({game}) {
     );
 }
 
-function GameInfo({game, tag}) {
-    tag = game.tags
+function GameInfo({ game, tag }) {
+    tag = game.tags;
     return (
         <Card
             cover={
@@ -103,9 +107,11 @@ function GameInfo({game, tag}) {
             <Card.Meta title={game.name} description='Alan Wake 2 是一款惊悚冒险游戏' />
             <div style={{ marginTop: '16px' }}>
                 <Title level={5}>游戏类型</Title>
-                {tag && tag.length > 0 && tag.map((item) => {
-                    return <Text key={item}>{item}</Text>;
-                })}
+                {tag &&
+                    tag.length > 0 &&
+                    tag.map((item) => {
+                        return <Text key={item}>{item}</Text>;
+                    })}
             </div>
         </Card>
     );
