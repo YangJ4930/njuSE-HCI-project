@@ -35,7 +35,7 @@ function NewsContentMD(props) {
     return (
         <Flex justify={'space-between'} style={{ justifyContent: 'center' }}>
             <Card
-                bordered={true}
+                bordered={false}
                 hoverable
                 style={{
                     width: '95%',
@@ -45,15 +45,17 @@ function NewsContentMD(props) {
                     padding: 20,
                     marginInline: 110,
                     maxWidth: '70%',
+                    backgroundColor: 'black',
+                    color: 'white',
                 }}
             >
                 <Layout
                     style={{
-                        backgroundColor: 'white',
                         justifyContent: 'center',
                         alignContent: 'center',
                         textAlign: 'center',
                         padding: 20,
+                        backgroundColor: 'transparent',
                     }}
                 >
                     <Title
@@ -61,19 +63,19 @@ function NewsContentMD(props) {
                         style={{
                             justifyContent: 'center',
                             textAlign: 'center',
-                            backgroundColor: 'white',
                             fontSize: 40,
                             marginBottom: 20,
+                            color: 'white',
                         }}
                     >
                         {news.title}
                     </Title>
 
-                    <Text
+                    <div
                         style={{
                             justifyContent: 'center',
                             textAlign: 'start',
-                            backgroundColor: 'white',
+                            backgroundColor: 'transparent',
                         }}
                     >
                         <Markdown
@@ -99,11 +101,35 @@ function NewsContentMD(props) {
                                 li(props) {
                                     return <li {...props} style={{ fontSize: 20 }} />;
                                 },
+                                h1(props) {
+                                    return (
+                                        <h1
+                                            {...props}
+                                            style={{
+                                                color: 'white',
+                                                marginTop: 40,
+                                                marginBottom: 30,
+                                            }}
+                                        />
+                                    );
+                                },
+                                h2(props) {
+                                    return (
+                                        <h2
+                                            {...props}
+                                            style={{
+                                                color: 'white',
+                                                marginTop: 30,
+                                                marginBottom: 30,
+                                            }}
+                                        />
+                                    );
+                                },
                             }}
                         >
                             {content}
                         </Markdown>
-                    </Text>
+                    </div>
                 </Layout>
             </Card>
             <BackTop />
