@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Avatar, Card, Col} from 'antd';
+import {Avatar, Card, Col, Tag} from 'antd';
 import {Link} from "react-router-dom";
 
 const {Meta} = Card;
@@ -35,7 +35,8 @@ export const GameCard = ({data, widthData}) => {
                 <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                     <Meta
                         title={<div style={{color: "white"}}>{data.name}</div>}
-                        description={<div style={{color: "rgb(190,190,190)"}}>{`游戏标签：${tag}`}</div>}
+                        description={<Tag style={{color: "white", backgroundColor: "rgb(20,20,20)"}}>{`${tag}`}</Tag>}
+
                     />
                 </Link>
 

@@ -9,6 +9,7 @@ import {Provider} from 'react-redux';
 import store from './store';
 import {PersistGate} from "redux-persist/integration/react";
 import {persistStore} from "redux-persist";
+import { ConfigProvider, theme } from "antd";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let persistor = persistStore(store);
@@ -18,7 +19,9 @@ root.render(
         <PersistGate persistor={persistor} loading={null}>
             <React.StrictMode>
                 <BrowserRouter>
-                    <App/>
+                    <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
+                        <App />
+                    </ConfigProvider>
                 </BrowserRouter>
             </React.StrictMode>
         </PersistGate>

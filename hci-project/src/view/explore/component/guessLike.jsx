@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Divider, Flex, Row, Space } from 'antd';
-import { Link } from 'react-router-dom';
+import {Button, Card, Col, Divider, Flex, Row, Space} from 'antd';
+import {Link, useNavigate} from 'react-router-dom';
 import Meta from 'antd/es/card/Meta';
 import { GameCard } from '../../search/component/GameCard';
 import { GameList } from '../../search/component/GameList';
@@ -12,6 +12,8 @@ const GuessLike = ({ gameCount }) => {
     const [coverHeight, setCoverHeight] = useState(0);
 
     const [gameList, setGameList] = useState([]);
+
+    const navigate = useNavigate();
     const resizeUpdate = (e) => {
         let h = e.target.innerWidth * 0.18;
         setCoverHeight(h);
@@ -48,15 +50,30 @@ const GuessLike = ({ gameCount }) => {
 
     return (
         <React.Fragment>
-            <Header style={{ background: '#001529', marginBottom: 20 }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                    <Divider plain orientation={'left'}>
+                        <Col>
                         <span style={{ fontSize: 22, lineHeight: 1.4, color: 'white' }}>
                             猜你喜欢
                         </span>
-                    </Divider>
+                        </Col>
+
+                        <Col>
+                            <Button
+                                type='text'
+                                style={{
+                                    fontSize: 22,
+                                    color: 'white',
+                                }}
+                                onClick={()=>{
+                                    navigate("/explore/gameRepository")
+                                }}
+                            >
+                                浏览更多
+                            </Button>
+                        </Col>
+
                 </Row>
-            </Header>
+            <div style={{margin: 20}}></div>
             <GameList listData={gameList} widthData={330} />
         </React.Fragment>
     );
