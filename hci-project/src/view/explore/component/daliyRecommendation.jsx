@@ -62,15 +62,12 @@ const Slideshow = ({ data, interval, onPageChange }) => {
 
     return (
         <>
-            <Header style={{ background: '#001529', marginBottom: 20 }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                    <Divider plain orientation={'left'}>
                         <span style={{ fontSize: 22, lineHeight: 1.4, color: 'white' }}>
                             今日推荐
                         </span>
-                    </Divider>
                 </Row>
-            </Header>
+            <div style={{margin: 20}}></div>
             <GameList listData={data} widthData={330} />
         </>
     );

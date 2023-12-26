@@ -54,6 +54,8 @@ const NewsHeadCard = ({ imgSrc, title, shortContent, goLink }) => {
             }
         >
             <Meta title={title} description={shortContent} />
+            <div style={{margin: 18}}></div>
+            <div style={{fontSize: 18}}>阅读更多</div>
         </Card>
     );
 };
