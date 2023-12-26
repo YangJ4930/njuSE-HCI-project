@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Flex, Row, Space } from 'antd';
+import { Card, Divider, Flex, Row, Space } from 'antd';
 import { Link } from 'react-router-dom';
 import Meta from 'antd/es/card/Meta';
 import { GameCard } from '../../search/component/GameCard';
@@ -49,7 +49,11 @@ const GuessLike = ({ gameCount }) => {
         <React.Fragment>
             <Header style={{ background: 'white', marginBottom: 20 }}>
                 <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                    <span style={{ fontSize: 18, lineHeight: 1.4, color: 'black' }}>猜你喜欢</span>
+                    <Divider plain orientation={'left'}>
+                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'black' }}>
+                            猜你喜欢
+                        </span>
+                    </Divider>
                 </Row>
             </Header>
             <GameList listData={gameList} widthData={300} />
