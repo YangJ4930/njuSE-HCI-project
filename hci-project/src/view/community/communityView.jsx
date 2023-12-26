@@ -1,7 +1,7 @@
 
 import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Tag, Card, Tabs, Button, Popconfirm } from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Col, Row, Tag, Card, Tabs, theme, Button, Popconfirm, Flex } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
@@ -29,15 +29,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { SaveScroll, Savelist } from "../../redux/user/communitySlice";
 import axios from "../../axios";
 import BackTop from "../../component/BackTop";
-import { DndContext, PointerSensor, useSensor } from '@dnd-kit/core';
-import {
-    arrayMove,
-    horizontalListSortingStrategy,
-    SortableContext,
-    useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-
+import StickyBox from 'react-sticky-box';
+import back from './component/backgroud.jpg'
 const IconText = ({ icon, text, iconname }) => {
     const [xuan, setXuan] = useState(false);
     const [isshou, setIsshou] = useState(false);
@@ -91,28 +84,36 @@ const pushShow = (id, navigate) => {
     navigate(`/component/Communitydetail/${id}`)
 }
 
-export const CardList = (tag) => {
+export const CardList = (props) => {
+    const tag = props.tag
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const [page, setPage] = useState(0);
     const savelist = useSelector((state) => state.community)
     const dispatch = useDispatch();
     const ref = useRef(null);
     const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(0)
+    const [hasMore, setHaveMore] = useState(true)
+    console.log("loading" + tag)
+    console.log("loading" + data.length)
     const loadMoreData = () => {
         if (loading) {
             return;
         }
         setLoading(true);
         console.log('begining');
-        fetch(axios.defaults.baseURL + `/community/findAllCommunity/${page}`)
+        fetch(axios.defaults.baseURL + `/community/findAllCommunity/${page}/${tag}`)
             .then((res) => res.json())
             .then((body) => {
                 console.log(body);
                 setData([...data, ...body]);
-                const pagenumber = page + 1;
-                setPage(pagenumber);
-                console.log(page);
+                if (body.length == 0) {
+                    setTimeout(() => {
+                        setHaveMore(false)
+                    }, 1000)
+
+                }
+                setPage(page + 1)
                 setLoading(false);
             })
             .catch((endMessage) => {
@@ -121,22 +122,21 @@ export const CardList = (tag) => {
             });
     };
     useEffect(() => {
-        console.log(savelist)
+        console.log(savelist.listData);
         setData(savelist.listData)
         setPage(savelist.pageNumber)
-        // SetTag(savelist.tag)
+        loadMoreData()
         setTimeout(() => {
             window.scrollTo(0, savelist.scrollTo)
         }, 0)
-
-        //loadMoreData();
     }, []);
     return (
+
         <InfiniteScroll
             infinite-scroll-disabled={false}
             dataLength={data.length}
             next={loadMoreData}
-            hasMore={data.length % 4 == 0}
+            hasMore={data.length % 4 == 0 && hasMore}
             loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
             endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
             scrollableTarget="scrollableDiv"
@@ -148,6 +148,9 @@ export const CardList = (tag) => {
                 rowKey="id"
                 dataSource={data}
                 //loading={true}
+                style={{
+                    overflow: "auto"
+                }}
                 renderItem={(item) => {
                     var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD');
                     if (item.tags != null) {
@@ -188,7 +191,6 @@ export const CardList = (tag) => {
                                 bordered={false}
                                 onClick={() => {
                                     dispatch(SaveScroll(ref.current.lastScrollTop))
-
                                     let Scroll = {
                                         listData: data,
                                         PageNumber: page,
@@ -220,9 +222,9 @@ export const CardList = (tag) => {
 const icon = (label, imagesrc) => {
     const confirm = (e) => {
         console.log(e);
-      };
-      const cancel = (e) => {
-      };
+    };
+    const cancel = (e) => {
+    };
     return (
         // <Card hoverable
         //     bordered={false}
@@ -231,17 +233,6 @@ const icon = (label, imagesrc) => {
             <Image src={imagesrc} height={35} width={35} preview={false} ></Image>
             <div style={{ fontSize: "12px", marginLeft: "10px", marginRight: "10px" }}>{label}
             </div>
-            {label=="全部"? null:<Popconfirm
-                title="删除标签"
-                description="你确定要删除这个标签吗?"
-                onConfirm={confirm}
-                onCancel={cancel}
-                okText="Yes"
-                cancelText="No"
-            >
-                <CloseOutlined/>
-            </Popconfirm>}
-            
         </Row>
 
 
@@ -251,86 +242,175 @@ const icon = (label, imagesrc) => {
 }
 
 const CommunityView = function CommunityView() {
-    const key = 'updatable'
     const ite = [
         {
             key: '1',
             label: icon("全部", all),
-            children: CardList("全部"),
-
+            children: <CardList tag="全部"></CardList>,
+            closable: false,
         },
         {
             key: '2',
             label: icon("apex英雄", apex),
-            children: CardList("apex英雄"),
+            children: <CardList tag="apex"></CardList>,
             ava: apex,
         },
         {
             key: '3',
             label: icon("博德之门3", BoDe),
-            children: CardList("博德之门3"),
+            children: <CardList tag="博德之门3"></CardList>,
             ava: BoDe,
         },
         {
             key: '4',
             label: icon("无畏契约", WWQY),
-            children: CardList("无畏契约"),
+            children: <CardList tag="无畏契约"></CardList>,
             ava: WWQY,
         },
         {
             key: '5',
             label: icon("彩虹六号", C6),
-            children: CardList("彩虹六号"),
+            children: <CardList tag="彩虹六号"></CardList>,
             ava: C6,
         },
         {
             key: '6',
             label: icon("我的世界", Myworld),
-            children: CardList("我的世界"),
+            children: <CardList tag="我的世界"></CardList>,
             ava: Myworld,
         },
         {
             key: '7',
             label: icon("艾尔登法环", er),
-            children: CardList("艾尔登法环"),
+            children: <CardList tag="艾尔登法环"></CardList>,
             ava: er,
         },
         {
             key: '8',
             label: icon("战地5", zd),
-            children: CardList("战地5"),
+            children: <CardList tag="战地5"></CardList>,
             ava: zd,
         },
         {
             key: '9',
             label: icon("双人成行", it_takes_two),
-            children: CardList("双人成行"),
+            children: <CardList tag="双人成行"></CardList>,
             ava: it_takes_two,
         },
-        // {
-        //   title: "更多",
-        //   ava: "https://cn.bing.com/images/search?view=detailV2&ccid=2d2ejd2a&id=DDF73B8E1A52CB4C71CFA8DC9905E767AD7C2259&thid=OIP.2d2ejd2aIAmuTR9Q8rtQyQHaE8&mediaurl=https%3a%2f%2fwww.xtrafondos.com%2fwallpapers%2flogo-apex-legends-3031.jpg&exph=4000&expw=6000&q=apex%e5%9b%be%e6%a0%87&simid=608051676183620700&FORM=IRPRST&ck=76BC9B5586E382DE9F5AFEBF365EBAD9&selectedIndex=0&itb=0&ajaxhist=0&ajaxserp=0"
-        // },
     ];
-
+    const [activeKey, setActiveKey] = useState(ite[0].key);
+    const [items, setItems] = useState(ite);
+    const newTabIndex = useRef(0);
+    const user = useSelector((state) => state.user);
+    const onChange = (newActiveKey) => {
+        setActiveKey(newActiveKey);
+    };
+    const add = () => {
+        const newActiveKey = `newTab${newTabIndex.current++}`;
+        const newPanes = [...items];
+        newPanes.push({
+            label: 'New Tab',
+            children: 'Content of new Tab',
+            key: newActiveKey,
+        });
+        setItems(newPanes);
+        setActiveKey(newActiveKey);
+    };
+    const remove = (targetKey) => {
+        let newActiveKey = activeKey;
+        let lastIndex = -1;
+        items.forEach((item, i) => {
+            if (item.key === targetKey) {
+                lastIndex = i - 1;
+            }
+        });
+        const newPanes = items.filter((item) => item.key !== targetKey);
+        if (newPanes.length && newActiveKey === targetKey) {
+            if (lastIndex >= 0) {
+                newActiveKey = newPanes[lastIndex].key;
+            } else {
+                newActiveKey = newPanes[0].key;
+            }
+        }
+        setItems(newPanes);
+        setActiveKey(newActiveKey);
+    };
+    const onEdit = (targetKey, action) => {
+        if (action === 'add') {
+            add();
+        } else {
+            remove(targetKey);
+        }
+    };
+    const renderTabBar = (props, DefaultTabBar) => (
+        <StickyBox
+            offsetTop={0}
+            offsetBottom={20}
+            style={{
+                zIndex: 1,
+            }}
+        >
+            <DefaultTabBar
+                {...props}
+                style={{
+                }}
+            />
+        </StickyBox>
+    );
     return (
-        <div>
-            {/* <Card style={{ backgroundColor: "black" }} hoverable><Button type="text">Reload community</Button></Card> */}
+        <Flex>
+
+
             <PageContainer style={{
-
+                flex: 8
             }}>
-                <Tabs items={ite}>
-
+                <Tabs
+                    renderTabBar={renderTabBar}
+                    type="editable-card"
+                    onChange={onChange}
+                    activeKey={activeKey}
+                    onEdit={onEdit}
+                    items={items}
+                    onTabClick={(e) => {
+                    }}>
                 </Tabs>
-
+                <FloatButton.Group>
+                    <Link to='/component/postComponent'>
+                        <FloatButton tooltip={<div>发帖</div>} icon={<PlusOutlined />}></FloatButton>
+                    </Link>
+                    <BackTop />
+                </FloatButton.Group>
             </PageContainer>
-            <FloatButton.Group>
-                <Link to='/component/postComponent'>
-                    <FloatButton tooltip={<div>发帖</div>} icon={<PlusOutlined />}></FloatButton>
-                </Link>
-                <BackTop />
-            </FloatButton.Group>
-        </div>
+            <Flex flex={1} style={{
+                flexDirection: "column",
+                height: "1000px"
+            }} >
+                <Card
+                style={{ width: 300 }}
+                cover={
+                  <img
+                    alt="example"
+                    src={back}
+                  />
+                }
+                
+              >
+                <Card.Meta
+                  avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                  title={user.username}
+                  description={user.description}
+                />
+                </Card>
+                <br></br>
+                <Card style={{
+                    flex: 1
+                }}></Card>
+                <br></br>
+                <Card style={{
+                    flex: 1
+                }}></Card>
+            </Flex>
+        </Flex>
     );
 };
 export default CommunityView;
