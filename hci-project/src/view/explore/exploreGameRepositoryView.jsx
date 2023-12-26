@@ -6,6 +6,7 @@ import BackTop from '../../component/BackTop';
 import { GameList } from '../search/component/GameList';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGameTypes } from '../../redux/explore/gameSelectorSlice';
+import { CheckOutlined } from '@ant-design/icons';
 
 const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     const [gameList, setGameList] = useState([]);
@@ -43,7 +44,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     }, [selected]);
 
     return (
-        <Flex justify={'space-between'}>
+        <Flex justify={'flex-start'}>
             <GameTypeSelector />
 
             <GameList listData={displayGames} widthData={300} />
@@ -79,11 +80,15 @@ function PanelFlex({ index, name }) {
             onClick={() => {
                 Change();
             }}
-            style={{ backgroundColor: 'transparent', color: 'white', border: 'inherit' }}
+            style={{
+                backgroundColor: selected[index] ? 'grey' : 'black',
+                color: 'white',
+                border: 'inherit',
+            }}
         >
-            <Flex justify='space-between' align='center' horizontal>
-                <h6>{name}</h6>
-                {selected[index] && <Yes_svg />}
+            <Flex justify='space-between' horizontal>
+                <div>{name}</div>
+                {selected[index] && <CheckOutlined color={'white'} />}
             </Flex>
         </Button>
     );
@@ -98,7 +103,7 @@ function Yes_svg() {
             xmlns='http://www.w3.org/2000/svg'
             width='15'
             height='15'
-            color='white'
+            color='#FFFFFF'
         >
             <path
                 d='M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z'
