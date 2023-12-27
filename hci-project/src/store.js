@@ -25,6 +25,7 @@ const persistConfig = {
     storage,
     // 黑名单 不缓存的
     blacklist: ['game'],
+    blacklist: ['community'],
 };
 
 // combineReducers合并reducer

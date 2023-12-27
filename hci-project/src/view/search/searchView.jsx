@@ -80,7 +80,7 @@ const ChooseList = ({ content }) => {
             console.log('selected: ', selectedData);
             setDisplayList(selectedData);
         }
-    }, [selected]);
+    }, [selected, gameList, gameTypes, pathname]);
 
     return (
         <>
@@ -99,7 +99,7 @@ const ChooseList = ({ content }) => {
                     )}
                 </Col>
 
-                <div style={{margin: "400vw"}}></div>
+                <div style={{margin: "10vw"}}></div>
 
                 <BackTop />
             </Row>
