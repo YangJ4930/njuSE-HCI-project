@@ -360,8 +360,8 @@ const CommunityCard = ({ title }) => {
                                         Delete(item.id);
                                         window.location.reload();
                                     }}
-                                    okText='Yes'
-                                    cancelText='No'
+                                    okText='确定'
+                                    cancelText='取消'
                                 >
                                     <Button type='text'>删除</Button>
                                 </Popconfirm>,
