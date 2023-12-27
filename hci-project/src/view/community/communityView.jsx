@@ -501,7 +501,7 @@ const Rankinglist = ({ title }) => {
                         color: 'gray',
                     }}
                 >
-                    仅显示前十二位
+                    显示更多
                 </div>
             </List>
         </Card>
