@@ -1,4 +1,4 @@
-import { Button, Divider, Collapse, Flex, Col, Row } from 'antd';
+import {Button, Divider, Collapse, Flex, Col, Row, theme} from 'antd';
 import React, { useEffect, useState } from 'react';
 import './explore.css';
 import axios from '../../axios';
@@ -62,12 +62,13 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     );
 };
 
+
 export const GameTypeSelector = () => {
     const gameTypes = useSelector((state) => state.game.gameTypes);
-
+    const themeMode = useSelector((state)=>state.theme.IsChange)
     return (
-        <Col style={{ color: 'white' }}>
-            <Row>筛选器</Row>
+        <Col style={{ color: 'white'}}>
+            <Row style={{  color: themeMode ? 'white': 'black', fontSize: '1.2vw'}}>筛选器</Row>
             <Divider></Divider>
             {gameTypes.length > 0 &&
                 gameTypes.map((item, index) => (
@@ -79,7 +80,10 @@ export const GameTypeSelector = () => {
     );
 };
 
+
 export const PanelFlex = ({ index, name }) => {
+
+    const themeMode = useSelector((state)=>state.theme.IsChange)
     const [isSelected, setIsSelected] = useState(false);
     const selected = useSelector((state) => state.game.selected);
     const dispatch = useDispatch();
@@ -93,11 +97,13 @@ export const PanelFlex = ({ index, name }) => {
             onClick={() => {
                 Change();
             }}
-            style={{
-                backgroundColor: selected[index] ? 'grey' : 'black',
-                color: 'white',
+            style={
+            {
+                backgroundColor: selected[index] ? 'grey' : (themeMode?'black':'white'),
+                color: themeMode? 'white': 'black',
                 border: 'inherit',
-            }}
+            }
+            }
         >
             <Flex justify='space-between' horizontal>
                 <div>{name}</div>
@@ -108,8 +114,9 @@ export const PanelFlex = ({ index, name }) => {
 };
 
 export const NotFound = () => {
+    const themeMode = useSelector((state)=>state.theme.IsChange)
     return (
-        <div style={{ color: 'white', justifyContent: 'center', textAlign: 'center' }}>
+        <div style={{ color: themeMode? 'white':'black', justifyContent: 'center', textAlign: 'center' }}>
             <h1>未找到结果</h1>
             <h2>很遗憾，我没能找到与您搜索内容匹配的结果。</h2>
         </div>

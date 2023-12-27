@@ -4,6 +4,16 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const { Meta } = Card;
+
+const tagStyleLight = {
+    color: 'white',
+    backgroundColor: 'rgb(20,20,20)'
+}
+
+const  tagStyleDark = {
+    color: 'black',
+    backgroundColor: 'white'
+}
 export const GameCard = ({ data, widthData }) => {
     const [tag, setTag] = useState([]);
     const themeMode = useSelector((state) => state.theme.IsChange);
@@ -37,7 +47,14 @@ export const GameCard = ({ data, widthData }) => {
                         }
                         description={tag.map((item) => {
                             return (
-                                <Tag style={{ color: 'white', backgroundColor: 'rgb(20,20,20)' }}>
+                                <Tag style={()=>{
+                                    if(themeMode) {
+                                        return (tagStyleDark)
+                                    }
+                                    else {
+                                        return (tagStyleLight)
+                                    }
+                                }}>
                                     {item}
                                 </Tag>
                             );
