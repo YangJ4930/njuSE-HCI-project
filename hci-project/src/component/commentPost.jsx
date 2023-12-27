@@ -84,7 +84,10 @@ const CommentPost = (props) => {
                 extra={
                     <Space>
                         <Button onClick={onClose}>Cancel</Button>
-                        <Button type='primary' onClick={postcomment}>
+                        <Button type='primary' onClick={()=>{
+                            postcomment()
+                            window.location.reload()
+                        }}>
                             Submit
                         </Button>
                     </Space>

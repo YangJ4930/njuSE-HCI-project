@@ -9,9 +9,6 @@ import {
     PlusOutlined,
     LikeOutlined,
     MessageOutlined,
-    StarOutlined,
-    StarFilled,
-    CloseOutlined
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./community.css";
@@ -32,34 +29,12 @@ import BackTop from "../../component/BackTop";
 import StickyBox from 'react-sticky-box';
 import back from './component/backgroud.jpg'
 const IconText = ({ icon, text, iconname }) => {
-    const [xuan, setXuan] = useState(false);
     const [isshou, setIsshou] = useState(false);
-    const onEnter = () => {
-        setXuan(true);
-    };
-    const onLeave = () => {
-        setXuan(false);
-    };
     const onclickshou = () => {
         console.log(isshou);
         setIsshou(isshou ? false : true);
     };
     const color = isshou ? 'yellow' : 'black';
-    if (iconname === 'StarOutlined') {
-        const seicon = isshou ? StarFilled : StarOutlined;
-        return (
-            <span>
-                {React.createElement(seicon, {
-                    style: { marginInlineEnd: 8, color: color },
-                    onClick: onclickshou,
-                    spin: xuan,
-                    onMouseEnter: onEnter,
-                    onMouseLeave: onLeave,
-                })}
-                {text}
-            </span>
-        );
-    }
     return (
         <span>
             {React.createElement(icon, {
@@ -163,12 +138,12 @@ export const CardList = (props) => {
                             actions={[
                                 <IconText
                                     icon={LikeOutlined}
-                                    text="156"
+                                    text={item.likeNumber}
                                     key="list-vertical-like-o"
                                 />,
                                 <IconText
                                     icon={MessageOutlined}
-                                    text="2"
+                                    text={item.commentNumber}
                                     key="list-vertical-message"
                                 />,
                             ]}
@@ -583,8 +558,6 @@ const CommunityView = function CommunityView() {
                 </Card>
                 <br></br>
                 <CommunityCard title="自己发布的帖子:"  />
-                <br></br>
-                <CommunityCard title="点过赞的帖子:"  />
             </Flex>
             <Modal title="选择你喜欢的社区" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Select
