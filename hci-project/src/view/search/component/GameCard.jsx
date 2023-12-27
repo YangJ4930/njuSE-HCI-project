@@ -7,13 +7,13 @@ const { Meta } = Card;
 
 const tagStyleLight = {
     color: 'white',
-    backgroundColor: 'rgb(20,20,20)'
-}
+    backgroundColor: 'rgb(20,20,20)',
+};
 
-const  tagStyleDark = {
+const tagStyleDark = {
     color: 'black',
-    backgroundColor: 'white'
-}
+    backgroundColor: 'white',
+};
 export const GameCard = ({ data, widthData }) => {
     const [tag, setTag] = useState([]);
     const themeMode = useSelector((state) => state.theme.IsChange);
@@ -47,14 +47,15 @@ export const GameCard = ({ data, widthData }) => {
                         }
                         description={tag.map((item) => {
                             return (
-                                <Tag style={()=>{
-                                    if(themeMode) {
-                                        return (tagStyleDark)
-                                    }
-                                    else {
-                                        return (tagStyleLight)
-                                    }
-                                }}>
+                                <Tag
+                                    style={() => {
+                                        if (themeMode) {
+                                            return tagStyleDark;
+                                        } else {
+                                            return tagStyleLight;
+                                        }
+                                    }}
+                                >
                                     {item}
                                 </Tag>
                             );

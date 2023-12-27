@@ -48,39 +48,61 @@ const Other = ({ gameCount }) => {
     );
 };
 
-const GameItem = ({ data }) => (
-    <Card
-        hoverable
-        style={{
-            width: '45%',
-            height: '100%',
-            borderRadius: 8,
-        }}
-        cover={
-            <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
-                <img
-                    alt='example'
-                    src={data.imgUrl}
-                    style={{
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                        aspectRatio: 1.75,
-                        width: '100%',
-                    }}
-                />
-            </Link>
-        }
-    >
-        <Meta
-            title={data.name}
-            style={{ height: '10%' }}
-            description={data.tags.map((item) => {
-                return (
-                    <Tag style={{ color: 'white', backgroundColor: 'rgb(20,20,20)' }}>{item}</Tag>
-                );
-            })}
-        />
-    </Card>
-);
+const GameItem = ({ data }) => {
+    const tagStyleLight = {
+        color: 'white',
+        backgroundColor: 'rgb(20,20,20)',
+    };
 
+    const tagStyleDark = {
+        color: 'black',
+        backgroundColor: 'white',
+    };
+
+    const themeMode = useSelector((state) => state.theme.IsChange);
+    return (
+        <Card
+            hoverable
+            style={{
+                width: '45%',
+                height: '100%',
+                borderRadius: 8,
+            }}
+            cover={
+                <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
+                    <img
+                        alt='example'
+                        src={data.imgUrl}
+                        style={{
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                            aspectRatio: 1.75,
+                            width: '100%',
+                        }}
+                    />
+                </Link>
+            }
+        >
+            <Meta
+                title={data.name}
+                style={{ height: '10%' }}
+                description={data.tags.map((item) => {
+                    return (
+                        <Tag
+                            style={() => {
+                                if (themeMode) {
+                                    return tagStyleDark;
+                                } else {
+                                    return tagStyleLight;
+                                }
+                            }}
+                        >
+                            {item}
+                        </Tag>
+                    );
+                })}
+            />
+        </Card>
+    );
+};
 export { Other };
