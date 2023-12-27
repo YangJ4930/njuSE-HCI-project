@@ -14,6 +14,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     const selected = useSelector((state) => state.game.selected);
     const gameTypes = useSelector((state) => state.game.gameTypes);
     const dispatch = useDispatch();
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         axios.get('/explore/gameRepository').then((response) => {
@@ -56,7 +57,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
                     <NotFound />
                 )}
             </Col>
-            <div style={{margin: "400vw"}}></div>
+            <div style={{ margin: '400vw' }}></div>
             <BackTop />
         </Row>
     );
@@ -66,6 +67,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
 export const GameTypeSelector = () => {
     const gameTypes = useSelector((state) => state.game.gameTypes);
     const themeMode = useSelector((state)=>state.theme.IsChange)
+
     return (
         <Col style={{ color: 'white'}}>
             <Row style={{  color: themeMode ? 'white': 'black', fontSize: '1.2vw'}}>筛选器</Row>
@@ -87,6 +89,7 @@ export const PanelFlex = ({ index, name }) => {
     const [isSelected, setIsSelected] = useState(false);
     const selected = useSelector((state) => state.game.selected);
     const dispatch = useDispatch();
+
     const Change = () => {
         dispatch(selectGameTypes(index));
         setIsSelected(!isSelected);
@@ -102,6 +105,8 @@ export const PanelFlex = ({ index, name }) => {
                 backgroundColor: selected[index] ? 'grey' : (themeMode?'black':'white'),
                 color: themeMode? 'white': 'black',
                 border: 'inherit',
+                minWidth: '65%',
+
             }
             }
         >
@@ -113,14 +118,22 @@ export const PanelFlex = ({ index, name }) => {
     );
 };
 
-export const NotFound = () => {
-    const themeMode = useSelector((state)=>state.theme.IsChange)
+
+const NotFound = () => {
+    const themeMode = useSelector((state) => state.theme.IsChange);
     return (
-        <div style={{ color: themeMode? 'white':'black', justifyContent: 'center', textAlign: 'center' }}>
+        <div
+            style={{
+                color: themeMode ? 'white' : 'black',
+                justifyContent: 'center',
+                textAlign: 'center',
+            }}
+        >
             <h1>未找到结果</h1>
             <h2>很遗憾，我没能找到与您搜索内容匹配的结果。</h2>
         </div>
     );
 };
 
-export default ExploreGameRepositoryView;
+export { NotFound, ExploreGameRepositoryView };
+export default ExploreGameRepositoryView
