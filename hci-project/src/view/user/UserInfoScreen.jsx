@@ -9,6 +9,7 @@ import { EditOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons
 import { faker } from '@faker-js/faker';
 import { logout } from '../../redux/user/authSlice';
 import BackTop from '../../component/BackTop';
+import { GameList } from '../search/component/GameList';
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
@@ -18,6 +19,7 @@ const UserInfoScreen = (props) => {
     const tokenValue = useSelector((state) => state.auth.saTokenInfo.tokenValue);
     const userId = useSelector((state) => state.auth.saTokenInfo.loginId);
     const isLogin = useSelector((state) => state.auth.isLogin);
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         if (isLogin) {
@@ -39,15 +41,8 @@ const UserInfoScreen = (props) => {
         }
     }, [isLogin]);
     return (
-        <Col>
-            <Row
-                gutter={[16, 16]}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
+        <Row>
+            <Col span={3}>
                 <UserAvatar
                     level={userInfo.level}
                     username={userInfo.username}
@@ -55,29 +50,30 @@ const UserInfoScreen = (props) => {
                     cardBackgroundUrl={userInfo.cardBackgroundUrl}
                     description={userInfo.description}
                 />
-            </Row>
+            </Col>
 
-            <Divider />
+            <Divider type={'vertical'} />
 
-            <Divider />
-
-            <Row gutter={[16, 16]}
-                 style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
+            <Col
+                span={20}
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
                 <GameInventory gameInventory={userInfo.gameInventory} />
-            </Row>
-            <BackTop />
-        </Col>
+            </Col>
 
+            <BackTop />
+        </Row>
     );
 };
 
 const GameInventory = (props) => {
     const gameInventory = props.gameInventory;
     const navigate = useNavigate();
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     const handleGameItemClick = (e, gameId) => {
         console.log(e);
@@ -85,25 +81,9 @@ const GameInventory = (props) => {
     };
     return (
         <Col>
-            <h1 style={{color:"white"}}>游戏库存</h1>
-            <Flex wrap={'wrap'} gap={'large'} flex={'center'}>
-                {gameInventory !== null &&
-                    gameInventory.map((game) => (
-                        <Card
-                            key={game.id}
-                            hoverable={true}
-                            cover={
-                                <img alt={game.name} src={game.imgUrl} style={{ height: 350 }} />
-                            }
-                            style={{
-                                width: 250,
-                                textAlign: 'center',
-                            }}
-                            onClick={(e) => handleGameItemClick(e, game.id)}
-                        >
-                            <Meta title={game.name} />
-                        </Card>
-                    ))}
+            <h1 style={{ color: themeMode ? 'white' : 'black' }}>游戏库存</h1>
+            <Flex wrap={'wrap'} gap={'large'} flex={'center'} style={{ marginTop: 20 }}>
+                {gameInventory !== null && <GameList listData={gameInventory} widthData={300} />}
             </Flex>
         </Col>
     );
@@ -158,14 +138,6 @@ const UserAvatar = (props) => {
                     title={username}
                     description={description}
                 />
-                <Tag
-                    color={'default'}
-                    style={{
-                        marginTop: '20px',
-                    }}
-                >
-                    等级：{level}
-                </Tag>
             </Card>
         </Col>
     );
