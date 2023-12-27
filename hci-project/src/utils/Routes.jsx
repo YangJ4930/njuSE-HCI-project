@@ -8,7 +8,6 @@ import ExploreView from '../view/explore/exploreView';
 import ExploreGameRepositoryView from '../view/explore/exploreGameRepositoryView';
 import UserView from '../view/user/userView';
 import PostComponent from '../view/community/component/postComponent';
-import Communitydetail from '../component/communitydetail';
 import GameDetailView from '../component/gameDetailView';
 import { RegisterScreen } from '../view/user/RegisterScreen';
 import { LoginScreen } from '../view/user/LoginScreen';
@@ -36,10 +35,6 @@ function Router() {
             <Route
                 path='/component/postComponent'
                 element={<PostComponent></PostComponent>}
-            ></Route>
-            <Route
-                path='/component/Communitydetail/:communityId'
-                element={<Communitydetail></Communitydetail>}
             ></Route>
             <Route path='/game/:gameId' element={<GameDetailView></GameDetailView>}></Route>
             <Route path='/user' element={<UserView></UserView>}></Route>

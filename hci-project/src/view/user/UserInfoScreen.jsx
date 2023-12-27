@@ -2,18 +2,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
 import { fetchUserSuccess } from '../../redux/user/userSlice';
-import { Avatar, Card, Col, Divider, Flex, FloatButton, Row, Space, Tag, Tooltip } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import Meta from 'antd/es/card/Meta';
 import {
-    EditOutlined,
-    LogoutOutlined,
-    MailOutlined,
-    MailTwoTone,
-    SettingOutlined,
-} from '@ant-design/icons';
-import { faker } from '@faker-js/faker';
-import { logout } from '../../redux/user/authSlice';
+    Avatar,
+    Button,
+    Card,
+    Col,
+    Divider,
+    Flex,
+    FloatButton,
+    Row,
+    Space,
+    Tag,
+    Tooltip,
+} from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { EditOutlined, MailTwoTone } from '@ant-design/icons';
 import BackTop from '../../component/BackTop';
 import { GameList } from '../search/component/GameList';
 
@@ -87,6 +90,7 @@ const GameInventory = (props) => {
 };
 const UserInfo = ({ userInfo }) => {
     const themeMode = useSelector((state) => state.theme.IsChange);
+    const navigate = useNavigate();
 
     return (
         <div
@@ -105,6 +109,27 @@ const UserInfo = ({ userInfo }) => {
                 }}
             >
                 <Avatar src={userInfo.avatarUrl} size={120} />
+                <Tooltip placement={'bottom'} title={'修改个人信息'}>
+                    <Button
+                        type='primary'
+                        style={{
+                            position: 'absolute',
+                            right: '5%',
+                            fontSize: 20,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            display: 'flex',
+                            backgroundColor: themeMode ? 'black' : 'white',
+                            textAlign: 'center',
+                            color: themeMode ? 'white' : 'black',
+                        }}
+                        icon={<EditOutlined />}
+                        onClick={() => {
+                            navigate('/user/setting');
+                        }}
+                        size={'large'}
+                    ></Button>
+                </Tooltip>
             </Row>
             <Row justify={'space-around'} style={{ alignItems: 'center' }}>
                 <text style={{ fontSize: 80, color: themeMode ? 'white' : 'black' }}>
