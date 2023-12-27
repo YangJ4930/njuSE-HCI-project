@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4d43938d-f90a-4883-a8d3-377e1005f8f0" name="Changes" comment="试图merge" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,7 +44,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "Merging dev",
     "last_opened_file_path": "D:/project/njuse/3/hci/NJUSE-HCI-project-fontend/njuSE-HCI-project",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -97,7 +95,7 @@
       <workItem from="1703578882006" duration="3239000" />
       <workItem from="1703582296554" duration="850000" />
       <workItem from="1703605664292" duration="14000" />
-      <workItem from="1703605679500" duration="20697000" />
+      <workItem from="1703605679500" duration="21164000" />
     </task>
     <servers />
   </component>

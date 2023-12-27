@@ -14,7 +14,6 @@ import {
     Typography,
 } from 'antd';
 import { useParams } from 'react-router-dom';
-import markDownTemp from '../../../utils/temp/MarkdownTemp';
 import axios from '../../../axios';
 import gameImage from '../../../static/gameImage1.jpg';
 import BackTop from '../../../component/BackTop';
