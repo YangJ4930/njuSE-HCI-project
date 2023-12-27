@@ -3,15 +3,12 @@ import {
     Divider,
     List,
     Skeleton,
-    Space,
     Card,
-    Carousel,
     Image,
     Row,
     Tag,
     FloatButton,
     Button,
-
 } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -26,8 +23,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentPost from '../component/commentPost';
 import axios from '../axios'
 import { marked } from 'marked';
-
+import { useSelector, useDispatch } from 'react-redux'
 const Communitydetail = function Comunitydetail() {
+    const user = useSelector(state => state.user)
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
@@ -89,6 +87,11 @@ const Communitydetail = function Comunitydetail() {
                 console.log(err)
             })
     }
+    const deleteComment=(CommentId)=>{
+        axios.delete(`/community/DeleteComment/${CommentId}/${communityId}`).then((response)=>{
+                console.log(response)
+        })
+    }
     useEffect(() => {
         window.scrollTo(0, 0);
         findCommunityDetail()
@@ -98,10 +101,10 @@ const Communitydetail = function Comunitydetail() {
         <>
             <Button icon={<LeftOutlined />}
 
-                    type="link"
-                    onClick={() => {
-                        back()
-                    }}></Button>
+                type="link"
+                onClick={() => {
+                    back()
+                }}></Button>
             <PageContainer title={detail.title}>
                 <div
                     style={{
@@ -203,6 +206,7 @@ const Communitydetail = function Comunitydetail() {
                                         style={{ background: 'rgba(219,225,240,0.3)' }}
                                         bordered={false}
                                     >
+
                                         <List.Item.Meta
                                             avatar={<Avatar src={item.user.avatarUrl} />}
                                             title={<a href='https://ant.design'>{item.user.username}</a>}
@@ -212,22 +216,23 @@ const Communitydetail = function Comunitydetail() {
                                                 </div>
                                             }
                                         />
-                                        <div
-                                            style={{
-                                                marginLeft: 40,
-                                            }}
-                                        >
-                                            {item.comment}
-                                        </div>
+                                        <Row justify="space-between">
+                                            <div
+                                                style={{
+                                                    marginLeft: 40,
+                                                    flexDirection: "row"
+                                                }}
+                                            >
+                                                {item.comment}
 
-                                        {/* <img
-                  style={{
-                    marginLeft: 60,
-                  }}
-                  width={272}
-                  alt="logo"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                /> */}
+                                            </div>
+                                            {item.user.id == user.id ? <><Button type="text"
+                                                onClick={()=>{
+                                                    deleteComment(item.commentId)
+                                                    window.location.reload()
+                                                }}
+                                            >删除</Button></> : null}
+                                        </Row>
                                     </Card>
                                 </List.Item>
                             );
@@ -236,8 +241,8 @@ const Communitydetail = function Comunitydetail() {
                 </InfiniteScroll>
             </PageContainer>
             <FloatButton.Group>
-                <FloatButton style={{width: '50px', height: '50px'}} description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
-                <FloatButton.BackTop style={{width: '50px', height: '50px',marginRight:'40px'}} className="backtop" />
+                <FloatButton style={{ width: '50px', height: '50px' }} description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
+                <FloatButton.BackTop style={{ width: '50px', height: '50px', marginRight: '40px' }} className="backtop" />
             </FloatButton.Group>
         </>
     );
