@@ -57,7 +57,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
                     <NotFound />
                 )}
             </Col>
-            <div style={{margin: "400vw"}}></div>
+            <div style={{ margin: '400vw' }}></div>
             <BackTop />
         </Row>
     );
@@ -112,7 +112,7 @@ const PanelFlex = ({ index, name }) => {
     );
 };
 
-export const NotFound = () => {
+const NotFound = () => {
     const themeMode = useSelector((state) => state.theme.IsChange);
     return (
         <div
@@ -128,4 +128,5 @@ export const NotFound = () => {
     );
 };
 
+export { NotFound, GameTypeSelector };
 export default ExploreGameRepositoryView;
