@@ -86,6 +86,7 @@ export const CardList = (props) => {
     const [commentModal, setCommentModal] = useState(false);
     const [communityId, setcommunityId] = useState(-1);
     const [likes, setLikes] = useState();
+    const themeMode = useSelector((state) => state.theme.IsChange);
     console.log('loading' + tag);
     console.log('loading' + data.length);
     const loadMoreData = () => {
@@ -157,10 +158,11 @@ export const CardList = (props) => {
                                     backgroundColor: 'rgba(0,0,0,0)',
                                 }}
                             >
+                                {/*用户发的帖子*/}
                                 <Card
                                     hoverable
                                     style={{
-                                        backgroundColor: 'rgba(220,220,220,0.2)',
+                                        // backgroundColor: 'rgba(220,220,220,0.2)',
                                         marginTop: '20px',
                                     }}
                                     bordered={false}
@@ -187,13 +189,17 @@ export const CardList = (props) => {
                                     <Row>
                                         <List.Item.Meta
                                             avatar={
-                                                <Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />
+                                                <Avatar
+                                                    src={
+                                                        'https://images.pexels.com/photos/6716572/pexels-photo-6716572.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                                                    }
+                                                />
                                             }
                                             title={
                                                 <Row>
                                                     <div
                                                         style={{
-                                                            color: 'blue',
+                                                            color: themeMode ? 'white' : 'black',
                                                         }}
                                                     >
                                                         {item.author}
@@ -203,7 +209,7 @@ export const CardList = (props) => {
                                                         : item.tags.map((key, index) => {
                                                               return (
                                                                   <Tag
-                                                                      color='#2db7f5'
+                                                                      color='red'
                                                                       style={{
                                                                           marginLeft: 10,
                                                                       }}
@@ -220,7 +226,7 @@ export const CardList = (props) => {
                                                     <p
                                                         style={{
                                                             fontSize: '22px',
-                                                            color: 'Black',
+                                                            color: themeMode ? 'white' : 'black',
                                                         }}
                                                     >
                                                         {item.title}
@@ -228,7 +234,7 @@ export const CardList = (props) => {
                                                     <p
                                                         style={{
                                                             fontSize: '16px',
-                                                            color: 'Black',
+                                                            color: themeMode ? 'white' : 'black',
                                                         }}
                                                     >
                                                         {item.content}
@@ -609,10 +615,6 @@ const CommunityView = function CommunityView() {
     const user = useSelector((state) => state.user);
     const authe = useSelector((state) => state.auth);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
 
     const handleOk = () => {
         console.log('---------------' + authe.isLogin);
