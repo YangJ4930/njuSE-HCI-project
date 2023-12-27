@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Divider, Card, Button } from 'antd';
+import { Layout, Menu, Input, Avatar, Divider, Card, Button, Switch } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {
-    BarsOutlined,
-    HeartOutlined,
-    HomeOutlined,
     LoginOutlined,
     ReadOutlined,
     TeamOutlined,
     UserOutlined,
+    CloseOutlined,
+    CheckOutlined
 } from '@ant-design/icons';
 import './Menu.css';
 
@@ -19,6 +18,7 @@ import Router from '../utils/Routes';
 import { lastPath, setCurrent } from '../redux/navbar/navbarSlice';
 import { setBasicCurrent } from '../redux/navbar/basicbarSlice';
 import Logo from '../static/jgame.png';
+import { changeTheme } from '../redux/theme/themeSlice';
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -40,7 +40,7 @@ const BasicLayout = () => {
     };
 
     return (
-        <Layout style={{  }}>
+        <Layout style={{}}>
             <Header
                 style={{
                     background: '#fff',
@@ -53,6 +53,7 @@ const BasicLayout = () => {
             <Content style={{ margin: '24px 16px 0' }}>
                 <div style={{ paddingLeft: 30, paddingRight: 30 }}>
                     <Router />
+
                 </div>
             </Content>
             <div style={{ display: isVisible ? 'flex' : 'none', justifyContent: 'center' }}>
@@ -106,7 +107,8 @@ const BasicBar = () => {
 
     const onClick = (e) => {
         console.log('click ', e);
-        if (e.key !== 'search' && e.key !== 'logo') {
+        if(e.key=="theme"){
+        }else if (e.key !== 'search' && e.key !== 'logo') {
             dispatch(setBasicCurrent(e.key));
             navigate(`/${e.key}`);
         }
@@ -164,7 +166,7 @@ const BasicBar = () => {
                             size='large'
                             src={<img width='40' src={userInfo.avatarUrl}></img>}
                         />
-                    ) : (
+                    ) : (<>
                         <Button
                             type='primary'
                             shape='round'
@@ -173,11 +175,27 @@ const BasicBar = () => {
                         >
                             {'登录/注册'}
                         </Button>
+                    </>
                     )}
                 </Link>
             ),
             key: 'user',
         },
+        {
+            label: (<>
+                <Switch
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    onChange={(checked)=>{
+                        dispatch(changeTheme(checked))
+                    }}
+                />
+            </>
+
+            ),
+            key: "theme"
+        }
+
     ];
 
     return (

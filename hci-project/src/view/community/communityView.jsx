@@ -174,6 +174,7 @@ export const CardList = (props) => {
                             ]}
                         >
                             <Card hoverable
+                                color="white"
                                 bordered={false}
                                 onClick={() => {
                                     dispatch(SaveScroll(ref.current.lastScrollTop))
@@ -202,13 +203,13 @@ export const CardList = (props) => {
                                             <div>发表时间: {formattedTimestamp}</div>
                                             <p style={{
                                                 fontSize: "22px",
-                                                color: "black"
+                                                color: "White"
                                             }}>
                                                 {item.title}
                                             </p>
                                             <p style={{
                                                 fontSize: "16px",
-                                                color: "black"
+                                                color: "White"
                                             }}>
                                                 {item.content}
                                             </p>
