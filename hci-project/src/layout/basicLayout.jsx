@@ -144,9 +144,9 @@ const BasicBar = () => {
                     enterButton='搜索'
                     size='large'
                     style={{
-                        width: 300,
-                        marginLeft: 370,
-                        marginTop: 10,
+                        width: "15vw",
+                        marginLeft: "20vw",
+                        marginTop: "0.75vw",
                     }}
                     value={searchWord}
                     // onClick={this.state.SearchLog}
@@ -160,7 +160,7 @@ const BasicBar = () => {
         },
         {
             label: (
-                <Link className='nav-link' to='/user' style={{ marginLeft: 450 }}>
+                <Link className='nav-link' to='/user' style={{ marginLeft: "25vw" }}>
                     {isLogin === true ? (
                         <Avatar
                             size='large'
