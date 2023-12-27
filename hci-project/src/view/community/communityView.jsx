@@ -334,7 +334,7 @@ const CommunityCard = ({ title }) => {
         </Card>
     )
 }
-const Rankinglist = ({ title }) => {
+const Rankinglist = ({ title}) => {
     const ranking = [
         {
             key: "1.",
