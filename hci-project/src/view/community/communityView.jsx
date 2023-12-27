@@ -1,7 +1,7 @@
 
 import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Select, Tag, Card, Tabs, Popconfirm, Flex, Modal, message, Button } from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Select, Tag, Col, Card, Tabs, Popconfirm, Flex, Modal, message, Button, Carousel } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
@@ -28,37 +28,35 @@ import axios from "../../axios";
 import BackTop from "../../component/BackTop";
 import StickyBox from 'react-sticky-box';
 import back from './component/backgroud.jpg'
-const IconText = ({ icon, text, iconname }) => {
-    const [isshou, setIsshou] = useState(false);
-    const onclickshou = () => {
-        console.log(isshou);
-        setIsshou(isshou ? false : true);
-    };
-    const color = isshou ? 'yellow' : 'black';
-    return (
-        <span>
-            {React.createElement(icon, {
-                style: { marginInlineEnd: 8, color: color },
-                onClick: onclickshou,
-            })}
-            {text}
-        </span>
-    );
-};
-
-const ContentText = ({ title }) => {
-    return (
-        <>
-            <div className='title'>{title}</div>
-            {/* <div className="content">{content}</div> */}
-        </>
-    );
-};
+import Communitydetail from "./component/communitydetail";
 
 const pushShow = (id, navigate) => {
     navigate(`/component/Communitydetail/${id}`)
 }
-
+const Likeslist = ({ likeNumber }) => {
+    const [number, setNumber] = useState(likeNumber)
+    const [isxuan,setIsxuan]=useState(false)
+    return (
+        <> <Row justify="center" onClick={()=>{
+            if(isxuan){
+                let x=number-1
+                setNumber(x)
+                setIsxuan(false)
+            }
+            else{
+                let x=number+1
+                setNumber(x)
+                setIsxuan(true)
+            }
+        }}>
+            <LikeOutlined style={{ fontSize: "22px" }} />
+            <div style={{ marginLeft: "10px" }}>
+                {number}
+            </div>
+        </Row>
+        </>
+    )
+}
 export const CardList = (props) => {
     const tag = props.tag
     const [data, setData] = useState([]);
@@ -69,6 +67,9 @@ export const CardList = (props) => {
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(0)
     const [hasMore, setHaveMore] = useState(true)
+    const [commentModal, setCommentModal] = useState(false)
+    const [communityId, setcommunityId] = useState(-1)
+    const [likes, setLikes] = useState();
     console.log("loading" + tag)
     console.log("loading" + data.length)
     const loadMoreData = () => {
@@ -106,105 +107,120 @@ export const CardList = (props) => {
         }, 0)
     }, []);
     return (
-
-        <InfiniteScroll
-            infinite-scroll-disabled={false}
-            dataLength={data.length}
-            next={loadMoreData}
-            hasMore={data.length % 4 == 0 && hasMore}
-            loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-            endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-            scrollableTarget="scrollableDiv"
-            ref={ref}
-        >
-            <ProList
-                size="small"
-                itemLayout="vertical"
-                rowKey="id"
-                dataSource={data}
-                //loading={true}
-                style={{
-                    overflow: "auto"
-                }}
-                renderItem={(item) => {
-                    var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD');
-                    if (item.tags != null) {
-                        if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
-                            return null;
+        <>
+            <InfiniteScroll
+                infinite-scroll-disabled={false}
+                dataLength={data.length}
+                next={loadMoreData}
+                hasMore={data.length % 4 == 0 && hasMore}
+                loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+                endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+                scrollableTarget="scrollableDiv"
+                ref={ref}
+            >
+                <ProList
+                    size="small"
+                    itemLayout="vertical"
+                    rowKey="id"
+                    dataSource={data}
+                    //loading={true}
+                    style={{
+                        overflow: "auto",
+                        //backgroundColor:"red",
+                        backgroundColor: "rgba(0,0,0,0)",
+                    }}
+                    renderItem={(item) => {
+                        var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD');
+                        if (item.tags != null) {
+                            if (item.tags.indexOf(tag) == -1 && tag !== "全部") {
+                                return null;
+                            }
                         }
-                    }
-                    return (
-                        <List.Item
-                            actions={[
-                                <IconText
-                                    icon={LikeOutlined}
-                                    text={item.likeNumber}
-                                    key="list-vertical-like-o"
-                                />,
-                                <IconText
-                                    icon={MessageOutlined}
-                                    text={item.commentNumber}
-                                    key="list-vertical-message"
-                                />,
-                            ]}
-                        >
-                            <Card hoverable
-                                color="white"
-                                bordered={false}
-                                onClick={() => {
-                                    dispatch(SaveScroll(ref.current.lastScrollTop))
-                                    let Scroll = {
-                                        listData: data,
-                                        PageNumber: page,
-                                    }
-                                    dispatch(Savelist(Scroll))
-                                    pushShow(item.id, navigate)
+                        return (
+                            <List.Item
+                                style={{
+                                    backgroundColor: "rgba(0,0,0,0)",
                                 }}
-                            >
-                                <Row>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
-                                        title={(<Row >
-                                            <div style={{
-                                                color: "blue"
-                                            }}>{item.author}</div>
-                                            {item.tags == null ? null : item.tags.map((key, index) => {
-                                                return <Tag color="#2db7f5" style={{
-                                                    marginLeft: 10
-                                                }}>{key}</Tag>
-                                            })}
-                                        </Row>)}
-                                        description={<div>
-                                            <div>发表时间: {formattedTimestamp}</div>
-                                            <p style={{
-                                                fontSize: "22px",
-                                                color: "Black"
-                                            }}>
-                                                {item.title}
-                                            </p>
-                                            <p style={{
-                                                fontSize: "16px",
-                                                color: "Black"
-                                            }}>
-                                                {item.content}
-                                            </p>
-                                        </div>}
-                                    >
-                                    </List.Item.Meta>
-                                    {item.image === null ? null : <Image
-                                        preview={false}
-                                        height={180}
-                                        alt="logo"
-                                        src={item.image}
-                                    />}
 
-                                </Row>
-                            </Card>
-                        </List.Item>
-                    );
+                            >
+                                <Card hoverable
+                                    style={{
+                                        backgroundColor: "rgba(220,220,220,0.2)",
+                                        marginTop: "20px"
+                                    }}
+                                    bordered={false}
+                                    onClick={() => {
+
+                                    }}
+                                    actions={[
+                                        <Likeslist likeNumber={item.likeNumber}></Likeslist>,
+                                        <> <Row justify="center" onClick={() => {
+                                            setCommentModal(true)
+                                            setcommunityId(item.id)
+                                        }}>< MessageOutlined style={{ fontSize: "22px" }} /><div style={{ marginLeft: "10px" }}>{item.commentNumber}</div></Row></>,
+                                    ]}
+                                >
+                                    <Row>
+                                        <List.Item.Meta
+                                            avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
+                                            title={(<Row >
+                                                <div style={{
+                                                    color: "blue"
+                                                }}>{item.author}</div>
+                                                {item.tags == null ? null : item.tags.map((key, index) => {
+                                                    return <Tag color="#2db7f5" style={{
+                                                        marginLeft: 10
+                                                    }}>{key}</Tag>
+                                                })}
+                                            </Row>)}
+                                            description={<div>
+                                                <div>发表时间: {formattedTimestamp}</div>
+                                                <p style={{
+                                                    fontSize: "22px",
+                                                    color: "Black"
+                                                }}>
+                                                    {item.title}
+                                                </p>
+                                                <p style={{
+                                                    fontSize: "16px",
+                                                    color: "Black"
+                                                }}>
+                                                    {item.content}
+                                                </p>
+                                            </div>}
+                                        >
+                                        </List.Item.Meta>
+                                        {item.image === null ? null : <Image
+                                            //preview={false}
+                                            width={180}
+
+                                            alt="logo"
+                                            src={item.image}
+                                        />
+                                        }
+
+                                    </Row>
+                                </Card>
+                            </List.Item>
+                        );
+                    }}
+                ></ProList>
+            </InfiniteScroll>
+            <Modal
+                destroyOnClose={true}
+                width="50vw"
+                maskClosable={true}
+                cancelButtonProps={<Button></Button>}
+                okButtonProps={<Button></Button>}
+                onCancel={() => {
+                    setCommentModal(false)
+
                 }}
-            ></ProList>
-        </InfiniteScroll>
+                open={commentModal}
+            >
+                <Communitydetail communityId={communityId}></Communitydetail>
+            </Modal>
+        </>
     )
 }
 
@@ -223,7 +239,7 @@ const icon = (label, imagesrc) => {
             width: "150px"
         }}>
             <Image src={imagesrc} height={35} width={35} preview={false} ></Image>
-            <div style={{ fontSize: "12px", marginLeft: "10px", marginRight: "10px" }}>{label}
+            <div style={{ fontSize: "15px", marginLeft: "10px", marginRight: "10px" }}>{label}
             </div>
         </Row>
         // </Card>
@@ -236,11 +252,11 @@ const CommunityCard = ({ title }) => {
     const Delete = async (CommunityId) => {
         const response = await axios.get(`community/DeleteThePost/${CommunityId}`);
         console.log(response);
-       // await loadSelfCommunity(user.id);
+        // await loadSelfCommunity(user.id);
     }
     const loadSelfCommunity = async (UserId) => {
-         const response = await axios.get(`community/findCommunityByUserId/${UserId}`)
-         console.log(response.data);
+        const response = await axios.get(`community/findCommunityByUserId/${UserId}`)
+        console.log(response.data);
         setThisdata([...thisdata, ...response.data]);
     }
     const navigate = useNavigate();
@@ -253,22 +269,25 @@ const CommunityCard = ({ title }) => {
         }}
             bodyStyle={{
                 // backgroundColor:"black"
+
             }}
         >
-            <div>{title}</div>
+            <div style={{
+                fontSize: "16px",
+                fontWeight: "bold"
+            }}>{title}</div>
             <List
                 className="demo-loadmore-list"
                 itemLayout="horizontal"
                 dataSource={thisdata}
                 style={{
                     height: "400px",
-                    backgroundColor: "white"
                 }}
                 pagination={{
                     onChange: (page) => {
                         console.log(page);
                     },
-                    pageSize: 3,
+                    pageSize: 5,
                     total: thisdata.length
                 }}
                 renderItem={(item, index) => {
@@ -299,7 +318,7 @@ const CommunityCard = ({ title }) => {
                                 }}>
                                 <Card.Meta
                                     style={{
-                                        fontSize:"10px"
+                                        fontSize: "10px"
                                     }}
                                     description={formattedTimestamp}
                                     title={item.title}
@@ -315,8 +334,114 @@ const CommunityCard = ({ title }) => {
         </Card>
     )
 }
+const Rankinglist = ({ title }) => {
+    const ranking = [
+        {
+            key: "1.",
+            name: "apex英雄"
+        },
+        {
+            key: "2.",
+            name: "博德之门3"
+        },
+        {
+            key: "3.",
+            name: "双人成行"
+        },
+        {
+            key: "4.",
+            name: "荒野大镖客"
+        },
+        {
+            key: "5.",
+            name: "艾尔登法环"
+        },
+        {
+            key: "6.",
+            name: "无畏契约"
+        },
+        {
+            key: "7.",
+            name: "我的世界"
+        },
+        {
+            key: "8.",
+            name: "战地五"
+        },
+        {
+            key: "9.",
+            name: "彩虹六号"
+        },
+        {
+            key: "10.",
+            name: "古墓丽影"
+        },
+        {
+            key: "11.",
+            name: "文明6"
+        },
+        {
+            key: "12.",
+            name: "gta5"
+        }
+    ]
+    return (
+        <Card
+            hoverable
+            style={{
+                width: "82%",
+                marginLeft: "20%",
+                // backgroundColor:"rgba(0,0,0,0)",
+                //backgroundImage:`url(${apex})`
+            }}
+            bodyStyle={{
+                // backgroundColor:"black"
+
+            }}
+        >
+            <div style={{
+                fontSize: "20px",
+                fontWeight: "bold"
+            }}>{title}</div>
+            <List
+                className="demo-loadmore-list"
+                itemLayout="horizontal"
+                dataSource={ranking}
+                renderItem={(item, index) => {
+                    return (
+                        <Row style={{
+                            marginTop: "10px",
+                            marginLeft: "5%"
+                        }}>
+                            <Col className="gutter-row" span={4}>
+                                <div style={{
+                                    fontSize: "22px",
+                                    color: "rgb(255,69,0)"
+                                }}>{item.key}</div>
+                            </Col>
+                            <Col>
+                                <div style={{
+                                    fontSize: "20px",
+
+                                }}>{item.name}</div>
+                            </Col>
+
+                        </Row>
+                    )
+                }}
+            >
+                <div style={{
+                    marginLeft: "20%",
+                    marginTop: "10px",
+                    color: "gray"
+                }}>仅显示前十二位</div>
+            </List>
+
+        </Card>
+    )
+}
 const CommunityView = function CommunityView() {
-    
+
     useEffect(() => {
         loadLoveTags(user.id)
     }, [])
@@ -515,9 +640,32 @@ const CommunityView = function CommunityView() {
     };
     return (
         <Flex>
+            <Flex flex={1} style={{
+                flexDirection: "column",
+                height: "1000px",
+                justifyContent: "right"
+            }} >
+                <Card style={
+                    {
+                        maxWidth: "16vw",
+                        // backgroundImage:`url(${back})`,
+                        // backgroundSize:"cover"
+                    }
+                }>
+                    <Carousel autoplay>
+                        <Image src={apex}></Image>
+                        <Image src={it_takes_two}></Image>
+                        <Image src={BoDe}></Image>
+
+                    </Carousel>
+                </Card>
+                <br></br>
+                <Rankinglist title="热门社区榜单"></Rankinglist>
+            </Flex>
             <PageContainer style={{
-                maxWidth: "80vw",
-                flex: 8
+                maxWidth: "55vw",
+                // backgroundColor:"red",
+                flex: 10
             }}>
                 <Tabs
                     renderTabBar={renderTabBar}
@@ -536,12 +684,12 @@ const CommunityView = function CommunityView() {
                     <BackTop />
                 </FloatButton.Group>
             </PageContainer>
-            <Flex flex={1} style={{
+            <Flex flex={4} style={{
                 flexDirection: "column",
                 height: "1000px"
             }} >
                 <Card
-                    style={{ width: 300 }}
+                    //style={{ width: 300 }}
                     cover={
                         <img
                             alt="example"
@@ -557,7 +705,7 @@ const CommunityView = function CommunityView() {
                     />
                 </Card>
                 <br></br>
-                <CommunityCard title="自己发布的帖子:"  />
+                <CommunityCard title="自己发布的帖子:" />
             </Flex>
             <Modal title="选择你喜欢的社区" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Select
