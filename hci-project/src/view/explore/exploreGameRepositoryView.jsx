@@ -14,6 +14,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     const selected = useSelector((state) => state.game.selected);
     const gameTypes = useSelector((state) => state.game.gameTypes);
     const dispatch = useDispatch();
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         axios.get('/explore/gameRepository').then((response) => {
@@ -64,9 +65,10 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
 
 const GameTypeSelector = () => {
     const gameTypes = useSelector((state) => state.game.gameTypes);
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     return (
-        <Col style={{ color: 'white' }}>
+        <Col style={{ color: themeMode ? 'white' : 'black' }}>
             <Row>筛选器</Row>
             <Divider></Divider>
             {gameTypes.length > 0 &&
@@ -83,6 +85,8 @@ const PanelFlex = ({ index, name }) => {
     const [isSelected, setIsSelected] = useState(false);
     const selected = useSelector((state) => state.game.selected);
     const dispatch = useDispatch();
+    const themeMode = useSelector((state) => state.theme.IsChange);
+
     const Change = () => {
         dispatch(selectGameTypes(index));
         setIsSelected(!isSelected);
@@ -94,22 +98,31 @@ const PanelFlex = ({ index, name }) => {
                 Change();
             }}
             style={{
-                backgroundColor: selected[index] ? 'grey' : 'black',
-                color: 'white',
+                backgroundColor: selected[index] ? 'grey' : themeMode ? 'black' : 'white',
+                color: themeMode ? 'white' : 'black',
                 border: 'inherit',
+                minWidth: '65%',
             }}
         >
             <Flex justify='space-between' horizontal>
                 <div>{name}</div>
-                {selected[index] && <CheckOutlined color={'white'} />}
+                {selected[index] && <CheckOutlined color={themeMode ? 'white' : 'black'} />}
             </Flex>
         </Button>
     );
 };
 
 const NotFound = () => {
+    const themeMode = useSelector((state) => state.theme.IsChange);
+
     return (
-        <div style={{ color: 'white', justifyContent: 'center', textAlign: 'center' }}>
+        <div
+            style={{
+                color: themeMode ? 'white' : 'black',
+                justifyContent: 'center',
+                textAlign: 'center',
+            }}
+        >
             <h1>未找到结果</h1>
             <h2>很遗憾，我没能找到与您搜索内容匹配的结果。</h2>
         </div>

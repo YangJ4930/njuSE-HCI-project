@@ -21,6 +21,7 @@ import BackTop from '../../../component/BackTop';
 import Tab from 'bootstrap/js/src/tab';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useSelector } from 'react-redux';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -33,6 +34,7 @@ function NewsContentMD(props) {
     const [news, setNews] = useState({});
     const [content, setContent] = useState('');
     const [titles, setTitles] = useState(['']);
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         axios.get(`/news/content/${id}`).then((response) => {
@@ -56,8 +58,8 @@ function NewsContentMD(props) {
                     padding: 20,
                     marginInline: 110,
                     maxWidth: '70%',
-                    backgroundColor: 'black',
-                    color: 'white',
+                    backgroundColor: themeMode ? 'rgba(18,18,18,0.85)' : 'white',
+                    color: themeMode ? 'white' : 'black',
                 }}
             >
                 <Layout
@@ -76,7 +78,7 @@ function NewsContentMD(props) {
                             textAlign: 'center',
                             fontSize: 40,
                             marginBottom: 20,
-                            color: 'white',
+                            color: themeMode ? 'white' : 'black',
                         }}
                     >
                         {news.title}
@@ -87,6 +89,7 @@ function NewsContentMD(props) {
                             'https://images.pexels.com/photos/4946515/pexels-photo-4946515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                         }
                     />
+
                     <Divider />
                     <div
                         style={{
@@ -123,7 +126,7 @@ function NewsContentMD(props) {
                                         <h1
                                             {...props}
                                             style={{
-                                                color: 'white',
+                                                color: themeMode ? 'white' : 'black',
                                                 marginTop: 40,
                                                 marginBottom: 30,
                                             }}
@@ -135,7 +138,7 @@ function NewsContentMD(props) {
                                         <h2
                                             {...props}
                                             style={{
-                                                color: 'white',
+                                                color: themeMode ? 'white' : 'black',
                                                 marginTop: 30,
                                                 marginBottom: 30,
                                             }}
@@ -175,12 +178,16 @@ const Author = (props) => {
                 }}
             >
                 <Avatar src={<img src={url} alt='avatar' />} style={{ marginRight: 10 }} />
-                <text>Epic Games</text>
+                <text style={{ fontSize: 16 }}>Epic Games</text>
             </Row>
             <Divider type={'vertical'} style={{ backgroundColor: 'white' }} />
-            <Col span={6}>更新: DEC 27, 2023 10:09 AM</Col>
+            <Col span={6} style={{ fontSize: 16 }}>
+                更新: DEC 27, 2023 10:09 AM
+            </Col>
             <Divider type={'vertical'} style={{ backgroundColor: 'white' }} />
-            <Col span={6}>创建: DEC 18, 2023 11:49 PM</Col>
+            <Col span={6} style={{ fontSize: 16 }}>
+                创建: DEC 18, 2023 11:49 PM
+            </Col>
         </Row>
     );
 };
