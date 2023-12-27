@@ -69,8 +69,13 @@ export const GameTypeSelector = () => {
     const themeMode = useSelector((state)=>state.theme.IsChange)
 
     return (
+<<<<<<< HEAD
         <Col style={{ color: 'white'}}>
             <Row style={{  color: themeMode ? 'white': 'black', fontSize: '1.2vw'}}>筛选器</Row>
+=======
+        <Col style={{ color: themeMode ? 'white' : 'black' }}>
+            <Row style={{ fontSize: 22, marginInline: 4 }}>筛选器</Row>
+>>>>>>> 3c3c8d727536102dccb5495b49049ae43928df99
             <Divider></Divider>
             {gameTypes.length > 0 &&
                 gameTypes.map((item, index) => (
