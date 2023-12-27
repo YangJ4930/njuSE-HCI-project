@@ -24,8 +24,7 @@ const persistConfig = {
     key: 'root',
     storage,
     // 黑名单 不缓存的
-    blacklist: ['game'],
-    blacklist: ['community'],
+    blacklist: ['game', 'community'],
 };
 
 // combineReducers合并reducer
@@ -37,7 +36,7 @@ const reducers = combineReducers({
     news: newsReducer,
     community: communityReducer,
     game: gameTypeSelectorReducer,
-    theme:themeSlice
+    theme: themeSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
