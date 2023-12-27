@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeVisible, setCurrent } from '../../redux/navbar/navbarSlice';
-import {FloatButton, Layout, Menu, Row} from 'antd';
+import {Col, FloatButton, Layout, Menu, Row, Typography} from 'antd';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -13,8 +13,10 @@ import {GameList} from "./component/GameList";
 import {ListNews} from "../news/component/listNews";
 import {CardList} from "../community/communityView";
 import BackTop from "../../component/BackTop";
+import {GameTypeSelector, NotFound} from "../explore/exploreGameRepositoryView";
 
 const { Header } = Layout;
+const { Title, Text } = Typography;
 const SearchHead = ({ name }) => {
     return (
         <Header style={{ background: '#001529' }}>
@@ -47,8 +49,9 @@ const ChooseList = ({ content }) => {
     const location = useLocation();
     const pathname = location.pathname;
     const [gameList, setGameList] = useState([])
-    const [newsList, setNewsList] = useState([])
-    const [communityList, setCommunityList] = useState([])
+    const [DisplayList, setDisplayList] = useState([])
+    const selected = useSelector((state) => state.game.selected);
+    const gameTypes = useSelector((state) => state.game.gameTypes);
 
     useEffect(() => {
         axios.get(`/search/game?content=${content}`).then((response) => {
@@ -56,49 +59,53 @@ const ChooseList = ({ content }) => {
             setGameList(response.data);
             console.log(response.data);
         });
+    }, [content, pathname])
 
-        axios.get(`/search/news?content=${content}`).then((response)=>{
-            setNewsList(response.data);
-            console.log("news")
-            console.log(response.data)
-        });
-
-        axios.get(`/search/community?content=${content}`).then((response)=>{
-            setCommunityList(response.data);
-            console.log("community")
-            console.log(response.data)
-        });
-
-    }, [content, pathname]);
-
-
-    if(pathname.startsWith("/search/game")){
-
-
-        console.log(gameList)
-
-        if (gameList.length === 0) {
-            return (
-                <h2>暂无信息</h2>
-            )
+    useEffect(() => {
+        if (
+            selected.every((value) => {
+                return value === false;
+            })
+        ) {
+            // 当全部游戏类型都未选中时，返回全部数据
+            setDisplayList(gameList);
+        } else {
+            const selectedData = gameList.filter((item) => {
+                // 返回同时满足所有筛选条件的游戏
+                return selected.every((isSelected, index) => {
+                    const haveTag = item.tags.includes(gameTypes[index]);
+                    return (isSelected && haveTag) || !isSelected;
+                });
+            });
+            console.log('selected: ', selectedData);
+            setDisplayList(selectedData);
         }
-        else{
-            return(
-                <GameList widthData={350} listData={gameList}/>
-            )
-        }
-    }
-    else if(pathname.startsWith("/search/news")){
-        return(
-            <ListNews data={newsList}></ListNews>
-        )
-    }
-    else if(pathname.startsWith("/search/community") ){
+    }, [selected]);
 
-        return(
-            <CardList data={communityList}/>
-        )
-    }
+    return (
+        <>
+
+            <Row gutter={2}>
+                <Col span={3}>
+                    <GameTypeSelector />
+                </Col>
+
+                <Col span={20}>
+                    <Text style={{color: "rgba(122,121,121, 0.8)", fontSize: "1.5vw", fontStyle: "italic"}}>搜索关键词：{content}</Text>
+                    {DisplayList.length > 0 ? (
+                        <GameList listData={DisplayList} widthData={300} />
+                    ) : (
+                        <NotFound />
+                    )}
+                </Col>
+
+                <div style={{margin: "400vw"}}></div>
+
+                <BackTop />
+            </Row>
+        </>
+
+    );
 }
 
 const SearchView = () =>{
@@ -107,55 +114,8 @@ const SearchView = () =>{
     let [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
     const content = searchParams.get("content")
-
-    const itemlist = [
-        {
-            label: (
-                <HomeFilled
-                    style={{ fontSize: 20 }}>
-                </HomeFilled>
-
-            ),
-            key: 'back',
-        },
-        {
-            label: (
-                <Link className='nav-link' to={`/search/game/?${searchParams}`} style={{ fontSize: 25 }}>
-                    游戏
-                </Link>
-            ),
-            key: 'game',
-        },
-        {
-            label: (
-                <Link className='nav-link' to={`/search/news/?${searchParams}`} style={{ fontSize: 25 }}>
-                    新闻
-                </Link>
-            ),
-            key: 'news',
-        },
-        {
-            label: (
-                <Link className='nav-link' to={`/search/community/?${searchParams}`} style={{ fontSize: 25 }}>
-                    社区
-                </Link>
-            ),
-            key: 'community',
-        },
-    ];
-    useEffect(() => {
-        // 根据路由的变化设置 visible 的值
-        dispatch(changeVisible(false)); // 分发 action 更新可见性
-    }, [location, dispatch]);
-
-    useEffect(() => {
-        return () => {
-            dispatch(changeVisible(true)); // 组件返回时将 visible 设置为 true
-        };
-    }, [dispatch]);
     return (
         <>
-            <SearchNavbar items={itemlist} />
             <div style={{ margin: 30 }}></div>
             <ChooseList content = {content}/>
             <BackTop/>
