@@ -14,7 +14,8 @@ function UserSetting() {
             {editing ? (
                 <EditView setEditingState={setEditingState}/>
             ) : (
-                <ShowInfoView setEditingState={setEditingState}/>
+                    <ShowInfoView setEditingState={setEditingState}/>
+
             )}
         </>
     );
@@ -52,151 +53,156 @@ const EditView = ({setEditingState}) => {
         })
     }
     return (
-        <Form
-            labelCol={{
-                xs: {span: 24},
-                sm: {span: 8},
-            }}
-            wrapperCol={{
-                xs: {span: 24},
-                sm: {span: 16},
-            }}
-            form={form}
-            name='setting'
-            onFinish={onFinish}
-            style={{
-                maxWidth: 600,
-            }}
-            scrollToFirstError
-            initialValues={{
-                email: userInfo.email,
-                username: userInfo.username,
-                description: userInfo.description,
-                avatar: userInfo.avatarUrl,
-                cardBackground: userInfo.cardBackgroundUrl,
-            }}
-        >
-            <Form.Item
-                name='email'
-                label='邮箱'
-                rules={[
-                    {
-                        type: 'email',
-                        message: '无效邮箱！',
-                    },
-                    {
-                        required: true,
-                        message: '请输入邮箱',
-                    },
-                ]}
-            >
-                <Input/>
-            </Form.Item>
-
-            <Form.Item
-                name='username'
-                label='用户名'
-                tooltip='What do you want others to call you?'
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入用户名!',
-                    },
-                ]}
-            >
-                <Input/>
-            </Form.Item>
-
-            <Form.Item
-                name='description'
-                label='介绍'
-                rules={[
-                    {
-                        required: false,
-                    },
-                ]}
-            >
-                <Input.TextArea showCount maxLength={100}/>
-            </Form.Item>
-
-            {/* TODO: upload avatar*/}
-            <Form.Item
-                name='avatar'
-                label='头像'
-                rules={[
-                    {
-                        required: false,
-                    },
-                ]}
-            >
-                {/*<Image src={userInfo.avatarUrl}/>*/}
-                <Upload name='logo' action='/upload.do' listType='picture-card'>
-                    <Button icon={<UploadOutlined/>}>上传</Button>
-                </Upload>
-            </Form.Item>
-
-            {/*TODO: upload cardBackground*/}
-            <Form.Item
-                name='cardBackground'
-                label='背景图'
-                // valuePropName="fileList"
-                // getValueFromEvent={normFile}
-            >
-                <Upload name='logo' action='/upload.do' listType='picture-card'>
-                    <Button icon={<UploadOutlined/>}>上传</Button>
-                </Upload>
-            </Form.Item>
-
-            <Form.Item
-                name='agreement'
-                valuePropName='checked'
-                rules={[
-                    {
-                        validator: (_, value) =>
-                            value
-                                ? Promise.resolve()
-                                : Promise.reject(new Error('需要同意用户协议')),
-                    },
-                ]}
+        <>
+            <div style={{margin: 100}}></div>
+            <Form
+                labelCol={{
+                    xs: {span: 24},
+                    sm: {span: 8},
+                }}
                 wrapperCol={{
-                    xs: {
-                        span: 24,
-                        offset: 0,
-                    },
-                    sm: {
-                        span: 16,
-                        offset: 8,
-                    },
+                    xs: {span: 24},
+                    sm: {span: 16},
+                }}
+                form={form}
+                name='setting'
+                onFinish={onFinish}
+                style={{
+                    maxWidth: 600,
+                }}
+                scrollToFirstError
+                initialValues={{
+                    email: userInfo.email,
+                    username: userInfo.username,
+                    description: userInfo.description,
+                    avatar: userInfo.avatarUrl,
+                    cardBackground: userInfo.cardBackgroundUrl,
                 }}
             >
-                <Checkbox>
-                    我已阅读并同意 <a href=''>用户协议</a>
-                </Checkbox>
-            </Form.Item>
+                <Form.Item
+                    name='email'
+                    label='邮箱'
+                    rules={[
+                        {
+                            type: 'email',
+                            message: '无效邮箱！',
+                        },
+                        {
+                            required: true,
+                            message: '请输入邮箱',
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
 
-            <Form.Item
-                wrapperCol={{
-                    xs: {
-                        span: 24,
-                        offset: 0,
-                    },
-                    sm: {
-                        span: 16,
-                        offset: 8,
-                    },
-                }}
-            >
-                <Button
-                    type='primary'
-                    onClick={() => {
-                        setEditingState(false);
-                        updateUserInfo();
+                <Form.Item
+                    name='username'
+                    label='用户名'
+                    tooltip='What do you want others to call you?'
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入用户名!',
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+
+                <Form.Item
+                    name='description'
+                    label='介绍'
+                    rules={[
+                        {
+                            required: false,
+                        },
+                    ]}
+                >
+                    <Input.TextArea showCount maxLength={100}/>
+                </Form.Item>
+
+                {/* TODO: upload avatar*/}
+                <Form.Item
+                    name='avatar'
+                    label='头像'
+                    rules={[
+                        {
+                            required: false,
+                        },
+                    ]}
+                >
+                    {/*<Image src={userInfo.avatarUrl}/>*/}
+                    <Upload name='logo' action='/upload.do' listType='picture-card'>
+                        <Button icon={<UploadOutlined/>}>上传</Button>
+                    </Upload>
+                </Form.Item>
+
+                {/*TODO: upload cardBackground*/}
+                <Form.Item
+                    name='cardBackground'
+                    label='背景图'
+                    // valuePropName="fileList"
+                    // getValueFromEvent={normFile}
+                >
+                    <Upload name='logo' action='/upload.do' listType='picture-card'>
+                        <Button icon={<UploadOutlined/>}>上传</Button>
+                    </Upload>
+                </Form.Item>
+
+                <Form.Item
+                    name='agreement'
+                    valuePropName='checked'
+                    rules={[
+                        {
+                            validator: (_, value) =>
+                                value
+                                    ? Promise.resolve()
+                                    : Promise.reject(new Error('需要同意用户协议')),
+                        },
+                    ]}
+                    wrapperCol={{
+                        xs: {
+                            span: 24,
+                            offset: 0,
+                        },
+                        sm: {
+                            span: 16,
+                            offset: 8,
+                        },
                     }}
                 >
-                    保存
-                </Button>
-            </Form.Item>
-        </Form>
+                    <Checkbox>
+                        我已阅读并同意 <a href=''>用户协议</a>
+                    </Checkbox>
+                </Form.Item>
+
+                <Form.Item
+                    wrapperCol={{
+                        xs: {
+                            span: 24,
+                            offset: 0,
+                        },
+                        sm: {
+                            span: 16,
+                            offset: 8,
+                        },
+                    }}
+                >
+                    <Button
+                        type='primary'
+                        onClick={() => {
+                            setEditingState(false);
+                            updateUserInfo();
+                        }}
+                    >
+                        保存
+                    </Button>
+                </Form.Item>
+            </Form>
+            <div style={{margin: 300}}></div>
+        </>
+
     );
 };
 
@@ -246,23 +252,26 @@ const ShowInfoView = ({setEditingState}) => {
         },
     ];
     return (
-        <Descriptions
-            title='用户信息'
-            bordered={false}
-            items={items}
-            size={'default'}
-            column={2}
-            extra={
-                <Button
-                    type='primary'
-                    onClick={() => {
-                        setEditingState(true);
-                    }}
-                >
-                    编辑
-                </Button>
-            }
-        />
+        <>
+                <Descriptions
+                    title='用户信息'
+                    bordered={false}
+                    items={items}
+                    size={'default'}
+                    column={2}
+                    extra={
+                        <Button
+                            type='primary'
+                            onClick={() => {
+                                setEditingState(true);
+                            }}
+                        >
+                            编辑
+                        </Button>
+                    }
+                />
+            <div style={{margin: 100}}></div>
+        </>
     );
 };
 export default UserSetting;

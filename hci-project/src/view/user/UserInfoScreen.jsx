@@ -61,11 +61,17 @@ const UserInfoScreen = (props) => {
 
             <Divider />
 
-            <Row gutter={[16, 16]}>
+            <Row gutter={[16, 16]}
+                 style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
                 <GameInventory gameInventory={userInfo.gameInventory} />
             </Row>
             <BackTop />
         </Col>
+
     );
 };
 
@@ -79,8 +85,8 @@ const GameInventory = (props) => {
     };
     return (
         <Col>
-            <h1>游戏库存</h1>
-            <Flex wrap={'wrap'} gap={'large'} flex={'flex-start'}>
+            <h1 style={{color:"white"}}>游戏库存</h1>
+            <Flex wrap={'wrap'} gap={'large'} flex={'center'}>
                 {gameInventory !== null &&
                     gameInventory.map((game) => (
                         <Card

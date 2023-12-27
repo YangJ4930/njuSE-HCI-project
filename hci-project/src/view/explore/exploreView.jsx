@@ -11,7 +11,7 @@ import BackTop from '../../component/BackTop';
 
 const ExploreView = function ExploreView() {
     return (
-        <div style={{ marginLeft: 60, marginRight: 60 }}>
+        <div style={{paddingRight: 100, paddingLeft: 100}}>
             <GuessLike gameCount={4} />
             <div style={{ marginTop: 40, marginBottom: 40 }}></div>
             <DaliyRecommendation gameCount={4} />

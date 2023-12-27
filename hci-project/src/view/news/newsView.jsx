@@ -33,10 +33,13 @@ function NewsView() {
     }));
     return (
         <React.Fragment>
-            <NewHead/>
-            <div style={{marginBottom: 20}}></div>
-            <ListNews data={data}/>
-            <BackTop/>
+            <div style={{paddingLeft: 100, paddingRight: 100}}>
+                <NewHead/>
+                <div style={{marginBottom: 20}}></div>
+                <ListNews data={data}/>
+                <BackTop/>
+            </div>
+
         </React.Fragment>
     );
 }

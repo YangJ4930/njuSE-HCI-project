@@ -4,12 +4,9 @@ import {Link} from "react-router-dom";
 
 const {Meta} = Card;
 export const GameCard = ({data, widthData}) => {
-    const [tag, setTag] = useState("")
+    const [tag, setTag] = useState([])
     React.useEffect(() => {
-        if (data.tags) {
-            const joinedTags = data.tags.join(" ");
-            setTag(joinedTags);
-        }
+        setTag(data.tags)
     }, [data.tags]);
     return (
         <Col className="gutter-row" span={6}>
@@ -35,7 +32,13 @@ export const GameCard = ({data, widthData}) => {
                 <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                     <Meta
                         title={<div style={{color: "white"}}>{data.name}</div>}
-                        description={<Tag style={{color: "white", backgroundColor: "rgb(20,20,20)"}}>{`${tag}`}</Tag>}
+                        description={
+                            tag.map((item)=>{
+                                return(
+                                    <Tag style={{color: "white", backgroundColor: "rgb(20,20,20)"}}>{item}
+                            </Tag>)}
+                            )}
+
 
                     />
                 </Link>
