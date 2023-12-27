@@ -1,7 +1,18 @@
 import { marked } from 'marked';
 import Paragraph from 'antd/es/skeleton/Paragraph';
 import React, { useEffect, useState } from 'react';
-import { Card, Flex, FloatButton, Image, Layout, Typography } from 'antd';
+import {
+    Avatar,
+    Card,
+    Col,
+    Divider,
+    Flex,
+    FloatButton,
+    Image,
+    Layout,
+    Row,
+    Typography,
+} from 'antd';
 import { useParams } from 'react-router-dom';
 import markDownTemp from '../../../utils/temp/MarkdownTemp';
 import axios from '../../../axios';
@@ -71,6 +82,12 @@ function NewsContentMD(props) {
                         {news.title}
                     </Title>
 
+                    <Author
+                        url={
+                            'https://images.pexels.com/photos/4946515/pexels-photo-4946515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+                        }
+                    />
+                    <Divider />
                     <div
                         style={{
                             justifyContent: 'center',
@@ -141,4 +158,30 @@ const extractTitles = (lines) => {
     return lines.filter((line) => line.startsWith('#') || line.startsWith('##'));
 };
 
+const Author = (props) => {
+    const url = props.url;
+    return (
+        <Row
+            gutter={2}
+            style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}
+        >
+            <Row
+                span={4}
+                style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    justifyItems: 'center',
+                    marginInline: 2,
+                }}
+            >
+                <Avatar src={<img src={url} alt='avatar' />} style={{ marginRight: 10 }} />
+                <text>Epic Games</text>
+            </Row>
+            <Divider type={'vertical'} style={{ backgroundColor: 'white' }} />
+            <Col span={6}>更新: DEC 27, 2023 10:09 AM</Col>
+            <Divider type={'vertical'} style={{ backgroundColor: 'white' }} />
+            <Col span={6}>创建: DEC 18, 2023 11:49 PM</Col>
+        </Row>
+    );
+};
 export { NewsContentMD };
