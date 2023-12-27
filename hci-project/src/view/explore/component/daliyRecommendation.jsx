@@ -7,6 +7,7 @@ import axios from '../../../axios';
 import { GameCard } from '../../search/component/GameCard';
 import { Header } from 'antd/es/layout/layout';
 import { GameList } from '../../search/component/GameList';
+import { useSelector } from 'react-redux';
 
 export const DaliyRecommendation = ({ gameCount }) => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -42,6 +43,7 @@ export const DaliyRecommendation = ({ gameCount }) => {
 
 const Slideshow = ({ data, interval, onPageChange }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         // 定时器，每隔一定时间切换到下一张图片
@@ -62,49 +64,15 @@ const Slideshow = ({ data, interval, onPageChange }) => {
 
     return (
         <>
-                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'white' }}>
-                            今日推荐
-                        </span>
-                </Row>
-            <div style={{margin: 20}}></div>
+            <Row justify='space-between' align='middle' style={{ height: '100%' }}>
+                <span
+                    style={{ fontSize: 22, lineHeight: 1.4, color: themeMode ? 'white' : 'black' }}
+                >
+                    今日推荐
+                </span>
+            </Row>
+            <div style={{ margin: 20 }}></div>
             <GameList listData={data} widthData={330} />
         </>
-    );
-};
-
-const SingleCard = ({ singleCardData }) => {
-    return (
-        <Link
-            to={`/game/${singleCardData.id}`}
-            style={{
-                width: '18%',
-                height: '100%',
-                borderRadius: 8,
-            }}
-        >
-            <Card
-                hoverable
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: 8,
-                }}
-                cover={
-                    <img
-                        alt='example'
-                        src={singleCardData.imgUrl}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                            aspectRatio: 0.75,
-                            width: '100%',
-                        }}
-                    />
-                }
-            >
-                <Meta title={singleCardData.name} style={{ height: '15%' }} />
-            </Card>
-        </Link>
     );
 };
