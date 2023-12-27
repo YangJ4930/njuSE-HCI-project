@@ -57,7 +57,7 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
                     <NotFound />
                 )}
             </Col>
-
+            <div style={{margin: "400vw"}}></div>
             <BackTop />
         </Row>
     );
@@ -68,7 +68,7 @@ const GameTypeSelector = () => {
     const themeMode = useSelector((state) => state.theme.IsChange);
 
     return (
-        <Col style={{ color: themeMode ? 'white' : 'black' }}>
+        <Col style={{ color: 'white' }}>
             <Row>筛选器</Row>
             <Divider></Divider>
             {gameTypes.length > 0 &&
@@ -106,15 +106,14 @@ const PanelFlex = ({ index, name }) => {
         >
             <Flex justify='space-between' horizontal>
                 <div>{name}</div>
-                {selected[index] && <CheckOutlined color={themeMode ? 'white' : 'black'} />}
+                {selected[index] && <CheckOutlined color={'white'} />}
             </Flex>
         </Button>
     );
 };
 
-const NotFound = () => {
+export const NotFound = () => {
     const themeMode = useSelector((state) => state.theme.IsChange);
-
     return (
         <div
             style={{
