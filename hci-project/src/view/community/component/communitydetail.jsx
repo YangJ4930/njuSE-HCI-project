@@ -4,11 +4,11 @@ import {
     List,
     Skeleton,
     Card,
-    Image,
+    Space,
+    Input,
     Row,
-    Tag,
-    FloatButton,
     Button,
+    message
 } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -20,12 +20,16 @@ import {
 import { PageContainer } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import CommentPost from '../component/commentPost';
-import axios from '../axios'
+import CommentPost from '../../../component/commentPost';
+import axios from '../../../axios'
 import { marked } from 'marked';
 import { useSelector, useDispatch } from 'react-redux'
-const Communitydetail = function Comunitydetail() {
+const Communitydetail = function Comunitydetail({ communityId }) {
+    console.log("Communitydetail生成")
     const user = useSelector(state => state.user)
+    const userId = useSelector(state => state.user.id)
+    const islogin = useSelector((state) => state.auth.isLogin);
+    const key = 'updatable';
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
@@ -40,17 +44,12 @@ const Communitydetail = function Comunitydetail() {
     const { Meta } = Card;
     const [load, setLoad] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [detail, setDetail] = useState({
-        id: "",
-        author: "",
-        context: "",
-        imageUrl: "",
-        title: "",
-    });
     const [imageUrl, setImageUrl] = useState([])
     const [commentDetail, setCommentDetail] = useState([])
     const [pageNumber, setPageNumber] = useState(0);
-    const { communityId } = useParams();
+    const [comment, setComment] = useState(null);
+    const [hasMore, setHasMore] = useState(true)
+    //  const { communityId } = useParams();
     const back = () => {
         navigate(-1)
     }
@@ -64,6 +63,12 @@ const Communitydetail = function Comunitydetail() {
             .then((response) => {
                 console.log(response);
                 setCommentDetail([...response.data, ...commentDetail])
+                if (response.data.length == 0) {
+                    setTimeout(() => {
+                        setHasMore(false)
+                    }, 1000)
+
+                }
                 const number = pageNumber + 1;
                 setPageNumber(number);
                 setLoading(false);
@@ -73,114 +78,103 @@ const Communitydetail = function Comunitydetail() {
                 setLoading(false);
             })
     };
-    const findCommunityDetail = () => {
-        axios.get(`/community/findCommunityDetail/${communityId}`)
-            .then((response) => {
-                //console.log(response);
-                var imageUrls = response.data.imageUrl;
-                var shuzu = imageUrls.split(',')
-                setImageUrl(shuzu.slice(0, shuzu.length - 1))
-                // console.log(imageUrl);
-                setDetail(response.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-    const deleteComment=(CommentId)=>{
-        axios.delete(`/community/DeleteComment/${CommentId}/${communityId}`).then((response)=>{
-                console.log(response)
+    const deleteComment = (CommentId) => {
+        axios.delete(`/community/DeleteComment/${CommentId}/${communityId}`).then((response) => {
+            console.log(response)
         })
+    }
+    const postcomment = () => {
+        if (islogin) {
+            message.open({
+                key,
+                type: 'loading',
+                content: '正在发送评论。。。',
+            });
+            console.log("comId" + communityId);
+            console.log("userId" + userId);
+            axios.post('/community/Comment', { communityId, comment, userId })
+                .then((response) => {
+                    console.log(response);
+                    setTimeout(() => {
+                        message.open({
+                            key,
+                            type: 'success',
+                            content: 'Loaded!',
+                            duration: 2,
+                        });
+
+                    }, 1000);
+                    //navigate(`/component/Communitydetail/${communityId}`)
+                    setOpen(false)
+                    setComment("")
+                })
+                .catch((error) => {
+                    console.error(error);
+
+                    //errorMsg.error(error.response.data.msg).then((r) => console.log(r));
+                });
+
+        } else {
+            message.open({
+                key,
+                type: 'warning',
+                content: '请先登录',
+            });
+        }
     }
     useEffect(() => {
         window.scrollTo(0, 0);
-        findCommunityDetail()
-        loadMoreData();
-    }, []);
+        // findCommunityDetail()
+        setTimeout(() => {
+            loadMoreData()
+        }, 0)
+            ;
+    }, [communityId]);
     return (
         <>
-            <Button icon={<LeftOutlined />}
-
-                type="link"
-                onClick={() => {
-                    back()
-                }}></Button>
-            <PageContainer title={detail.title}>
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Image.PreviewGroup
-                        items={imageUrl}
-                    >
-                        <Image
-                            height={400}
-                            src={imageUrl[0]}>
-                        </Image>
-                    </Image.PreviewGroup>
-
-                </div>
-                <Divider plain></Divider>
-                <Row>
-                    <Card
-                        bordered={false}
-                        hoverable
-                        style={{
-                            width: '300px',
-                        }}
-                    >
-                        <Meta
-                            avatar={
-                                <>
-                                    <Avatar
-                                        size={64}
-                                        src='https://xsgames.co/randomusers/avatar.php?g=pixel'
-                                    />
-                                </>
-                            }
-                            title={
-                                <Row>
-                                    <div>{detail.author}</div>
-                                    <Tag
-                                        color='#2db7f5'
-                                        style={{
-                                            marginLeft: 10,
-                                        }}
-                                    >
-                                        作者
-                                    </Tag>
-                                </Row>
-                            }
-                            //TODO: add description
-                            description={detail.author}
-                        />
-                    </Card>
-                </Row>
-                <Divider plain orientation='left'>
-                    正文
-                </Divider>
-                <div
-                    id='content'
-                    //className='article-detail'
-                    style={{ fontSize: 20, backgroundColor: 'white' }}
-                    dangerouslySetInnerHTML={{ __html: marked(detail.context) }}
-                />
-                <br></br>
+            <PageContainer style={{
+                height: 500,
+                overflow: "auto"
+            }}>
                 <InfiniteScroll
                     infinite-scroll-disabled={false}
                     dataLength={commentDetail.length}
                     next={loadMoreData}
-                    hasMore={commentDetail.length % 4 == 0}
+                    hasMore={commentDetail.length % 4 == 0 && hasMore}
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                     scrollableTarget='scrollableDiv'
                 >
                     <Row justify='space-between'></Row>
+                    <Input width="100%" onChange={(e) => {
+                        console.log(e.target.value)
+                        setComment(e.target.value)
+                    }} />
+                    <div style={{
+                        justifyItems: "right"
+                    }}>
+                        <Button style={{
+                            marginTop: "10px",
+                            marginLeft: "90%"
+                        }} onClick={() => {
+                            postcomment()
+                            let x = commentDetail
+                            let temp={
+                                user:{
+                                    avatarUrl:user.avatarUrl,
+                                    id:user.id,
+                                    username:user.username
+                                },
+                                comment:comment
+                            }
+                            x.unshift(temp)
+                            setComment(comment)
+                            setComment(null)
+                            // window.location.reload()
+                        }}>评论</Button>
+                    </div>
                     <Divider orientation='left'>
-                        {' '}
+
                         <Row>
                             <div
                                 style={{
@@ -192,6 +186,7 @@ const Communitydetail = function Comunitydetail() {
                             </div>
                         </Row>
                     </Divider>
+
                     <ProList
                         size='small'
                         itemLayout='vertical'
@@ -227,9 +222,10 @@ const Communitydetail = function Comunitydetail() {
 
                                             </div>
                                             {item.user.id == user.id ? <><Button type="text"
-                                                onClick={()=>{
+                                                onClick={() => {
                                                     deleteComment(item.commentId)
-                                                    window.location.reload()
+
+                                                    //window.location.reload()
                                                 }}
                                             >删除</Button></> : null}
                                         </Row>
@@ -240,10 +236,6 @@ const Communitydetail = function Comunitydetail() {
                     ></ProList>
                 </InfiniteScroll>
             </PageContainer>
-            <FloatButton.Group>
-                <FloatButton style={{ width: '50px', height: '50px' }} description={<CommentPost communityId={communityId} ></CommentPost>}></FloatButton>
-                <FloatButton.BackTop style={{ width: '50px', height: '50px', marginRight: '40px' }} className="backtop" />
-            </FloatButton.Group>
         </>
     );
 };
