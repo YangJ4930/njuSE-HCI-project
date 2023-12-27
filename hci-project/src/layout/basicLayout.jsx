@@ -9,7 +9,7 @@ import {
     TeamOutlined,
     UserOutlined,
     CloseOutlined,
-    CheckOutlined
+    CheckOutlined,
 } from '@ant-design/icons';
 import './Menu.css';
 
@@ -31,6 +31,7 @@ const BasicLayout = () => {
 
     const location = useLocation();
 
+    const themeMode = useSelector((state) => state.theme.IsChange);
     const changeSiderCollapsed = () => {
         setSiderCollapsed(!siderCollapsed);
     };
@@ -53,7 +54,6 @@ const BasicLayout = () => {
             <Content style={{ margin: '24px 16px 0' }}>
                 <div style={{ paddingLeft: 30, paddingRight: 30 }}>
                     <Router />
-
                 </div>
             </Content>
             <div style={{ display: isVisible ? 'flex' : 'none', justifyContent: 'center' }}>
@@ -65,7 +65,7 @@ const BasicLayout = () => {
                         backgroundColor: 'transparent',
                     }}
                 >
-                    <div style={{ color: 'white' }}>
+                    <div style={{ color: themeMode ? 'white' : 'black' }}>
                         <b>J Game</b> ©2023 Created by J Game
                     </div>
                 </Footer>
@@ -107,8 +107,8 @@ const BasicBar = () => {
 
     const onClick = (e) => {
         console.log('click ', e);
-        if(e.key=="theme"){
-        }else if (e.key !== 'search' && e.key !== 'logo') {
+        if (e.key == 'theme') {
+        } else if (e.key !== 'search' && e.key !== 'logo') {
             dispatch(setBasicCurrent(e.key));
             navigate(`/${e.key}`);
         }
@@ -144,9 +144,9 @@ const BasicBar = () => {
                     enterButton='搜索'
                     size='large'
                     style={{
-                        width: "15vw",
-                        marginLeft: "20vw",
-                        marginTop: "0.75vw",
+                        width: '15vw',
+                        marginLeft: '20vw',
+                        marginTop: '0.75vw',
                     }}
                     value={searchWord}
                     // onClick={this.state.SearchLog}
@@ -160,42 +160,42 @@ const BasicBar = () => {
         },
         {
             label: (
-                <Link className='nav-link' to='/user' style={{ marginLeft: "25vw" }}>
+                <Link className='nav-link' to='/user' style={{ marginLeft: '25vw' }}>
                     {isLogin === true ? (
                         <Avatar
                             size='large'
                             src={<img width='40' src={userInfo.avatarUrl}></img>}
                         />
-                    ) : (<>
-                        <Button
-                            type='primary'
-                            shape='round'
-                            size='default'
-                            icon={<LoginOutlined />}
-                        >
-                            {'登录/注册'}
-                        </Button>
-                    </>
+                    ) : (
+                        <>
+                            <Button
+                                type='primary'
+                                shape='round'
+                                size='default'
+                                icon={<LoginOutlined />}
+                            >
+                                {'登录/注册'}
+                            </Button>
+                        </>
                     )}
                 </Link>
             ),
             key: 'user',
         },
         {
-            label: (<>
-                <Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    onChange={(checked)=>{
-                        dispatch(changeTheme(checked))
-                    }}
-                />
-            </>
-
+            label: (
+                <>
+                    <Switch
+                        checkedChildren={<CheckOutlined />}
+                        unCheckedChildren={<CloseOutlined />}
+                        onChange={(checked) => {
+                            dispatch(changeTheme(checked));
+                        }}
+                    />
+                </>
             ),
-            key: "theme"
-        }
-
+            key: 'theme',
+        },
     ];
 
     return (

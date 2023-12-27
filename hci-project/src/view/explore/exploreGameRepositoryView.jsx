@@ -68,8 +68,8 @@ const GameTypeSelector = () => {
     const themeMode = useSelector((state) => state.theme.IsChange);
 
     return (
-        <Col style={{ color: 'white' }}>
-            <Row>筛选器</Row>
+        <Col style={{ color: themeMode ? 'white' : 'black' }}>
+            <Row style={{ fontSize: 22, marginInline: 4 }}>筛选器</Row>
             <Divider></Divider>
             {gameTypes.length > 0 &&
                 gameTypes.map((item, index) => (
