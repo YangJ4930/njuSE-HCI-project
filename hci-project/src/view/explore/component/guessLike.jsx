@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {Button, Card, Col, Divider, Flex, Row, Space} from 'antd';
-import {Link, useNavigate} from 'react-router-dom';
+import { Button, Card, Col, Divider, Flex, Row, Space } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 import Meta from 'antd/es/card/Meta';
 import { GameCard } from '../../search/component/GameCard';
 import { GameList } from '../../search/component/GameList';
 import { Header } from 'antd/es/layout/layout';
 import axios from '../../../axios';
+import { useSelector } from 'react-redux';
 
 const GuessLike = ({ gameCount }) => {
     //监听窗口大小，获取card内cover高度，不懂为什么直接设置height为比例不生效
@@ -18,6 +19,8 @@ const GuessLike = ({ gameCount }) => {
         let h = e.target.innerWidth * 0.18;
         setCoverHeight(h);
     };
+
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         axios
@@ -50,30 +53,35 @@ const GuessLike = ({ gameCount }) => {
 
     return (
         <React.Fragment>
-                <Row justify='space-between' align='middle' style={{ height: '100%' }}>
-                        <Col>
-                        <span style={{ fontSize: 22, lineHeight: 1.4, color: 'white' }}>
-                            猜你喜欢
-                        </span>
-                        </Col>
+            <Row justify='space-between' align='middle' style={{ height: '100%' }}>
+                <Col>
+                    <span
+                        style={{
+                            fontSize: 22,
+                            lineHeight: 1.4,
+                            color: themeMode ? 'white' : 'black',
+                        }}
+                    >
+                        猜你喜欢
+                    </span>
+                </Col>
 
-                        <Col>
-                            <Button
-                                type='text'
-                                style={{
-                                    fontSize: 22,
-                                    color: 'white',
-                                }}
-                                onClick={()=>{
-                                    navigate("/explore/gameRepository")
-                                }}
-                            >
-                                浏览更多
-                            </Button>
-                        </Col>
-
-                </Row>
-            <div style={{margin: 20}}></div>
+                <Col>
+                    <Button
+                        type='text'
+                        style={{
+                            fontSize: 22,
+                            color: themeMode ? 'white' : 'black',
+                        }}
+                        onClick={() => {
+                            navigate('/explore/gameRepository');
+                        }}
+                    >
+                        浏览更多
+                    </Button>
+                </Col>
+            </Row>
+            <div style={{ margin: 20 }}></div>
             <GameList listData={gameList} widthData={330} />
         </React.Fragment>
     );

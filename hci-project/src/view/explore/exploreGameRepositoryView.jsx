@@ -56,13 +56,13 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
                     <NotFound />
                 )}
             </Col>
-
+            <div style={{margin: "400vw"}}></div>
             <BackTop />
         </Row>
     );
 };
 
-const GameTypeSelector = () => {
+export const GameTypeSelector = () => {
     const gameTypes = useSelector((state) => state.game.gameTypes);
 
     return (
@@ -79,7 +79,7 @@ const GameTypeSelector = () => {
     );
 };
 
-const PanelFlex = ({ index, name }) => {
+export const PanelFlex = ({ index, name }) => {
     const [isSelected, setIsSelected] = useState(false);
     const selected = useSelector((state) => state.game.selected);
     const dispatch = useDispatch();
@@ -107,7 +107,7 @@ const PanelFlex = ({ index, name }) => {
     );
 };
 
-const NotFound = () => {
+export const NotFound = () => {
     return (
         <div style={{ color: 'white', justifyContent: 'center', textAlign: 'center' }}>
             <h1>未找到结果</h1>

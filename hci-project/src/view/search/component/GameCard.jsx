@@ -1,50 +1,50 @@
-import React, {useState} from 'react';
-import {Avatar, Card, Col, Tag} from 'antd';
-import {Link} from "react-router-dom";
+import React, { useState } from 'react';
+import { Avatar, Card, Col, Tag } from 'antd';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const {Meta} = Card;
-export const GameCard = ({data, widthData}) => {
-    const [tag, setTag] = useState([])
+const { Meta } = Card;
+export const GameCard = ({ data, widthData }) => {
+    const [tag, setTag] = useState([]);
+    const themeMode = useSelector((state) => state.theme.IsChange);
     React.useEffect(() => {
-        setTag(data.tags)
+        setTag(data.tags);
     }, [data.tags]);
     return (
-        <Col className="gutter-row" span={6}>
+        <Col className='gutter-row' span={6}>
             <Card
                 style={{
                     width: `${widthData}px`,
-                    backgroundColor: "rgba(18,18,18,0.85)",
-                    borderColor: "rgba(0,0,0,0.1)"
+                    backgroundColor: themeMode ? 'rgba(18,18,18,0.85)' : 'white',
+                    borderColor: 'rgba(0,0,0,0.1)',
                 }}
                 // bordered = {false}
                 cover={
                     <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                         <img
-                            alt="example"
+                            alt='example'
                             src={data.imgUrl}
-                            style={{width: "100%", height: "400px"}}
+                            style={{ width: '100%', height: '400px' }}
                         />
                     </Link>
-
                 }
                 hoverable={true}
             >
                 <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                     <Meta
-                        title={<div style={{color: "white"}}>{data.name}</div>}
-                        description={
-                            tag.map((item)=>{
-                                return(
-                                    <Tag style={{color: "white", backgroundColor: "rgb(20,20,20)"}}>{item}
-                            </Tag>)}
-                            )}
-
-
+                        title={
+                            <div style={{ color: themeMode ? 'white' : 'black' }}>{data.name}</div>
+                        }
+                        description={tag.map((item) => {
+                            return (
+                                <Tag style={{ color: 'white', backgroundColor: 'rgb(20,20,20)' }}>
+                                    {item}
+                                </Tag>
+                            );
+                        })}
                     />
                 </Link>
-
             </Card>
         </Col>
-
     );
-}
+};
