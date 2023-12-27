@@ -140,8 +140,6 @@ const BasicBar = () => {
             label: (
                 <Search
                     placeholder='请输入搜索内容'
-                    // allowClear
-                    enterButton='搜索'
                     size='large'
                     style={{
                         width: '15vw',
@@ -149,7 +147,6 @@ const BasicBar = () => {
                         marginTop: '0.75vw',
                     }}
                     value={searchWord}
-                    // onClick={this.state.SearchLog}
                     onChange={(e) => {
                         setSearchWord(e.target.value);
                     }}
