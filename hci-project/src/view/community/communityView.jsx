@@ -1,7 +1,7 @@
 
 import { PageContainer } from "@ant-design/pro-components";
 import { ProList } from "@ant-design/pro-components";
-import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Select,Tag, Card, Tabs, Flex, Modal } from "antd";
+import { Avatar, Divider, FloatButton, List, Skeleton, Image, Row, Select, Tag, Card, Tabs, Popconfirm, Flex, Modal, message, Button } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
@@ -203,13 +203,13 @@ export const CardList = (props) => {
                                             <div>发表时间: {formattedTimestamp}</div>
                                             <p style={{
                                                 fontSize: "22px",
-                                                color: "White"
+                                                color: "Black"
                                             }}>
                                                 {item.title}
                                             </p>
                                             <p style={{
                                                 fontSize: "16px",
-                                                color: "White"
+                                                color: "Black"
                                             }}>
                                                 {item.content}
                                             </p>
@@ -234,7 +234,7 @@ export const CardList = (props) => {
 }
 
 const icon = (label, imagesrc) => {
-  //  console.log(imagesrc)
+    //  console.log(imagesrc)
     const confirm = (e) => {
         console.log(e);
     };
@@ -255,29 +255,121 @@ const icon = (label, imagesrc) => {
 
     )
 }
+const CommunityCard = ({ title }) => {
+    const user = useSelector((state) => state.user);
+    const [thisdata, setThisdata] = useState([])
+    const Delete = async (CommunityId) => {
+        const response = await axios.get(`community/DeleteThePost/${CommunityId}`);
+        console.log(response);
+       // await loadSelfCommunity(user.id);
+    }
+    const loadSelfCommunity = async (UserId) => {
+         const response = await axios.get(`community/findCommunityByUserId/${UserId}`)
+         console.log(response.data);
+        setThisdata([...thisdata, ...response.data]);
+    }
+    const navigate = useNavigate();
+    useEffect(() => {
+        loadSelfCommunity(user.id)
+    }, [])
+    return (
+        <Card style={{
+            flex: 1,
+        }}
+            bodyStyle={{
+                // backgroundColor:"black"
+            }}
+        >
+            <div>{title}</div>
+            <List
+                className="demo-loadmore-list"
+                itemLayout="horizontal"
+                dataSource={thisdata}
+                style={{
+                    height: "400px",
+                    backgroundColor: "white"
+                }}
+                pagination={{
+                    onChange: (page) => {
+                        console.log(page);
+                    },
+                    pageSize: 3,
+                    total: thisdata.length
+                }}
+                renderItem={(item, index) => {
+                    var formattedTimestamp = moment(item.createdAt).format('YYYY-MM-DD');
+                    return (
+                        <List.Item
+                            style={{
+                            }}
+                            actions={[<Popconfirm
+                                title="删除帖子"
+                                description="你确定要删除这个帖子吗?"
+                                onConfirm={async () => {
+                                    Delete(item.id)
+                                    window.location.reload()
+                                }}
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Button type="text">删除</Button>
+                            </Popconfirm>]}
+                        >
+                            <Card hoverable
+                                style={{
+                                    width: "100%"
+                                }}
+                                onClick={() => {
+                                    pushShow(item.id, navigate)
+                                }}>
+                                <Card.Meta
+                                    style={{
+                                        fontSize:"10px"
+                                    }}
+                                    description={formattedTimestamp}
+                                    title={item.title}
+                                >
+                                </Card.Meta>
+                            </Card>
+                        </List.Item>
+                    )
+                }}
+            >
+            </List>
 
+        </Card>
+    )
+}
 const CommunityView = function CommunityView() {
+    
+    useEffect(() => {
+        loadLoveTags(user.id)
+    }, [])
     const loadLoveTags = (UserId) => {
-        axios.get(`explore/contents/${UserId}`).then((response) => {
-            console.log(response);
+        axios.get(`users/Tags/${UserId}`).then((response) => {
             let x = [...response.data];
             let tagsdata = [];
             for (let i = 0; i < x.length; i++) {
+                const newActiveKey = `newTab${newTabIndex.current++}`;
+                const ava = ite.filter((item) => item.name === x[i]);
                 tagsdata.push({
-                    key: i + 2,
-                    label: icon(x[i], apex),
-                    children: <CardList tag={x[i]}></CardList>
+                    key: newActiveKey,
+                    label: icon(x[i], ava[0].ava),
+                    children: <CardList tag={x[i]}></CardList>,
+                    name: x[i],
+                    ava: ava[0].ava
                 })
+                setActiveKey(newActiveKey);
             }
-            setItems([...items, tagsdata])
+            setItems([...items, ...tagsdata])
         });
     }
-
-    const AddLoveTags = (tag,UserId) => {
-        axios.get(`explore/contents/${tag}/${UserId}`).then((response) => {
+    const AddorRemoveLoveTags = (tag, UserId, action) => {
+        axios.get(`users/Tags/${tag}/${UserId}/${action}`).then((response) => {
             console.log(response);
         });
     }
+
     const ite = [
         {
             key: '1',
@@ -285,77 +377,81 @@ const CommunityView = function CommunityView() {
             children: <CardList tag="全部"></CardList>,
             closable: false,
             ava: all,
-            name:"全部"
+            name: "全部"
         },
         {
             key: '2',
             label: icon("apex英雄", apex),
             children: <CardList tag="apex"></CardList>,
             ava: apex,
-            name:"apex"
+            name: "apex"
         },
         {
             key: '3',
             label: icon("博德之门3", BoDe),
             children: <CardList tag="博德之门3"></CardList>,
             ava: BoDe,
-            name:"博德之门3"
+            name: "博德之门3"
         },
         {
             key: '4',
             label: icon("无畏契约", WWQY),
             children: <CardList tag="无畏契约"></CardList>,
             ava: WWQY,
-            name:"无畏契约"
+            name: "无畏契约"
         },
         {
             key: '5',
             label: icon("彩虹六号", C6),
             children: <CardList tag="彩虹六号"></CardList>,
             ava: C6,
-            name:"彩虹六号"
+            name: "彩虹六号"
         },
         {
             key: '6',
             label: icon("我的世界", Myworld),
             children: <CardList tag="我的世界"></CardList>,
             ava: Myworld,
-            name:"我的世界"
+            name: "我的世界"
         },
         {
             key: '7',
             label: icon("艾尔登法环", er),
             children: <CardList tag="艾尔登法环"></CardList>,
             ava: er,
-            name:"艾尔登法环"
+            name: "艾尔登法环"
         },
         {
             key: '8',
             label: icon("战地5", zd),
             children: <CardList tag="战地5"></CardList>,
             ava: zd,
-            name:"战地5"
+            name: "战地5"
         },
         {
             key: '9',
             label: icon("双人成行", it_takes_two),
             children: <CardList tag="双人成行"></CardList>,
             ava: it_takes_two,
-            name:"双人成行"
+            name: "双人成行"
         },
     ];
+    const key = 'updatable';
     const [activeKey, setActiveKey] = useState(ite[0].key);
-    const [items, setItems] = useState(ite);
+    const [items, setItems] = useState([ite[0]]);
     const newTabIndex = useRef(0);
     const user = useSelector((state) => state.user);
+    const authe = useSelector((state => (state.auth)))
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const showModal = () => {
         setIsModalOpen(true);
     };
 
     const handleOk = () => {
-        console.log("---------------"+likeTag)
+        console.log("---------------" + authe.isLogin)
         add(likeTag)
+        AddorRemoveLoveTags(ite[likeTag].name, user.id, "add")
         setIsModalOpen(false);
     };
 
@@ -370,11 +466,13 @@ const CommunityView = function CommunityView() {
     const add = (tag) => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
         const newPanes = [...items];
-        console.log("--------------"+ite[tag]+"================")
+        console.log("--------------" + ite[tag] + "================")
         newPanes.push({
             label: icon(ite[tag].name, ite[tag].ava),
             children: <CardList tag={ite[tag].name}></CardList>,
             key: newActiveKey,
+            ava: ite[tag].ava,
+            name: ite[tag].name
         });
         setItems(newPanes);
         setActiveKey(newActiveKey);
@@ -382,11 +480,16 @@ const CommunityView = function CommunityView() {
     const remove = (targetKey) => {
         let newActiveKey = activeKey;
         let lastIndex = -1;
+        let tagname;
         items.forEach((item, i) => {
             if (item.key === targetKey) {
+                console.log(item)
+                tagname = item.name;
                 lastIndex = i - 1;
             }
         });
+        console.log("remobekey " + targetKey)
+        console.log("remove  " + tagname)
         const newPanes = items.filter((item) => item.key !== targetKey);
         if (newPanes.length && newActiveKey === targetKey) {
             if (lastIndex >= 0) {
@@ -395,14 +498,22 @@ const CommunityView = function CommunityView() {
                 newActiveKey = newPanes[0].key;
             }
         }
+        AddorRemoveLoveTags(tagname, user.id, "remove")
         setItems(newPanes);
         setActiveKey(newActiveKey);
     };
-
     const onEdit = (targetKey, action) => {
         if (action === 'add') {
+            //setIsModalOpen(true)
+            if (authe.isLogin) { setIsModalOpen(true) }
+            else {
+                message.open({
+                    key,
+                    type: 'warning',
+                    content: '请先登录',
+                });
+            }
             console.log("click me")
-            setIsModalOpen(true)
         } else {
             remove(targetKey);
         }
@@ -422,7 +533,7 @@ const CommunityView = function CommunityView() {
             />
         </StickyBox>
     );
-    const [likeTag,setLikeTag]=useState(-1)
+    const [likeTag, setLikeTag] = useState(-1)
     const handleChange = (value) => {
         console.log(`selected ${value}`);
         setLikeTag(value)
@@ -471,17 +582,9 @@ const CommunityView = function CommunityView() {
                     />
                 </Card>
                 <br></br>
-                <Card style={{
-                    flex: 1
-                }}>
-                    <div>自己发布的帖子:</div>
-                </Card>
+                <CommunityCard title="自己发布的帖子:"  />
                 <br></br>
-                <Card style={{
-                    flex: 1
-                }}>
-                    <div>点过赞的帖子:</div>
-                </Card>
+                <CommunityCard title="点过赞的帖子:"  />
             </Flex>
             <Modal title="选择你喜欢的社区" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Select
@@ -491,12 +594,12 @@ const CommunityView = function CommunityView() {
                     options={[
                         { value: 1, label: 'apex' },
                         { value: 2, label: '博德之门3' },
-                        { value: 3, label: '无畏契约'},
-                        { value: 4, label: '彩虹六号'},
+                        { value: 3, label: '无畏契约' },
+                        { value: 4, label: '彩虹六号' },
                         { value: 5, label: '我的世界' },
                         { value: 6, label: '艾尔登法环' },
-                        { value: 7, label: '战地5'},
-                        { value: 8, label: '双人成行'},
+                        { value: 7, label: '战地5' },
+                        { value: 8, label: '双人成行' },
                     ]}
                 />
             </Modal>
