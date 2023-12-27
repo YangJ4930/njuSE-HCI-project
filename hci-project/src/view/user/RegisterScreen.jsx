@@ -3,8 +3,6 @@ import { Button, Card, Checkbox, Flex, Form, Input, message, Row } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import axios from '../../axios';
 import { Link, useNavigate } from 'react-router-dom';
-import backgroundImage from '../../assets/img/loginBackground_3.jpg';
-
 function RegisterScreen(props) {
     const history = useNavigate();
 
@@ -41,7 +39,6 @@ function RegisterScreen(props) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh',
-                backgroundImage: `url(${backgroundImage})`,
             }}
         >
             {/*错误提示框*/}

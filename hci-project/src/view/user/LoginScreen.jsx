@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../redux/user/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import backgroundImage from '../../assets/img/loginBackground_3.jpg';
+import Logo from '../../static/jgame.png';
 
 function LoginScreen(props) {
     const dispatch = useDispatch();
@@ -34,10 +35,6 @@ function LoginScreen(props) {
             });
     };
 
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
-
     return (
         <Flex
             flex={1}
@@ -46,13 +43,13 @@ function LoginScreen(props) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh',
-                backgroundImage: `url(${backgroundImage})`,
             }}
         >
             {contextHolder}
             <Card
                 style={{
                     width: '350px',
+                    marginTop: 20,
                 }}
             >
                 <Form
@@ -122,7 +119,11 @@ function LoginScreen(props) {
                     </Form.Item>
 
                     <Form.Item
-                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
                     >
                         <Link to={'/user/register'}>点我注册🥳</Link>
                     </Form.Item>

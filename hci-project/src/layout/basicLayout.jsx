@@ -19,6 +19,7 @@ import { lastPath, setCurrent } from '../redux/navbar/navbarSlice';
 import { setBasicCurrent } from '../redux/navbar/basicbarSlice';
 import Logo from '../static/jgame.png';
 import { changeTheme } from '../redux/theme/themeSlice';
+import { MoonIcons, SunIcons } from '../utils/MyIcons';
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 

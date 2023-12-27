@@ -16,9 +16,10 @@ import {
     Tooltip,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { EditOutlined, MailTwoTone } from '@ant-design/icons';
+import { EditOutlined, LoginOutlined, MailTwoTone } from '@ant-design/icons';
 import BackTop from '../../component/BackTop';
 import { GameList } from '../search/component/GameList';
+import { logout } from '../../redux/user/authSlice';
 
 const UserInfoScreen = (props) => {
     const userInfo = useSelector((state) => state.user);
@@ -91,6 +92,7 @@ const GameInventory = (props) => {
 const UserInfo = ({ userInfo }) => {
     const themeMode = useSelector((state) => state.theme.IsChange);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     return (
         <div
@@ -102,6 +104,59 @@ const UserInfo = ({ userInfo }) => {
                 zIndex: -1,
             }}
         >
+            <Tooltip placement={'bottom'} title={'退出登录'}>
+                <Button
+                    type='primary'
+                    style={{
+                        position: 'absolute',
+                        right: '5%',
+                        top: '10%',
+                        fontSize: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        display: 'flex',
+                        backgroundColor: themeMode ? 'black' : 'white',
+                        textAlign: 'center',
+                        color: themeMode ? 'white' : 'black',
+                    }}
+                    icon={<LoginOutlined />}
+                    onClick={() => {
+                        axios
+                            .post('/users/logout')
+                            .then((response) => {
+                                console.log(response);
+                                navigate('/usr');
+                                dispatch(logout());
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }}
+                    size={'large'}
+                ></Button>
+            </Tooltip>
+            <Tooltip placement={'bottom'} title={'修改个人信息'}>
+                <Button
+                    type='primary'
+                    style={{
+                        position: 'absolute',
+                        right: '5%',
+                        top: '15%',
+                        fontSize: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        display: 'flex',
+                        backgroundColor: themeMode ? 'black' : 'white',
+                        textAlign: 'center',
+                        color: themeMode ? 'white' : 'black',
+                    }}
+                    icon={<EditOutlined />}
+                    onClick={() => {
+                        navigate('/user/setting');
+                    }}
+                    size={'large'}
+                ></Button>
+            </Tooltip>
             <Row
                 justify={'space-around'}
                 style={{
@@ -109,27 +164,6 @@ const UserInfo = ({ userInfo }) => {
                 }}
             >
                 <Avatar src={userInfo.avatarUrl} size={120} />
-                <Tooltip placement={'bottom'} title={'修改个人信息'}>
-                    <Button
-                        type='primary'
-                        style={{
-                            position: 'absolute',
-                            right: '5%',
-                            fontSize: 20,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            display: 'flex',
-                            backgroundColor: themeMode ? 'black' : 'white',
-                            textAlign: 'center',
-                            color: themeMode ? 'white' : 'black',
-                        }}
-                        icon={<EditOutlined />}
-                        onClick={() => {
-                            navigate('/user/setting');
-                        }}
-                        size={'large'}
-                    ></Button>
-                </Tooltip>
             </Row>
             <Row justify={'space-around'} style={{ alignItems: 'center' }}>
                 <text style={{ fontSize: 80, color: themeMode ? 'white' : 'black' }}>
