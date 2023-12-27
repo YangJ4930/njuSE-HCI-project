@@ -6,7 +6,7 @@ import basicBarReducer from './redux/navbar/basicbarSlice';
 import newsReducer from './redux/news/newsSlice';
 import communityReducer from './redux/user/communitySlice';
 import gameTypeSelectorReducer from './redux/explore/gameSelectorSlice';
-
+import themeSlice from './redux/theme/themeSlice';
 import {
     persistStore,
     persistReducer,
@@ -36,6 +36,7 @@ const reducers = combineReducers({
     news: newsReducer,
     community: communityReducer,
     game: gameTypeSelectorReducer,
+    theme:themeSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

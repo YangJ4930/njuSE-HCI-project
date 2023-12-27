@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Flex } from 'antd';
+import { Card, Flex, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import Meta from 'antd/es/card/Meta';
 import axios from '../../../axios';
+import { useSelector } from 'react-redux';
+import { GameCard } from '../../search/component/GameCard';
 
 const Other = ({ gameCount }) => {
     const [gameList, setGameList] = useState([]);
+    const themeMode = useSelector((state) => state.theme.IsChange);
 
     useEffect(() => {
         axios
@@ -15,6 +18,7 @@ const Other = ({ gameCount }) => {
                     id: response.data[index].id,
                     imgUrl: response.data[index].imgUrl,
                     name: response.data[index].name,
+                    tags: response.data[index].tags,
                 }));
                 setGameList(data);
             })
@@ -27,11 +31,17 @@ const Other = ({ gameCount }) => {
             <Flex
                 justify='space-between'
                 align='center'
-                style={{ width: '90%', aspectRatio: 3, marginRight: '5%', marginLeft: '5%' }}
+                style={{
+                    width: '90%',
+                    aspectRatio: 3,
+                    marginRight: '5%',
+                    marginLeft: '5%',
+                    backgroundColor: themeMode ? 'rgba(18,18,18,0.85)' : 'white',
+                }}
                 horizontal
             >
                 {gameList.map((item, index) => (
-                    <GameItem data={item} key={index} />
+                    <GameItem key={index} data={item} />
                 ))}
             </Flex>
         </React.Fragment>
@@ -39,21 +49,15 @@ const Other = ({ gameCount }) => {
 };
 
 const GameItem = ({ data }) => (
-    <Link
-        to={`/game/${data.id}`}
+    <Card
+        hoverable
         style={{
             width: '45%',
             height: '100%',
+            borderRadius: 8,
         }}
-    >
-        <Card
-            hoverable
-            style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: 8,
-            }}
-            cover={
+        cover={
+            <Link className='nav-link' to={`/game/${data.id}`} style={{}}>
                 <img
                     alt='example'
                     src={data.imgUrl}
@@ -64,11 +68,19 @@ const GameItem = ({ data }) => (
                         width: '100%',
                     }}
                 />
-            }
-        >
-            <Meta title={data.name} style={{ height: '10%' }} />
-        </Card>
-    </Link>
+            </Link>
+        }
+    >
+        <Meta
+            title={data.name}
+            style={{ height: '10%' }}
+            description={data.tags.map((item) => {
+                return (
+                    <Tag style={{ color: 'white', backgroundColor: 'rgb(20,20,20)' }}>{item}</Tag>
+                );
+            })}
+        />
+    </Card>
 );
 
 export { Other };

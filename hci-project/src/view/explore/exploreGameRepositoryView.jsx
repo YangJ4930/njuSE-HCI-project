@@ -66,11 +66,16 @@ export const GameTypeSelector = () => {
     const gameTypes = useSelector((state) => state.game.gameTypes);
 
     return (
-        <Flex vertical={true} style={{ marginInline: 40 }}>
-            <Divider style={{ color: 'white' }}>筛选器</Divider>
+        <Col style={{ color: 'white' }}>
+            <Row>筛选器</Row>
+            <Divider></Divider>
             {gameTypes.length > 0 &&
-                gameTypes.map((item, index) => <PanelFlex key={index} index={index} name={item} />)}
-        </Flex>
+                gameTypes.map((item, index) => (
+                    <Row style={{ marginTop: 8 }}>
+                        <PanelFlex key={index} index={index} name={item} />
+                    </Row>
+                ))}
+        </Col>
     );
 };
 
