@@ -7,6 +7,7 @@ import logo from '../static/Store.svg';
 import gameImage from '../static/gameImage2.jpg';
 import gameLogo from '../static/logo.png';
 import axios from '../axios';
+import {useSelector} from "react-redux";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -15,6 +16,7 @@ function GameDetailView(props) {
     const { gameId } = useParams();
     const [game, setGame] = useState({});
     const [tag, setTag] = useState([]);
+    const themeMode = useSelector((state) => state.theme.IsChange);
     React.useEffect(() => {
         axios
             .get(`/explore/content/${gameId}`)
@@ -30,7 +32,7 @@ function GameDetailView(props) {
 
     return (
         <Layout>
-            <Title style={{ color: 'white' ,marginBottom: 40}}>游戏详情</Title>
+            <Title style={{ color: themeMode?'white':"black" ,marginBottom: 40}}>游戏详情</Title>
 
             <Content style={{  }}>
                 <Row gutter={[24, 24]}>
@@ -117,14 +119,15 @@ function GameInfo({ game, tag }) {
             }
         >
             <Card.Meta title={game.name} description='Alan Wake 2 是一款惊悚冒险游戏' />
-            <div style={{ marginTop: '16px' }}>
-                <Title level={5}>游戏类型</Title>
-                {tag &&
-                    tag.length > 0 &&
-                    tag.map((item) => {
-                        return <Text key={item}>{item}</Text>;
-                    })}
-            </div>
+                    <div style={{ marginTop: '16px' }}>
+                        <Title level={5}>游戏类型</Title>
+                        {tag &&
+                            tag.length > 0 &&
+                            tag.map((item) => {
+                                return <Text key={item}>{item}</Text>;
+                            })}
+                    </div>
+
         </Card>
     );
 }

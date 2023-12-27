@@ -1,4 +1,4 @@
-import { Button, Divider, Collapse, Flex, Col, Row } from 'antd';
+import {Button, Divider, Collapse, Flex, Col, Row, theme} from 'antd';
 import React, { useEffect, useState } from 'react';
 import './explore.css';
 import axios from '../../axios';
@@ -63,13 +63,14 @@ const ExploreGameRepositoryView = function Explore_gameRepositoryView() {
     );
 };
 
-const GameTypeSelector = () => {
+
+export const GameTypeSelector = () => {
     const gameTypes = useSelector((state) => state.game.gameTypes);
-    const themeMode = useSelector((state) => state.theme.IsChange);
+    const themeMode = useSelector((state)=>state.theme.IsChange)
 
     return (
-        <Col style={{ color: themeMode ? 'white' : 'black' }}>
-            <Row style={{ fontSize: 22, marginInline: 4 }}>筛选器</Row>
+        <Col style={{ color: 'white'}}>
+            <Row style={{  color: themeMode ? 'white': 'black', fontSize: '1.2vw', marginInline: 4 }}>筛选器</Row>
             <Divider></Divider>
             {gameTypes.length > 0 &&
                 gameTypes.map((item, index) => (
@@ -81,11 +82,13 @@ const GameTypeSelector = () => {
     );
 };
 
-const PanelFlex = ({ index, name }) => {
+
+export const PanelFlex = ({ index, name }) => {
+
+    const themeMode = useSelector((state)=>state.theme.IsChange)
     const [isSelected, setIsSelected] = useState(false);
     const selected = useSelector((state) => state.game.selected);
     const dispatch = useDispatch();
-    const themeMode = useSelector((state) => state.theme.IsChange);
 
     const Change = () => {
         dispatch(selectGameTypes(index));
@@ -97,12 +100,15 @@ const PanelFlex = ({ index, name }) => {
             onClick={() => {
                 Change();
             }}
-            style={{
-                backgroundColor: selected[index] ? 'grey' : themeMode ? 'black' : 'white',
-                color: themeMode ? 'white' : 'black',
+            style={
+            {
+                backgroundColor: selected[index] ? 'grey' : (themeMode?'black':'white'),
+                color: themeMode? 'white': 'black',
                 border: 'inherit',
                 minWidth: '65%',
-            }}
+
+            }
+            }
         >
             <Flex justify='space-between' horizontal>
                 <div>{name}</div>
@@ -111,6 +117,7 @@ const PanelFlex = ({ index, name }) => {
         </Button>
     );
 };
+
 
 const NotFound = () => {
     const themeMode = useSelector((state) => state.theme.IsChange);
@@ -128,5 +135,5 @@ const NotFound = () => {
     );
 };
 
-export { NotFound, GameTypeSelector };
-export default ExploreGameRepositoryView;
+export { NotFound, ExploreGameRepositoryView };
+export default ExploreGameRepositoryView

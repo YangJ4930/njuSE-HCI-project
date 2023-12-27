@@ -109,9 +109,9 @@ const PostItem = ({postInfo}) => {
                     <List.Item.Meta
                         avatar={<Avatar src={avatar}/>}
                         title={<Link to={id}>{title}</Link>}
-                        description={description}
+                        description={<div style={{fontStyle:"italic"}}>创建时间： 2023.12.27</div>}
                     />
-                    {description}
+                    <div style={{marginLeft:"2.9vw"}}>{description}</div>
                 </Card>
             </List.Item>
         </Card>
